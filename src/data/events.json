@@ -4,6 +4,8 @@
   "cities": ["台北", "台中", "高雄", "東京", "大阪"],
   "since": "2023-06",
   "events": [
+    { "no": "88,89", "date": "2026-09-20", "city": "台北", "sessions": ["14:00–16:00", "16:30–18:30"],
+      "signupUrl": "https://docs.google.com/forms/d/e/1FAIpQLScJdauwzGLiF5gMvZHM-9CfTsKQVsS1chZIQdSf_IF4EoA-xg/viewform" },
     { "no": "86,87", "date": "2026-08-16", "city": "台北", "sessions": ["14:00–16:00", "16:30–18:30"],
       "signupUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6lyl9cvPdqYDE50WrR5SmKgXzLsKSMNtfJBY-KoMQoBfL8g/viewform",
       "ig": "DcBUFV-AOBe" },
