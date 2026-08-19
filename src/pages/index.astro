@@ -1,0 +1,189 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import CompanyCard from '../components/CompanyCard.astro';
+import { Image } from 'astro:assets';
+import characters from '../assets/tsunagu-characters.png';
+import events from '../data/events.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const companies = (await getCollection('companies'))
+  .sort((a, b) => b.data.placements - a.data.placements);
+const featured = companies.slice(0, 6);
+const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order).slice(0,3);
+
+const VIDEO_ID = 'UmWq6sPcrJs'; // 內含 Tsunagu 訪談
+const stats = [
+  { n: '2,874', u: '人', t: '參加過交流會' },
+  { n: '149',   u: '人', t: '正在日本工作' },
+  { n: String(events.totalHeld), u: '場', t: '已舉辦的交流會' },
+  { n: '0',     u: '元', t: '參加者全程免費' },
+];
+---
+<Base title="把台灣的好人才，牽到日本">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap inner">
+      <div class="copy">
+        <p class="eyebrow">台湾人と日本企業をツナグ</p>
+        <h1 class="d1">把台灣的好人才<br/>牽到日本</h1>
+        <p class="lead">
+          想去日本留學或打工度假，卻不知道能找到什麼樣的工作？
+          我們把想跟台灣人一起工作的日本企業，直接帶到你面前。
+          <strong>從履歷、面試到抵達日本之後，全程免費。</strong>
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href={`${base}/events`}>報名下一場交流會 →</a>
+          <a class="btn btn-secondary" href={`${base}/companies`}>先看看有哪些企業</a>
+        </div>
+      </div>
+      <div class="art">
+        <Image src={characters} alt="Tsunagu 的兩隻角色：穿著 JP 藍色上衣的狗，和穿著 TW 粉色上衣的貓，牽著手坐在一起"
+               widths={[380, 560, 699]} sizes="(max-width: 860px) 60vw, 380px" loading="eager" class="chars" />
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="wrap"><div class="band">
+    {stats.map(s => (
+      <div><div class="n">{s.n}<small>{s.u}</small></div><div class="t">{s.t}</div></div>
+    ))}
+  </div>
+  <p class="small asof">數字為簡報《第76,77回 台北交流会》所載，實際數字請以最新場次說明為準。</p>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="section vid-sec">
+    <div class="wrap">
+      <p class="eyebrow">Watch</p>
+      <h2 class="d2">先看看交流會現場</h2>
+      <p class="lead">影片中有 Tsunagu 的訪談段落。</p>
+      <div class="video" data-video={VIDEO_ID}>
+        <button class="play" aria-label="播放影片">
+          <span class="tri"></span>
+        </button>
+        <img src={`https://i.ytimg.com/vi/${VIDEO_ID}/hqdefault.jpg`} alt="" loading="lazy" width="1280" height="720" />
+      </div>
+      <p class="small">點擊播放後才會連線到 YouTube（使用 youtube-nocookie 網域）。</p>
+    </div>
+  </section>
+
+  <!-- COMPANIES -->
+  <section class="section alt">
+    <div class="wrap">
+      <p class="eyebrow">Companies</p>
+      <h2 class="d2">等你來的日本企業</h2>
+      <p class="lead">UNITED ARROWS、BEAMS、SHIPS、SAZABY LEAGUE、きものやまと⋯⋯這些不會在中文求職網站上出現的店，我們直接幫你牽線。</p>
+      <div class="grid3">
+        {featured.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
+      </div>
+      <div class="more"><a class="btn btn-secondary" href={`${base}/companies`}>看全部 {companies.length} 個品牌 →</a></div>
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Stories</p>
+      <h2 class="d2">學長姐現在在日本做什麼</h2>
+      <p class="lead">14 位前輩的第一手分享，涵蓋 DIANA、agete、VASIC、ANAYI、Manhattan Portage 等品牌。</p>
+      <div class="grid3">
+        {stories.map(s => (
+          <a class="card senpai" href={`${base}/stories#${s.id}`}>
+            <div class="row">
+              <div class="avatar" aria-hidden="true">{s.data.name.slice(0,1)}</div>
+              <div>
+                <h3 class="d3" lang="ja">{s.data.name}</h3>
+                <p class="small meta">{s.data.visa}　{s.data.company}<br/>{s.data.location}</p>
+              </div>
+            </div>
+            <p class="quote">{s.data.lead}</p>
+          </a>
+        ))}
+      </div>
+      <div class="more"><a class="btn btn-secondary" href={`${base}/stories`}>看更多經驗分享 →</a></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section final">
+    <div class="wrap">
+      <h2 class="d2">下一步，先來交流會看看</h2>
+      <p class="lead">不用先決定什麼，也不用準備履歷。先來聽日本企業說他們在找什麼樣的人。</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href={`${base}/events`}>報名交流會</a>
+        <a class="btn btn-ghost" href={`${base}/apply`}>已經決定要去日本了</a>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  .hero{background:linear-gradient(165deg,var(--pink-50) 0%,var(--cream) 46%,var(--sky-50) 100%);
+    padding:80px 0 72px;border-bottom:1px solid var(--line)}
+  .inner{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  @media (max-width:860px){ .inner{grid-template-columns:1fr;gap:20px} .art{order:-1} .art :global(.chars){width:min(300px,70%)} }
+  .copy h1{margin-bottom:20px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .art{display:flex;align-items:center;justify-content:center}
+  .art :global(.chars){width:min(380px,86%);height:auto;
+    animation:float 4s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+  .band{background:linear-gradient(120deg,var(--pink-50),var(--sky-50));border-radius:var(--r-xl);
+    padding:34px 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:22px;text-align:center;margin-top:56px}
+  .band .n{font-family:var(--f-latin);font-weight:700;font-size:40px;line-height:1.1;color:var(--pink-700)}
+  .band .n small{font-size:17px;margin-left:3px}
+  .band .t{font-size:13px;color:var(--ink-600);margin-top:4px}
+  .asof{text-align:center;margin-top:12px;color:var(--ink-400)}
+
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:18px;margin-top:28px}
+  .more{margin-top:28px}
+  .alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+  .senpai{display:flex;flex-direction:column;gap:12px;padding:20px;text-decoration:none;color:inherit}
+  .senpai .row{display:flex;gap:14px;align-items:center}
+  .senpai .quote{font-size:13.5px;line-height:1.85;color:var(--ink-600);margin:0;
+    padding-left:12px;border-left:2px solid var(--pink-200);
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .avatar{width:56px;height:56px;flex:0 0 56px;border-radius:var(--r-full);
+    background:linear-gradient(140deg,var(--pink-100),var(--sky-100));
+    display:flex;align-items:center;justify-content:center;color:var(--ink-900);font-weight:700;
+    font-family:var(--f-latin);font-size:20px}
+  .meta{margin:4px 0 0}
+
+  .vid-sec .lead{margin-bottom:22px}
+  .video{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;
+    background:linear-gradient(135deg,var(--pink-100),var(--sky-100));box-shadow:var(--sh-3);margin-bottom:12px}
+  .video img{width:100%;height:100%;object-fit:cover}
+  .video img:not([src]),.video img[alt=""]:-moz-broken{opacity:0}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .play{position:absolute;inset:0;margin:auto;width:78px;height:78px;border-radius:var(--r-full);
+    border:0;background:var(--pink-700);cursor:pointer;z-index:2;display:flex;
+    align-items:center;justify-content:center;box-shadow:var(--sh-2);transition:.22s var(--ease)}
+  .play:hover{transform:scale(1.07);background:var(--pink-700)}
+  .tri{width:0;height:0;border-left:20px solid #fff;border-top:13px solid transparent;
+    border-bottom:13px solid transparent;margin-left:5px}
+
+  .final{background:linear-gradient(120deg,var(--sky-50),var(--pink-50));text-align:center}
+  .final .lead{margin:0 auto}
+  .final .cta-row{justify-content:center}
+</style>
+
+<script>
+  document.querySelectorAll('.video img').forEach(i => {
+    i.addEventListener('error', () => { (i as HTMLElement).style.display = 'none'; });
+  });
+  document.querySelectorAll('.video').forEach(v => {
+    v.querySelector('.play')?.addEventListener('click', () => {
+      const id = (v as HTMLElement).dataset.video;
+      v.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0"
+        title="Tsunagu 交流會影片" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+        allowfullscreen></iframe>`;
+    });
+  });
+</script>

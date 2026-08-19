@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import wordmark from '../assets/tsunagu-wordmark.png';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const year = 2026;
+---
+<footer>
+  <div class="wrap grid">
+    <div>
+      <Image src={wordmark} alt="TSUNAGU" widths={[180, 360]} sizes="180px" class="wm" />
+      <p class="small">台湾人と日本企業をツナグ<br/>把台灣的好人才，牽到日本。</p>
+      <p class="small">參加交流會與工作媒合，對台灣的各位<strong>全程免費</strong>。</p>
+    </div>
+    <div>
+      <h3>網站</h3>
+      <a href={`${base}/events`}>交流會場次與報名</a>
+      <a href={`${base}/companies`}>合作企業</a>
+      <a href={`${base}/stories`}>學長姐經驗</a>
+      <a href={`${base}/support`}>我們怎麼幫你</a>
+    </div>
+    <div>
+      <h3>聯絡</h3>
+      <a href="https://www.instagram.com/tw.tsunagu.jp/" rel="me noopener" target="_blank">Instagram @tw.tsunagu.jp</a>
+      <a href="https://www.threads.com/@tw.tsunagu.jp" rel="me noopener" target="_blank">Threads @tw.tsunagu.jp</a>
+    </div>
+  </div>
+
+  <!-- ⚠️ 上線前必填：依《私立就業服務機構許可及管理辦法》第35條，
+       就業服務業務廣告應載明「機構名稱、許可證字號、機構地址及電話」。
+       這四項要填持照合作方的資料，不是智囊和夥伴的。 -->
+  <div class="wrap legal">
+    <p class="small pending">
+      <strong>【上線前必填】</strong>本網站之就業服務業務由
+      <span class="blank">〔持照機構名稱〕</span> 提供，
+      許可證字號 <span class="blank">〔字號〕</span>，
+      地址 <span class="blank">〔地址〕</span>，
+      電話 <span class="blank">〔電話〕</span>。
+      <br/>（依《私立就業服務機構許可及管理辦法》第 35 條）
+    </p>
+    <p class="small">
+      活動主辦：智囊和夥伴有限公司（Brain &amp; Partner Taiwan Inc.）<br/>
+      © {year} Tsunagu. 企業資訊整理自交流會簡報，職缺狀態請以交流會或個別諮詢說明為準。
+    </p>
+  </div>
+</footer>
+
+<style>
+  footer{background:#fff;border-top:1px solid var(--line);padding:56px 0 40px;margin-top:40px}
+  .grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px}
+  @media (max-width:720px){ .grid{grid-template-columns:1fr;gap:24px} }
+  footer :global(.wm){width:170px;height:auto;margin-bottom:14px}
+  h3{font-size:13px;letter-spacing:.06em;color:var(--ink-400);margin-bottom:10px;font-weight:700}
+  footer a{display:block;font-size:14px;color:var(--ink-600);text-decoration:none;padding:4px 0}
+  footer a:hover{color:var(--pink-700)}
+  .legal{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+  .pending{background:var(--note-bg);border:1px dashed var(--note-line);border-radius:var(--r-sm);padding:12px 16px}
+  .blank{background:#F3E4C6;padding:1px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+</style>

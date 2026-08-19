@@ -1,0 +1,71 @@
+---
+import Heart from './Heart.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const nav = [
+  { href: `${base}/companies`, label: '合作企業' },
+  { href: `${base}/stories`,   label: '學長姐經驗' },
+  { href: `${base}/support`,   label: '我們怎麼幫你' },
+  { href: `${base}/about`,     label: '關於 Tsunagu' },
+];
+const path = Astro.url.pathname;
+---
+<header>
+  <div class="wrap bar">
+    <a class="logo" href={`${base}/`} aria-label="ツナグ Tsunagu 首頁">
+      <Heart size={22} />
+      <span class="wordmark">TSUNAGU</span>
+      <span class="zh">台灣人與日本企業</span>
+    </a>
+    <nav aria-label="主選單">
+      {nav.map(n => (
+        <a href={n.href} class:list={['navlink', { on: path.startsWith(n.href) && n.href !== `${base}/` }]}>{n.label}</a>
+      ))}
+    </nav>
+    <a class="btn btn-primary cta" href={`${base}/events`}>報名交流會</a>
+    <button class="burger" aria-label="開啟選單" aria-expanded="false" data-burger>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="drawer" data-drawer hidden>
+    {nav.map(n => <a href={n.href}>{n.label}</a>)}
+    <a class="btn btn-primary" href={`${base}/events`}>報名交流會</a>
+  </div>
+</header>
+
+<style>
+  header{position:sticky;top:0;z-index:50;background:rgba(255,250,248,.92);
+    backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:20px;height:68px}
+  .logo svg{flex:0 0 22px}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink-900);flex:0 0 auto}
+    .wordmark{font-family:var(--f-latin);font-weight:700;letter-spacing:.12em;font-size:17px}
+  .zh{font-size:12px;color:var(--ink-400);border-left:1px solid var(--line);padding-left:10px}
+  nav{display:flex;gap:6px;margin-left:auto}
+  .navlink{font-size:14.5px;font-weight:500;color:var(--ink-600);text-decoration:none;
+    padding:8px 12px;border-radius:var(--r-full);transition:.2s var(--ease)}
+  .navlink:hover{background:var(--greige-100);color:var(--ink-900)}
+  .navlink.on{color:var(--pink-700);background:var(--pink-50);font-weight:700}
+  .cta{padding:10px 20px;font-size:14px}
+  .burger{display:none;background:none;border:0;padding:8px;cursor:pointer;margin-left:auto}
+  .burger span{display:block;width:22px;height:2px;background:var(--ink-900);border-radius:2px}
+  .burger span+span{margin-top:5px}
+  .drawer{display:none;flex-direction:column;gap:4px;padding:12px 24px 20px;border-top:1px solid var(--line);background:var(--cream)}
+  .drawer a{padding:12px 0;text-decoration:none;color:var(--ink-900);font-weight:500;border-bottom:1px solid var(--line)}
+  .drawer .btn{margin-top:14px;border-bottom:0}
+  @media (max-width:900px){
+    .zh{display:none} nav{display:none} .cta{display:none}
+    .burger{display:block}
+    .drawer[data-open]{display:flex}
+  }
+</style>
+
+<script>
+  const b = document.querySelector('[data-burger]');
+  const d = document.querySelector('[data-drawer]');
+  b?.addEventListener('click', () => {
+    const open = d.hasAttribute('data-open');
+    if (open) { d.removeAttribute('data-open'); d.hidden = true; }
+    else { d.setAttribute('data-open',''); d.hidden = false; }
+    b.setAttribute('aria-expanded', String(!open));
+  });
+</script>

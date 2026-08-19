@@ -1,0 +1,81 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const companies = await getCollection('companies');
+  return companies.map(c => ({ params: { slug: c.id }, props: { c } }));
+}
+const { c } = Astro.props;
+const d = c.data;
+const { Content } = await render(c);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡', kobe:'神戶', hokkaido:'北海道' };
+---
+<Base title={d.name} description={d.tagline}>
+  <article>
+    <div class="hero">
+      <div class="wrap">
+        <a class="back" href={`${base}/companies`}>← 回合作企業</a>
+        <h1 class="d1">{d.name}</h1>
+        {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
+        <p class="lead">{d.tagline}</p>
+        <div class="tags">
+          {d.areas.map((a:string) => <span class="tag area">{AREA[a as keyof typeof AREA]}</span>)}
+          <span class="tag job">{d.categoryLabel}</span>
+          {d.jlpt && <span class="tag jlpt">{d.jlpt} 以上</span>}
+          {d.onlineInterview && <span class="tag">可線上面試</span>}
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap body">
+      <div class="prose"><Content /></div>
+
+      {d.highlights.length > 0 && (
+        <div class="hl">
+          <h2 class="d3">重點</h2>
+          <ul>{d.highlights.map((h:string) => <li>{h}</li>)}</ul>
+        </div>
+      )}
+
+      {(d.placements > 0 || d.fullTimeConverted > 0) && (
+        <div class="numbers">
+          {d.placements > 0 && <div><div class="n">{d.placements}</div><div class="t">累計台灣夥伴任職</div></div>}
+          {d.fullTimeConverted > 0 && <div><div class="n">{d.fullTimeConverted}</div><div class="t">其中轉為正社員</div></div>}
+        </div>
+      )}
+
+      <div class="note">
+        <strong>資料來源：</strong>《第76,77回 台北交流会スライド 2026.4.18》{d.sourceSlide && `第 ${d.sourceSlide} 頁`}。
+        招募條件與職缺狀態會變動，請以交流會現場或個別諮詢的說明為準。
+      </div>
+
+      <div class="cta">
+        <a class="btn btn-primary" href={`${base}/events`}>報名交流會，現場問清楚</a>
+        <a class="btn btn-ghost" href={`${base}/companies`}>看其他品牌</a>
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .hero{background:linear-gradient(165deg,var(--pink-50),var(--cream));padding:40px 0 44px;border-bottom:1px solid var(--line)}
+  .hero .wrap{max-width:808px}
+  .back{display:inline-block;font-size:13.5px;color:var(--ink-600);text-decoration:none;margin-bottom:18px}
+  .back:hover{color:var(--pink-700)}
+  .corp{font-size:14px;color:var(--ink-400);margin:6px 0 12px}
+  .hero .tags{margin-top:18px}
+  .body{max-width:808px;padding-top:44px;padding-bottom:20px}
+  .prose{font-size:17px;line-height:1.95}
+  .hl{margin-top:32px;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 26px}
+  .hl ul{margin:12px 0 0;padding-left:1.25em}
+  .hl li{margin-bottom:6px;font-size:15px}
+  .numbers{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
+  .numbers > div{flex:1 1 180px;background:linear-gradient(120deg,var(--pink-50),var(--sky-50));
+    border-radius:var(--r-lg);padding:22px;text-align:center}
+  .numbers .n{font-family:var(--f-latin);font-weight:700;font-size:38px;color:var(--pink-700);line-height:1.1}
+  .numbers .t{font-size:13px;color:var(--ink-600);margin-top:4px}
+  .note{margin-top:28px}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
+</style>

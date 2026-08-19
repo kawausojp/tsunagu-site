@@ -1,0 +1,80 @@
+---
+import Base from '../../layouts/Base.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const media = [
+  { name:'日本經濟新聞 朝刊', date:'2024.10.07', note:'報導 kimono やまと 的 Haru' },
+  { name:'繊研新聞', date:'2026.01.28' },
+  { name:'繊研新聞', date:'2025.07.17' },
+  { name:'繊研新聞', date:'2025.02.12' },
+  { name:'Yahoo! ニュース', date:'2024.08.07' },
+  { name:'台北經濟新聞', date:'2023.06' },
+];
+---
+<Base title="關於 Tsunagu" description="Tsunagu 是誰、為什麼做這件事。">
+  <section class="head"><div class="wrap">
+    <p class="eyebrow">About</p>
+    <h1 class="d1">為什麼做這件事</h1>
+  </div></section>
+
+  <section class="wrap sec">
+    <div class="prose">
+      <p>我們做「把日本的好商品、品牌與文化帶給台灣客人」這件事，做了八年。</p>
+      <p>過程中發現，台灣有非常多人喜歡日本，想去日本學習、想在日本工作。光是觀光，
+        每個月就有 55～62 萬台灣人去日本，2025 年一整年是 676 萬人次。</p>
+      <p>另一邊，日本正處在嚴重的人才不足。疫情結束加上日圓貶值，外國觀光客大量湧入，
+        卻沒有足夠能接待他們的人。服飾業與餐飲業尤其嚴重。</p>
+      <p><strong>所以我們想做的是：把台灣的好人才，牽到日本。</strong>
+        不只是找到工作，而是找到真心想跟台灣人一起工作的日本企業。</p>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <h2 class="d2">我們是誰</h2>
+    <div class="grid">
+      <div class="card b">
+        <h3 class="d3" lang="ja">株式会社ブレーンアンドパートナー</h3>
+        <p class="small">1980 年創業於日本，商業設施顧問公司。參與營運擁有 1,000 家日本企業的「日本購物中心協會」。</p>
+      </div>
+      <div class="card b">
+        <h3 class="d3">智囊和夥伴有限公司</h3>
+        <p class="small">Brain &amp; Partner Taiwan Inc.，2018 年創立，連結日本與台灣。
+          2019 年擔任台北微風南山 atre 開業顧問，營運與策劃超過 10 個店舖。</p>
+      </div>
+    </div>
+    <p class="small">曾操盤：BLUE BOTTLE COFFEE、JAPAN RAIL CAFE、MAISON DE REEFUR、ささら屋、きものやまと、
+      世界最濃抹茶冰淇淋「ななや」等。自營店舖 bpt ROOM（台北微風南山 2F，2019–2025.9）、
+      紫苑花屋（桃園馬祖新村眷村文創園區）。</p>
+  </section>
+
+  <section class="wrap sec">
+    <h2 class="d2">媒體報導</h2>
+    <ul class="media">
+      {media.map(m => (
+        <li class="card m">
+          <span class="d">{m.date}</span>
+          <span class="n">{m.name}</span>
+          {m.note && <span class="small note-t">{m.note}</span>}
+        </li>
+      ))}
+    </ul>
+    <p class="small pending"><strong>【待補】</strong>各則報導的原文連結。
+      報導截圖屬報社著作，官網不直接貼圖，改以標題＋日期＋外連呈現。</p>
+  </section>
+</Base>
+<style>
+  .head{background:linear-gradient(165deg,var(--sky-50),var(--cream));padding:64px 0 48px;border-bottom:1px solid var(--line)}
+  .head .wrap{max-width:868px}
+  .sec{margin-top:48px;max-width:868px}
+  .sec h2{margin-bottom:16px}
+  .prose{font-size:17px;line-height:1.95}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  @media (max-width:720px){ .grid{grid-template-columns:1fr} }
+  .b{padding:22px 24px}
+  .b p{margin:8px 0 0}
+  .media{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+  .m{padding:14px 18px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+  .m .d{font-family:var(--f-latin);font-weight:600;color:var(--ink-400);font-size:13px;flex:0 0 92px}
+  .m .n{font-weight:700;font-size:15px}
+  .note-t{color:var(--ink-400)}
+  .pending{background:var(--note-bg);border:1px dashed var(--note-line);border-radius:var(--r-sm);padding:10px 14px;margin-top:14px}
+</style>

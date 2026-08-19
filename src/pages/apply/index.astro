@@ -1,0 +1,89 @@
+---
+import Base from '../../layouts/Base.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const FORM_URL = ''; // TODO Google 表單（Profile／履歷收件）
+---
+<Base title="送出 Profile" description="已經確定要去日本？先把 Profile 或履歷送給我們，我們幫你看。">
+  <section class="head"><div class="wrap">
+    <p class="eyebrow">Apply</p>
+    <h1 class="d1">已經決定要去日本了</h1>
+    <p class="lead">先填 Profile 就好。履歷很花時間，可以之後再補。我們收到後會安排個別諮詢。</p>
+  </div></section>
+
+  <section class="wrap sec">
+    <h2 class="d2">送出資料</h2>
+    {FORM_URL
+      ? <div class="formwrap"><iframe src={FORM_URL} loading="lazy" title="Profile 送出表單"></iframe></div>
+      : <div class="card slot"><p class="small pending"><strong>【待接】</strong>Google 表單網址（Profile／履歷收件）。</p></div>}
+    <div class="note">
+      <strong>關於你的資料：</strong>表單由 Google 表單承接，資料直接進入主辦方的 Google Workspace，
+      本網站不儲存任何個人資料。<span class="pending-inline">【待補】隱私權政策與跨境傳輸同意條款。</span>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <h2 class="d2">履歷照片怎麼拍</h2>
+    <p class="lead">這是簡報裡最多人受用的一頁。日本的履歷照有它的規矩，但服飾業又不太一樣。</p>
+    <div class="two">
+      <div class="card box">
+        <h3 class="d3">一般履歷照</h3>
+        <ul>
+          <li>嘴巴閉著，但嘴角要往上</li>
+          <li>上品的微笑，不是大笑</li>
+          <li>❌ 沒有笑容、表情僵硬</li>
+          <li>❌ 像在留卡那種證件照</li>
+        </ul>
+      </div>
+      <div class="card box alt">
+        <h3 class="d3">應徵服飾業時</h3>
+        <ul>
+          <li>另外準備比履歷照<strong>更自然的笑容照</strong></li>
+          <li>加一張<strong>全身照</strong></li>
+          <li>像會發在 Instagram 上的那種自然照片</li>
+          <li>因為對方想看的是「你喜歡打扮」這件事</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <h2 class="d2">面試要注意的幾件事</h2>
+    <div class="two">
+      <div class="card box">
+        <h3 class="d3">講話方式</h3>
+        <ul>
+          <li>明亮、清楚、有精神，音量放大一點</li>
+          <li>坐姿端正，身體不要晃</li>
+          <li><strong>「はい」只講一次。</strong>中文習慣說「對對對」，
+            但日文連說「ハイハイハイ」會被認為在敷衍。</li>
+        </ul>
+      </div>
+      <div class="card box">
+        <h3 class="d3">內容準備</h3>
+        <ul>
+          <li>常見問題先想好答案（我們會提供題目範例）</li>
+          <li>把要應徵的品牌研究清楚</li>
+          <li>看官網、看 Instagram，有機會就去店裡走一趟</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .head{background:linear-gradient(165deg,var(--sky-50),var(--cream));padding:64px 0 48px;border-bottom:1px solid var(--line)}
+  .head .wrap{max-width:948px}
+  .sec{margin-top:48px;max-width:948px}
+  .sec h2{margin-bottom:14px}
+  .slot{padding:24px}
+  .pending{background:var(--note-bg);border:1px dashed var(--note-line);border-radius:var(--r-sm);padding:10px 14px;margin:0}
+  .pending-inline{background:var(--note-bg);padding:2px 8px;border-radius:4px}
+  .formwrap{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line)}
+  .formwrap iframe{width:100%;height:1100px;border:0;display:block}
+  .note{margin-top:20px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+  @media (max-width:720px){ .two{grid-template-columns:1fr} }
+  .box{padding:22px 24px}
+  .box.alt{background:linear-gradient(140deg,var(--pink-50),#fff)}
+  .box ul{margin:12px 0 0;padding-left:1.2em}
+  .box li{margin-bottom:7px;font-size:14.5px;line-height:1.8}
+</style>

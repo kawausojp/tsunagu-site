@@ -1,0 +1,119 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CompanyCard from '../../components/CompanyCard.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const companies = (await getCollection('companies'))
+  .sort((a, b) => b.data.placements - a.data.placements || a.data.name.localeCompare(b.data.name));
+
+const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡', kobe:'神戶', hokkaido:'北海道' };
+const areaKeys = Object.keys(AREA).filter(k => companies.some(c => c.data.areas.includes(k as any)));
+const cats = [...new Map(companies.map(c => [c.data.category, c.data.categoryLabel])).entries()];
+const jlpts = ['N2','N3'].filter(j => companies.some(c => c.data.jlpt === j));
+const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
+---
+<Base title="合作企業" description="Tsunagu 合作的日本企業與品牌一覽，可依地區、職種、日語程度篩選。">
+  <section class="head">
+    <div class="wrap">
+      <p class="eyebrow">Companies</p>
+      <h1 class="d1">合作企業</h1>
+      <p class="lead">
+        簡報中揭露的 {companies.length} 個品牌，隸屬 39 家契約企業。
+        這些店多半不會在中文求職網站上刊登職缺——這正是為什麼自己找很難找到。
+      </p>
+      <div class="note">
+        <strong>關於招募狀態：</strong>這裡列出的是品牌介紹與過往任職實績，
+        不是即時職缺。實際在徵什麼、條件如何，請以交流會現場或個別諮詢的說明為準。
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap tools">
+    <div class="filters">
+      <div class="grp">
+        <span class="lbl">地區</span>
+        {areaKeys.map(k => <button class="tag area f" data-f="area" data-v={k}>{AREA[k as keyof typeof AREA]}</button>)}
+      </div>
+      <div class="grp">
+        <span class="lbl">職種</span>
+        {cats.map(([k,l]) => <button class="tag job f" data-f="cat" data-v={k}>{l}</button>)}
+      </div>
+      <div class="grp">
+        <span class="lbl">日語</span>
+        {jlpts.map(j => <button class="tag jlpt f" data-f="jlpt" data-v={j}>{j} 以上</button>)}
+        <button class="tag f" data-f="jlpt" data-v="none">未特別要求</button>
+      </div>
+      <button class="reset" data-reset hidden>清除篩選</button>
+    </div>
+    <p class="count small"><span data-count>{companies.length}</span> 個品牌／累計 {totalPlacements} 人次任職</p>
+  </section>
+
+  <section class="wrap list">
+    <div class="grid" data-grid>
+      {companies.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
+    </div>
+    <p class="empty small" data-empty hidden>沒有符合條件的品牌，試試放寬篩選。</p>
+  </section>
+</Base>
+
+<style>
+  .head{background:linear-gradient(165deg,var(--pink-50),var(--cream));padding:64px 0 48px;border-bottom:1px solid var(--line)}
+  .head .note{margin-top:22px;max-width:46em}
+  .tools{margin:32px auto 0}
+  .filters{display:flex;flex-direction:column;gap:12px}
+  .grp{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .lbl{font-size:12px;font-weight:700;color:var(--ink-400);width:38px;flex:0 0 38px}
+  button.f{border:1.5px solid transparent;cursor:pointer;font-family:inherit;transition:.18s var(--ease)}
+  button.f:hover{transform:translateY(-1px)}
+  button.f[aria-pressed="true"]{border-color:currentColor;font-weight:700;box-shadow:var(--sh-1)}
+  .reset{align-self:flex-start;background:none;border:0;color:var(--pink-700);font-weight:700;
+    font-size:13px;cursor:pointer;padding:4px 0;text-decoration:underline;font-family:inherit}
+  .count{margin:16px 0 0;color:var(--ink-400)}
+  .list{margin:20px auto 0;padding-bottom:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px}
+  .empty{text-align:center;padding:48px 0;color:var(--ink-400)}
+</style>
+
+<script>
+  const active = { area:new Set<string>(), cat:new Set<string>(), jlpt:new Set<string>() };
+  const grid = document.querySelector('[data-grid]') as HTMLElement;
+  const cards = Array.from(grid.querySelectorAll('.co')) as HTMLElement[];
+  const countEl = document.querySelector('[data-count]')!;
+  const emptyEl = document.querySelector('[data-empty]') as HTMLElement;
+  const resetEl = document.querySelector('[data-reset]') as HTMLElement;
+
+  function apply(){
+    let n = 0;
+    cards.forEach(c => {
+      const areas = (c.dataset.areas || '').split(' ');
+      const okArea = !active.area.size || areas.some(a => active.area.has(a));
+      const okCat  = !active.cat.size  || active.cat.has(c.dataset.cat || '');
+      const okJl   = !active.jlpt.size || active.jlpt.has(c.dataset.jlpt || 'none');
+      const show = okArea && okCat && okJl;
+      c.style.display = show ? '' : 'none';
+      if (show) n++;
+    });
+    countEl.textContent = String(n);
+    emptyEl.hidden = n > 0;
+    const any = active.area.size || active.cat.size || active.jlpt.size;
+    resetEl.hidden = !any;
+  }
+
+  document.querySelectorAll('button.f').forEach(b => {
+    const el = b as HTMLElement;
+    el.setAttribute('aria-pressed','false');
+    el.addEventListener('click', () => {
+      const f = el.dataset.f as keyof typeof active;
+      const v = el.dataset.v!;
+      if (active[f].has(v)) { active[f].delete(v); el.setAttribute('aria-pressed','false'); }
+      else { active[f].add(v); el.setAttribute('aria-pressed','true'); }
+      apply();
+    });
+  });
+  resetEl.addEventListener('click', () => {
+    (Object.keys(active) as (keyof typeof active)[]).forEach(k => active[k].clear());
+    document.querySelectorAll('button.f').forEach(b => b.setAttribute('aria-pressed','false'));
+    apply();
+  });
+</script>

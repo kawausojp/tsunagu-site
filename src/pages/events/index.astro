@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro';
+import data from '../../data/events.json';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const today = new Date().toISOString().slice(0, 10);
+const sorted = [...data.events].sort((a, b) => b.date.localeCompare(a.date));
+const upcoming = sorted.filter(e => e.date >= today).reverse();
+const past = sorted.filter(e => e.date < today);
+
+const WD = ['日','一','二','三','四','五','六'];
+const fmt = (d: string) => {
+  const [y, m, dd] = d.split('-').map(Number);
+  return `${y}/${m}/${dd}（${WD[new Date(Date.UTC(y, m - 1, dd)).getUTCDay()]}）`;
+};
+
+const flow = [
+  { t:'交流會', d:'聽日本企業說他們在找什麼樣的人，也聽已經在日本打工的前輩分享第一手經驗。' },
+  { t:'個別面談', d:'聊聊你的日語程度、想做什麼、什麼時候去。' },
+  { t:'選工作、投履歷', d:'我們幫你看履歷、給修改建議。' },
+  { t:'面試練習', d:'對面或線上都可以。台日面試的邏輯不一樣，先練過差很多。' },
+  { t:'錄取、入社手續', d:'簽證、入職文件都有人陪你走。' },
+  { t:'抵日後追蹤', d:'到日本之後遇到問題，一樣可以用中文問我們。' },
+];
+---
+<Base title="交流會場次與報名" description="Tsunagu 交流會，台北・台中・高雄・東京・大阪輪流舉辦，參加免費。">
+  <section class="head"><div class="wrap">
+    <p class="eyebrow">Events</p>
+    <h1 class="d1">來交流會看看</h1>
+    <p class="lead">不用先決定什麼，也不用先準備履歷。<strong>參加免費</strong>，我們也不收任何媒合費用。</p>
+    <p class="small since">自 {data.since} 起累計舉辦 <strong>{data.totalHeld}</strong> 場，
+      地點涵蓋 {data.cities.join('、')}。</p>
+  </div></section>
+
+  <section class="wrap sec">
+    <h2 class="d2">下一場</h2>
+    {upcoming.length > 0
+      ? upcoming.map(e => (
+          <div class="card next">
+            <div class="when">
+              <span class="no">第 {e.no} 回</span>
+              <span class="date">{fmt(e.date)}</span>
+              <span class="tag area">{e.city}</span>
+            </div>
+            {e.sessions && <p class="small sessions">場次：{e.sessions.join('　／　')}</p>}
+            {e.signupUrl
+              ? <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往報名表單 →</a>
+              : <p class="small">報名連結待公布。</p>}
+          </div>
+        ))
+      : <div class="card next empty">
+          <p><strong>下一場尚未公布。</strong></p>
+          <p class="small">場次通常提前 2–4 週在 Instagram 公告。最近一場是第 {past[0]?.no} 回（{fmt(past[0]?.date)}・{past[0]?.city}）。</p>
+          <a class="btn btn-secondary" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">追蹤 IG 接收場次通知</a>
+        </div>}
+    <p class="small hint">每一場的報名表單都不一樣，請以最新公告的連結為準。</p>
+  </section>
+
+  <section class="wrap sec">
+    <h2 class="d2">交流會當天會發生什麼</h2>
+    <ol class="flow">
+      {flow.map((f,i) => (
+        <li class="card step"><div class="no">{i+1}</div><div><h3 class="d3">{f.t}</h3><p class="small">{f.d}</p></div></li>
+      ))}
+    </ol>
+    <div class="note"><strong>全部免費。</strong>交流會參加費、工作媒合介紹費，我們都不向台灣的各位收取。</div>
+  </section>
+
+  <section class="wrap sec">
+    <h2 class="d2">舉辦紀錄</h2>
+    <p class="lead">最近 {past.length} 場。更早的場次紀錄在
+      <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram</a>。</p>
+    <ul class="hist">
+      {past.map(e => (
+        <li class="card h">
+          <span class="no">第 {e.no} 回</span>
+          <span class="date">{fmt(e.date)}</span>
+          <span class="tag area">{e.city}</span>
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener">開催報告 ↗</a>}
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+<style>
+  .head{background:linear-gradient(165deg,var(--pink-50),var(--cream));padding:64px 0 48px;border-bottom:1px solid var(--line)}
+  .head .wrap{max-width:868px}
+  .since{margin-top:14px;color:var(--ink-600)}
+  .sec{margin-top:48px;max-width:868px}
+  .sec h2{margin-bottom:16px}
+  .next{padding:26px 28px}
+  .next.empty p{margin:0 0 10px}
+  .when{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
+  .when .no{font-family:var(--f-latin);font-weight:700;color:var(--pink-700);font-size:14px}
+  .when .date{font-size:19px;font-weight:700;font-family:var(--f-display)}
+  .sessions{margin:0 0 16px;color:var(--ink-600)}
+  .hint{margin-top:12px;color:var(--ink-400)}
+  .flow{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  .step{display:flex;gap:16px;padding:18px 20px;align-items:flex-start}
+  .step .no{width:30px;height:30px;flex:0 0 30px;border-radius:var(--r-full);background:var(--pink-100);
+    color:var(--pink-700);font-family:var(--f-latin);font-weight:700;display:flex;
+    align-items:center;justify-content:center;font-size:14px}
+  .step p{margin:2px 0 0}
+  .note{margin-top:22px}
+  .hist{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-direction:column;gap:8px}
+  .h{display:flex;gap:12px;align-items:center;padding:12px 18px;flex-wrap:wrap}
+  .h .no{font-family:var(--f-latin);font-weight:700;font-size:13px;color:var(--ink-400);flex:0 0 92px;white-space:nowrap}
+  .h .date{font-weight:700;font-size:14.5px}
+  .h .ig{margin-left:auto;color:var(--sky-700);text-decoration:none}
+  .h .ig:hover{text-decoration:underline}
+</style>

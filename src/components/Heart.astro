@@ -1,0 +1,15 @@
+---
+interface Props { size?: number | string; class?: string; }
+const { size = 22, class: cls = '' } = Astro.props;
+const uid = 'tsu-h-' + Math.random().toString(36).slice(2, 8);
+---
+<svg class={cls} width={size} height={size} viewBox="0 0 44 40" aria-hidden="true"
+     preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <clipPath id={uid}><path d="M22 40C22 40 0 25.2 0 12.4 0 5.2 5.4 0 12.2 0 16.4 0 20.2 2.2 22 5.6 23.8 2.2 27.6 0 31.8 0 38.6 0 44 5.2 44 12.4 44 25.2 22 40 22 40Z"/></clipPath>
+  </defs>
+  <g clip-path={`url(#${uid})`}>
+    <rect x="0" y="0" width="44" height="40" fill="#F8CBDF"/>
+    <path d="M44 0 L44 40 L10 40 Z" fill="#C3D8ED"/>
+  </g>
+</svg>
