@@ -18,9 +18,9 @@ const pageTitle = `${title}｜ツナグ Tsunagu`;
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#FF6699" />
-  <link rel="icon" href={`${import.meta.env.BASE_URL}img/favicon-32.png`} sizes="32x32" />
-  <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL}img/icon-180.png`} />
-  <meta property="og:image" content={new URL(`${import.meta.env.BASE_URL}img/og-default.png`, Astro.site)} />
+  <link rel="icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/img/favicon-32.png`} sizes="32x32" />
+  <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/img/icon-180.png`} />
+  <meta property="og:image" content={new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/img/og-default.png`, Astro.site)} />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
   <link rel="alternate" hreflang="zh-Hant" href={new URL(Astro.url.pathname, Astro.site)} />

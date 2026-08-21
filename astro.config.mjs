@@ -8,8 +8,8 @@ import sitemap from '@astrojs/sitemap';
 //   2. <帳號>.github.io/<repo>       → site: 'https://<帳號>.github.io', base: '/<repo>'
 // ────────────────────────────────────────────────────────────
 export default defineConfig({
-  site: 'https://tw-tsunagu.github.io',
-  base: '/',
+  site: 'https://kawausojp.github.io',
+  base: '/tsunagu-site',
   trailingSlash: 'ignore',
   build: { format: 'directory' },
   integrations: [sitemap()],
