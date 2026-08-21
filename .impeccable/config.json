@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(.34, 1.4, .64, 1)",
+        "createdAt": "2026-08-19T11:45:38.619Z",
+        "reason": "CLAUDE.md 已定案的品牌緩動，刻意的日系彈性感"
+      }
+    ]
+  }
+}

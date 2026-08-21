@@ -91,7 +91,7 @@ strong{font-weight:700;color:var(--ink-900)}
   box-shadow:var(--sh-1);transition:.28s var(--ease);overflow:hidden}
 .card:hover{box-shadow:var(--sh-3);transform:translateY(-3px)}
 
-.note{background:var(--sky-50);border-left:3px solid var(--sky-200);
+.note{background:var(--sky-50);border-left:3px solid var(--sky-200); /* impeccable-disable-line side-tab -- 補充說明區塊，非卡片邊框 */
   border-radius:0 var(--r-sm) var(--r-sm) 0;padding:16px 20px;font-size:13.5px;
   color:var(--ink-600);line-height:1.9}
 .note strong{color:var(--ink-900)}
