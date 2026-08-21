@@ -163,6 +163,12 @@ npm run preview
 ## 已知的小事
 
 - BIZ UDPGothic 只涵蓋日文漢字，繁中專用字（灣、臺、燈…）會 fallback 到 Noto Sans TC。視覺上接近，但不完全一致。
-- header 的「TSUNAGU」用 Jost 字體而非品牌字標圖——品牌字標是淺粉淺藍，在淺色 header 上對比約 1.4:1，讀不清楚。字標圖只用在 footer。
+- **字標圖有兩個版本，不要弄混：**
+  - `tsunagu-wordmark.png`（原色，TSU 粉 `#F7C6DB`／NAGU 藍 `#ADC3D7`）→ **只給 footer**，大尺寸、裝飾性位置
+  - `tsunagu-wordmark-duo.png`（深色，TSU `--pink-700`／NAGU `--sky-700`）→ **給 header**
+  原色版在淺色 header 上只有 1.44／1.75:1，縮到 15px 高等於看不見。深色版是把原檔逐像素換色
+  （保留抗鋸齒覆蓋率）而來，字形完全相同，所以 header 與 footer 的字標是同一套字形、不同配色。
+  WCAG 1.4.3 豁免 logo 的對比要求，但小尺寸的實際可讀性仍需要深色版。
+  header 曾用 Jost 文字模擬字標，已改掉——**不要再改回文字版**，那會讓上下字形不一致。
 - 角色圖是從白底 PNG 程式去背的（線稿有斷口，用了膨脹→填滿→侵蝕）。若換新圖需重做去背。
 - IG 上出現但不在簡報 39 家名單裡的品牌：**NERGY**、**WUMEI 日式台灣食堂**。尚未加入，待確認是否仍在合作。
