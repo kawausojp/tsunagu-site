@@ -1,9 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
 import data from '../../data/events.json';
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const today = new Date().toISOString().slice(0, 10);
+const todayInTimeZone = (date: Date, timeZone: string) => {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone, year:'numeric', month:'2-digit', day:'2-digit',
+  }).formatToParts(date);
+  const value = Object.fromEntries(parts.map(part => [part.type, part.value]));
+  return `${value.year}-${value.month}-${value.day}`;
+};
+const today = todayInTimeZone(new Date(), 'Asia/Taipei');
 const sorted = [...data.events].sort((a, b) => b.date.localeCompare(a.date));
 const upcoming = sorted.filter(e => e.date >= today).reverse();
 const past = sorted.filter(e => e.date < today);
@@ -108,4 +114,5 @@ const flow = [
   .h .date{font-weight:700;font-size:14.5px}
   .h .ig{margin-left:auto;color:var(--sky-700);text-decoration:none}
   .h .ig:hover{text-decoration:underline}
+  @media (max-width:720px){.head{padding:44px 0 32px}.sec{margin-top:40px}}
 </style>

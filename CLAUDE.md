@@ -13,7 +13,7 @@ Tsunagu 媒合想去日本留學／打工度假的台灣人，與想聘台灣人
 - Instagram：[@tw.tsunagu.jp](https://www.instagram.com/tw.tsunagu.jp/)（主要觸及管道，6,800+ 追蹤）
 - 自 2023-06 起累計舉辦 87 場交流會，地點涵蓋台北、台中、高雄、東京、大阪
 
-技術：**Astro 5（純靜態，無框架）+ GitHub Pages**。
+技術：**Astro 7（純靜態，無框架）+ GitHub Pages**。
 
 ---
 

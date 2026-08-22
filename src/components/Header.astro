@@ -11,6 +11,8 @@ const nav = [
   { href: `${base}/about`,     label: '關於 Tsunagu' },
 ];
 const path = Astro.url.pathname;
+const eventsHref = `${base}/events`;
+const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
 ---
 <header>
   <div class="wrap bar">
@@ -22,17 +24,24 @@ const path = Astro.url.pathname;
     </a>
     <nav aria-label="主選單">
       {nav.map(n => (
-        <a href={n.href} class:list={['navlink', { on: path.startsWith(n.href) && n.href !== `${base}/` }]}>{n.label}</a>
+        <a href={n.href} class:list={['navlink', { on: isCurrent(n.href) }]}
+          aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
       ))}
     </nav>
-    <a class="btn btn-primary cta" href={`${base}/events`}>報名交流會</a>
-    <button class="burger" aria-label="開啟選單" aria-expanded="false" data-burger>
+    <a class="btn btn-primary cta" href={eventsHref}
+      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>報名交流會</a>
+    <a class="btn btn-primary mobile-cta" href={eventsHref} aria-label="報名交流會"
+      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>報名</a>
+    <button class="burger" type="button" aria-label="開啟主選單" aria-expanded="false"
+      aria-controls="mobile-menu" data-burger>
       <span></span><span></span><span></span>
     </button>
   </div>
-  <div class="drawer" data-drawer hidden>
-    {nav.map(n => <a href={n.href}>{n.label}</a>)}
-    <a class="btn btn-primary" href={`${base}/events`}>報名交流會</a>
+  <div class="drawer" id="mobile-menu" role="navigation" aria-label="行動版主選單" data-drawer hidden>
+    {nav.map(n => (
+      <a href={n.href} class:list={{ on: isCurrent(n.href) }}
+        aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
+    ))}
   </div>
 </header>
 
@@ -41,35 +50,64 @@ const path = Astro.url.pathname;
     backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;gap:20px;height:68px}
   .logo svg{flex:0 0 22px}
-  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink-900);flex:0 0 auto}
-    .wordmark{width:110px;height:auto;display:block}
+  .logo{display:flex;align-items:center;gap:10px;min-height:var(--control-min);text-decoration:none;
+    color:var(--ink-900);flex:0 1 auto;min-width:0}
+  .wordmark{width:clamp(88px,28vw,110px);height:auto;display:block}
   .zh{font-size:12px;color:var(--ink-600);border-left:1px solid var(--line);padding-left:10px}
   nav{display:flex;gap:6px;margin-left:auto}
-  .navlink{font-size:14.5px;font-weight:500;color:var(--ink-600);text-decoration:none;
-    padding:8px 12px;border-radius:var(--r-full);transition:.2s var(--ease)}
+  .navlink{display:inline-flex;align-items:center;min-height:var(--control-min);font-size:14.5px;
+    font-weight:500;color:var(--ink-600);text-decoration:none;padding:8px 12px;
+    border-radius:var(--r-full);transition:.2s var(--ease);white-space:nowrap}
   .navlink:hover{background:var(--greige-100);color:var(--ink-900)}
   .navlink.on{color:var(--pink-700);background:var(--pink-50);font-weight:700}
-  .cta{padding:10px 20px;font-size:14px}
-  .burger{display:none;background:none;border:0;padding:8px;cursor:pointer;margin-left:auto}
+  .cta{min-height:var(--control-min);padding:10px 20px;font-size:14px;white-space:nowrap}
+  .mobile-cta{display:none;min-height:var(--control-min);padding:9px 15px;font-size:13.5px;
+    white-space:nowrap;margin-left:auto}
+  .burger{display:none;width:var(--control-min);height:var(--control-min);flex:0 0 var(--control-min);
+    background:none;border:0;padding:11px;cursor:pointer}
   .burger span{display:block;width:22px;height:2px;background:var(--ink-900);border-radius:2px}
   .burger span+span{margin-top:5px}
-  .drawer{display:none;flex-direction:column;gap:4px;padding:12px 24px 20px;border-top:1px solid var(--line);background:var(--cream)}
-  .drawer a{padding:12px 0;text-decoration:none;color:var(--ink-900);font-weight:500;border-bottom:1px solid var(--line)}
-  .drawer .btn{margin-top:14px;border-bottom:0}
+  .drawer{display:none;flex-direction:column;gap:4px;max-height:calc(100dvh - 68px);overflow-y:auto;
+    overscroll-behavior:contain;padding:12px var(--layout-gutter) 20px;border-top:1px solid var(--line);background:var(--cream)}
+  .drawer a{display:flex;align-items:center;min-height:var(--control-min);padding:10px 0;
+    text-decoration:none;color:var(--ink-900);font-weight:500;border-bottom:1px solid var(--line)}
+  .drawer a.on{color:var(--pink-700);font-weight:700}
+  :global(body.menu-open){overflow:hidden}
   @media (max-width:900px){
+    .bar{gap:8px}
     .zh{display:none} nav{display:none} .cta{display:none}
+    .mobile-cta{display:inline-flex}
     .burger{display:block}
     .drawer[data-open]{display:flex}
+  }
+  @media (max-width:480px){
+    .bar{padding-left:16px;padding-right:16px}
+    .logo{gap:7px}
   }
 </style>
 
 <script>
-  const b = document.querySelector('[data-burger]');
-  const d = document.querySelector('[data-drawer]');
-  b?.addEventListener('click', () => {
-    const open = d.hasAttribute('data-open');
-    if (open) { d.removeAttribute('data-open'); d.hidden = true; }
-    else { d.setAttribute('data-open',''); d.hidden = false; }
-    b.setAttribute('aria-expanded', String(!open));
-  });
+  const b = document.querySelector<HTMLButtonElement>('[data-burger]');
+  const d = document.querySelector<HTMLElement>('[data-drawer]');
+  const mobile = window.matchMedia('(max-width: 900px)');
+
+  if (b && d) {
+    const setOpen = (open: boolean, restoreFocus = false) => {
+      d.toggleAttribute('data-open', open);
+      d.hidden = !open;
+      b.setAttribute('aria-expanded', String(open));
+      b.setAttribute('aria-label', open ? '關閉主選單' : '開啟主選單');
+      document.body.classList.toggle('menu-open', open);
+      if (!open && restoreFocus) b.focus();
+    };
+
+    b.addEventListener('click', () => setOpen(!d.hasAttribute('data-open')));
+    d.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && d.hasAttribute('data-open')) setOpen(false, true);
+    });
+    mobile.addEventListener('change', event => {
+      if (!event.matches) setOpen(false);
+    });
+  }
 </script>

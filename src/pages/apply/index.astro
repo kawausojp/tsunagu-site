@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const FORM_URL = ''; // TODO Google 表單（Profile／履歷收件）
 ---
 <Base title="送出 Profile" description="已經確定要去日本？先把 Profile 或履歷送給我們，我們幫你看。">
@@ -86,4 +85,5 @@ const FORM_URL = ''; // TODO Google 表單（Profile／履歷收件）
   .box.alt{background:linear-gradient(140deg,var(--pink-50),#fff)}
   .box ul{margin:12px 0 0;padding-left:1.2em}
   .box li{margin-bottom:7px;font-size:14.5px;line-height:1.8}
+  @media (max-width:720px){.head{padding:44px 0 32px}.sec{margin-top:40px}}
 </style>

@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import characters from '../assets/tsunagu-characters.png';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
-<Base title="找不到這一頁">
+<Base title="找不到這一頁" noindex>
   <section class="nf"><div class="wrap">
     <Image src={characters} alt="" widths={[260, 520]} sizes="260px" class="nf-chars" />
     <h1 class="d1">走丟了</h1>

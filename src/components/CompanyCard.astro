@@ -3,10 +3,12 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
 interface Props { c: any; href: string; }
 const { c, href } = Astro.props;
 const d = c.data;
+const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel]
+  .filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
 ---
-<a class="card co" href={href}
+<a class="card card-link co" href={href} data-search={searchText}
    data-areas={d.areas.join(' ')} data-cat={d.category} data-jlpt={d.jlpt ?? 'none'}>
-  <div class="thumb"><span>{d.name}</span></div>
+  <div class="thumb"><span aria-hidden="true">{d.name}</span></div>
   <div class="body">
     <h3 class="d3">{d.name}</h3>
     {d.corporateName && <div class="corp" lang="ja">{d.corporateName}</div>}
@@ -38,4 +40,10 @@ const d = c.data;
   .stat{font-size:11.5px;font-weight:500;color:var(--pink-700);background:var(--pink-50);
     padding:4px 11px;border-radius:var(--r-full);letter-spacing:.02em}
   .stat.alt{color:var(--sky-700);background:var(--sky-50)}
+  .co h3,.thumb span{overflow-wrap:anywhere}
+  @media (max-width:520px){
+    .thumb{height:72px}
+    .body{padding:14px 16px 17px}
+    .tag-line{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  }
 </style>

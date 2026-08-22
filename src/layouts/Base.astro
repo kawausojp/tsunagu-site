@@ -3,9 +3,12 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-interface Props { title: string; description?: string; }
-const { title, description = '台灣人與日本企業をツナグ — 免費的日本留學・打工度假就職媒合交流會。' } = Astro.props;
+interface Props { title: string; description?: string; noindex?: boolean; }
+const { title, description = '台灣人與日本企業をツナグ — 免費的日本留學・打工度假就職媒合交流會。', noindex = false } = Astro.props;
 const pageTitle = `${title}｜ツナグ Tsunagu`;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
 ---
 <!DOCTYPE html>
 <html lang="zh-Hant">
@@ -17,21 +20,32 @@ const pageTitle = `${title}｜ツナグ Tsunagu`;
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#FF6699" />
-  <link rel="icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/img/favicon-32.png`} sizes="32x32" />
-  <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/img/icon-180.png`} />
-  <meta property="og:image" content={new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/img/og-default.png`, Astro.site)} />
+  <meta property="og:site_name" content="ツナグ Tsunagu" />
+  <meta property="og:locale" content="zh_TW" />
+  {!noindex && <meta property="og:url" content={canonicalUrl} />}
+  <meta name="theme-color" content="#FFF6F9" />
+  <link rel="icon" href={`${base}/img/favicon-32.png`} sizes="32x32" />
+  <link rel="apple-touch-icon" href={`${base}/img/icon-180.png`} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Tsunagu－把台灣的好人才，牽到日本" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-  <link rel="alternate" hreflang="zh-Hant" href={new URL(Astro.url.pathname, Astro.site)} />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+  {noindex && <meta name="robots" content="noindex,follow" />}
+  {!noindex && <link rel="canonical" href={canonicalUrl} />}
+  {!noindex && <link rel="alternate" hreflang="zh-Hant" href={canonicalUrl} />}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Jost:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Jost:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
   <a href="#main" class="skip">跳到主要內容</a>
   <Header />
-  <main id="main"><slot /></main>
+  <main id="main" tabindex="-1"><slot /></main>
   <Footer />
   <style>
     .skip{position:absolute;left:-9999px;top:0;background:var(--pink-700);color:#fff;

@@ -29,28 +29,44 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     </div>
   </section>
 
-  <section class="wrap tools">
+  <div class="wrap tools">
     <div class="filters">
-      <div class="grp">
-        <span class="lbl">地區</span>
-        {areaKeys.map(k => <button class="tag area f" data-f="area" data-v={k}>{AREA[k as keyof typeof AREA]}</button>)}
-      </div>
-      <div class="grp">
-        <span class="lbl">職種</span>
-        {cats.map(([k,l]) => <button class="tag job f" data-f="cat" data-v={k}>{l}</button>)}
-      </div>
-      <div class="grp">
-        <span class="lbl">日語</span>
-        {jlpts.map(j => <button class="tag jlpt f" data-f="jlpt" data-v={j}>{j} 以上</button>)}
-        <button class="tag f" data-f="jlpt" data-v="none">未特別要求</button>
-      </div>
-      <button class="reset" data-reset hidden>清除篩選</button>
+      <label class="search">
+        <span>搜尋品牌</span>
+        <input type="search" inputmode="search" autocomplete="off" placeholder="輸入品牌名稱"
+          aria-controls="company-grid" data-search-input />
+      </label>
+      <details class="filter-options" data-filter-options open>
+        <summary>篩選條件</summary>
+        <div class="filter-groups">
+          <div class="grp" role="group" aria-labelledby="filter-area-label">
+            <span class="lbl" id="filter-area-label">地區</span>
+            {areaKeys.map(k => <button type="button" class="tag area f" data-f="area" data-v={k}
+              aria-pressed="false" aria-controls="company-grid">{AREA[k as keyof typeof AREA]}</button>)}
+          </div>
+          <div class="grp" role="group" aria-labelledby="filter-cat-label">
+            <span class="lbl" id="filter-cat-label">職種</span>
+            {cats.map(([k,l]) => <button type="button" class="tag job f" data-f="cat" data-v={k}
+              aria-pressed="false" aria-controls="company-grid">{l}</button>)}
+          </div>
+          <div class="grp" role="group" aria-labelledby="filter-jlpt-label">
+            <span class="lbl" id="filter-jlpt-label">日語</span>
+            {jlpts.map(j => <button type="button" class="tag jlpt f" data-f="jlpt" data-v={j}
+              aria-pressed="false" aria-controls="company-grid">{j} 以上</button>)}
+            <button type="button" class="tag f" data-f="jlpt" data-v="none"
+              aria-pressed="false" aria-controls="company-grid">未特別要求</button>
+          </div>
+        </div>
+      </details>
+      <button type="button" class="reset" data-reset hidden>清除搜尋與篩選</button>
     </div>
-    <p class="count small"><span data-count>{companies.length}</span> 個品牌／累計 {totalPlacements} 人次任職</p>
-  </section>
+    <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
+      data-status>顯示 {companies.length} 個品牌</span><span aria-hidden="true">／累計 {totalPlacements} 人次任職</span></p>
+  </div>
 
   <section class="wrap list">
-    <div class="grid" data-grid>
+    <h2 class="sr-only">品牌搜尋結果</h2>
+    <div class="grid" id="company-grid" data-grid>
       {companies.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
     </div>
     <p class="empty small" data-empty hidden>沒有符合條件的品牌，試試放寬篩選。</p>
@@ -61,48 +77,73 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
   .head{background:linear-gradient(165deg,var(--pink-50),var(--cream));padding:64px 0 48px;border-bottom:1px solid var(--line)}
   .head .note{margin-top:22px;max-width:46em}
   .tools{margin:32px auto 0}
-  .filters{display:flex;flex-direction:column;gap:12px}
+  .filters{display:flex;flex-direction:column;gap:16px}
+  .search{display:flex;flex-direction:column;gap:6px;max-width:380px;font-size:12px;font-weight:700;color:var(--ink-600)}
+  .search input{width:100%;min-height:var(--control-min);border:1.5px solid var(--line);border-radius:var(--r-full);
+    background:var(--paper);color:var(--ink-900);font:inherit;font-size:15px;font-weight:400;padding:9px 18px}
+  .search input::placeholder{color:var(--ink-400)}
+  .filter-options{border:0}
+  .filter-options summary{display:none;min-height:var(--control-min);align-items:center;justify-content:space-between;
+    color:var(--ink-900);font-weight:700;cursor:pointer}
+  .filter-options summary::after{content:'＋';color:var(--pink-700);font-size:20px}
+  .filter-options[open] summary::after{content:'−'}
+  .filter-groups{display:flex;flex-direction:column;gap:12px}
   .grp{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
   .lbl{font-size:12px;font-weight:700;color:var(--ink-600);width:38px;flex:0 0 38px}
-  button.f{border:1.5px solid transparent;cursor:pointer;font-family:inherit;transition:.18s var(--ease)}
-  button.f:hover{transform:translateY(-1px)}
+  button.f{min-height:var(--control-min);border:1.5px solid transparent;cursor:pointer;font-family:inherit;
+    padding:8px 14px;transition:.18s var(--ease)}
   button.f[aria-pressed="true"]{border-color:currentColor;font-weight:700;box-shadow:var(--sh-1)}
   .reset{align-self:flex-start;background:none;border:0;color:var(--pink-700);font-weight:700;
-    font-size:13px;cursor:pointer;padding:4px 0;text-decoration:underline;font-family:inherit}
+    min-height:var(--control-min);font-size:13px;cursor:pointer;padding:8px 0;text-decoration:underline;font-family:inherit}
   .count{margin:16px 0 0;color:var(--ink-600)}
   .list{margin:20px auto 0;padding-bottom:20px}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px}
   .empty{text-align:center;padding:48px 0;color:var(--ink-600)}
+  @media (hover:hover) and (pointer:fine){button.f:hover{transform:translateY(-1px)}}
+  @media (max-width:720px){
+    .head{padding:44px 0 32px}
+    .tools{margin-top:24px}
+    .search{max-width:none}
+    .filter-options{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .filter-options summary{display:flex}
+    .filter-groups{padding:12px 0 16px}
+    .lbl{width:100%;flex-basis:100%}
+  }
 </style>
 
 <script>
   const active = { area:new Set<string>(), cat:new Set<string>(), jlpt:new Set<string>() };
   const grid = document.querySelector('[data-grid]') as HTMLElement;
   const cards = Array.from(grid.querySelectorAll('.co')) as HTMLElement[];
-  const countEl = document.querySelector('[data-count]')!;
+  const searchEl = document.querySelector<HTMLInputElement>('[data-search-input]')!;
+  const statusEl = document.querySelector<HTMLElement>('[data-status]')!;
   const emptyEl = document.querySelector('[data-empty]') as HTMLElement;
-  const resetEl = document.querySelector('[data-reset]') as HTMLElement;
+  const resetEl = document.querySelector<HTMLButtonElement>('[data-reset]')!;
+  const filterOptions = document.querySelector<HTMLDetailsElement>('[data-filter-options]');
+  const normalise = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim();
 
   function apply(){
     let n = 0;
+    const query = normalise(searchEl.value);
     cards.forEach(c => {
       const areas = (c.dataset.areas || '').split(' ');
+      const okSearch = !query || (c.dataset.search || '').includes(query);
       const okArea = !active.area.size || areas.some(a => active.area.has(a));
       const okCat  = !active.cat.size  || active.cat.has(c.dataset.cat || '');
       const okJl   = !active.jlpt.size || active.jlpt.has(c.dataset.jlpt || 'none');
-      const show = okArea && okCat && okJl;
+      const show = okSearch && okArea && okCat && okJl;
       c.style.display = show ? '' : 'none';
       if (show) n++;
     });
-    countEl.textContent = String(n);
+    statusEl.textContent = `顯示 ${n} 個品牌`;
     emptyEl.hidden = n > 0;
-    const any = active.area.size || active.cat.size || active.jlpt.size;
+    const any = searchEl.value.length > 0 || active.area.size || active.cat.size || active.jlpt.size;
     resetEl.hidden = !any;
   }
 
+  searchEl.addEventListener('input', apply);
   document.querySelectorAll('button.f').forEach(b => {
     const el = b as HTMLElement;
-    el.setAttribute('aria-pressed','false');
     el.addEventListener('click', () => {
       const f = el.dataset.f as keyof typeof active;
       const v = el.dataset.v!;
@@ -112,8 +153,16 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     });
   });
   resetEl.addEventListener('click', () => {
+    searchEl.value = '';
     (Object.keys(active) as (keyof typeof active)[]).forEach(k => active[k].clear());
     document.querySelectorAll('button.f').forEach(b => b.setAttribute('aria-pressed','false'));
+    searchEl.focus();
     apply();
+  });
+
+  const mobileFilters = window.matchMedia('(max-width: 720px)');
+  if (filterOptions && mobileFilters.matches) filterOptions.open = false;
+  mobileFilters.addEventListener('change', event => {
+    if (filterOptions) filterOptions.open = !event.matches;
   });
 </script>
