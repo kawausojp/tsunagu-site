@@ -76,5 +76,18 @@ const media = [
   .m .n{font-weight:700;font-size:15px}
   .note-t{color:var(--ink-600)}
   .pending{background:var(--note-bg);border:1px dashed var(--note-line);border-radius:var(--r-sm);padding:10px 14px;margin-top:14px}
-  @media (max-width:720px){.head{padding:44px 0 32px}.sec{margin-top:40px}}
+  @media (max-width:720px){
+    .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
+    .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
+    .sec{margin-top:var(--content-section-gap)}
+    .sec h2{margin-bottom:12px}
+    .prose{font-size:15.5px;line-height:1.85}
+    .grid{gap:12px;margin-bottom:14px}
+    .b{padding:18px 16px}
+    .media{gap:0;border:1px solid var(--mobile-line);border-radius:12px;overflow:hidden}
+    .m{gap:8px;padding:12px 14px;border:0;border-bottom:1px solid var(--mobile-line);border-radius:0}
+    .m:last-child{border-bottom:0}
+    .m .d{flex-basis:82px}
+    .pending{padding:12px 14px}
+  }
 </style>

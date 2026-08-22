@@ -143,17 +143,6 @@ const stats = [
   .band .t{font-size:13px;color:var(--ink-600);margin-top:4px}
   .asof{text-align:center;margin-top:12px;color:var(--ink-600)}
 
-  @media (max-width:720px){
-    .hero{padding:36px 0 44px}
-    .inner{gap:24px}
-    .cta-row{margin-top:24px}
-    .hero .cta-row .btn{width:100%;min-height:48px}
-    .art :global(.chars){width:min(230px,60vw)}
-    .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px;
-      padding:24px 12px;margin-top:28px}
-    .band .n{font-size:clamp(31px,9vw,35px)}
-  }
-
   .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:18px;margin-top:28px}
   .more{margin-top:28px}
   .alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -187,6 +176,37 @@ const stats = [
   .final{background:linear-gradient(120deg,var(--sky-50),var(--pink-50));text-align:center}
   .final .lead{margin:0 auto}
   .final .cta-row{justify-content:center}
+
+  @media (max-width:720px){
+    .hero{background:#fff;padding:28px 0 30px;border-bottom:1px solid var(--mobile-line)}
+    .inner{gap:12px}
+    .copy h1{margin-bottom:16px}
+    .cta-row{gap:10px;margin-top:20px}
+    .hero .cta-row .btn{width:100%}
+    .art{margin-top:2px}
+    .art :global(.chars){width:176px;animation:none}
+    .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:#fff;
+      padding:0;margin-top:20px;border:1px solid var(--mobile-line);border-radius:12px;overflow:hidden}
+    .band>div{display:flex;min-height:88px;flex-direction:column;align-items:center;justify-content:center;
+      padding:14px 8px}
+    .band>div:nth-child(odd){border-right:1px solid var(--mobile-line)}
+    .band>div:nth-child(-n+2){border-bottom:1px solid var(--mobile-line)}
+    .band .n{font-size:clamp(27px,8vw,31px)}
+    .band .n small{font-size:14px}
+    .band .t{font-size:12px;margin-top:5px}
+    .asof{text-align:left;margin:10px 4px 0;font-size:11.5px}
+    .grid3{gap:12px;margin-top:20px}
+    .more{margin-top:20px}
+    .more .btn{width:100%}
+    .alt{background:#FAFAFA;border-color:var(--mobile-line)}
+    .senpai{gap:10px;padding:16px}
+    .avatar{width:48px;height:48px;flex-basis:48px;font-size:18px}
+    .video{border:1px solid var(--mobile-line);border-radius:12px;box-shadow:none}
+    .play{width:56px;height:56px;box-shadow:none}
+    .tri{border-left-width:16px;border-top-width:10px;border-bottom-width:10px}
+    .final{background:var(--sky-50);border-top:1px solid var(--mobile-line)}
+    .final .cta-row .btn{width:100%}
+  }
 </style>
 
 <script>

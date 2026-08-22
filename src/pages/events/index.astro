@@ -114,5 +114,24 @@ const flow = [
   .h .date{font-weight:700;font-size:14.5px}
   .h .ig{margin-left:auto;color:var(--sky-700);text-decoration:none}
   .h .ig:hover{text-decoration:underline}
-  @media (max-width:720px){.head{padding:44px 0 32px}.sec{margin-top:40px}}
+  @media (max-width:720px){
+    .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
+    .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
+    .head .lead{margin-top:12px}
+    .since{margin-top:10px}
+    .sec{margin-top:var(--content-section-gap)}
+    .sec h2{margin-bottom:12px}
+    .next{padding:18px 16px}
+    .when{gap:8px;margin-bottom:8px}
+    .when .date{font-size:17px}
+    .next .btn{width:100%;margin-top:4px}
+    .flow{gap:10px}
+    .step{gap:12px;padding:16px}
+    .step .no{width:28px;height:28px;flex-basis:28px;font-size:13px}
+    .note{margin-top:18px}
+    .hist{gap:0;border:1px solid var(--mobile-line);border-radius:12px;overflow:hidden}
+    .h{gap:8px;padding:12px 14px;border:0;border-bottom:1px solid var(--mobile-line);border-radius:0}
+    .h:last-child{border-bottom:0}
+    .h .no{flex-basis:80px}
+  }
 </style>

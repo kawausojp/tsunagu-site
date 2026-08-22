@@ -35,6 +35,8 @@
   --wrap:1080px;
   --layout-gutter:24px;
   --control-min:44px;
+  --header-height:68px;
+  --content-section-gap:48px;
   --focus-ring:var(--pink-700);
 }
 
@@ -59,11 +61,6 @@ main:focus{outline:none}
 
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--layout-gutter)}
 .section{padding:104px 0}
-@media (max-width:720px){
-  :root{--layout-gutter:20px}
-  .section{padding:56px 0}
-  .lead{line-height:1.85}
-}
 
 /* ── 標題（日系：字距拉開、行高放鬆、字重不過粗） ── */
 .d1{font-family:var(--f-display);font-weight:700;font-size:clamp(29px,5vw,46px);
@@ -113,6 +110,36 @@ main:focus{outline:none}
   border-radius:0 var(--r-sm) var(--r-sm) 0;padding:16px 20px;font-size:13.5px;
   color:var(--ink-600);line-height:1.9}
 .note strong{color:var(--ink-900)}
+
+/* 手機版採用安靜、任務優先的單層介面；桌面版保留原有品牌表現。 */
+@media (max-width:720px){
+  :root{
+    --layout-gutter:16px;
+    --r-sm:8px;--r-md:12px;--r-lg:14px;--r-xl:18px;
+    --sh-1:none;--sh-2:0 1px 2px rgba(63,63,70,.08);--sh-3:0 8px 24px rgba(63,63,70,.10);
+    --header-height:101px;
+    --content-section-gap:36px;
+    --mobile-line:#DED8D4;
+    --mobile-control-line:#9B8B82;
+    --mobile-control-height:52px;
+    --mobile-field-height:60px;
+  }
+  html{scroll-padding-top:calc(var(--header-height) + 16px)}
+  body{background:var(--paper);line-height:1.75}
+  .section{padding:48px 0}
+  .d1{font-size:clamp(30px,9vw,36px);line-height:1.32;letter-spacing:.02em}
+  .d2{font-size:22px;line-height:1.4;letter-spacing:.02em}
+  .d3{font-size:16px;line-height:1.55;letter-spacing:.01em}
+  .eyebrow{font-size:10px;letter-spacing:.22em;margin-bottom:10px}
+  .lead{font-size:15px;line-height:1.8}
+  .small{font-size:12.5px;line-height:1.75}
+  main .btn{min-height:var(--mobile-control-height);padding:11px 18px;border-radius:12px;box-shadow:none;font-size:14px}
+  main .btn-secondary{border-color:var(--mobile-control-line);color:var(--ink-900)}
+  main .btn-ghost{border-color:var(--mobile-line);color:var(--ink-900)}
+  main .card{border-radius:12px;border-color:var(--mobile-line);box-shadow:none}
+  main .card-link:focus-visible{box-shadow:none}
+  main .note{background:#FAFAFA;border:1px solid var(--mobile-line);border-radius:12px;padding:14px 16px}
+}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;

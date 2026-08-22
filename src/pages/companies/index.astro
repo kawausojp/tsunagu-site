@@ -101,13 +101,27 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
   .empty{text-align:center;padding:48px 0;color:var(--ink-600)}
   @media (hover:hover) and (pointer:fine){button.f:hover{transform:translateY(-1px)}}
   @media (max-width:720px){
-    .head{padding:44px 0 32px}
-    .tools{margin-top:24px}
+    .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
+    .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
+    .head .lead{margin-top:12px}
+    .head .note{margin-top:16px}
+    .tools{margin-top:20px}
+    .filters{gap:12px}
     .search{max-width:none}
-    .filter-options{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-    .filter-options summary{display:flex}
-    .filter-groups{padding:12px 0 16px}
+    .search input{min-height:var(--mobile-field-height);border:1px solid var(--mobile-control-line);
+      border-radius:12px;background:#fff;font-size:16px;padding:12px 16px}
+    .filter-options{border:1px solid var(--mobile-line);border-radius:12px;padding:0 14px;background:#fff}
+    .filter-options summary{display:flex;min-height:var(--mobile-control-height)}
+    .filter-options[open] summary{border-bottom:1px solid var(--mobile-line)}
+    .filter-groups{gap:14px;padding:14px 0 16px}
     .lbl{width:100%;flex-basis:100%}
+    .filter-options button.f{min-height:44px;background:#fff;border:1px solid var(--mobile-line);
+      color:var(--ink-600);padding:8px 13px}
+    .filter-options button.f[aria-pressed="true"]{background:var(--sky-50);border-color:var(--sky-700);
+      color:var(--sky-700);box-shadow:none}
+    .count{margin-top:12px}
+    .list{margin-top:16px}
+    .grid{gap:12px}
   }
 </style>
 

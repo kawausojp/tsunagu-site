@@ -5,10 +5,10 @@ import Heart from './Heart.astro';
 import wordmark from '../assets/tsunagu-wordmark-duo.png';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const nav = [
-  { href: `${base}/companies`, label: '合作企業' },
-  { href: `${base}/stories`,   label: '學長姐經驗' },
-  { href: `${base}/support`,   label: '我們怎麼幫你' },
-  { href: `${base}/about`,     label: '關於 Tsunagu' },
+  { href: `${base}/companies`, label: '合作企業', short: '合作企業' },
+  { href: `${base}/stories`,   label: '學長姐經驗', short: '學長姐' },
+  { href: `${base}/support`,   label: '我們怎麼幫你', short: '支援方式' },
+  { href: `${base}/about`,     label: '關於 Tsunagu', short: '關於我們' },
 ];
 const path = Astro.url.pathname;
 const eventsHref = `${base}/events`;
@@ -22,7 +22,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
         loading="eager" fetchpriority="high" decoding="sync" />
       <span class="zh">台灣人與日本企業</span>
     </a>
-    <nav aria-label="主選單">
+    <nav class="desktop-nav" aria-label="主選單">
       {nav.map(n => (
         <a href={n.href} class:list={['navlink', { on: isCurrent(n.href) }]}
           aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
@@ -37,6 +37,12 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
       <span></span><span></span><span></span>
     </button>
   </div>
+  <nav class="mobile-tabs" aria-label="快速導覽">
+    {nav.map(n => (
+      <a href={n.href} class:list={{ on: isCurrent(n.href) }}
+        aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.short}</a>
+    ))}
+  </nav>
   <div class="drawer" id="mobile-menu" role="navigation" aria-label="行動版主選單" data-drawer hidden>
     {nav.map(n => (
       <a href={n.href} class:list={{ on: isCurrent(n.href) }}
@@ -49,12 +55,12 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
   header{position:sticky;top:0;z-index:50;background:rgba(255,250,248,.92);
     backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;gap:20px;height:68px}
-  .logo svg{flex:0 0 22px}
+  .logo :global(svg){flex:0 0 22px}
   .logo{display:flex;align-items:center;gap:10px;min-height:var(--control-min);text-decoration:none;
     color:var(--ink-900);flex:0 1 auto;min-width:0}
   .wordmark{width:clamp(88px,28vw,110px);height:auto;display:block}
   .zh{font-size:12px;color:var(--ink-600);border-left:1px solid var(--line);padding-left:10px}
-  nav{display:flex;gap:6px;margin-left:auto}
+  .desktop-nav{display:flex;gap:6px;margin-left:auto}
   .navlink{display:inline-flex;align-items:center;min-height:var(--control-min);font-size:14.5px;
     font-weight:500;color:var(--ink-600);text-decoration:none;padding:8px 12px;
     border-radius:var(--r-full);transition:.2s var(--ease);white-space:nowrap}
@@ -63,6 +69,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
   .cta{min-height:var(--control-min);padding:10px 20px;font-size:14px;white-space:nowrap}
   .mobile-cta{display:none;min-height:var(--control-min);padding:9px 15px;font-size:13.5px;
     white-space:nowrap;margin-left:auto}
+  .mobile-tabs{display:none}
   .burger{display:none;width:var(--control-min);height:var(--control-min);flex:0 0 var(--control-min);
     background:none;border:0;padding:11px;cursor:pointer}
   .burger span{display:block;width:22px;height:2px;background:var(--ink-900);border-radius:2px}
@@ -75,14 +82,28 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
   :global(body.menu-open){overflow:hidden}
   @media (max-width:900px){
     .bar{gap:8px}
-    .zh{display:none} nav{display:none} .cta{display:none}
+    .zh{display:none} .desktop-nav{display:none} .cta{display:none}
     .mobile-cta{display:inline-flex}
     .burger{display:block}
     .drawer[data-open]{display:flex}
   }
-  @media (max-width:480px){
-    .bar{padding-left:16px;padding-right:16px}
-    .logo{gap:7px}
+  @media (max-width:720px){
+    header{background:#fff;backdrop-filter:none;border-bottom-color:var(--mobile-line)}
+    .bar{display:grid;grid-template-columns:58px minmax(0,1fr) 58px;height:56px;gap:8px;padding:0 16px}
+    .logo{grid-column:2;grid-row:1;justify-self:center;justify-content:center;gap:7px}
+    .wordmark{width:112px}
+    .mobile-cta{grid-column:3;grid-row:1;justify-self:end;margin:0;min-height:44px;padding:8px 12px;
+      border-radius:10px;font-size:13px;box-shadow:none}
+    .burger{display:none}
+    .mobile-tabs{display:flex;align-items:center;justify-content:safe center;gap:4px;width:100%;
+      min-height:44px;margin:0 auto;padding:0 16px;overflow-x:auto;scrollbar-width:none;background:#fff}
+    .mobile-tabs::-webkit-scrollbar{display:none}
+    .mobile-tabs a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+      padding:5px 8px;border-radius:7px;color:var(--ink-600);font-size:12px;font-weight:700;
+      line-height:1.2;text-decoration:none;white-space:nowrap}
+    .mobile-tabs a.on{background:var(--pink-50);color:var(--ink-900);
+      box-shadow:inset 0 -2px 0 var(--pink-700)}
+    .drawer,.drawer[data-open]{display:none!important}
   }
 </style>
 
@@ -90,6 +111,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
   const b = document.querySelector<HTMLButtonElement>('[data-burger]');
   const d = document.querySelector<HTMLElement>('[data-drawer]');
   const mobile = window.matchMedia('(max-width: 900px)');
+  const compact = window.matchMedia('(max-width: 720px)');
 
   if (b && d) {
     const setOpen = (open: boolean, restoreFocus = false) => {
@@ -108,6 +130,9 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
     });
     mobile.addEventListener('change', event => {
       if (!event.matches) setOpen(false);
+    });
+    compact.addEventListener('change', event => {
+      if (event.matches) setOpen(false);
     });
   }
 </script>

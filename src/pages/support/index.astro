@@ -68,5 +68,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   .note{margin-top:18px}
   .free{background:linear-gradient(120deg,var(--sky-50),var(--pink-50));border-radius:var(--r-xl);
     padding:40px 36px;max-width:900px;margin-bottom:20px}
-  @media (max-width:720px){.head{padding:44px 0 32px}.sec{margin-top:40px}.free{margin-left:20px;margin-right:20px;padding:30px 22px}}
+  @media (max-width:720px){
+    .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
+    .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
+    .head .lead{margin-top:12px}
+    .sec{margin-top:var(--content-section-gap)}
+    .sec h2{margin-bottom:12px}
+    .grid,.reasons{gap:12px}
+    .b,.r{padding:18px 16px}
+    .b ul{margin-top:10px}
+    .free{background:#FAFAFA;border:1px solid var(--mobile-line);border-radius:12px;
+      margin-left:16px;margin-right:16px;padding:24px 18px}
+    .free .btn{width:100%}
+  }
 </style>
