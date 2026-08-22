@@ -136,6 +136,12 @@ main:focus{outline:none}
   main .btn{min-height:var(--mobile-control-height);padding:11px 18px;border-radius:12px;box-shadow:none;font-size:14px}
   main .btn-secondary{border-color:var(--mobile-control-line);color:var(--ink-900)}
   main .btn-ghost{border-color:var(--mobile-line);color:var(--ink-900)}
+  main .btn.text-action{width:auto;min-height:44px;padding:8px 2px;border:0;border-radius:0;
+    background:transparent;color:var(--sky-700);box-shadow:none;text-decoration:underline;
+    text-decoration-color:var(--sky-200);text-underline-offset:5px;text-decoration-thickness:1px}
+  main .btn.text-action:hover{background:transparent;color:var(--sky-700);transform:none}
+  main .btn.text-action-primary{color:var(--ink-900);text-decoration-color:var(--pink-300)}
+  main .btn.text-action-primary:hover{color:var(--ink-900)}
   main .card{border-radius:12px;border-color:var(--mobile-line);box-shadow:none}
   main .card-link:focus-visible{box-shadow:none}
   main .note{background:#FAFAFA;border:1px solid var(--mobile-line);border-radius:12px;padding:14px 16px}

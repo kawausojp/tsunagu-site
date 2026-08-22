@@ -36,7 +36,7 @@ const stats = [
         </p>
         <div class="cta-row">
           <a class="btn btn-primary" href={`${base}/events`}>報名下一場交流會 →</a>
-          <a class="btn btn-secondary" href={`${base}/companies`}>先看看有哪些企業</a>
+          <a class="btn btn-secondary text-action" href={`${base}/companies`}>先看看有哪些企業 →</a>
         </div>
       </div>
       <div class="art">
@@ -81,7 +81,7 @@ const stats = [
       <div class="grid3">
         {featured.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
       </div>
-      <div class="more"><a class="btn btn-secondary" href={`${base}/companies`}>看全部 {companies.length} 個品牌 →</a></div>
+      <div class="more"><a class="btn btn-secondary text-action" href={`${base}/companies`}>看全部 {companies.length} 個品牌 →</a></div>
     </div>
   </section>
 
@@ -105,7 +105,7 @@ const stats = [
           </a>
         ))}
       </div>
-      <div class="more"><a class="btn btn-secondary" href={`${base}/stories`}>看更多經驗分享 →</a></div>
+      <div class="more"><a class="btn btn-secondary text-action" href={`${base}/stories`}>看更多經驗分享 →</a></div>
     </div>
   </section>
 
@@ -115,8 +115,8 @@ const stats = [
       <h2 class="d2">下一步，先來交流會看看</h2>
       <p class="lead">不用先決定什麼，也不用準備履歷。先來聽日本企業說他們在找什麼樣的人。</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href={`${base}/events`}>報名交流會</a>
-        <a class="btn btn-ghost" href={`${base}/apply`}>已經決定要去日本了</a>
+        <a class="btn btn-primary text-action text-action-primary" href={`${base}/events`}>查看下一場交流會 →</a>
+        <a class="btn btn-ghost text-action" href={`${base}/apply`}>已經決定要去日本了 →</a>
       </div>
     </div>
   </section>
@@ -182,7 +182,8 @@ const stats = [
     .inner{gap:12px}
     .copy h1{margin-bottom:16px}
     .cta-row{gap:10px;margin-top:20px}
-    .hero .cta-row .btn{width:100%}
+    .hero .cta-row .btn-primary{width:100%}
+    .hero .cta-row .text-action{align-self:flex-start}
     .art{margin-top:2px}
     .art :global(.chars){width:176px;animation:none}
     .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:#fff;
@@ -197,7 +198,7 @@ const stats = [
     .asof{text-align:left;margin:10px 4px 0;font-size:11.5px}
     .grid3{gap:12px;margin-top:20px}
     .more{margin-top:20px}
-    .more .btn{width:100%}
+    .more .text-action{margin-left:2px}
     .alt{background:#FAFAFA;border-color:var(--mobile-line)}
     .senpai{gap:10px;padding:16px}
     .avatar{width:48px;height:48px;flex-basis:48px;font-size:18px}
@@ -205,7 +206,7 @@ const stats = [
     .play{width:56px;height:56px;box-shadow:none}
     .tri{border-left-width:16px;border-top-width:10px;border-bottom-width:10px}
     .final{background:var(--sky-50);border-top:1px solid var(--mobile-line)}
-    .final .cta-row .btn{width:100%}
+    .final .cta-row{flex-direction:column;align-items:center}
   }
 </style>
 
