@@ -129,6 +129,13 @@ const stats = [
   .inner{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
   @media (max-width:860px){ .inner{grid-template-columns:1fr;gap:20px} .art :global(.chars){width:min(300px,70%)} }
   .copy h1{margin-bottom:20px}
+  /* 進場：copy 內依序上浮、角色與標題同拍淡入。backwards 讓 reduced-motion 下直接顯示成品 */
+  .copy>*{animation:hero-rise .28s var(--ease) backwards}
+  .copy>*:nth-child(2){animation-delay:90ms}
+  .copy>*:nth-child(3){animation-delay:180ms}
+  .copy>*:nth-child(4){animation-delay:270ms}
+  .art{animation:hero-rise .28s var(--ease) 120ms backwards}
+  @keyframes hero-rise{from{opacity:0;transform:translateY(14px)}}
   .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
   .art{display:flex;align-items:center;justify-content:center}
   .art :global(.chars){width:min(380px,86%);height:auto;
