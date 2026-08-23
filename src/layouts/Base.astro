@@ -1,12 +1,21 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import eventsData from '../data/events.json';
 import Footer from '../components/Footer.astro';
 
 interface Props { title: string; description?: string; noindex?: boolean; }
 const { title, description = '台灣人與日本企業をツナグ — 免費的日本留學・打工度假就職媒合交流會。', noindex = false } = Astro.props;
 const pageTitle = `${title}｜ツナグ Tsunagu`;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// 手機 sticky 報名列：取下一場場次做具體文案；events 頁本身不顯示（目的地即該頁）
+const _today = new Date().toISOString().slice(0, 10);
+const _up = [...eventsData.events].filter(e => e.date >= _today).sort((a,b)=>a.date.localeCompare(b.date))[0];
+const _wd = ['日','一','二','三','四','五','六'];
+const nextEventLabel = _up
+  ? `報名 ${Number(_up.date.slice(5,7))}/${Number(_up.date.slice(8,10))}（${_wd[new Date(_up.date+'T00:00:00+08:00').getDay()]}）${_up.city}交流會 →`
+  : '報名下一場交流會 →';
+const showStickyCta = !Astro.url.pathname.includes('/events');
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
 ---
@@ -46,11 +55,40 @@ const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
   <a href="#main" class="skip">跳到主要內容</a>
   <Header />
   <main id="main" tabindex="-1"><slot /></main>
+  {showStickyCta && (
+    <div class="sticky-cta" aria-hidden="false">
+      <a class="btn btn-primary" href={`${base}/events`}>{nextEventLabel}</a>
+    </div>
+  )}
   <Footer />
+  <script>
+    // hero 的主 CTA 在視窗內時，隱藏底部 sticky 報名列（避免同屏出現兩顆相同按鈕）
+    const bar = document.querySelector('.sticky-cta');
+    const heroBtn = document.querySelector('.hero .btn-primary');
+    if (bar && heroBtn && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => {
+        bar.classList.toggle('dup', e.isIntersecting);
+      }, { threshold: 0.4 }).observe(heroBtn);
+    }
+  </script>
   <style>
     .skip{position:absolute;left:-9999px;top:0;background:var(--pink-700);color:#fff;
       padding:10px 18px;border-radius:0 0 var(--r-sm) 0;z-index:100;font-weight:700}
     .skip:focus{left:0}
+    .sticky-cta{display:none}
+    @media (max-width:720px){
+      .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;
+        padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+        background:rgba(255,252,250,.94);backdrop-filter:blur(10px);
+        border-top:1px solid var(--line);
+        animation:cta-up .28s var(--ease) backwards}
+      .sticky-cta .btn{display:flex;justify-content:center;width:100%;font-size:15px;padding:14px 20px}
+      /* 頁面上已有可見的報名鈕（hero）時退場，避免同屏雙 CTA */
+      .sticky-cta.dup{transform:translateY(120%);transition:transform .28s var(--ease)}
+      .sticky-cta{transition:transform .28s var(--ease)}
+      body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+      @keyframes cta-up{from{transform:translateY(100%)}}
+    }
   </style>
 </body>
 </html>

@@ -75,7 +75,9 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
   .item:target{border-color:var(--pink-300);box-shadow:var(--sh-3)}
   .top{display:flex;gap:16px;align-items:center;margin-bottom:16px}
   .avatar{width:56px;height:56px;flex:0 0 56px;border-radius:var(--r-full);
-    background:linear-gradient(140deg,var(--pink-100),var(--sky-100));display:flex;
+    border:2.5px solid transparent;
+    background:linear-gradient(140deg,var(--pink-100),var(--sky-100)) padding-box,
+      linear-gradient(135deg,var(--pink-400),var(--sky-300)) border-box;display:flex;
     align-items:center;justify-content:center;color:var(--ink-900);font-weight:700;font-family:var(--f-latin);font-size:22px}
   .meta{margin:5px 0 0;display:flex;flex-wrap:wrap;gap:6px 9px;align-items:center;color:var(--ink-600)}
   .meta .sep{color:var(--ink-400)}

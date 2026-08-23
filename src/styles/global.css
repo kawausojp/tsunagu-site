@@ -60,7 +60,7 @@ main:focus{outline:none}
   white-space:nowrap!important;border:0!important}
 
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--layout-gutter)}
-.section{padding:104px 0}
+.section{padding:64px 0}
 
 /* ── 標題（日系：字距拉開、行高放鬆、字重不過粗） ── */
 .d1{font-family:var(--f-display);font-weight:700;font-size:clamp(29px,5vw,46px);
@@ -126,7 +126,7 @@ main:focus{outline:none}
   }
   html{scroll-padding-top:calc(var(--header-height) + 16px)}
   body{background:var(--paper);line-height:1.75}
-  .section{padding:48px 0}
+  .section{padding:40px 0}
   .d1{font-size:clamp(30px,9vw,36px);line-height:1.32;letter-spacing:.02em}
   .d2{font-size:22px;line-height:1.4;letter-spacing:.02em}
   .d3{font-size:16px;line-height:1.55;letter-spacing:.01em}

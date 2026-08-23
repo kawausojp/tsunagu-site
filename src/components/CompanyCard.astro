@@ -42,11 +42,16 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel]
   .stat.alt{color:var(--sky-700);background:var(--sky-50)}
   .co h3,.thumb span{overflow-wrap:anywhere}
   @media (max-width:720px){
+    /* 兩格一列的半寬卡：只留品牌名、地區/職種標籤、實績。公司登記名與 tagline 進詳情頁看 */
     .thumb{height:7px;padding:0;background:linear-gradient(90deg,var(--pink-200),var(--sky-200))}
     .thumb span{display:none}
-    .body{padding:15px 16px 17px}
-    .corp{margin-bottom:8px}
-    .tags{margin:8px 0 10px;gap:6px}
-    .tag-line{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .body{padding:12px 12px 14px}
+    .co h3{font-size:15px}
+    .corp{display:none}
+    .tag-line{display:none}
+    .tags{margin:8px 0 9px;gap:4px}
+    .tags :global(.tag){font-size:10.5px;padding:3px 9px}
+    .stats{gap:4px}
+    .stat{font-size:10.5px;padding:3px 8px}
   }
 </style>
