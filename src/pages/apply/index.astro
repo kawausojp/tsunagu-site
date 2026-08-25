@@ -1,22 +1,24 @@
 ---
 import Base from '../../layouts/Base.astro';
-const FORM_URL = ''; // TODO Google 表單（Profile／履歷收件）
+// 線上收件流程目前不存在（2026-08-26 使用者確認）。若日後建立 Google 表單，
+// 填入網址即自動切換為內嵌表單，以下聯絡導流版面會被取代。
+const FORM_URL = '';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Base title="送出 Profile" description="已經確定要去日本？先把 Profile 或履歷送給我們，我們幫你看。">
   <section class="head"><div class="wrap">
     <h1 class="d1">已經決定要去日本了</h1>
-    <p class="lead">先填 Profile 就好。履歷很花時間，可以之後再補。我們收到後會安排個別諮詢。</p>
+    <p class="lead">資料交給我們，之後會安排個別諮詢。履歷很花時間，可以之後再補。</p>
   </div></section>
 
   <section class="wrap sec">
-    <h2 class="d2">送出資料</h2>
+    <h2 class="d2">怎麼把資料給我們</h2>
     {FORM_URL
       ? <div class="formwrap"><iframe src={FORM_URL} loading="lazy" title="Profile 送出表單"></iframe></div>
       : <div class="card slot">
-          <p>線上表單準備中。想先把資料給我們的話，歡迎直接到
-          <a href={`${base}/events`}>交流會現場</a>，或私訊
-          <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp</a>。</p>
+          <p>兩個方式：直接到<a href={`${base}/events`}>交流會現場</a>跟我們聊，
+          或私訊 <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp</a>，
+          我們會告訴你需要準備什麼。</p>
         </div>}
     <div class="notice">
       <strong>關於你的資料：</strong>表單由 Google 表單承接，資料直接進入主辦方的 Google Workspace，

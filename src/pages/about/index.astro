@@ -1,13 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// 連結原則（CLAUDE.md 紅線 #3）：只外連報社原文，不貼報紙掃描圖。
+// 繊研 2025 兩篇與日經 2024.10.07 經查無線上版（senken.co.jp 404 實測），標紙面刊載。
 const media = [
-  { name:'日本經濟新聞 朝刊', date:'2024.10.07', note:'報導 kimono やまと 的 Haru' },
-  { name:'繊研新聞', date:'2026.01.28' },
-  { name:'繊研新聞', date:'2025.07.17' },
-  { name:'繊研新聞', date:'2025.02.12' },
+  { name:'日本經濟新聞 朝刊', date:'2024.10.07', note:'報導 kimono やまと 的 Haru', print:true },
+  { name:'繊研新聞', date:'2026.01.28', url:'https://senken.co.jp/posts/bp-260128' },
+  { name:'繊研新聞', date:'2025.07.17', print:true },
+  { name:'繊研新聞', date:'2025.02.12', print:true },
   { name:'Yahoo! ニュース', date:'2024.08.07' },
-  { name:'台北經濟新聞', date:'2023.06' },
+  { name:'台北經濟新聞', date:'2023.06.06', url:'https://taipei.keizai.biz/headline/418/' },
 ];
 ---
 <Base title="關於 Tsunagu" description="Tsunagu 是誰、為什麼做這件事。">
@@ -51,8 +53,11 @@ const media = [
       {media.map(m => (
         <li class="card m">
           <span class="d">{m.date}</span>
-          <span class="n">{m.name}</span>
+          {m.url
+            ? <a class="n m-link" href={m.url} target="_blank" rel="noopener">{m.name} ↗</a>
+            : <span class="n">{m.name}</span>}
           {m.note && <span class="small note-t">{m.note}</span>}
+          {m.print && <span class="small note-t">紙面刊載</span>}
         </li>
       ))}
     </ul>
@@ -95,4 +100,6 @@ const media = [
     .m .d{flex-basis:82px}
   }
   .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .m-link{color:var(--sky-700);text-decoration:none}
+  .m-link:hover{text-decoration:underline}
 </style>
