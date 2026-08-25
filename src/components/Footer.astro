@@ -25,18 +25,10 @@ const year = 2026;
     </div>
   </div>
 
-  <!-- 上線前必填：依《私立就業服務機構許可及管理辦法》第35條，
-       就業服務業務廣告應載明「機構名稱、許可證字號、機構地址及電話」。
-       填入實際執行就業服務業務之持照機構資料。 -->
+  <!-- 上線前必須在此加回許可資訊段落：依《私立就業服務機構許可及管理辦法》第 35 條，
+       就業服務業務廣告應載明「機構名稱、許可證字號、機構地址及電話」（填持照機構資料）。
+       佔位版本見 git 歷史此檔案的 .pending 段落。 -->
   <div class="wrap legal">
-    <p class="small pending">
-      <strong>【上線前必填】</strong>本網站之就業服務業務由
-      <span class="blank">〔持照機構名稱〕</span> 提供，
-      許可證字號 <span class="blank">〔字號〕</span>，
-      地址 <span class="blank">〔地址〕</span>，
-      電話 <span class="blank">〔電話〕</span>。
-      <br/>（依《私立就業服務機構許可及管理辦法》第 35 條）
-    </p>
     <p class="small">
       活動主辦：智囊和夥伴有限公司（Brain &amp; Partner Taiwan Inc.）<br/>
       © {year} Tsunagu. 企業資訊整理自交流會簡報，職缺狀態請以交流會或個別諮詢說明為準。
@@ -52,8 +44,6 @@ const year = 2026;
   footer a{display:block;font-size:14px;color:var(--ink-600);text-decoration:none;padding:4px 0}
   footer a:hover{color:var(--pink-700)}
   .legal{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
-  .pending{background:var(--note-bg);border:1px dashed var(--note-line);border-radius:var(--r-sm);padding:12px 16px}
-  .blank{background:#F3E4C6;padding:1px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:12px}
   @media (max-width:720px){
     footer{padding:32px 0 24px;margin-top:32px;border-top-color:var(--mobile-line)}
     .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 16px}
@@ -63,6 +53,5 @@ const year = 2026;
     h3{font-size:12.5px;margin-bottom:7px}
     footer a{display:flex;align-items:center;min-height:36px;padding:5px 0;font-size:13px;line-height:1.5}
     .legal{margin-top:24px;padding-top:20px;border-top-color:var(--mobile-line)}
-    .pending{padding:12px 14px}
   }
 </style>

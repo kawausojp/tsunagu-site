@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import SenpaiAvatar from '../../components/SenpaiAvatar.astro';
 import Base from '../../layouts/Base.astro';
 const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -23,7 +24,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
     {stories.map(s => (
       <article class="card item" id={s.id} tabindex="-1" aria-labelledby={`${s.id}-title`}>
         <header class="top">
-          <div class="avatar" aria-hidden="true">{s.data.name.slice(0,1)}</div>
+          <div class="avatar"><SenpaiAvatar name={s.data.name} size={56} /></div>
           <div>
             <h2 class="d3" id={`${s.id}-title`} lang="ja">{s.data.name}</h2>
             <p class="meta small">
@@ -75,10 +76,11 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
   .item:target{border-color:var(--pink-300);box-shadow:var(--sh-3)}
   .top{display:flex;gap:16px;align-items:center;margin-bottom:16px}
   .avatar{width:56px;height:56px;flex:0 0 56px;border-radius:var(--r-full);
-    border:2.5px solid transparent;
-    background:linear-gradient(140deg,var(--pink-100),var(--sky-100)) padding-box,
-      linear-gradient(135deg,var(--pink-400),var(--sky-300)) border-box;display:flex;
-    align-items:center;justify-content:center;color:var(--ink-900);font-weight:700;font-family:var(--f-latin);font-size:22px}
+    border:2.5px solid transparent;overflow:hidden;
+    background:var(--paper) padding-box,
+      linear-gradient(135deg,var(--pink-400),var(--sky-300)) border-box;
+    display:flex;align-items:center;justify-content:center}
+  .avatar :global(svg){width:100%;height:100%;display:block}
   .meta{margin:5px 0 0;display:flex;flex-wrap:wrap;gap:6px 9px;align-items:center;color:var(--ink-600)}
   .meta .sep{color:var(--ink-400)}
   .lead-q{font-family:var(--f-display);font-size:17px;font-weight:700;line-height:1.7;

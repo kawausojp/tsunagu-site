@@ -1,0 +1,73 @@
+---
+// 品類插圖：原創 SVG，棕線稿（--ink-900）＋粉彩填色，畫風對齊 JP/TW 角色。
+// 企業照片需品牌授權（CLAUDE.md 紅線 #5），插圖是零風險替代；拿到授權照片可逐家換。
+interface Props { cat: string; size?: number; }
+const { cat, size = 40 } = Astro.props;
+const S = '#5F5049';           // 線稿 = --ink-900
+const P = '#F8CBDF';           // pink-200
+const PL = '#FDEAF1';          // pink-100
+const B = '#C3D8ED';           // sky-200
+const BL = '#E2EFF8';          // sky-100
+const Y = '#FDF6E9';           // note-bg
+const G = '#F4EBE6';           // greige-100
+---
+<svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden="true"
+  stroke={S} stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  {cat === 'apparel' && <>
+    <path d="M14 9l-7 5 3 5 3-2v14h14V17l3 2 3-5-7-5c-1 2-3.5 3-6 3s-5-1-6-3z" fill={P}/>
+    <path d="M16 9c1 1.6 2.4 2.4 4 2.4S23 10.6 24 9" fill="none"/>
+  </>}
+  {cat === 'shoes' && <>
+    <path d="M8 26c0-6 3-11 5-13l4 4c4 4 12 5 15 9v4H8z" fill={B}/>
+    <path d="M8 26h24v4H8z" fill={BL}/>
+    <path d="M17 17l2.5-2M20 20l2.5-2" fill="none"/>
+  </>}
+  {cat === 'jewelry' && <>
+    <path d="M13 10h14l5 8-12 14L8 18z" fill={PL}/>
+    <path d="M13 10l7 8 7-8M8 18h24M20 18v13" fill="none"/>
+  </>}
+  {cat === 'food' && <>
+    <path d="M7 20h26c0 7-5 12-13 12S7 27 7 20z" fill={P}/>
+    <path d="M12 32h16M15 20c0-2 2-3 5-3s5 1 5 3" fill="none"/>
+    <path d="M24 8l8-3M25 12l8-2" fill="none"/>
+  </>}
+  {cat === 'kimono' && <>
+    <path d="M12 8h16l4 8-4 2v14H12V18l-4-2z" fill={B}/>
+    <path d="M12 8l8 10 8-10M12 22h16" fill="none"/>
+    <path d="M12 22h16v4H12z" fill={P}/>
+  </>}
+  {cat === 'goods' && <>
+    <rect x="9" y="16" width="22" height="16" rx="2" fill={Y}/>
+    <path d="M9 16h22M20 16v16" fill="none"/>
+    <path d="M20 16c-5 0-7-2-7-4.5S15 8 17 9.5s3 4 3 6.5c0-2.5 1-5 3-6.5s4-.5 4 2S25 16 20 16z" fill={P}/>
+  </>}
+  {cat === 'bag' && <>
+    <path d="M10 16h20l2 15H8z" fill={PL}/>
+    <path d="M14 16v-3a6 6 0 0 1 12 0v3" fill="none"/>
+  </>}
+  {cat === 'socks' && <>
+    <path d="M15 8h10v13c0 5-3 9-7.5 9S9 27 11 23c1.4-2.8 4-3 4-6z" fill={BL}/>
+    <path d="M15 12h10" fill="none"/>
+  </>}
+  {cat === 'hat' && <>
+    <ellipse cx="20" cy="26" rx="14" ry="4" fill={G}/>
+    <path d="M12 26c0-8 3-13 8-13s8 5 8 13" fill={Y}/>
+    <path d="M12 24h16" fill="none" stroke={P} stroke-width="3"/>
+  </>}
+  {cat === 'group' && <>
+    <rect x="8" y="12" width="12" height="20" rx="1.5" fill={BL}/>
+    <rect x="20" y="18" width="12" height="14" rx="1.5" fill={PL}/>
+    <path d="M12 17h4M12 22h4M12 27h4M24 23h4M24 27h4" fill="none"/>
+  </>}
+  {cat === 'eyewear' && <>
+    <circle cx="13" cy="22" r="6" fill={BL}/>
+    <circle cx="27" cy="22" r="6" fill={BL}/>
+    <path d="M19 22c0-1.5 2-1.5 2 0M7 22l-3-2M33 22l3-2" fill="none"/>
+  </>}
+  {!['apparel','shoes','jewelry','food','kimono','goods','bag','socks','hat','group','eyewear'].includes(cat) && <>
+    <circle cx="20" cy="20" r="12" fill={PL}/>
+    <path d="M15 21c1.5 2 3 3 5 3s3.5-1 5-3" fill="none"/>
+    <circle cx="16" cy="17" r="1" fill={S} stroke="none"/>
+    <circle cx="24" cy="17" r="1" fill={S} stroke="none"/>
+  </>}
+</svg>
