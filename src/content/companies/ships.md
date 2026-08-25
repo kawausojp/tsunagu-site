@@ -8,7 +8,7 @@ jlpt: null
 placements: 1
 fullTimeConverted: 1
 onlineInterview: false
-tagline: "創業超過 50 年的日本老牌選品店"
+tagline: "1977 年開出銀座一號店的日本老牌選品店"
 highlights:
   - "1 人自 2024 年 9 月起任職並轉正職"
 sourceSlide: 116

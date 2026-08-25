@@ -27,7 +27,8 @@
   --f-body:"Noto Sans TC","BIZ UDPGothic","Noto Sans JP",system-ui,sans-serif;
   --f-latin:"Jost",system-ui,sans-serif;
   /* ── 形 ── */
-  --r-sm:10px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-full:999px;
+  /* 形狀語言：圓形只給本來就圓的（頭像、圓點、播放鈕）；文字容器用紙的形狀 */
+  --r-xs:4px; --r-sm:8px; --r-md:12px; --r-lg:20px; --r-xl:28px; --r-full:999px;
   --sh-1:0 2px 10px rgba(160,120,130,.06);
   --sh-2:0 8px 24px rgba(200,150,170,.14);
   --sh-3:0 16px 44px rgba(180,140,150,.14);
@@ -76,9 +77,9 @@ main:focus{outline:none}
 /* ── 按鈕：粉彩底 + 褐字，全站不出現深色塊 ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
   font-family:var(--f-body);font-weight:700;font-size:14.5px;letter-spacing:.04em;
-  padding:14px 30px;border-radius:var(--r-full);border:1.5px solid transparent;
+  padding:13px 24px;border-radius:var(--r-md);border:1.5px solid transparent;
   cursor:pointer;text-decoration:none;transition:.24s var(--ease)}
-.btn-primary{background:var(--pink-200);color:var(--ink-900);box-shadow:var(--sh-2)}
+.btn-primary{background:var(--pink-200);color:var(--ink-900);border-bottom:2px solid var(--pink-400)}
 .btn-primary:hover{background:var(--pink-300)}
 .btn-secondary{background:var(--paper);color:var(--sky-700);border-color:var(--sky-200)}
 .btn-secondary:hover{background:var(--sky-50);border-color:var(--sky-700)}
@@ -88,11 +89,11 @@ main:focus{outline:none}
 .btn-ghost:hover{border-color:var(--ink-400);color:var(--ink-900)}
 
 /* ── 標籤 ── */
-.tag{display:inline-block;font-size:12px;font-weight:500;padding:5px 14px;letter-spacing:.03em;
-  border-radius:var(--r-full);background:var(--greige-100);color:var(--ink-600);line-height:1.6}
-.tag.area{background:var(--sky-50);color:var(--sky-700)}
-.tag.job{background:var(--pink-50);color:var(--pink-700)}
-.tag.jlpt{background:var(--note-bg);color:var(--note-ink)}
+.tag{display:inline-block;font-size:12px;font-weight:500;padding:3px 10px;letter-spacing:.03em;
+  border-radius:var(--r-xs);background:var(--greige-50);border:1px solid var(--greige-100);color:var(--ink-600);line-height:1.6}
+.tag.area{background:var(--sky-50);border-color:var(--sky-200);color:var(--sky-700)}
+.tag.job{background:var(--pink-50);border-color:var(--pink-200);color:var(--pink-700)}
+.tag.jlpt{background:var(--note-bg);border-color:var(--note-line);color:var(--note-ink)}
 .tags{display:flex;flex-wrap:wrap;gap:8px}
 
 /* ── 卡片 ── */
@@ -106,10 +107,15 @@ main:focus{outline:none}
   .card-link:hover{box-shadow:var(--sh-3);transform:translateY(-3px)}
 }
 
-.note{background:var(--sky-50);border-left:3px solid var(--sky-200); /* impeccable-disable-line side-tab -- 補充說明區塊，非卡片邊框 */
-  border-radius:0 var(--r-sm) var(--r-sm) 0;padding:16px 20px;font-size:13.5px;
+/* 補充注釋：日式 ※ 起頭，無底色（一個畫面最多一個有底色的強調 = .notice） */
+.note{padding:14px 0 0;border-top:1px solid var(--line);font-size:13.5px;
   color:var(--ink-600);line-height:1.9}
+.note::before{content:'※';color:var(--pink-700);margin-right:.5em}
 .note strong{color:var(--ink-900)}
+/* 必讀聲明（免責、法遵、個資）：全站唯一保留底色的區塊，每頁至多一個 */
+.notice{background:var(--note-bg);border:1px solid var(--note-line);border-radius:var(--r-sm);
+  padding:14px 18px;font-size:13.5px;color:var(--note-ink);line-height:1.9}
+.notice strong{color:var(--ink-900)}
 
 /* 手機版採用安靜、任務優先的單層介面；桌面版保留原有品牌表現。 */
 @media (max-width:720px){
@@ -133,7 +139,7 @@ main:focus{outline:none}
   .eyebrow{font-size:10px;letter-spacing:.22em;margin-bottom:10px}
   .lead{font-size:15px;line-height:1.8}
   .small{font-size:12.5px;line-height:1.75}
-  main .btn{min-height:var(--mobile-control-height);padding:11px 18px;border-radius:12px;box-shadow:none;font-size:14px}
+  main .btn{min-height:var(--mobile-control-height);padding:11px 18px;box-shadow:none;font-size:14px}
   main .btn-secondary{border-color:var(--mobile-control-line);color:var(--ink-900)}
   main .btn-ghost{border-color:var(--mobile-line);color:var(--ink-900)}
   main .btn.text-action{width:auto;min-height:44px;padding:8px 2px;border:0;border-radius:0;
@@ -144,7 +150,6 @@ main:focus{outline:none}
   main .btn.text-action-primary:hover{color:var(--ink-900)}
   main .card{border-radius:12px;border-color:var(--mobile-line);box-shadow:none}
   main .card-link:focus-visible{box-shadow:none}
-  main .note{background:#FAFAFA;border:1px solid var(--mobile-line);border-radius:12px;padding:14px 16px}
 }
 
 @media (prefers-reduced-motion:reduce){

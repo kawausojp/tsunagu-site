@@ -1,10 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
 const FORM_URL = ''; // TODO Google 表單（Profile／履歷收件）
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Base title="送出 Profile" description="已經確定要去日本？先把 Profile 或履歷送給我們，我們幫你看。">
   <section class="head"><div class="wrap">
-    <p class="eyebrow">Apply</p>
     <h1 class="d1">已經決定要去日本了</h1>
     <p class="lead">先填 Profile 就好。履歷很花時間，可以之後再補。我們收到後會安排個別諮詢。</p>
   </div></section>
@@ -13,10 +13,14 @@ const FORM_URL = ''; // TODO Google 表單（Profile／履歷收件）
     <h2 class="d2">送出資料</h2>
     {FORM_URL
       ? <div class="formwrap"><iframe src={FORM_URL} loading="lazy" title="Profile 送出表單"></iframe></div>
-      : <div class="card slot"><p class="small pending"><strong>【待接】</strong>Google 表單網址（Profile／履歷收件）。</p></div>}
-    <div class="note">
+      : <div class="card slot">
+          <p>線上表單準備中。想先把資料給我們的話，歡迎直接到
+          <a href={`${base}/events`}>交流會現場</a>，或私訊
+          <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp</a>。</p>
+        </div>}
+    <div class="notice">
       <strong>關於你的資料：</strong>表單由 Google 表單承接，資料直接進入主辦方的 Google Workspace，
-      本網站不儲存任何個人資料。<span class="pending-inline">【待補】隱私權政策與跨境傳輸同意條款。</span>
+      本網站不儲存任何個人資料。{/* 內部待辦（勿放回畫面）：隱私權政策與跨境傳輸同意條款，見 CLAUDE.md */}
     </div>
   </section>
 
@@ -69,13 +73,11 @@ const FORM_URL = ''; // TODO Google 表單（Profile／履歷收件）
   </section>
 </Base>
 <style>
-  .head{background:linear-gradient(165deg,var(--sky-50),var(--cream));padding:64px 0 48px;border-bottom:1px solid var(--line)}
+  .head{background:var(--cream);padding:64px 0 48px;border-bottom:1px solid var(--line)}
   .head .wrap{max-width:948px}
   .sec{margin-top:48px;max-width:948px}
   .sec h2{margin-bottom:14px}
   .slot{padding:24px}
-  .pending{background:var(--note-bg);border:1px dashed var(--note-line);border-radius:var(--r-sm);padding:10px 14px;margin:0}
-  .pending-inline{background:var(--note-bg);padding:2px 8px;border-radius:4px}
   .formwrap{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line)}
   .formwrap iframe{width:100%;height:1100px;border:0;display:block}
   .note{margin-top:20px}

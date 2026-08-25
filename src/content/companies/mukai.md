@@ -9,8 +9,7 @@ placements: 4
 fullTimeConverted: 1
 onlineInterview: false
 tagline: "匯集大量 Made in Japan 飾品與雜貨的店"
-highlights:
-  - "累計 4 人任職，其中 1 人為正社員"
+highlights: []
 sourceSlide: 91
 verified: true
 ---

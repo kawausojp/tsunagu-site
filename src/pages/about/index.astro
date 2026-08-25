@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const media = [
   { name:'日本經濟新聞 朝刊', date:'2024.10.07', note:'報導 kimono やまと 的 Haru' },
   { name:'繊研新聞', date:'2026.01.28' },
@@ -11,7 +12,6 @@ const media = [
 ---
 <Base title="關於 Tsunagu" description="Tsunagu 是誰、為什麼做這件事。">
   <section class="head"><div class="wrap">
-    <p class="eyebrow">About</p>
     <h1 class="d1">為什麼做這件事</h1>
   </div></section>
 
@@ -56,12 +56,18 @@ const media = [
         </li>
       ))}
     </ul>
-    <p class="small pending"><strong>【待補】</strong>各則報導的原文連結。
-      報導截圖屬報社著作，官網不直接貼圖，改以標題＋日期＋外連呈現。</p>
+    {/* 內部待辦（勿放回畫面）：各則報導的原文連結（標題＋日期＋外連，不貼截圖），見 CLAUDE.md */}
+  </section>
+
+  <section class="wrap sec">
+    <div class="cta-row">
+      <a class="btn btn-primary" href={`${base}/events`}>來交流會見見我們 →</a>
+      <a class="btn btn-secondary text-action" href={`${base}/stories`}>看學長姐的經驗 →</a>
+    </div>
   </section>
 </Base>
 <style>
-  .head{background:linear-gradient(165deg,var(--sky-50),var(--cream));padding:64px 0 48px;border-bottom:1px solid var(--line)}
+  .head{background:var(--cream);padding:64px 0 48px;border-bottom:1px solid var(--line)}
   .head .wrap{max-width:868px}
   .sec{margin-top:48px;max-width:868px}
   .sec h2{margin-bottom:16px}
@@ -75,7 +81,6 @@ const media = [
   .m .d{font-family:var(--f-latin);font-weight:600;color:var(--ink-600);font-size:13px;flex:0 0 92px}
   .m .n{font-weight:700;font-size:15px}
   .note-t{color:var(--ink-600)}
-  .pending{background:var(--note-bg);border:1px dashed var(--note-line);border-radius:var(--r-sm);padding:10px 14px;margin-top:14px}
   @media (max-width:720px){
     .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
     .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
@@ -88,6 +93,6 @@ const media = [
     .m{gap:8px;padding:12px 14px;border:0;border-bottom:1px solid var(--mobile-line);border-radius:0}
     .m:last-child{border-bottom:0}
     .m .d{flex-basis:82px}
-    .pending{padding:12px 14px}
   }
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
 </style>

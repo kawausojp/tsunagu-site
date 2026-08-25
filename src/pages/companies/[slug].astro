@@ -9,10 +9,22 @@ export async function getStaticPaths() {
 const { c } = Astro.props;
 const d = c.data;
 const { Content } = await render(c);
+// 在這個品牌工作過的學長姐（company 名寬鬆比對；資料本來就在庫裡，接上而已）
+const allStories = await getCollection('stories');
+const norm = (x: string) => x.normalize('NFKC').toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u4e00-\u9fff]/g, '');
+const dn = norm(d.name);
+const relatedStories = allStories.filter(st => {
+  const sn = norm(st.data.company);
+  if (sn.length < 2) return false;
+  // 前綴比對而非子字串：避免 "ete" 誤配 "agete"；另取空格前第一段處理 "MUK ムカイ" → MUKAI
+  const snFirst = norm(st.data.company.split(/[\s/]/)[0]);
+  return sn === dn || dn.startsWith(sn) || sn.startsWith(dn) || (snFirst.length > 2 && dn.startsWith(snFirst));
+}).sort((a, b) => a.data.order - b.data.order);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡', kobe:'神戶', hokkaido:'北海道' };
 ---
-<Base title={d.name} description={d.tagline}>
+<Base title={`${d.name} 赴日工作介紹`}
+  description={`${d.name}（${d.categoryLabel}）的品牌介紹與台灣人任職實績${d.placements > 0 ? `：累計 ${d.placements} 人透過 Tsunagu 任職` : ''}。詳情請參加免費交流會。`}>
   <article>
     <div class="hero">
       <div class="wrap">
@@ -51,16 +63,24 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
         招募條件與職缺狀態會變動，請以交流會現場或個別諮詢的說明為準。
       </div>
 
-      <div class="cta">
+            {relatedStories.length > 0 && (
+        <div class="related">
+          <h2 class="d3">在這裡工作過的學長姐</h2>
+          {relatedStories.map(st => (
+            <a class="rel-link" href={`${base}/stories#${st.id}`}><span lang="ja">{st.data.name}</span>（{st.data.visa}）的分享 →</a>
+          ))}
+        </div>
+      )}
+<div class="cta">
         <a class="btn btn-primary" href={`${base}/events`}>報名交流會，現場問清楚</a>
-        <a class="btn btn-ghost text-action" href={`${base}/companies`}>看其他品牌 →</a>
+        <a class="btn btn-ghost text-action" href={`${base}/companies`}>看全部 35 家合作品牌 →</a>
       </div>
     </div>
   </article>
 </Base>
 
 <style>
-  .hero{background:linear-gradient(165deg,var(--pink-50),var(--cream));padding:40px 0 44px;border-bottom:1px solid var(--line)}
+  .hero{background:var(--cream);padding:40px 0 44px;border-bottom:1px solid var(--line)}
   .hero .wrap{max-width:808px}
   .back{display:inline-block;font-size:13.5px;color:var(--ink-600);text-decoration:none;margin-bottom:18px}
   .back:hover{color:var(--pink-700)}
@@ -96,4 +116,8 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
     .note{margin-top:22px}
     .cta{flex-direction:column;align-items:flex-start;gap:6px;margin-top:28px}
   }
+  .related{margin:26px 0 6px}
+  .related :global(.d3){margin-bottom:8px}
+  .rel-link{display:block;padding:6px 0;color:var(--sky-700);text-decoration:none}
+  .rel-link:hover{text-decoration:underline}
 </style>

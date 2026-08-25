@@ -6,14 +6,21 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Base title="找不到這一頁" noindex>
   <section class="nf"><div class="wrap">
-    <Image src={characters} alt="" widths={[260, 520]} sizes="260px" class="nf-chars" />
+    <Image src={characters} alt="Tsunagu 的兩隻角色：穿著 JP 藍色上衣的狗，和穿著 TW 粉色上衣的貓，牽著手坐在一起"
+      widths={[260, 520]} sizes="260px" class="nf-chars" />
     <h1 class="d1">走丟了</h1>
-    <p class="lead">這一頁不在。要不要回首頁看看？</p>
-    <a class="btn btn-primary" href={`${base}/`}>回首頁</a>
+    <p class="lead">這一頁不在。從這裡繼續：</p>
+    <nav class="nf-links" aria-label="常用頁面">
+      <a class="btn btn-primary" href={`${base}/events`}>報名交流會</a>
+      <a class="btn btn-secondary" href={`${base}/companies`}>合作企業</a>
+      <a class="btn btn-secondary" href={`${base}/stories`}>學長姐經驗</a>
+      <a class="btn btn-ghost" href={`${base}/`}>回首頁</a>
+    </nav>
   </div></section>
 </Base>
 <style>
   .nf{text-align:center;padding:120px 0}
   .nf :global(.nf-chars){width:min(260px,70vw);height:auto;margin:0 auto 28px;display:block}
   .nf .lead{margin:0 auto 24px}
+  .nf-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 </style>

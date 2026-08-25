@@ -5,17 +5,17 @@ import eventsData from '../data/events.json';
 import Footer from '../components/Footer.astro';
 
 interface Props { title: string; description?: string; noindex?: boolean; }
-const { title, description = '台灣人與日本企業をツナグ — 免費的日本留學・打工度假就職媒合交流會。', noindex = false } = Astro.props;
+const { title, description = '把台灣的好人才牽到日本。免費的日本留學・打工度假就職媒合交流會，台北、台中、高雄、東京、大阪舉辦。', noindex = false } = Astro.props;
 const pageTitle = `${title}｜ツナグ Tsunagu`;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // 手機 sticky 報名列：取下一場場次做具體文案；events 頁本身不顯示（目的地即該頁）
-const _today = new Date().toISOString().slice(0, 10);
+const _today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei' }).format(new Date());
 const _up = [...eventsData.events].filter(e => e.date >= _today).sort((a,b)=>a.date.localeCompare(b.date))[0];
 const _wd = ['日','一','二','三','四','五','六'];
 const nextEventLabel = _up
   ? `報名 ${Number(_up.date.slice(5,7))}/${Number(_up.date.slice(8,10))}（${_wd[new Date(_up.date+'T00:00:00+08:00').getDay()]}）${_up.city}交流會 →`
   : '報名下一場交流會 →';
-const showStickyCta = !Astro.url.pathname.includes('/events');
+const showStickyCta = !/\/(events|apply)/.test(Astro.url.pathname);
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
 ---
@@ -47,6 +47,19 @@ const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
   {noindex && <meta name="robots" content="noindex,follow" />}
   {!noindex && <link rel="canonical" href={canonicalUrl} />}
   {!noindex && <link rel="alternate" hreflang="zh-Hant" href={canonicalUrl} />}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'ツナグ Tsunagu',
+    alternateName: '台湾人と日本企業をツナグ',
+    legalName: '智囊和夥伴有限公司（Brain & Partner Taiwan Inc.）',
+    url: Astro.site?.toString(),
+    logo: new URL(`${base}/img/icon-512.png`, Astro.site).toString(),
+    sameAs: [
+      'https://www.instagram.com/tw.tsunagu.jp/',
+      'https://www.threads.com/@tw.tsunagu.jp',
+    ],
+  })} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Jost:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -64,11 +77,15 @@ const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
   <script>
     // hero 的主 CTA 在視窗內時，隱藏底部 sticky 報名列（避免同屏出現兩顆相同按鈕）
     const bar = document.querySelector('.sticky-cta');
-    const heroBtn = document.querySelector('.hero .btn-primary');
-    if (bar && heroBtn && 'IntersectionObserver' in window) {
-      new IntersectionObserver(([e]) => {
-        bar.classList.toggle('dup', e.isIntersecting);
-      }, { threshold: 0.4 }).observe(heroBtn);
+    if (bar && 'IntersectionObserver' in window) {
+      // 頁面上任何一顆可見的報名鈕（hero 主鈕、手機 header 的報名 tab）都算重複
+      const rivals = [document.querySelector('.hero .btn-primary'), document.querySelector('.signup-tab')].filter(Boolean);
+      const seen = new Map();
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => seen.set(e.target, e.isIntersecting));
+        bar.classList.toggle('dup', [...seen.values()].some(Boolean));
+      }, { threshold: 0.4 });
+      rivals.forEach(el => io.observe(el));
     }
   </script>
   <style>
@@ -82,7 +99,7 @@ const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
         background:rgba(255,252,250,.94);backdrop-filter:blur(10px);
         border-top:1px solid var(--line);
         animation:cta-up .28s var(--ease) backwards}
-      .sticky-cta .btn{display:flex;justify-content:center;width:100%;font-size:15px;padding:14px 20px}
+      .sticky-cta .btn{display:flex;justify-content:center;width:100%;font-size:15px;padding:14px 20px;border-radius:var(--r-md)}
       /* 頁面上已有可見的報名鈕（hero）時退場，避免同屏雙 CTA */
       .sticky-cta.dup{transform:translateY(120%);transition:transform .28s var(--ease)}
       .sticky-cta{transition:transform .28s var(--ease)}

@@ -1,24 +1,99 @@
 {
   "_note": "交流會場次。新增一場就在 upcoming 最前面加一筆；日期過了會自動移到「舉辦紀錄」。每場的報名表單網址不同，signupUrl 記得換。",
   "totalHeld": 87,
-  "cities": ["台北", "台中", "高雄", "東京", "大阪"],
+  "cities": [
+    "台北",
+    "台中",
+    "高雄",
+    "東京",
+    "大阪"
+  ],
   "since": "2023-06",
   "events": [
-    { "no": "88,89", "date": "2026-09-20", "city": "台北", "sessions": ["14:00–16:00", "16:30–18:30"],
-      "signupUrl": "https://docs.google.com/forms/d/e/1FAIpQLScJdauwzGLiF5gMvZHM-9CfTsKQVsS1chZIQdSf_IF4EoA-xg/viewform" },
-    { "no": "86,87", "date": "2026-08-16", "city": "台北", "sessions": ["14:00–16:00", "16:30–18:30"],
+    {
+      "no": "88,89",
+      "date": "2026-09-20",
+      "city": "台北",
+      "sessions": [
+        "14:00–16:00",
+        "16:30–18:30"
+      ],
+      "signupUrl": "https://docs.google.com/forms/d/e/1FAIpQLScJdauwzGLiF5gMvZHM-9CfTsKQVsS1chZIQdSf_IF4EoA-xg/viewform",
+      "venue": "小樹屋 藍桉 301室",
+      "address": "台北市大安區大安路一段84巷2號3樓"
+    },
+    {
+      "no": "86,87",
+      "date": "2026-08-16",
+      "city": "台北",
+      "sessions": [
+        "14:00–16:00",
+        "16:30–18:30"
+      ],
       "signupUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6lyl9cvPdqYDE50WrR5SmKgXzLsKSMNtfJBY-KoMQoBfL8g/viewform",
-      "ig": "DcBUFV-AOBe" },
-    { "no": "85", "date": "2026-08-04", "city": "大阪", "ig": "DcBT0sblDV_" },
-    { "no": "84", "date": "2026-07-26", "city": "東京", "ig": "DcBTZu9lDNG" },
-    { "no": "82,83", "date": "2026-07-12", "city": "台北", "ig": "DbHtdjPD4Ys" },
-    { "no": "80,81", "date": "2026-06-14", "city": "台北", "ig": "DaEQym0klnO" },
-    { "no": "78,79", "date": "2026-05-23", "city": "台中", "ig": "DZhSiIpD31L" },
-    { "no": "76,77", "date": "2026-04-18", "city": "台北", "ig": "DYoPSBpj7Eb" },
-    { "no": "74,75", "date": "2026-03-15", "city": "台北", "ig": "DXDtwAnD8Nj" },
-    { "no": "73", "date": "2026-02-11", "city": "台北" },
-    { "no": "72", "date": "2026-01-25", "city": "東京" },
-    { "no": "70,71", "date": "2026-01-18", "city": "台北" },
-    { "no": "68,69", "date": "2025-12-20", "city": "高雄" }
+      "ig": "DcBUFV-AOBe"
+    },
+    {
+      "no": "85",
+      "date": "2026-08-04",
+      "city": "大阪",
+      "ig": "DcBT0sblDV_"
+    },
+    {
+      "no": "84",
+      "date": "2026-07-26",
+      "city": "東京",
+      "ig": "DcBTZu9lDNG"
+    },
+    {
+      "no": "82,83",
+      "date": "2026-07-12",
+      "city": "台北",
+      "ig": "DbHtdjPD4Ys"
+    },
+    {
+      "no": "80,81",
+      "date": "2026-06-14",
+      "city": "台北",
+      "ig": "DaEQym0klnO"
+    },
+    {
+      "no": "78,79",
+      "date": "2026-05-23",
+      "city": "台中",
+      "ig": "DZhSiIpD31L"
+    },
+    {
+      "no": "76,77",
+      "date": "2026-04-18",
+      "city": "台北",
+      "ig": "DYoPSBpj7Eb"
+    },
+    {
+      "no": "74,75",
+      "date": "2026-03-15",
+      "city": "台北",
+      "ig": "DXDtwAnD8Nj"
+    },
+    {
+      "no": "73",
+      "date": "2026-02-11",
+      "city": "台北"
+    },
+    {
+      "no": "72",
+      "date": "2026-01-25",
+      "city": "東京"
+    },
+    {
+      "no": "70,71",
+      "date": "2026-01-18",
+      "city": "台北"
+    },
+    {
+      "no": "68,69",
+      "date": "2025-12-20",
+      "city": "高雄"
+    }
   ]
 }

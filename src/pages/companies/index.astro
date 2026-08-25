@@ -16,13 +16,12 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 <Base title="合作企業" description="Tsunagu 合作的日本企業與品牌一覽，可依地區、職種、日語程度篩選。">
   <section class="head">
     <div class="wrap">
-      <p class="eyebrow">Companies</p>
       <h1 class="d1">合作企業</h1>
       <p class="lead">
         簡報中揭露的 {companies.length} 個品牌，隸屬 39 家契約企業。
         這些店多半不會在中文求職網站上刊登職缺——這正是為什麼自己找很難找到。
       </p>
-      <div class="note">
+      <div class="notice">
         <strong>關於招募狀態：</strong>這裡列出的是品牌介紹與過往任職實績，
         不是即時職缺。實際在徵什麼、條件如何，請以交流會現場或個別諮詢的說明為準。
       </div>
@@ -61,7 +60,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       <button type="button" class="reset" data-reset hidden>清除搜尋與篩選</button>
     </div>
     <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
-      data-status>顯示 {companies.length} 個品牌</span><span aria-hidden="true">／累計 {totalPlacements} 人次任職</span></p>
+      data-status>顯示 {companies.length} 個品牌</span><span aria-hidden="true">／本頁品牌合計 {totalPlacements} 人次任職</span></p>
   </div>
 
   <section class="wrap list">
@@ -74,7 +73,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 </Base>
 
 <style>
-  .head{background:linear-gradient(165deg,var(--pink-50),var(--cream));padding:64px 0 48px;border-bottom:1px solid var(--line)}
+  .head{background:var(--cream);padding:64px 0 48px;border-bottom:1px solid var(--line)}
   .head .note{margin-top:22px;max-width:46em}
   .tools{margin:32px auto 0}
   .filters{display:flex;flex-direction:column;gap:16px}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kawausojp.github.io/tsunagu-site/sitemap-index.xml

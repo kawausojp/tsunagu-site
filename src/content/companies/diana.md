@@ -9,8 +9,7 @@ placements: 5
 fullTimeConverted: 2
 onlineInterview: false
 tagline: "創業 77 年的日本鞋履品牌"
-highlights:
-  - "累計 5 人任職，2 人轉正職"
+highlights: []
 sourceSlide: 108
 verified: true
 ---
