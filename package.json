@@ -6,9 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "build:sites": "TSUNAGU_DEPLOY_TARGET=sites astro build && vite build --config vite.sites.config.mjs",
     "preview": "astro preview",
-    "preview:sites": "vite preview --config vite.sites.config.mjs",
     "check": "astro check"
   },
   "keywords": [],
@@ -21,7 +19,6 @@
     "@astrojs/check": "^0.9.10",
     "@astrojs/sitemap": "^3.7.3",
     "@cloudflare/vite-plugin": "^1.37.1",
-    "@openai/sites-vite-plugin": "^0.2.0",
     "playwright": "^1.62.1",
     "typescript": "^6.0.3",
     "vite": "^8.2.2"
