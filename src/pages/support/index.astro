@@ -3,13 +3,13 @@ import Base from '../../layouts/Base.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Base title="我們怎麼幫你" description="履歷、面試、住宿、抵日後追蹤 — Tsunagu 提供的支援，全部免費。">
-  <section class="head"><div class="wrap">
+  <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">我們怎麼幫你</h1>
     <p class="lead">很多人到了日本才發現，找不到想做的工作，或條件跟想像差很多。
       那不一定是能力問題——常常只是「不知道怎麼把自己講清楚」。</p>
   </div></section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--page page-section">
     <div class="grid">
       <div class="card b"><h2 class="d3">去日本之前</h2><ul>
         <li>了解你的性格、日語程度、英文、經歷、想做的職種、未來目標</li>
@@ -25,7 +25,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">為什麼特別推薦服飾與飾品店</h2>
     <div class="reasons">
       <div class="card r"><p>這些好看的店<strong>不會用中文刊登職缺</strong>，自己很難找到。</p></div>
@@ -34,7 +34,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">日語還不夠好怎麼辦</h2>
     <p class="lead">服飾類的工作通常要 N3 以上。如果剛到日本還沒到那個程度，可以先做 2～4 個月語言門檻較低的工作
       （車站內的蕎麥麵店、咖哩店 C&amp;C 等），習慣環境之後再挑戰。</p>
@@ -43,7 +43,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
-  <section class="wrap sec free">
+  <section class="wrap page-section free">
     <h2 class="d2">這一切都是免費的</h2>
     <p class="lead">交流會參加費、工作媒合介紹費，我們都不向台灣的各位收取。
       時薪等條件依公司、品牌、店鋪而異，但我們向日本企業提出的原則是：<strong>與日本人相同條件</strong>。</p>
@@ -51,10 +51,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   </section>
 </Base>
 <style>
-  .head{background:var(--cream);padding:64px 0 48px;border-bottom:1px solid var(--line)}
-  .head .wrap{max-width:948px}
-  .sec{margin-top:48px;max-width:948px}
-  .sec h2{margin-bottom:16px}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media (max-width:720px){ .grid{grid-template-columns:1fr} }
   .b{padding:24px 26px}
@@ -68,15 +64,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   .free{background:linear-gradient(120deg,var(--sky-50),var(--pink-50));border-radius:var(--r-xl);
     padding:40px 36px;max-width:900px;margin-bottom:20px}
   @media (max-width:720px){
-    .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
-    .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
-    .head .lead{margin-top:12px}
-    .sec{margin-top:var(--content-section-gap)}
-    .sec h2{margin-bottom:12px}
     .grid,.reasons{gap:12px}
     .b,.r{padding:18px 16px}
     .b ul{margin-top:10px}
-    .free{background:#FAFAFA;border:1px solid var(--mobile-line);border-radius:12px;
+    .free{background:var(--greige-50);border:1px solid var(--mobile-line);border-radius:12px;
       margin-left:16px;margin-right:16px;padding:24px 18px}
     .free .btn{width:auto}
   }

@@ -6,27 +6,41 @@ const FORM_URL = '';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Base title="送出 Profile" description="已經確定要去日本？先把 Profile 或履歷送給我們，我們幫你看。">
-  <section class="head"><div class="wrap">
+  <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">已經決定要去日本了</h1>
     <p class="lead">資料交給我們，之後會安排個別諮詢。履歷很花時間，可以之後再補。</p>
   </div></section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">怎麼把資料給我們</h2>
     {FORM_URL
-      ? <div class="formwrap"><iframe src={FORM_URL} loading="lazy" title="Profile 送出表單"></iframe></div>
-      : <div class="card slot">
-          <p>兩個方式：直接到<a href={`${base}/events`}>交流會現場</a>跟我們聊，
-          或私訊 <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp</a>，
-          我們會告訴你需要準備什麼。</p>
-        </div>}
-    <div class="notice">
-      <strong>關於你的資料：</strong>表單由 Google 表單承接，資料直接進入主辦方的 Google Workspace，
-      本網站不儲存任何個人資料。{/* 內部待辦（勿放回畫面）：隱私權政策與跨境傳輸同意條款，見 CLAUDE.md */}
-    </div>
+      ? <div class="stack contact-stack">
+          <div class="formwrap"><iframe src={FORM_URL} loading="lazy" title="Profile 送出表單"></iframe></div>
+          <div class="notice">
+            <strong>關於你的資料：</strong>表單由 Google 表單承接，資料直接進入主辦方的 Google Workspace，
+            本網站不儲存任何個人資料。
+          </div>
+        </div>
+      : <>
+          <div class="card contact-panel">
+            <article class="contact-option">
+              <span class="contact-no" aria-hidden="true">01</span>
+              <h3 class="d3">先到交流會聊聊</h3>
+              <p class="small">不用先準備完整履歷，現場告訴我們你的時間、日語程度與想做的工作。</p>
+              <a class="action-link" href={`${base}/events`}>查看下一場交流會 →</a>
+            </article>
+            <article class="contact-option">
+              <span class="contact-no" aria-hidden="true">02</span>
+              <h3 class="d3">直接私訊我們</h3>
+              <p class="small">如果時間不方便，先從 Instagram 聯絡，我們會告訴你需要準備什麼。</p>
+              <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp ↗</a>
+            </article>
+          </div>
+          <p class="small privacy">以上連結由交流會頁面或 Instagram 承接；本網站本身不接收或儲存你的個人資料。</p>
+        </>}
   </section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">履歷照片怎麼拍</h2>
     <p class="lead">這是簡報裡最多人受用的一頁。日本的履歷照有它的規矩，但服飾業又不太一樣。</p>
     <div class="two">
@@ -51,7 +65,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">面試要注意的幾件事</h2>
     <div class="two">
       <div class="card box">
@@ -75,31 +89,31 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   </section>
 </Base>
 <style>
-  .head{background:var(--cream);padding:64px 0 48px;border-bottom:1px solid var(--line)}
-  .head .wrap{max-width:948px}
-  .sec{margin-top:48px;max-width:948px}
-  .sec h2{margin-bottom:14px}
-  .slot{padding:24px}
+  .contact-stack{--stack-gap:16px}
+  .contact-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .contact-option{padding:24px}
+  .contact-option+.contact-option{border-left:1px solid var(--line)}
+  .contact-no{display:block;margin-bottom:8px;font-family:var(--f-latin);font-size:12px;
+    font-weight:700;letter-spacing:.12em;color:var(--pink-700)}
+  .contact-option p{margin:8px 0 12px}
+  .privacy{margin:14px 0 0;color:var(--ink-600)}
   .formwrap{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line)}
   .formwrap iframe{width:100%;height:1100px;border:0;display:block}
-  .note{margin-top:20px}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
   @media (max-width:720px){ .two{grid-template-columns:1fr} }
   .box{padding:22px 24px}
-  .box.alt{background:linear-gradient(140deg,var(--pink-50),#fff)}
+  .box.alt{background:linear-gradient(140deg,var(--pink-50),var(--paper))}
   .box ul{margin:12px 0 0;padding-left:1.2em}
   .box li{margin-bottom:7px;font-size:14.5px;line-height:1.8}
   @media (max-width:720px){
-    .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
-    .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
-    .head .lead{margin-top:12px}
-    .sec{margin-top:var(--content-section-gap)}
-    .sec h2{margin-bottom:12px}
-    .slot{padding:16px}
-    .note{margin-top:16px}
+    .contact-panel{grid-template-columns:1fr}
+    .contact-option{padding:18px 16px}
+    .contact-option+.contact-option{border-left:0;border-top:1px solid var(--mobile-line)}
+    .contact-option p{margin-top:6px}
+    .privacy{margin-top:12px}
     .two{gap:12px;margin-top:16px}
     .box{padding:18px 16px}
-    .box.alt{background:#FAFAFA}
+    .box.alt{background:var(--greige-50)}
     .box ul{margin-top:10px}
   }
 </style>

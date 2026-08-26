@@ -14,8 +14,8 @@ const jlpts = ['N2','N3'].filter(j => companies.some(c => c.data.jlpt === j));
 const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 ---
 <Base title="合作企業" description="Tsunagu 合作的日本企業與品牌一覽，可依地區、職種、日語程度篩選。">
-  <section class="head">
-    <div class="wrap">
+  <section class="page-head">
+    <div class="wrap wrap--page">
       <h1 class="d1">合作企業</h1>
       <p class="lead">
         簡報中揭露的 {companies.length} 個品牌，隸屬 39 家契約企業。
@@ -73,14 +73,13 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 </Base>
 
 <style>
-  .head{background:var(--cream);padding:64px 0 48px;border-bottom:1px solid var(--line)}
-  .head .note{margin-top:22px;max-width:46em}
+  .page-head .notice{max-width:46em}
   .tools{margin:32px auto 0}
   .filters{display:flex;flex-direction:column;gap:16px}
   .search{display:flex;flex-direction:column;gap:6px;max-width:380px;font-size:12px;font-weight:700;color:var(--ink-600)}
-  .search input{width:100%;min-height:var(--control-min);border:1.5px solid var(--line);border-radius:var(--r-full);
+  .search input{width:100%;min-height:var(--control-min);border:1.5px solid var(--line);border-radius:var(--r-md);
     background:var(--paper);color:var(--ink-900);font:inherit;font-size:15px;font-weight:400;padding:9px 18px}
-  .search input::placeholder{color:var(--ink-400)}
+  .search input::placeholder{color:var(--ink-600)}
   .filter-options{border:0}
   .filter-options summary{display:none;min-height:var(--control-min);align-items:center;justify-content:space-between;
     color:var(--ink-900);font-weight:700;cursor:pointer}
@@ -100,16 +99,13 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
   .empty{text-align:center;padding:48px 0;color:var(--ink-600)}
   @media (hover:hover) and (pointer:fine){button.f:hover{transform:translateY(-1px)}}
   @media (max-width:720px){
-    .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
-    .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
-    .head .lead{margin-top:12px}
-    .head .note{margin-top:16px}
     .tools{margin-top:20px}
     .filters{gap:12px}
     .search{max-width:none}
     .search input{min-height:var(--mobile-field-height);border:1px solid var(--mobile-control-line);
       border-radius:12px;background:#fff;font-size:16px;padding:12px 16px}
     .filter-options{border:1px solid var(--mobile-line);border-radius:12px;padding:0 14px;background:#fff}
+    .filter-options:not([data-ready]) .filter-groups{display:none}
     .filter-options summary{display:flex;min-height:var(--mobile-control-height)}
     .filter-options[open] summary{border-bottom:1px solid var(--mobile-line)}
     .filter-groups{gap:14px;padding:14px 0 16px}
@@ -175,6 +171,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 
   const mobileFilters = window.matchMedia('(max-width: 720px)');
   if (filterOptions && mobileFilters.matches) filterOptions.open = false;
+  if (filterOptions) filterOptions.dataset.ready = '';
   mobileFilters.addEventListener('change', event => {
     if (filterOptions) filterOptions.open = !event.matches;
   });

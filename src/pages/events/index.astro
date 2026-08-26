@@ -20,12 +20,13 @@ const WD = ['日','一','二','三','四','五','六'];
 // Event 結構化資料：僅未來場次且場地齊備者（Google Event 標記要求結構化地址）
 const eventsLd = upcoming.filter(e => e.venue && e.address).map(e => {
   const times = (e.sessions ?? []).map(t => t.split('–'));
+  const lastTime = times.at(-1);
   return {
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: `第 ${e.no} 回 台湾人と日本企業をツナグ交流会`,
     startDate: times[0] ? `${e.date}T${times[0][0]}:00+08:00` : e.date,
-    endDate: times.at(-1) ? `${e.date}T${times.at(-1)[1]}:00+08:00` : e.date,
+    endDate: lastTime ? `${e.date}T${lastTime[1]}:00+08:00` : e.date,
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     eventStatus: 'https://schema.org/EventScheduled',
     location: {
@@ -53,39 +54,41 @@ const flow = [
 ];
 ---
 <Base title="交流會場次與報名" description="Tsunagu 交流會，台北・台中・高雄・東京・大阪輪流舉辦，參加免費。">
-  {eventsLd.map(ld => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
-  <section class="head"><div class="wrap">
+  {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
+  <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">來交流會看看</h1>
     <p class="lead">聽日本企業說他們在找什麼樣的人，也聽已經在日本的前輩分享第一手經驗。</p>
     <p class="small since">自 {data.since} 起累計舉辦 <strong>{data.totalHeld}</strong> 場，
       地點涵蓋 {data.cities.join('、')}。</p>
   </div></section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--reading page-section">
     <h2 class="d2">下一場</h2>
     {upcoming.length > 0
-      ? upcoming.map(e => (
-          <div class="card next">
-            <div class="when">
-              <span class="no">第 {e.no} 回</span>
-              <span class="date">{fmt(e.date)}</span>
-              <span class="tag area">{e.city}</span>
+      ? <div class="upcoming-list">
+          {upcoming.map(e => (
+            <div class="card next">
+              <div class="when">
+                <span class="no">第 {e.no} 回</span>
+                <span class="date">{fmt(e.date)}</span>
+                <span class="tag area">{e.city}</span>
+              </div>
+              {e.sessions && <p class="small sessions">場次：{e.sessions.join('　／　')}</p>}
+              {e.signupUrl
+                ? <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往報名表單 →</a>
+                : <p class="small">報名連結待公布。</p>}
             </div>
-            {e.sessions && <p class="small sessions">場次：{e.sessions.join('　／　')}</p>}
-            {e.signupUrl
-              ? <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往報名表單 →</a>
-              : <p class="small">報名連結待公布。</p>}
-          </div>
-        ))
+          ))}
+        </div>
       : <div class="card next empty">
           <p><strong>下一場尚未公布。</strong></p>
           <p class="small">場次通常提前 2–4 週在 Instagram 公告。最近一場是第 {past[0]?.no} 回（{fmt(past[0]?.date)}・{past[0]?.city}）。</p>
-          <a class="btn btn-secondary text-action" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">追蹤 IG 接收場次通知 →</a>
+          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">追蹤 IG 接收場次通知 →</a>
         </div>}
     <p class="small hint">每一場的報名表單都不一樣，請以最新公告的連結為準。</p>
   </section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--reading page-section">
     <h2 class="d2">交流會當天會發生什麼</h2>
     <ol class="flow">
       {flow.map((f,i) => (
@@ -96,7 +99,7 @@ const flow = [
     <div class="note"><strong>全部免費。</strong>參加與媒合都不收費，細節見「我們怎麼幫你」。</div>
   </section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--reading page-section">
     <h2 class="d2">舉辦紀錄</h2>
     <p class="lead">最近 {past.length} 次開催的紀錄。更早的在
       <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram</a>。</p>
@@ -113,11 +116,8 @@ const flow = [
   </section>
 </Base>
 <style>
-  .head{background:var(--cream);padding:64px 0 48px;border-bottom:1px solid var(--line)}
-  .head .wrap{max-width:868px}
   .since{margin-top:14px;color:var(--ink-600)}
-  .sec{margin-top:48px;max-width:868px}
-  .sec h2{margin-bottom:16px}
+  .upcoming-list{display:grid;gap:16px}
   .next{padding:26px 28px}
   .next.empty p{margin:0 0 10px}
   .when{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
@@ -139,12 +139,8 @@ const flow = [
   .h .ig{margin-left:auto;color:var(--sky-700);text-decoration:none}
   .h .ig:hover{text-decoration:underline}
   @media (max-width:720px){
-    .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
-    .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
-    .head .lead{margin-top:12px}
     .since{margin-top:10px}
-    .sec{margin-top:var(--content-section-gap)}
-    .sec h2{margin-bottom:12px}
+    .upcoming-list{gap:12px}
     .next{padding:18px 16px}
     .when{gap:8px;margin-bottom:8px}
     .when .date{font-size:17px}

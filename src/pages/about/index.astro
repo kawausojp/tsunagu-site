@@ -13,11 +13,11 @@ const media = [
 ];
 ---
 <Base title="關於 Tsunagu" description="Tsunagu 是誰、為什麼做這件事。">
-  <section class="head"><div class="wrap">
+  <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">為什麼做這件事</h1>
   </div></section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--reading page-section">
     <div class="prose">
       <p>我們做「把日本的好商品、品牌與文化帶給台灣客人」這件事，做了八年。</p>
       <p>過程中發現，台灣有非常多人喜歡日本，想去日本學習、想在日本工作。光是觀光，
@@ -29,7 +29,7 @@ const media = [
     </div>
   </section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--reading page-section">
     <h2 class="d2">我們是誰</h2>
     <div class="grid">
       <div class="card b">
@@ -47,7 +47,7 @@ const media = [
       紫苑花屋（桃園馬祖新村眷村文創園區）。</p>
   </section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--reading page-section">
     <h2 class="d2">媒體報導</h2>
     <ul class="media">
       {media.map(m => (
@@ -64,18 +64,14 @@ const media = [
     {/* 內部待辦（勿放回畫面）：各則報導的原文連結（標題＋日期＋外連，不貼截圖），見 CLAUDE.md */}
   </section>
 
-  <section class="wrap sec">
+  <section class="wrap wrap--reading page-section">
     <div class="cta-row">
       <a class="btn btn-primary" href={`${base}/events`}>來交流會見見我們 →</a>
-      <a class="btn btn-secondary text-action" href={`${base}/stories`}>看學長姐的經驗 →</a>
+      <a class="action-link" href={`${base}/stories`}>看學長姐的經驗 →</a>
     </div>
   </section>
 </Base>
 <style>
-  .head{background:var(--cream);padding:64px 0 48px;border-bottom:1px solid var(--line)}
-  .head .wrap{max-width:868px}
-  .sec{margin-top:48px;max-width:868px}
-  .sec h2{margin-bottom:16px}
   .prose{font-size:17px;line-height:1.95}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
   @media (max-width:720px){ .grid{grid-template-columns:1fr} }
@@ -87,10 +83,6 @@ const media = [
   .m .n{font-weight:700;font-size:15px}
   .note-t{color:var(--ink-600)}
   @media (max-width:720px){
-    .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
-    .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
-    .sec{margin-top:var(--content-section-gap)}
-    .sec h2{margin-bottom:12px}
     .prose{font-size:15.5px;line-height:1.85}
     .grid{gap:12px;margin-bottom:14px}
     .b{padding:18px 16px}

@@ -82,7 +82,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
     text-decoration:none;color:var(--ink-900);font-weight:500;border-bottom:1px solid var(--line)}
   .drawer a.on{color:var(--pink-700);font-weight:700}
   :global(body.menu-open){overflow:hidden}
-  @media (max-width:900px){
+  @media (max-width:1080px){
     .bar{gap:8px}
     .zh{display:none} .desktop-nav{display:none} .cta{display:none}
     .mobile-cta{display:inline-flex}
@@ -113,7 +113,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
 <script>
   const b = document.querySelector<HTMLButtonElement>('[data-burger]');
   const d = document.querySelector<HTMLElement>('[data-drawer]');
-  const mobile = window.matchMedia('(max-width: 900px)');
+  const mobile = window.matchMedia('(max-width: 1080px)');
   const compact = window.matchMedia('(max-width: 720px)');
 
   if (b && d) {

@@ -35,13 +35,12 @@ const stats = [
 
   <!-- HERO -->
   <section class="hero">
-    <div class="wrap copy">
-      <h1 class="d1">把台灣的好人才<br/>
-        <span class="h1-line">牽到日本<Image src={characters}
-          alt="Tsunagu 的兩隻角色：穿著 JP 藍色上衣的狗，和穿著 TW 粉色上衣的貓，牽著手坐在一起"
-          widths={[240, 480]} sizes="(max-width: 720px) 132px, 210px" loading="eager" class="chars" /></span>
-      </h1>
+    <div class="wrap hero-inner">
       <p class="ja-sub" lang="ja">台湾人と日本企業をツナグ</p>
+      <h1 class="d1"><span class="headline-part">把台灣的好人才</span><span class="headline-comma">，</span><span class="headline-part">牽到日本</span></h1>
+      <Image src={characters}
+        alt="Tsunagu 的兩隻角色：穿著 JP 藍色上衣的狗，和穿著 TW 粉色上衣的貓，牽著手坐在一起"
+        widths={[240, 480]} sizes="(max-width: 720px) 152px, 200px" loading="eager" class="chars" />
       <p class="lead">
         想去日本留學或打工度假，卻不知道能找到什麼樣的工作？
         我們介紹的是真心想跟台灣人一起工作的日本企業。
@@ -49,7 +48,7 @@ const stats = [
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href={`${base}/events`}>{heroCta}</a>
-        <a class="btn text-action" href={`${base}/companies`}>先看看有哪些企業 →</a>
+        <a class="action-link" href={`${base}/companies`}>先看看有哪些企業 →</a>
       </div>
     </div>
   </section>
@@ -59,7 +58,7 @@ const stats = [
     {nextEv && (
       <a class="news" href={`${base}/events`}>
         <span class="news-tag" lang="ja">お知らせ</span>
-        <span class="news-txt">第 {nextEv.no} 回交流會　{nextEvDate}{nextEv.city}・報名受付中 <span aria-hidden="true">→</span></span>
+        <span class="news-txt">第 {nextEv.no} 回交流會　{nextEvDate}{nextEv.city}・報名受付中 →</span>
       </a>
     )}
   </div>
@@ -92,7 +91,7 @@ const stats = [
       <div class="co-side">
         <h2 class="d2">等你來的日本企業</h2>
         <p class="lead">這些不會在中文求職網站上出現的店，我們直接幫你牽線。以下是任職人數最多的六家。</p>
-        <a class="btn btn-secondary text-action" href={`${base}/companies`}>看全部 {companies.length} 個合作品牌 →</a>
+        <a class="action-link" href={`${base}/companies`}>看全部 {companies.length} 個合作品牌 →</a>
       </div>
       <div class="grid3 grid-co">
         {featured.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
@@ -113,7 +112,7 @@ const stats = [
           </p>
         </div>
       </div>
-      <div class="more"><a class="btn btn-secondary text-action" href={`${base}/stories`}>看 14 位學長姐的第一手分享 →</a></div>
+      <div class="more"><a class="action-link" href={`${base}/stories`}>看 14 位學長姐的第一手分享 →</a></div>
     </div>
   </section>
 
@@ -124,8 +123,8 @@ const stats = [
         <h2 class="d2">下一步，先來交流會看看</h2>
         <p class="lead">不用先決定什麼，也不用準備履歷。先來聽日本企業說他們在找什麼樣的人。</p>
         <div class="cta-row">
-          <a class="btn btn-primary text-action text-action-primary" href={`${base}/events`}>查看下一場交流會 →</a>
-          <a class="btn btn-ghost text-action" href={`${base}/apply`}>已經決定要去日本了 →</a>
+          <a class="btn btn-primary" href={`${base}/events`}>查看下一場交流會 →</a>
+          <a class="action-link" href={`${base}/apply`}>已經決定要去日本了 →</a>
         </div>
       </div>
       <Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" />
@@ -136,28 +135,30 @@ const stats = [
 
 <style>
   .hero{background:linear-gradient(165deg,var(--pink-50) 0%,var(--cream) 46%,var(--sky-50) 100%);
-    padding:80px 0 72px;border-bottom:1px solid var(--line)}
-  .copy h1{margin-bottom:8px;font-size:clamp(40px,5.2vw,64px);line-height:1.3}
-  .h1-line{white-space:nowrap}
-  .copy :global(.chars){display:inline-block;width:210px;height:auto;vertical-align:baseline;
-    margin:0 0 -10px 18px;transition:transform .28s var(--ease)}
-  @media (hover:hover) and (pointer:fine){ .copy:hover :global(.chars){transform:rotate(-2deg)} }
-  .ja-sub{font-size:13px;letter-spacing:.18em;color:var(--pink-700);margin:0 0 18px}
-  .copy .lead{max-width:36em}
-  /* 進場：copy 內依序上浮、角色與標題同拍淡入。backwards 讓 reduced-motion 下直接顯示成品 */
-  .copy>*{animation:hero-rise .28s var(--ease) backwards}
-  .copy>*:nth-child(2){animation-delay:90ms}
-  .copy>*:nth-child(3){animation-delay:180ms}
-  .copy>*:nth-child(4){animation-delay:270ms}
+    padding:72px 0 64px;border-bottom:1px solid var(--line)}
+  .hero-inner{display:grid;justify-items:center;text-align:center}
+  .hero h1{font-size:clamp(40px,4.8vw,62px);line-height:1.25;letter-spacing:.045em;
+    white-space:nowrap;text-wrap:balance}
+  .hero :global(.chars){width:200px;height:auto;margin:20px auto 18px;
+    transition:transform .28s var(--ease)}
+  @media (hover:hover) and (pointer:fine){ .hero-inner:hover :global(.chars){transform:rotate(-2deg)} }
+  .ja-sub{font-size:13px;letter-spacing:.22em;color:var(--pink-700);margin:0 0 12px}
+  .hero .lead{max-width:720px;margin:0 auto}
+  /* 進場：依內容順序短暫錯開，不改變版面位置。 */
+  .hero-inner>*{animation:hero-rise .28s var(--ease) backwards}
+  .hero-inner>*:nth-child(2){animation-delay:70ms}
+  .hero-inner>*:nth-child(3){animation-delay:140ms}
+  .hero-inner>*:nth-child(4){animation-delay:210ms}
+  .hero-inner>*:nth-child(5){animation-delay:280ms}
   @keyframes hero-rise{from{opacity:0;transform:translateY(14px)}}
-  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .cta-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px;margin-top:26px}
   /* お知らせ：一行字＋底部細線，不做框 */
   .news{display:flex;align-items:baseline;gap:14px;margin-top:26px;padding:0 0 14px;
     border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink-900)}
   .news:hover .news-txt{color:var(--pink-700)}
   .news-tag{flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--pink-700);
     background:var(--pink-50);padding:4px 11px;border-radius:var(--r-xs)}
-  .news-txt{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .news-txt{min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
     padding:36px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
@@ -176,7 +177,7 @@ const stats = [
     .co-side{position:static}
   }
   .more{margin-top:28px}
-  .alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 
   .voice{display:flex;gap:28px;align-items:flex-start;margin-top:28px;max-width:760px}
   .v-avatar{width:96px;height:96px;flex:0 0 96px;border-radius:var(--r-full);overflow:hidden}
@@ -203,15 +204,17 @@ const stats = [
   }
 
   @media (max-width:720px){
-    .hero{background:#fff;padding:28px 0 30px;border-bottom:1px solid var(--mobile-line)}
-    .copy h1{font-size:clamp(30px,8.6vw,38px)}
-    .copy :global(.chars){width:132px;margin:0 0 -6px 10px}
-    .inner{gap:12px}
-    .copy h1{margin-bottom:16px}
+    .hero{background:var(--paper);padding:28px 0 30px;border-bottom:1px solid var(--mobile-line)}
+    .hero h1{font-size:clamp(30px,8.6vw,36px);white-space:normal;line-height:1.32;
+      letter-spacing:.025em}
+    .headline-part{display:block;white-space:nowrap}
+    .headline-comma{display:none}
+    .hero :global(.chars){width:152px;margin:16px auto 14px}
+    .hero .lead{max-width:32em;text-align:center}
     .cta-row{gap:10px;margin-top:20px}
     .hero .cta-row .btn-primary{width:100%}
-    .hero .cta-row .text-action{align-self:flex-start}
-    .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:#fff;
+    .hero .cta-row .action-link{margin-inline:auto}
+    .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:var(--paper);
       padding:0;margin-top:20px;border:1px solid var(--mobile-line);border-radius:12px;overflow:hidden}
     .band>div{display:flex;min-height:88px;flex-direction:column;align-items:center;justify-content:center;
       padding:14px 8px}
@@ -228,8 +231,8 @@ const stats = [
     .grid-co{grid-template-columns:repeat(2,1fr);gap:10px}
 
     .more{margin-top:20px}
-    .more .text-action{margin-left:2px}
-    .alt{background:#FAFAFA;border-color:var(--mobile-line)}
+    .more .action-link{margin-left:2px}
+    .alt{background:var(--greige-50);border-color:var(--mobile-line)}
     .voice{gap:16px;margin-top:20px}
     .v-avatar{width:64px;height:64px;flex-basis:64px}
     .v-quote{font-size:16px}
@@ -238,5 +241,3 @@ const stats = [
     .final .cta-row{flex-direction:column;align-items:center}
   }
 </style>
-
-

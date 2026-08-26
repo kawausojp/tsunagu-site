@@ -27,7 +27,7 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
   description={`${d.name}（${d.categoryLabel}）的品牌介紹與台灣人任職實績${d.placements > 0 ? `：累計 ${d.placements} 人透過 Tsunagu 任職` : ''}。詳情請參加免費交流會。`}>
   <article>
     <div class="hero">
-      <div class="wrap">
+      <div class="wrap wrap--prose">
         <a class="back" href={`${base}/companies`}>← 回合作企業</a>
         <h1 class="d1">{d.name}</h1>
         {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
@@ -41,7 +41,7 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
       </div>
     </div>
 
-    <div class="wrap body">
+    <div class="wrap wrap--prose body">
       <div class="prose"><Content /></div>
 
       {d.highlights.length > 0 && (
@@ -63,7 +63,7 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
         招募條件與職缺狀態會變動，請以交流會現場或個別諮詢的說明為準。
       </div>
 
-            {relatedStories.length > 0 && (
+      {relatedStories.length > 0 && (
         <div class="related">
           <h2 class="d3">在這裡工作過的學長姐</h2>
           {relatedStories.map(st => (
@@ -71,9 +71,9 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
           ))}
         </div>
       )}
-<div class="cta">
+      <div class="cta">
         <a class="btn btn-primary" href={`${base}/events`}>報名交流會，現場問清楚</a>
-        <a class="btn btn-ghost text-action" href={`${base}/companies`}>看全部 35 家合作品牌 →</a>
+        <a class="action-link" href={`${base}/companies`}>看全部 35 家合作品牌 →</a>
       </div>
     </div>
   </article>
@@ -81,12 +81,11 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
 
 <style>
   .hero{background:var(--cream);padding:40px 0 44px;border-bottom:1px solid var(--line)}
-  .hero .wrap{max-width:808px}
   .back{display:inline-block;font-size:13.5px;color:var(--ink-600);text-decoration:none;margin-bottom:18px}
   .back:hover{color:var(--pink-700)}
   .corp{font-size:14px;color:var(--ink-600);margin:6px 0 12px}
   .hero .tags{margin-top:18px}
-  .body{max-width:808px;padding-top:44px;padding-bottom:20px}
+  .body{padding-top:44px;padding-bottom:20px}
   .prose{font-size:17px;line-height:1.95}
   .hl{margin-top:32px;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 26px}
   .hl ul{margin:12px 0 0;padding-left:1.25em}

@@ -33,11 +33,17 @@
   --sh-2:0 8px 24px rgba(200,150,170,.14);
   --sh-3:0 16px 44px rgba(180,140,150,.14);
   --ease:cubic-bezier(.34,1.4,.64,1);
-  --wrap:1080px;
+  --container-wide:1120px;
+  --container-page:948px;
+  --container-reading:868px;
+  --container-prose:808px;
+  --wrap:var(--container-wide);
   --layout-gutter:24px;
   --control-min:44px;
   --header-height:68px;
-  --content-section-gap:48px;
+  --content-section-gap:56px;
+  --stack-gap:20px;
+  --card-pad:24px;
   --focus-ring:var(--pink-700);
 }
 
@@ -45,7 +51,7 @@
 html{scroll-behavior:smooth;scroll-padding-top:88px}
 body{
   margin:0;background:var(--cream);color:var(--ink-900);
-  font-family:var(--f-body);font-weight:400;line-height:1.9;
+  font-family:var(--f-body);font-weight:400;line-height:1.85;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
 }
 h1,h2,h3,h4{font-family:var(--f-display);line-height:1.45;margin:0;font-weight:700;letter-spacing:.02em}
@@ -61,7 +67,20 @@ main:focus{outline:none}
   white-space:nowrap!important;border:0!important}
 
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--layout-gutter)}
-.section{padding:64px 0}
+.wrap--page{max-width:var(--container-page)}
+.wrap--reading{max-width:var(--container-reading)}
+.wrap--prose{max-width:var(--container-prose)}
+.section{padding:72px 0}
+
+/* ── 全站版面節奏：內頁共用，不再由每頁各自猜 margin ── */
+.page-head{background:linear-gradient(180deg,var(--pink-50),var(--cream));
+  padding:60px 0 48px;border-bottom:1px solid var(--line)}
+.page-head .lead{margin:14px 0 0}
+.page-section{margin-top:var(--content-section-gap)}
+.page-section>.d2:first-child{margin-bottom:18px}
+.stack{display:grid;gap:var(--stack-gap)}
+.stack>*{margin-block:0}
+.cluster{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 
 /* ── 標題（日系：字距拉開、行高放鬆、字重不過粗） ── */
 .d1{font-family:var(--f-display);font-weight:700;font-size:clamp(29px,5vw,46px);
@@ -77,7 +96,8 @@ main:focus{outline:none}
 /* ── 按鈕：粉彩底 + 褐字，全站不出現深色塊 ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
   font-family:var(--f-body);font-weight:700;font-size:14.5px;letter-spacing:.04em;
-  padding:13px 24px;border-radius:var(--r-md);border:1.5px solid transparent;
+  min-height:var(--control-min);line-height:1.25;padding:10px 20px;
+  border-radius:var(--r-md);border:1.5px solid transparent;
   cursor:pointer;text-decoration:none;transition:.24s var(--ease)}
 .btn-primary{background:var(--pink-200);color:var(--ink-900);border-bottom:2px solid var(--pink-400)}
 .btn-primary:hover{background:var(--pink-300)}
@@ -87,6 +107,10 @@ main:focus{outline:none}
 .btn-soft:hover{background:var(--sky-200)}
 .btn-ghost{background:transparent;color:var(--ink-600);border-color:var(--line)}
 .btn-ghost:hover{border-color:var(--ink-400);color:var(--ink-900)}
+.action-link{display:inline-flex;align-items:center;min-height:var(--control-min);padding:6px 0;
+  color:var(--sky-700);font-weight:700;font-size:14px;line-height:1.5;text-decoration:none;
+  border-bottom:1px solid var(--sky-200)}
+.action-link:hover{color:var(--ink-900);border-bottom-color:var(--sky-700)}
 
 /* ── 標籤 ── */
 .tag{display:inline-block;font-size:12px;font-weight:500;padding:3px 10px;letter-spacing:.03em;
@@ -99,6 +123,7 @@ main:focus{outline:none}
 /* ── 卡片 ── */
 .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
   box-shadow:var(--sh-1);overflow:hidden}
+.card>:last-child{margin-bottom:0}
 .card-link{transition:transform .28s var(--ease),box-shadow .28s var(--ease)}
 .card-link:focus-visible{box-shadow:var(--sh-3)}
 
@@ -114,8 +139,9 @@ main:focus{outline:none}
 .note strong{color:var(--ink-900)}
 /* 必讀聲明（免責、法遵、個資）：全站唯一保留底色的區塊，每頁至多一個 */
 .notice{background:var(--note-bg);border:1px solid var(--note-line);border-radius:var(--r-sm);
-  padding:14px 18px;font-size:13.5px;color:var(--note-ink);line-height:1.9}
+  margin-top:20px;padding:14px 18px;font-size:13.5px;color:var(--note-ink);line-height:1.9}
 .notice strong{color:var(--ink-900)}
+.stack>.notice{margin-block:0}
 
 /* 手機版採用安靜、任務優先的單層介面；桌面版保留原有品牌表現。 */
 @media (max-width:720px){
@@ -124,7 +150,9 @@ main:focus{outline:none}
     --r-sm:8px;--r-md:12px;--r-lg:14px;--r-xl:18px;
     --sh-1:none;--sh-2:0 1px 2px rgba(63,63,70,.08);--sh-3:0 8px 24px rgba(63,63,70,.10);
     --header-height:101px;
-    --content-section-gap:36px;
+    --content-section-gap:40px;
+    --stack-gap:16px;
+    --card-pad:16px;
     --mobile-line:#DED8D4;
     --mobile-control-line:#9B8B82;
     --mobile-control-height:52px;
@@ -132,7 +160,11 @@ main:focus{outline:none}
   }
   html{scroll-padding-top:calc(var(--header-height) + 16px)}
   body{background:var(--paper);line-height:1.75}
-  .section{padding:40px 0}
+  .section{padding:44px 0}
+  .page-head{background:var(--paper);padding:26px 0 24px;border-bottom-color:var(--mobile-line)}
+  .page-head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
+  .page-head .lead{margin-top:12px}
+  .page-section>.d2:first-child{margin-bottom:12px}
   .d1{font-size:clamp(30px,9vw,36px);line-height:1.32;letter-spacing:.02em}
   .d2{font-size:22px;line-height:1.4;letter-spacing:.02em}
   .d3{font-size:16px;line-height:1.55;letter-spacing:.01em}
@@ -142,14 +174,10 @@ main:focus{outline:none}
   main .btn{min-height:var(--mobile-control-height);padding:11px 18px;box-shadow:none;font-size:14px}
   main .btn-secondary{border-color:var(--mobile-control-line);color:var(--ink-900)}
   main .btn-ghost{border-color:var(--mobile-line);color:var(--ink-900)}
-  main .btn.text-action{width:auto;min-height:44px;padding:8px 2px;border:0;border-radius:0;
-    background:transparent;color:var(--sky-700);box-shadow:none;text-decoration:underline;
-    text-decoration-color:var(--sky-200);text-underline-offset:5px;text-decoration-thickness:1px}
-  main .btn.text-action:hover{background:transparent;color:var(--sky-700);transform:none}
-  main .btn.text-action-primary{color:var(--ink-900);text-decoration-color:var(--pink-300)}
-  main .btn.text-action-primary:hover{color:var(--ink-900)}
+  main .action-link{min-height:44px;padding:7px 0;font-size:14px}
   main .card{border-radius:12px;border-color:var(--mobile-line);box-shadow:none}
   main .card-link:focus-visible{box-shadow:none}
+  .notice{margin-top:16px;padding:14px 16px}
 }
 
 @media (prefers-reduced-motion:reduce){

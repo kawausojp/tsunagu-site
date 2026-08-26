@@ -7,7 +7,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const brands = [...new Set(stories.map(s=>s.data.company))];
 ---
 <Base title="學長姐經驗" description="透過 Tsunagu 到日本工作的台灣前輩，他們在哪裡、做什麼、學到什麼。">
-  <section class="head"><div class="wrap">
+  <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">學長姐現在在日本</h1>
     <p class="lead">
       他們也曾經只是「想去日本看看」。以下是 {stories.length} 位前輩的分享，
@@ -19,7 +19,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
     </div>
   </div></section>
 
-  <section class="wrap list">
+  <section class="wrap wrap--reading list">
     {stories.map(s => (
       <article class="card item" id={s.id} tabindex="-1" aria-labelledby={`${s.id}-title`}>
         <header class="top">
@@ -57,7 +57,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
     ))}
   </section>
 
-  <section class="wrap cta">
+  <section class="wrap wrap--reading cta">
     <div class="band">
       <h2 class="d2">下一個換你</h2>
       <p class="lead">他們每個人都是從一場交流會開始的。</p>
@@ -66,11 +66,8 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
   </section>
 </Base>
 <style>
-  .head{background:var(--cream);padding:64px 0 48px;border-bottom:1px solid var(--line)}
-  .head .wrap{max-width:868px}
-  .head .note{margin-top:22px}
-  .pending{background:var(--note-bg);padding:2px 8px;border-radius:4px;color:var(--ink-900)}
-  .list{margin-top:36px;display:flex;flex-direction:column;gap:18px;max-width:868px}
+  .page-head .note{margin-top:22px}
+  .list{margin-top:36px;display:flex;flex-direction:column;gap:18px}
   .item{padding:26px 28px;scroll-margin-top:92px}
   .item:target{border-color:var(--pink-300);box-shadow:var(--sh-3)}
   .top{display:flex;gap:16px;align-items:center;margin-bottom:16px}
@@ -92,7 +89,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
   .advice ol{margin:0;padding:0;list-style:none;counter-reset:a}
   .advice li{position:relative;padding-left:34px;counter-increment:a}
   .advice li::before{content:counter(a,decimal-leading-zero);position:absolute;left:0;top:1px;
-    font-family:var(--f-latin);font-weight:700;color:var(--pink-300);font-size:14px}
+    font-family:var(--f-latin);font-weight:700;color:var(--pink-700);font-size:14px}
   .advice li{font-size:14.5px;line-height:1.85;margin-bottom:6px;color:var(--ink-900)}
   .src{display:inline-block;margin-top:16px;color:var(--sky-700);text-decoration:none;font-weight:500}
   .src:hover{text-decoration:underline}
@@ -101,10 +98,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
     padding:40px 36px;text-align:center}
   .band .lead{margin:8px auto 20px}
   @media (max-width:720px){
-    .head{background:#fff;padding:24px 0;border-bottom-color:var(--mobile-line)}
-    .head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
-    .head .lead{margin-top:12px}
-    .head .note{margin-top:16px}
+    .page-head .note{margin-top:16px}
     .list{margin-top:24px;gap:12px}
     .item{padding:18px 16px;scroll-margin-top:calc(var(--header-height) + 16px)}
     .item:target{border-color:var(--pink-300);box-shadow:none;outline:2px solid var(--pink-200);outline-offset:2px}
@@ -112,10 +106,10 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
     .avatar{width:48px;height:48px;flex-basis:48px;font-size:19px}
     .lead-q{font-size:16px;padding-left:12px;margin-bottom:14px}
     .msgs li{font-size:14px;line-height:1.8;margin-bottom:8px}
-    .advice{margin-top:16px;padding:14px 16px}
+    .advice{margin-top:16px}
     .advice li{font-size:14px;line-height:1.8}
     .cta{margin-top:var(--content-section-gap)}
-    .band{background:#FAFAFA;border:1px solid var(--mobile-line);border-radius:12px;padding:24px 18px}
+    .band{background:var(--greige-50);border:1px solid var(--mobile-line);border-radius:12px;padding:24px 18px}
     .band .btn{width:auto}
   }
 </style>
