@@ -3,49 +3,65 @@ import { Image } from 'astro:assets';
 import Heart from './Heart.astro';
 // header 用深色版字標：原色版（粉 #F7C6DB／藍 #ADC3D7）在淺色 header 上只有 1.44／1.75:1
 import wordmark from '../assets/tsunagu-wordmark-duo.png';
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const nav = [
-  { href: `${base}/companies`, label: '合作企業', short: '合作企業' },
-  { href: `${base}/stories`,   label: '學長姐經驗', short: '學長姐' },
-  { href: `${base}/support`,   label: '我們怎麼幫你', short: '支援方式' },
-  { href: `${base}/about`,     label: '關於 Tsunagu', short: '關於我們' },
-];
+import { ui, href, switchHref, LANG_META, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang }
+const { lang = 'zh' } = Astro.props;
+const t = ui[lang];
+const nav = t.nav.map(n => ({ href: href(lang, n.path), label: n.label, short: n.short }));
 const path = Astro.url.pathname;
-const eventsHref = `${base}/events`;
-const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
+const eventsHref = href(lang, '/events');
+const isCurrent = (h: string) => path === h || path.startsWith(`${h}/`);
+const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
+  code: l, label: LANG_META[l].label, current: l === lang,
+  href: switchHref(lang, l, path),
+}));
 ---
 <header>
   <div class="wrap bar">
-    <a class="logo" href={`${base}/`} aria-label="ツナグ Tsunagu 首頁">
+    <a class="logo" href={href(lang, '/')} aria-label={t.home}>
       <Heart size={22} />
       <Image src={wordmark} alt="TSUNAGU" widths={[110, 220, 330]} sizes="110px" class="wordmark"
         loading="eager" fetchpriority="high" decoding="sync" />
       <span class="zh" lang="ja">台湾人と日本企業をツナグ</span>
     </a>
-    <nav class="desktop-nav" aria-label="主選單">
+    <nav class="desktop-nav" aria-label={t.mainMenu}>
       {nav.map(n => (
         <a href={n.href} class:list={['navlink', { on: isCurrent(n.href) }]}
           aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
       ))}
     </nav>
+    <details class="lang" data-lang-menu>
+      <summary aria-label={t.langMenu}>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/>
+        </svg>
+        {LANG_META[lang].label}
+      </summary>
+      <ul>
+        {langs.map(l => (
+          <li><a href={l.href} lang={LANG_META[l.code].htmlLang}
+            aria-current={l.current ? 'true' : undefined}>{l.label}</a></li>
+        ))}
+      </ul>
+    </details>
     <a class="btn btn-primary cta" href={eventsHref}
-      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>報名交流會</a>
-    <a class="btn btn-primary mobile-cta" href={eventsHref} aria-label="報名交流會"
-      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>報名</a>
-    <button class="burger" type="button" aria-label="開啟主選單" aria-expanded="false"
+      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signup}</a>
+    <a class="btn btn-primary mobile-cta" href={eventsHref} aria-label={t.signup}
+      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signupShort}</a>
+    <button class="burger" type="button" aria-label={t.openMenu} aria-expanded="false"
       aria-controls="mobile-menu" data-burger>
       <span></span><span></span><span></span>
     </button>
   </div>
-  <nav class="mobile-tabs" aria-label="快速導覽">
+  <nav class="mobile-tabs" aria-label={t.quickNav}>
     {nav.map(n => (
       <a href={n.href} class:list={{ on: isCurrent(n.href) }}
         aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.short}</a>
     ))}
-    <a class:list={['signup-tab', { on: isCurrent(eventsHref) }]} href={eventsHref} aria-label="報名交流會"
-      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>報名</a>
+    <a class:list={['signup-tab', { on: isCurrent(eventsHref) }]} href={eventsHref} aria-label={t.signup}
+      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signupShort}</a>
   </nav>
-  <div class="drawer" id="mobile-menu" role="navigation" aria-label="行動版主選單" data-drawer hidden>
+  <div class="drawer" id="mobile-menu" role="navigation" aria-label={t.mobileMenu} data-drawer hidden>
     {nav.map(n => (
       <a href={n.href} class:list={{ on: isCurrent(n.href) }}
         aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
@@ -107,6 +123,23 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
     .mobile-tabs a.signup-tab{min-width:44px;background:#fff;color:var(--pink-700)}
     .mobile-tabs a.signup-tab.on{box-shadow:inset 0 -2px 0 var(--pink-700)}
     .drawer,.drawer[data-open]{display:none!important}
+  }
+  .lang{position:relative}
+  .lang summary{display:inline-flex;align-items:center;gap:6px;list-style:none;cursor:pointer;
+    font-size:13px;font-weight:500;color:var(--ink-600);padding:7px 10px;border-radius:var(--r-xs);
+    border:1px solid var(--line);transition:.2s var(--ease)}
+  .lang summary::-webkit-details-marker{display:none}
+  .lang summary:hover{color:var(--ink-900);border-color:var(--ink-400)}
+  .lang[open] summary{color:var(--ink-900);border-color:var(--ink-400)}
+  .lang ul{position:absolute;right:0;top:calc(100% + 6px);margin:0;padding:6px;list-style:none;
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);
+    box-shadow:var(--sh-2);min-width:128px;z-index:60}
+  .lang li a{display:block;padding:8px 12px;border-radius:var(--r-xs);text-decoration:none;
+    font-size:13.5px;color:var(--ink-900)}
+  .lang li a:hover{background:var(--greige-50)}
+  .lang li a[aria-current="true"]{color:var(--pink-700);font-weight:700}
+  @media (max-width:720px){
+    .lang summary{padding:6px 8px;font-size:12px}
   }
 </style>
 

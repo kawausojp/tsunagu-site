@@ -1,9 +1,12 @@
 ---
 import CategoryIcon from './CategoryIcon.astro';
-const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡', kobe:'神戶', hokkaido:'北海道' };
-interface Props { c: any; href: string; }
-const { c, href } = Astro.props;
+import { ui, type Lang } from '../i18n/ui';
+interface Props { c: any; href: string; lang?: Lang }
+const { c, href, lang = 'zh' } = Astro.props;
+const t = ui[lang];
 const d = c.data;
+const tagline = (lang === 'ja' && d.taglineJa) || (lang === 'en' && d.taglineEn) || d.tagline;
+const catLabel = (lang === 'ja' && d.categoryLabelJa) || (lang === 'en' && d.categoryLabelEn) || d.categoryLabel;
 const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel]
   .filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
 ---
@@ -17,16 +20,16 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel]
     <h3 class="d3">{d.name}</h3>
     {d.corporateName && <div class="corp" lang="ja">{d.corporateName}</div>}
     <div class="tags">
-      {d.areas.map((a:string) => <span class="tag area">{AREA[a as keyof typeof AREA]}</span>)}
-      <span class="tag job">{d.categoryLabel}</span>
-      {d.jlpt && <span class="tag jlpt">{d.jlpt} 以上</span>}
+      {d.areas.map((a:string) => <span class="tag area">{t.area[a]}</span>)}
+      <span class="tag job">{catLabel}</span>
+      {d.jlpt && <span class="tag jlpt">{t.card.jlpt(d.jlpt)}</span>}
     </div>
-    <p class="tag-line">{d.tagline}</p>
+    <p class="tag-line">{tagline}</p>
     <p class="stats-line">
       {[
-        d.placements > 0 && `累計 ${d.placements} 人任職`,
-        d.fullTimeConverted > 0 && `${d.fullTimeConverted} 人轉正職`,
-        d.onlineInterview && '可線上面試',
+        d.placements > 0 && t.card.placements(d.placements),
+        d.fullTimeConverted > 0 && t.card.fullTime(d.fullTimeConverted),
+        d.onlineInterview && t.card.online,
       ].filter(Boolean).join('・')}
     </p>
   </div>

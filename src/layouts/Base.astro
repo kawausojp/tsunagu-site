@@ -3,15 +3,17 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-interface Props { title: string; description?: string; noindex?: boolean; }
-const { title, description = '把台灣的好人才牽到日本。免費的日本留學・打工度假就職媒合交流會，台北、台中、高雄、東京、大阪舉辦。', noindex = false } = Astro.props;
+import { LANG_META, ui, type Lang } from '../i18n/ui';
+interface Props { title: string; description?: string; noindex?: boolean; lang?: Lang; altPaths?: Partial<Record<Lang, string>>; }
+const { title, description = '把台灣的好人才牽到日本。免費的日本留學・打工度假就職媒合交流會，台北、台中、高雄、東京、大阪舉辦。', noindex = false, lang = 'zh', altPaths } = Astro.props;
+const OG_LOCALE: Record<Lang, string> = { zh: 'zh_TW', ja: 'ja_JP', en: 'en_US' };
 const pageTitle = `${title}｜ツナグ Tsunagu`;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
 ---
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang={LANG_META[lang].htmlLang}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -21,7 +23,7 @@ const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ツナグ Tsunagu" />
-  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:locale" content={OG_LOCALE[lang]} />
   {!noindex && <meta property="og:url" content={canonicalUrl} />}
   <meta name="theme-color" content="#FFF6F9" />
   <link rel="icon" href={`${base}/img/favicon-32.png`} sizes="32x32" />
@@ -37,7 +39,11 @@ const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
   <meta name="twitter:image" content={ogImage} />
   {noindex && <meta name="robots" content="noindex,follow" />}
   {!noindex && <link rel="canonical" href={canonicalUrl} />}
-  {!noindex && <link rel="alternate" hreflang="zh-Hant" href={canonicalUrl} />}
+  {!noindex && !altPaths && <link rel="alternate" hreflang={LANG_META[lang].htmlLang} href={canonicalUrl} />}
+  {!noindex && altPaths && Object.entries(altPaths).map(([l, p]) => (
+    <link rel="alternate" hreflang={LANG_META[l as Lang].htmlLang} href={new URL(`${base}${p}`, Astro.site)} />
+  ))}
+  {!noindex && altPaths?.zh && <link rel="alternate" hreflang="x-default" href={new URL(`${base}${altPaths.zh}`, Astro.site)} />}
   <script is:inline type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -56,10 +62,10 @@ const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
   <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Jost:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <a href="#main" class="skip">跳到主要內容</a>
-  <Header />
+  <a href="#main" class="skip">{ui[lang].skip}</a>
+  <Header lang={lang} />
   <main id="main" tabindex="-1"><slot /></main>
-  <Footer />
+  <Footer lang={lang} />
   <style>
     .skip{position:absolute;left:-9999px;top:0;background:var(--pink-700);color:#fff;
       padding:10px 18px;border-radius:0 0 var(--r-sm) 0;z-index:100;font-weight:700}

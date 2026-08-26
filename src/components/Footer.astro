@@ -1,27 +1,24 @@
 ---
 import { Image } from 'astro:assets';
 import wordmark from '../assets/tsunagu-wordmark.png';
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const year = 2026;
+import { ui, href, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang }
+const { lang = 'zh' } = Astro.props;
+const t = ui[lang];
 ---
 <footer>
   <div class="wrap grid">
     <div>
       <Image src={wordmark} alt="TSUNAGU" widths={[180, 360]} sizes="180px" class="wm" />
-      <p class="small">台湾人と日本企業をツナグ<br/>把台灣的好人才，牽到日本。</p>
-      <p class="small">參加交流會與工作媒合，對台灣的各位<strong>全程免費</strong>。</p>
+      <p class="small"><span lang="ja">台湾人と日本企業をツナグ</span><br/>{t.footerTagline}</p>
+      <p class="small">{t.footerFree}</p>
     </div>
     <div>
-      <h2>網站</h2>
-      <a href={`${base}/events`}>交流會場次與報名</a>
-      <a href={`${base}/companies`}>合作企業</a>
-      <a href={`${base}/stories`}>學長姐經驗</a>
-      <a href={`${base}/support`}>我們怎麼幫你</a>
-      <a href={`${base}/apply`}>送出 Profile</a>
-      <a href={`${base}/about`}>關於 Tsunagu</a>
+      <h2>{t.footerSite}</h2>
+      {t.footerLinks.map(l => <a href={href(lang, l.path)}>{l.label}</a>)}
     </div>
     <div>
-      <h2>聯絡</h2>
+      <h2>{t.footerContact}</h2>
       <a href="https://www.instagram.com/tw.tsunagu.jp/" rel="me noopener" target="_blank">Instagram @tw.tsunagu.jp</a>
       <a href="https://www.threads.com/@tw.tsunagu.jp" rel="me noopener" target="_blank">Threads @tw.tsunagu.jp</a>
     </div>
@@ -32,7 +29,7 @@ const year = 2026;
        佔位版本見 git 歷史此檔案的 .pending 段落。 -->
   <div class="wrap legal">
     <p class="small">
-      活動主辦：智囊和夥伴有限公司（Brain &amp; Partner Taiwan Inc.）
+      {t.organizer}
     </p>
   </div>
 </footer>
