@@ -36,31 +36,21 @@ const stats = [
 
   <!-- HERO -->
   <section class="hero">
-    <div class="wrap inner">
-      <div class="copy">
-        <h1 class="d1">把台灣的好人才<br/>牽到日本</h1>
-        <p class="ja-sub" lang="ja">台湾人と日本企業をツナグ</p>
-        <p class="lead">
-          想去日本留學或打工度假，卻不知道能找到什麼樣的工作？
-          我們介紹的是真心想跟台灣人一起工作的日本企業。
-          <strong>從履歷、面試到抵達日本之後，全程免費。</strong>
-        </p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href={`${base}/events`}>{heroCta}</a>
-          <a class="btn btn-secondary text-action" href={`${base}/companies`}>先看看有哪些企業 →</a>
-        </div>
-      </div>
-      <div class="art" data-carousel>
-        <div class="slide on">
-          <Image src={characters} alt="Tsunagu 的兩隻角色：穿著 JP 藍色上衣的狗，和穿著 TW 粉色上衣的貓，牽著手坐在一起"
-                 widths={[380, 560, 699]} sizes="(max-width: 860px) 60vw, 380px" loading="eager" class="chars" />
-        </div>
-        <a class="slide bcard sky" href={`${base}/stories`}>
-          <strong class="b-title">學長姐的第一手分享</strong>
-          <span class="b-big">14 篇</span>
-          <span class="b-sub">聽在日本工作的前輩怎麼說 →</span>
-        </a>
-        <div class="dots" role="tablist" aria-label="輪播切換"></div>
+    <div class="wrap copy">
+      <h1 class="d1">把台灣的好人才<br/>
+        <span class="h1-line">牽到日本<Image src={characters}
+          alt="Tsunagu 的兩隻角色：穿著 JP 藍色上衣的狗，和穿著 TW 粉色上衣的貓，牽著手坐在一起"
+          widths={[240, 480]} sizes="(max-width: 720px) 132px, 210px" loading="eager" class="chars" /></span>
+      </h1>
+      <p class="ja-sub" lang="ja">台湾人と日本企業をツナグ</p>
+      <p class="lead">
+        想去日本留學或打工度假，卻不知道能找到什麼樣的工作？
+        我們介紹的是真心想跟台灣人一起工作的日本企業。
+        <strong>從履歷、面試到抵達日本之後，全程免費。</strong>
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href={`${base}/events`}>{heroCta}</a>
+        <a class="btn text-action" href={`${base}/companies`}>先看看有哪些企業 →</a>
       </div>
     </div>
   </section>
@@ -70,8 +60,7 @@ const stats = [
     {nextEv && (
       <a class="news" href={`${base}/events`}>
         <span class="news-tag" lang="ja">お知らせ</span>
-        <span class="news-txt">第 {nextEv.no} 回交流會　{nextEvDate}{nextEv.city}・報名受付中</span>
-        <span class="news-arrow" aria-hidden="true">→</span>
+        <span class="news-txt">第 {nextEv.no} 回交流會　{nextEvDate}{nextEv.city}・報名受付中 <span aria-hidden="true">→</span></span>
       </a>
     )}
   </div>
@@ -150,45 +139,27 @@ const stats = [
 <style>
   .hero{background:linear-gradient(165deg,var(--pink-50) 0%,var(--cream) 46%,var(--sky-50) 100%);
     padding:80px 0 72px;border-bottom:1px solid var(--line)}
-  .inner{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
-  @media (max-width:860px){ .inner{grid-template-columns:1fr;gap:20px} .art :global(.chars){width:min(300px,70%)} }
-  .copy h1{margin-bottom:8px}
+  .copy h1{margin-bottom:8px;font-size:clamp(40px,5.2vw,64px);line-height:1.3}
+  .h1-line{white-space:nowrap}
+  .copy :global(.chars){display:inline-block;width:210px;height:auto;vertical-align:baseline;
+    margin:0 0 -10px 18px;transition:transform .28s var(--ease)}
+  @media (hover:hover) and (pointer:fine){ .copy:hover :global(.chars){transform:rotate(-2deg)} }
   .ja-sub{font-size:13px;letter-spacing:.18em;color:var(--pink-700);margin:0 0 18px}
+  .copy .lead{max-width:36em}
   /* 進場：copy 內依序上浮、角色與標題同拍淡入。backwards 讓 reduced-motion 下直接顯示成品 */
   .copy>*{animation:hero-rise .28s var(--ease) backwards}
   .copy>*:nth-child(2){animation-delay:90ms}
   .copy>*:nth-child(3){animation-delay:180ms}
   .copy>*:nth-child(4){animation-delay:270ms}
-  .art{animation:hero-rise .28s var(--ease) 120ms backwards}
   @keyframes hero-rise{from{opacity:0;transform:translateY(14px)}}
   .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-  .art{display:flex;align-items:center;justify-content:center;position:relative}
-  /* hero 輪播：淡入淡出，桌面限定；手機只顯示角色（第一張） */
-  .art .slide{opacity:0;transition:opacity .28s var(--ease);pointer-events:none}
-  .art .slide.on{opacity:1;pointer-events:auto}
-  .art .slide:not(:first-child){position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-  .bcard{flex-direction:column;gap:8px;text-decoration:none;text-align:center;
-    width:min(340px,80%);aspect-ratio:4/3;border-radius:var(--r-xl);margin:auto;
-    box-shadow:var(--sh-2)}
-  .bcard.sky{background:var(--sky-50);border:1px solid var(--sky-200)}
-  .b-title{font-family:var(--f-display);font-size:20px;color:var(--ink-900);letter-spacing:.05em}
-  .b-big{font-family:var(--f-latin);font-weight:700;font-size:34px;color:var(--ink-900);line-height:1.2}
-  .b-sub{font-size:13.5px;color:var(--ink-600)}
-  .dots{position:absolute;bottom:-6px;left:0;right:0;display:flex;justify-content:center;gap:8px}
-  .dots button{width:8px;height:8px;border-radius:var(--r-full);border:0;padding:0;cursor:pointer;
-    background:var(--pink-200);transition:.2s var(--ease)}
-  .dots button[aria-selected="true"]{background:var(--pink-700);transform:scale(1.25)}
-  /* お知らせ公告列 */
-  .news{display:flex;align-items:center;gap:12px;margin-top:26px;padding:12px 18px;
-    background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);
-    text-decoration:none;color:var(--ink-900);box-shadow:var(--sh-1);transition:box-shadow .28s var(--ease)}
-  .news:hover{box-shadow:var(--sh-2)}
+  /* お知らせ：一行字＋底部細線，不做框 */
+  .news{display:flex;align-items:baseline;gap:14px;margin-top:26px;padding:0 0 14px;
+    border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink-900)}
+  .news:hover .news-txt{color:var(--pink-700)}
   .news-tag{flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--pink-700);
     background:var(--pink-50);padding:4px 11px;border-radius:var(--r-xs)}
   .news-txt{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .news-arrow{margin-left:auto;color:var(--pink-700);font-weight:700}
-  .art :global(.chars){width:min(380px,86%);height:auto;transition:transform .28s var(--ease)}
-  @media (hover:hover) and (pointer:fine){ .art:hover :global(.chars){transform:rotate(-2deg)} }
 
   .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
     padding:36px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
@@ -245,13 +216,13 @@ const stats = [
 
   @media (max-width:720px){
     .hero{background:#fff;padding:28px 0 30px;border-bottom:1px solid var(--mobile-line)}
+    .copy h1{font-size:clamp(30px,8.6vw,38px)}
+    .copy :global(.chars){width:132px;margin:0 0 -6px 10px}
     .inner{gap:12px}
     .copy h1{margin-bottom:16px}
     .cta-row{gap:10px;margin-top:20px}
     .hero .cta-row .btn-primary{width:100%}
     .hero .cta-row .text-action{align-self:flex-start}
-    .art{margin-top:2px}
-    .art :global(.chars){width:176px;animation:none}
     .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:#fff;
       padding:0;margin-top:20px;border:1px solid var(--mobile-line);border-radius:12px;overflow:hidden}
     .band>div{display:flex;min-height:88px;flex-direction:column;align-items:center;justify-content:center;
@@ -262,7 +233,6 @@ const stats = [
     .band .n small{font-size:14px}
     .band .t{font-size:12px;margin-top:5px}
     .grid3{gap:12px;margin-top:20px}
-    .art .slide:not(:first-child),.dots{display:none}
     .news{margin-top:18px;padding:10px 14px}
     .news-txt{font-size:13px}
 
@@ -284,37 +254,6 @@ const stats = [
 </style>
 
 <script>
-  // hero 輪播：5s 自動輪替；reduced-motion 不自動播；hover/focus 暫停；手機（slide 隱藏時）不啟動
-  const car = document.querySelector('[data-carousel]');
-  if (car) {
-    const slides = [...car.querySelectorAll('.slide')];
-    const dotsBox = car.querySelector('.dots');
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const mobile = () => getComputedStyle(slides[1] ?? slides[0]).display === 'none';
-    if (slides.length > 1 && !mobile()) {
-      let cur = 0, timer: ReturnType<typeof setInterval> | null = null;
-      const dots = slides.map((_, i) => {
-        const b = document.createElement('button');
-        b.setAttribute('role','tab');
-        b.setAttribute('aria-label',`第 ${i+1} 張`);
-        b.addEventListener('click', () => { go(i); stop(); });
-        dotsBox?.appendChild(b);
-        return b;
-      });
-      const go = (i: number) => {
-        slides[cur].classList.remove('on'); dots[cur].setAttribute('aria-selected','false');
-        cur = i;
-        slides[cur].classList.add('on'); dots[cur].setAttribute('aria-selected','true');
-      };
-      const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
-      go(0);
-      if (!reduced) {
-        timer = setInterval(() => go((cur+1)%slides.length), 5000);
-        car.addEventListener('mouseenter', stop);
-        car.addEventListener('focusin', stop);
-      }
-    }
-  }
   document.querySelectorAll('.video').forEach(v => {
     v.querySelector('.play')?.addEventListener('click', () => {
       const id = (v as HTMLElement).dataset.video;
