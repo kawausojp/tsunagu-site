@@ -1,0 +1,55 @@
+---
+import Base from '../../../layouts/Base.astro';
+import '../../../styles/page-support.css';
+import { href } from '../../../i18n/ui';
+const base = '';
+const l = (p: string) => href('en', p);
+---
+<Base title="How We Help" lang="en" altPaths={{ zh: '/support/', ja: '/ja/support/', en: '/en/support/' }} description="Resume, interviews, housing, and follow-up after arrival — all of Tsunagu’s support is free.">
+  <section class="page-head"><div class="wrap wrap--page">
+    <h1 class="d1">How we help</h1>
+    <p class="lead">Many people arrive in Japan and find the jobs — or the conditions — aren’t what they expected.
+      It’s rarely about ability. Usually you just haven’t been shown how to present yourself.</p>
+  </div></section>
+
+  <section class="wrap wrap--page page-section">
+    <div class="grid">
+      <div class="card b"><h2 class="d3">Before you go</h2><ul>
+        <li>We learn your personality, Japanese and English level, experience, target roles and goals</li>
+        <li>Resume writing and revision advice</li>
+        <li>Interview practice (in person or online)</li>
+        <li>Pre-departure training in Chinese, before you leave Taiwan</li>
+      </ul></div>
+      <div class="card b"><h2 class="d3">After you arrive</h2><ul>
+        <li>Follow-up and support in Chinese</li>
+        <li>Housing: partner intros to OAKHOUSE (share house / private) and LEOPALACE (private)</li>
+        <li>Ongoing advice on changing jobs or going full-time</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="wrap wrap--page page-section">
+    <h2 class="d2">Why we recommend fashion & accessory shops</h2>
+    <div class="reasons">
+      <div class="card r"><p>These shops <strong>never post jobs in Chinese</strong> — they’re nearly impossible to find on your own.</p></div>
+      <div class="card r"><p>With many Asian customers, <strong>your Chinese becomes an asset</strong> the shop genuinely values.</p></div>
+      <div class="card r"><p>Speaking Japanese with coworkers all day, <strong>your language improves dramatically faster</strong>.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap wrap--page page-section">
+    <h2 class="d2">What if my Japanese isn’t good enough yet?</h2>
+    <p class="lead">Fashion roles usually need JLPT N3 or above. If you’re not there yet, start with 2–4 months in a
+      lower-barrier job (station soba shops, C&amp;C curry, etc.), then step up once you’ve settled in.</p>
+    <div class="note">
+      Fashion employers prefer longer stays, but some accept a three-month start before you move on. We’ll find those shops for you.
+    </div>
+  </section>
+
+  <section class="wrap page-section free">
+    <h2 class="d2">All of this is free</h2>
+    <p class="lead">No meetup fees, no placement fees — ever. Wages vary by company, brand and store,
+      but our principle to every Japanese employer is simple: <strong>the same conditions as Japanese staff</strong>.</p>
+    <a class="btn btn-primary" href={l('/events')}>Join a meetup</a>
+  </section>
+</Base>

@@ -1,0 +1,85 @@
+---
+// 日本語版：交流会日程。構造は zh 版と共通（page-events.css）。三言語同時更新のこと。
+import Base from '../../../layouts/Base.astro';
+import '../../../styles/page-events.css';
+import data from '../../../data/events.json';
+import { href } from '../../../i18n/ui';
+import { todayTaipei, fmtEventDate, CITY } from '../../../lib/site';
+
+const l = (p: string) => href('ja', p);
+const today = todayTaipei();
+const sorted = [...data.events].sort((a, b) => b.date.localeCompare(a.date));
+const upcoming = sorted.filter(e => e.date >= today).reverse();
+const past = sorted.filter(e => e.date < today);
+const fmt = (d: string) => `${d.slice(0, 4)}/${fmtEventDate(d, 'ja')}`.replace('/（', '（');
+const city = (c: string) => CITY.ja[c] ?? c;
+
+const flow = [
+  { t: '当日の流れ', d: '日本企業が求める人財像を紹介し、先輩が日本で働くリアルを共有します。' },
+  { t: '個別面談', d: '日本語レベル・希望職種・渡航時期についてお聞かせください。' },
+  { t: 'その後のステップ', d: '履歴書・面接練習・ビザ・来日後のフォローまで、最後まで伴走します。' },
+];
+---
+<Base title="交流会日程・お申し込み" lang="ja"
+  altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }}
+  description="台北・台中・高雄・東京・大阪で開催する台湾人と日本企業のマッチング交流会。参加無料。">
+  <section class="page-head"><div class="wrap wrap--reading">
+    <h1 class="d1">まずは交流会へ</h1>
+    <p class="lead">日本企業がどんな人財を探しているか、先輩の生の声とあわせて聞ける場です。</p>
+    <p class="small since">{data.since} から累計 <strong>{data.totalHeld}</strong> 回開催。
+      台北・台中・高雄・東京・大阪で実施しています。</p>
+  </div></section>
+
+  <section class="wrap wrap--reading page-section">
+    <h2 class="d2">次回開催</h2>
+    {upcoming.length > 0
+      ? <div class="upcoming-list">
+          {upcoming.map(e => (
+            <div class="card next">
+              <div class="when">
+                <span class="no">第 {e.no} 回</span>
+                <span class="date">{fmt(e.date)}</span>
+                <span class="tag area">{city(e.city)}</span>
+              </div>
+              {e.sessions && <p class="small sessions">時間：{e.sessions.join('　／　')}</p>}
+              {e.signupUrl
+                ? <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">申込フォームへ →</a>
+                : <p class="small">申込リンクは近日公開。</p>}
+            </div>
+          ))}
+        </div>
+      : <div class="card next empty">
+          <p><strong>次回日程は未定です。</strong></p>
+          <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。</p>
+          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram をフォロー →</a>
+        </div>}
+    <p class="small hint">申込フォームは開催回ごとに異なります。最新の告知リンクをご利用ください。</p>
+  </section>
+
+  <section class="wrap wrap--reading page-section">
+    <h2 class="d2">交流会当日の流れ</h2>
+    <ol class="flow">
+      {flow.map((f, i) => (
+        <li class="card step"><div class="no">{i + 1}</div><div><h3 class="d3">{f.t}</h3><p class="small">{f.d}</p></div></li>
+      ))}
+    </ol>
+    <p class="small flow-more"><a href={l('/support')}>サポート内容の詳細（履歴書・面接・住まい・来日後）→</a></p>
+    <div class="note"><strong>全て無料。</strong>参加費・紹介料は一切いただきません。</div>
+  </section>
+
+  <section class="wrap wrap--reading page-section">
+    <h2 class="d2">開催実績</h2>
+    <p class="lead">直近 {past.length} 回の記録。それ以前は
+      <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram</a> をご覧ください。</p>
+    <ul class="hist">
+      {past.map(e => (
+        <li class="card h">
+          <span class="no">第 {e.no} 回</span>
+          <span class="date">{fmt(e.date)}</span>
+          <span class="tag area">{city(e.city)}</span>
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener">開催報告 ↗</a>}
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

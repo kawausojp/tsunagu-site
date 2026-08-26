@@ -151,7 +151,14 @@ footer 揭露的是該持照方，不是網站主辦單位。正確資料請向�
 
 ### 3. 尚未做的
 
-- 日文版 `/ja/`（給日本企業看的合作說明）＋ hreflang
+- ~~日文版~~ 2026-08-27 已做：**三語整站**（繁中 `/`、日文 `/ja/`、英文 `/en/`，127 頁），
+  header 右上有語言選單，hreflang 三語互指＋x-default。**維護原則：**
+  - 繁中頁是母版；ja/en 頁為獨立檔案（`src/pages/ja|en/…`），**改版面結構時三語要同步改**
+  - 頁面樣式抽在 `src/styles/home.css` 與 `page-*.css`（三語共用，改一份三語生效）
+  - 元件層字串（導覽/footer/卡片標籤）在 `src/i18n/ui.ts`；品類/城市三語在 `src/lib/site.ts`
+  - 品牌 tagline 的日英在各 md 的 `taglineJa/taglineEn`
+  - **學長姐引言、messages、advice 一律保留繁中原文不翻譯**（紅線 #1：翻譯也是改寫），
+    ja/en 頁已標註「原文刊載」；品牌頁 prose 內文與 highlights 暫同（標註原文），翻譯屬後續工作
 - GA4（裝了就需要 cookie 同意）
 - 角色原始檔目前只有 761px PNG，首頁最大顯示 380px。拿得到 SVG 就直接覆蓋 `src/assets/` 三個檔
 

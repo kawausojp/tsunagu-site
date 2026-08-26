@@ -9,6 +9,8 @@ placements: 5
 fullTimeConverted: 1
 onlineInterview: true
 tagline: "109 年歷史的日本和服專門店"
+taglineJa: "109年の歴史を持つ日本の着物専門店"
+taglineEn: "Japanese kimono specialist with 109 years of history"
 highlights:
   - "累計 5 人採用，1 人從兼職轉正職"
   - "前輩 Haru 現於總公司 PR ＋門市"

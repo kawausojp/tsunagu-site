@@ -9,6 +9,8 @@ placements: 5
 fullTimeConverted: 2
 onlineInterview: false
 tagline: "創業 77 年的日本鞋履品牌"
+taglineJa: "創業77年の日本のシューズブランド"
+taglineEn: "Japanese footwear brand with 77 years of history"
 highlights: []
 sourceSlide: 108
 verified: true

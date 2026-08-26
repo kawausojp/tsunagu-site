@@ -1,8 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
+import '../../styles/page-support.css';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
-<Base title="我們怎麼幫你" description="履歷、面試、住宿、抵日後追蹤 — Tsunagu 提供的支援，全部免費。">
+<Base title="我們怎麼幫你" altPaths={{ zh: '/support/', ja: '/ja/support/', en: '/en/support/' }} description="履歷、面試、住宿、抵日後追蹤 — Tsunagu 提供的支援，全部免費。">
   <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">我們怎麼幫你</h1>
     <p class="lead">很多人到了日本才發現，找不到想做的工作，或條件跟想像差很多。
@@ -50,25 +51,3 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <a class="btn btn-primary" href={`${base}/events`}>報名交流會</a>
   </section>
 </Base>
-<style>
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media (max-width:720px){ .grid{grid-template-columns:1fr} }
-  .b{padding:24px 26px}
-  .b ul{margin:12px 0 0;padding-left:1.2em}
-  .b li{margin-bottom:8px;font-size:14.5px;line-height:1.85}
-  .reasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-  .r{padding:22px 24px}
-  .r::before{content:'';display:block;width:40px;height:2px;background:var(--pink-300);margin-bottom:12px}
-  .r p{margin:0;font-size:14.5px;line-height:1.85}
-  .note{margin-top:18px}
-  .free{background:linear-gradient(120deg,var(--sky-50),var(--pink-50));border-radius:var(--r-xl);
-    padding:40px 36px;max-width:900px;margin-bottom:20px}
-  @media (max-width:720px){
-    .grid,.reasons{gap:12px}
-    .b,.r{padding:18px 16px}
-    .b ul{margin-top:10px}
-    .free{background:var(--greige-50);border:1px solid var(--mobile-line);border-radius:12px;
-      margin-left:16px;margin-right:16px;padding:24px 18px}
-    .free .btn{width:auto}
-  }
-</style>

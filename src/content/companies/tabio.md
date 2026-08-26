@@ -9,6 +9,8 @@ placements: 2
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "1968 年創業，日本最具代表性的襪子專門店"
+taglineJa: "1968年創業、日本を代表する靴下専門店"
+taglineEn: "Japan's signature sock specialist, est. 1968"
 highlights:
   - "2 人已考上正職，工作簽申請中"
 sourceSlide: 145

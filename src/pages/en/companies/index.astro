@@ -1,0 +1,133 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import '../../../styles/page-companies.css';
+import CompanyCard from '../../../components/CompanyCard.astro';
+
+import { href } from '../../../i18n/ui';
+import { CAT_LABEL, CITY } from '../../../lib/site';
+const l = (p: string) => href('en', p);
+const companies = (await getCollection('companies'))
+  .sort((a, b) => b.data.placements - a.data.placements || a.data.name.localeCompare(b.data.name));
+
+const AREA: Record<string,string> = { tokyo:'Tokyo', osaka:'Osaka', kyoto:'Kyoto', fukuoka:'Fukuoka', kobe:'Kobe', hokkaido:'Hokkaido' };
+const areaKeys = Object.keys(AREA).filter(k => companies.some(c => c.data.areas.includes(k as any)));
+const cats = [...new Map(companies.map(c => [c.data.category, CAT_LABEL.en[c.data.category] ?? c.data.categoryLabel])).entries()];
+const jlpts = ['N2','N3'].filter(j => companies.some(c => c.data.jlpt === j));
+const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
+---
+<Base title="Partner Brands" lang="en" altPaths={{ zh: '/companies/', ja: '/ja/companies/', en: '/en/companies/' }} description="All Japanese brands partnering with Tsunagu — filter by area, role and Japanese level.">
+  <section class="page-head">
+    <div class="wrap wrap--page">
+      <h1 class="d1">Partner brands</h1>
+      <p class="lead">
+        {companies.length} brands across 39 contracted companies.
+        Most never post jobs on Chinese-language job boards — which is exactly why they’re hard to find on your own.
+      </p>
+      <div class="notice">
+        <strong>About openings:</strong> these are brand profiles and past placement records, not live job listings. For current openings and conditions, ask at a meetup or in an individual consultation.
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap tools">
+    <div class="filters">
+      <label class="search">
+        <span>Search brands</span>
+        <input type="search" inputmode="search" autocomplete="off" placeholder="Type a brand name"
+          aria-controls="company-grid" data-search-input />
+      </label>
+      <details class="filter-options" data-filter-options open>
+        <summary>Filters</summary>
+        <div class="filter-groups">
+          <div class="grp" role="group" aria-labelledby="filter-area-label">
+            <span class="lbl" id="filter-area-label">Area</span>
+            {areaKeys.map(k => <button type="button" class="tag area f" data-f="area" data-v={k}
+              aria-pressed="false" aria-controls="company-grid">{AREA[k]}</button>)}
+          </div>
+          <div class="grp" role="group" aria-labelledby="filter-cat-label">
+            <span class="lbl" id="filter-cat-label">Role</span>
+            {cats.map(([k,l]) => <button type="button" class="tag job f" data-f="cat" data-v={k}
+              aria-pressed="false" aria-controls="company-grid">{l}</button>)}
+          </div>
+          <div class="grp" role="group" aria-labelledby="filter-jlpt-label">
+            <span class="lbl" id="filter-jlpt-label">Japanese</span>
+            {jlpts.map(j => <button type="button" class="tag jlpt f" data-f="jlpt" data-v={j}
+              aria-pressed="false" aria-controls="company-grid">{j}+</button>)}
+            <button type="button" class="tag f" data-f="jlpt" data-v="none"
+              aria-pressed="false" aria-controls="company-grid">No requirement</button>
+          </div>
+        </div>
+      </details>
+      <button type="button" class="reset" data-reset hidden>Clear search & filters</button>
+    </div>
+    <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
+      data-status>Showing {companies.length} brands</span><span aria-hidden="true">/ {totalPlacements} total placements across these brands</span></p>
+  </div>
+
+  <section class="wrap list">
+    <h2 class="sr-only">Search results</h2>
+    <div class="grid" id="company-grid" data-grid>
+      {companies.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="en" />)}
+    </div>
+    <p class="empty small" data-empty hidden>No brands match — try loosening the filters.</p>
+  </section>
+</Base>
+
+
+<script>
+  const active = { area:new Set<string>(), cat:new Set<string>(), jlpt:new Set<string>() };
+  const grid = document.querySelector('[data-grid]') as HTMLElement;
+  const cards = Array.from(grid.querySelectorAll('.co')) as HTMLElement[];
+  const searchEl = document.querySelector<HTMLInputElement>('[data-search-input]')!;
+  const statusEl = document.querySelector<HTMLElement>('[data-status]')!;
+  const emptyEl = document.querySelector('[data-empty]') as HTMLElement;
+  const resetEl = document.querySelector<HTMLButtonElement>('[data-reset]')!;
+  const filterOptions = document.querySelector<HTMLDetailsElement>('[data-filter-options]');
+  const normalise = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim();
+
+  function apply(){
+    let n = 0;
+    const query = normalise(searchEl.value);
+    cards.forEach(c => {
+      const areas = (c.dataset.areas || '').split(' ');
+      const okSearch = !query || (c.dataset.search || '').includes(query);
+      const okArea = !active.area.size || areas.some(a => active.area.has(a));
+      const okCat  = !active.cat.size  || active.cat.has(c.dataset.cat || '');
+      const okJl   = !active.jlpt.size || active.jlpt.has(c.dataset.jlpt || 'none');
+      const show = okSearch && okArea && okCat && okJl;
+      c.style.display = show ? '' : 'none';
+      if (show) n++;
+    });
+    statusEl.textContent = `顯示 ${n} 個品牌`;
+    emptyEl.hidden = n > 0;
+    const any = searchEl.value.length > 0 || active.area.size || active.cat.size || active.jlpt.size;
+    resetEl.hidden = !any;
+  }
+
+  searchEl.addEventListener('input', apply);
+  document.querySelectorAll('button.f').forEach(b => {
+    const el = b as HTMLElement;
+    el.addEventListener('click', () => {
+      const f = el.dataset.f as keyof typeof active;
+      const v = el.dataset.v!;
+      if (active[f].has(v)) { active[f].delete(v); el.setAttribute('aria-pressed','false'); }
+      else { active[f].add(v); el.setAttribute('aria-pressed','true'); }
+      apply();
+    });
+  });
+  resetEl.addEventListener('click', () => {
+    searchEl.value = '';
+    (Object.keys(active) as (keyof typeof active)[]).forEach(k => active[k].clear());
+    document.querySelectorAll('button.f').forEach(b => b.setAttribute('aria-pressed','false'));
+    searchEl.focus();
+    apply();
+  });
+
+  const mobileFilters = window.matchMedia('(max-width: 720px)');
+  if (filterOptions && mobileFilters.matches) filterOptions.open = false;
+  if (filterOptions) filterOptions.dataset.ready = '';
+  mobileFilters.addEventListener('change', event => {
+    if (filterOptions) filterOptions.open = !event.matches;
+  });
+</script>

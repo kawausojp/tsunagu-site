@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import '../../styles/page-companies.css';
 import CompanyCard from '../../components/CompanyCard.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -13,7 +14,7 @@ const cats = [...new Map(companies.map(c => [c.data.category, c.data.categoryLab
 const jlpts = ['N2','N3'].filter(j => companies.some(c => c.data.jlpt === j));
 const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 ---
-<Base title="合作企業" description="Tsunagu 合作的日本企業與品牌一覽，可依地區、職種、日語程度篩選。">
+<Base title="合作企業" altPaths={{ zh: '/companies/', ja: '/ja/companies/', en: '/en/companies/' }} description="Tsunagu 合作的日本企業與品牌一覽，可依地區、職種、日語程度篩選。">
   <section class="page-head">
     <div class="wrap wrap--page">
       <h1 class="d1">合作企業</h1>
@@ -72,53 +73,6 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
   </section>
 </Base>
 
-<style>
-  .page-head .notice{max-width:46em}
-  .tools{margin:32px auto 0}
-  .filters{display:flex;flex-direction:column;gap:16px}
-  .search{display:flex;flex-direction:column;gap:6px;max-width:380px;font-size:12px;font-weight:700;color:var(--ink-600)}
-  .search input{width:100%;min-height:var(--control-min);border:1.5px solid var(--line);border-radius:var(--r-md);
-    background:var(--paper);color:var(--ink-900);font:inherit;font-size:15px;font-weight:400;padding:9px 18px}
-  .search input::placeholder{color:var(--ink-600)}
-  .filter-options{border:0}
-  .filter-options summary{display:none;min-height:var(--control-min);align-items:center;justify-content:space-between;
-    color:var(--ink-900);font-weight:700;cursor:pointer}
-  .filter-options summary::after{content:'＋';color:var(--pink-700);font-size:20px}
-  .filter-options[open] summary::after{content:'−'}
-  .filter-groups{display:flex;flex-direction:column;gap:12px}
-  .grp{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-  .lbl{font-size:12px;font-weight:700;color:var(--ink-600);width:38px;flex:0 0 38px}
-  button.f{min-height:var(--control-min);border:1.5px solid transparent;cursor:pointer;font-family:inherit;
-    padding:8px 14px;transition:.18s var(--ease)}
-  button.f[aria-pressed="true"]{border-color:currentColor;font-weight:700;box-shadow:var(--sh-1)}
-  .reset{align-self:flex-start;background:none;border:0;color:var(--pink-700);font-weight:700;
-    min-height:var(--control-min);font-size:13px;cursor:pointer;padding:8px 0;text-decoration:underline;font-family:inherit}
-  .count{margin:16px 0 0;color:var(--ink-600)}
-  .list{margin:20px auto 0;padding-bottom:20px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px}
-  .empty{text-align:center;padding:48px 0;color:var(--ink-600)}
-  @media (hover:hover) and (pointer:fine){button.f:hover{transform:translateY(-1px)}}
-  @media (max-width:720px){
-    .tools{margin-top:20px}
-    .filters{gap:12px}
-    .search{max-width:none}
-    .search input{min-height:var(--mobile-field-height);border:1px solid var(--mobile-control-line);
-      border-radius:12px;background:#fff;font-size:16px;padding:12px 16px}
-    .filter-options{border:1px solid var(--mobile-line);border-radius:12px;padding:0 14px;background:#fff}
-    .filter-options:not([data-ready]) .filter-groups{display:none}
-    .filter-options summary{display:flex;min-height:var(--mobile-control-height)}
-    .filter-options[open] summary{border-bottom:1px solid var(--mobile-line)}
-    .filter-groups{gap:14px;padding:14px 0 16px}
-    .lbl{width:100%;flex-basis:100%}
-    .filter-options button.f{min-height:44px;background:#fff;border:1px solid var(--mobile-line);
-      color:var(--ink-600);padding:8px 13px}
-    .filter-options button.f[aria-pressed="true"]{background:var(--sky-50);border-color:var(--sky-700);
-      color:var(--sky-700);box-shadow:none}
-    .count{margin-top:12px}
-    .list{margin-top:16px}
-    .grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  }
-</style>
 
 <script>
   const active = { area:new Set<string>(), cat:new Set<string>(), jlpt:new Set<string>() };

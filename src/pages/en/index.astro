@@ -1,0 +1,135 @@
+---
+// English home. Structure/styles shared with zh version via home.css.
+// When changing page structure, update zh/ja/en together (see CLAUDE.md).
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import '../../styles/home.css';
+import CompanyCard from '../../components/CompanyCard.astro';
+import SenpaiAvatar from '../../components/SenpaiAvatar.astro';
+import { Image } from 'astro:assets';
+import characters from '../../assets/tsunagu-characters.png';
+import { href } from '../../i18n/ui';
+import { VIDEO_ID, nextEvent, fmtEventDate, totalHeld, CITY } from '../../lib/site';
+
+const l = (p: string) => href('en', p);
+const companies = (await getCollection('companies'))
+  .sort((a, b) => b.data.placements - a.data.placements);
+const featured = companies.slice(0, 6);
+const firstStory = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order)[0];
+
+const nextEv = nextEvent();
+const nextEvDate = nextEv ? fmtEventDate(nextEv.date, 'en') : '';
+const heroCta = nextEv
+  ? `Join the ${nextEvDate} meetup in ${CITY.en[nextEv.city] ?? nextEv.city} →`
+  : 'Join the next meetup →';
+const stats = [
+  { n: '2,874', u: '', t: 'meetup attendees' },
+  { n: '163', u: '', t: 'placed in jobs in Japan' },
+  { n: String(totalHeld), u: '', t: 'meetups held' },
+  { n: String(companies.length), u: '', t: 'partner brands' },
+];
+---
+<Base title="Bringing Taiwan’s Talent to Japan" lang="en"
+  description="Free job-matching meetups connecting Taiwanese talent with Japanese companies. Resume help, interview practice, and support after you arrive — all free."
+  altPaths={{ zh: '/', ja: '/ja/', en: '/en/' }}>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <p class="ja-sub" lang="ja">台湾人と日本企業をツナグ</p>
+      <h1 class="d1"><span class="headline-part">Bringing Taiwan’s talent</span><span class="headline-comma"> </span><span class="headline-part">to Japan</span></h1>
+      <Image src={characters}
+        alt="Tsunagu’s two characters: a dog in a blue JP shirt and a cat in a pink TW shirt, sitting hand in hand"
+        widths={[240, 480]} sizes="(max-width: 720px) 152px, 200px" loading="eager" class="chars" />
+      <p class="lead">
+        Planning a working holiday or study abroad in Japan, but not sure what jobs are out there?
+        We introduce you to Japanese companies that genuinely want to work with Taiwanese staff.
+        <strong>From resume to interview to life after arrival — completely free.</strong>
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href={l('/events')}>{heroCta}</a>
+        <a class="action-link" href={l('/companies')}>Browse partner brands →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <div class="wrap">
+    {nextEv && (
+      <a class="news" href={l('/events')}>
+        <span class="news-tag" lang="ja">お知らせ</span>
+        <span class="news-txt">Meetup #{nextEv.no} — {nextEvDate} in {CITY.en[nextEv.city] ?? nextEv.city} · Sign-up open <span aria-hidden="true">→</span></span>
+      </a>
+    )}
+  </div>
+
+  <!-- STATS -->
+  <div class="wrap"><div class="band">
+    {stats.map(s => (
+      <div><div class="n">{s.n}<small>{s.u}</small></div><div class="t">{s.t}</div></div>
+    ))}
+  </div>
+  </div>
+
+  <!-- VIDEO -->
+  <section class="section vid-sec">
+    <div class="wrap">
+      <h2 class="d2">See a meetup in action</h2>
+      <p class="lead">Featured on Taiwan Public Television news (includes an interview with Tsunagu).</p>
+      <div class="video">
+        <iframe src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}`}
+          title="Taiwan PTS news: Japan expands working-holiday quota (includes Tsunagu interview)"
+          loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPANIES -->
+  <section class="section alt">
+    <div class="wrap co-split">
+      <div class="co-side">
+        <h2 class="d2">Japanese brands waiting for you</h2>
+        <p class="lead">Shops you won’t find on job boards — fashion, jewelry, food and more. Here are the six with the most placements.</p>
+        <a class="action-link" href={l('/companies')}>See all {companies.length} partner brands →</a>
+      </div>
+      <div class="grid3 grid-co">
+        {featured.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="en" />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="d2">What alumni are doing in Japan</h2>
+      <div class="voice">
+        <div class="v-avatar"><SenpaiAvatar name={firstStory.data.name} size={96} /></div>
+        <div>
+          <blockquote class="v-quote" lang="zh-Hant">{firstStory.data.lead}</blockquote>
+          <p class="small v-meta">
+            <span lang="ja">{firstStory.data.name}</span> — working holiday · {firstStory.data.company}
+            <br/>* Stories are published in their original language (Chinese).
+          </p>
+        </div>
+      </div>
+      <div class="more"><a class="action-link" href={l('/stories')}>Read all 14 alumni stories →</a></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section final">
+    <div class="wrap final-split">
+      <div>
+        <h2 class="d2">Start with a meetup</h2>
+        <p class="lead">No preparation needed — no resume, no decisions. Just come and hear what Japanese companies are looking for.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href={l('/events')}>See the next meetup →</a>
+          <a class="action-link" href={l('/apply')}>Already decided? Start here →</a>
+        </div>
+      </div>
+      <Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" />
+    </div>
+  </section>
+
+</Base>

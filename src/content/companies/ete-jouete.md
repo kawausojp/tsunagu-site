@@ -9,6 +9,8 @@ placements: 8
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "1985 年生於日本的珠寶品牌，台灣也有 6 間店"
+taglineJa: "1985年日本生まれのジュエリーブランド、台湾にも6店舗"
+taglineEn: "Japanese jewelry brand since 1985, six stores in Taiwan"
 highlights:
   - "累計 8 人採用"
   - "Jouete 髮色自由"

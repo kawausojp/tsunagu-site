@@ -8,6 +8,8 @@ placements: 0
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "使用寶特瓶回收材質的環保時尚鞋款"
+taglineJa: "ペットボトル再生素材のサステナブルシューズ"
+taglineEn: "Sustainable shoes from recycled PET bottles"
 highlights:
   - "環保材質品牌"
   - "POP-UP 型態、地點多變"

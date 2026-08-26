@@ -1,0 +1,85 @@
+---
+// English: meetup schedule. Structure shared with zh version (page-events.css). Update all three languages together.
+import Base from '../../../layouts/Base.astro';
+import '../../../styles/page-events.css';
+import data from '../../../data/events.json';
+import { href } from '../../../i18n/ui';
+import { todayTaipei, fmtEventDate, CITY } from '../../../lib/site';
+
+const l = (p: string) => href('en', p);
+const today = todayTaipei();
+const sorted = [...data.events].sort((a, b) => b.date.localeCompare(a.date));
+const upcoming = sorted.filter(e => e.date >= today).reverse();
+const past = sorted.filter(e => e.date < today);
+const fmt = (d: string) => `${d.slice(0, 4)}/${fmtEventDate(d, 'en')}`;
+const city = (c: string) => CITY.en[c] ?? c;
+
+const flow = [
+  { t: 'On the day', d: 'Japanese companies present who they’re looking for; alumni share what working in Japan is really like.' },
+  { t: 'One-on-one chat', d: 'Tell us your Japanese level, what you want to do, and when you plan to go.' },
+  { t: 'Every step after', d: 'Resume, interview practice, visa paperwork, and follow-up after you arrive — we stay with you.' },
+];
+---
+<Base title="Meetup Schedule & Sign-up" lang="en"
+  altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }}
+  description="Free matching meetups in Taipei, Taichung, Kaohsiung, Tokyo and Osaka, connecting Taiwanese talent with Japanese companies.">
+  <section class="page-head"><div class="wrap wrap--reading">
+    <h1 class="d1">Come to a meetup</h1>
+    <p class="lead">Hear directly from Japanese companies about who they’re hiring — and from alumni about what the work is really like.</p>
+    <p class="small since"><strong>{data.totalHeld}</strong> meetups held since {data.since},
+      across Taipei, Taichung, Kaohsiung, Tokyo and Osaka.</p>
+  </div></section>
+
+  <section class="wrap wrap--reading page-section">
+    <h2 class="d2">Next meetup</h2>
+    {upcoming.length > 0
+      ? <div class="upcoming-list">
+          {upcoming.map(e => (
+            <div class="card next">
+              <div class="when">
+                <span class="no">#{e.no}</span>
+                <span class="date">{fmt(e.date)}</span>
+                <span class="tag area">{city(e.city)}</span>
+              </div>
+              {e.sessions && <p class="small sessions">Sessions: {e.sessions.join(' / ')}</p>}
+              {e.signupUrl
+                ? <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Go to sign-up form →</a>
+                : <p class="small">Sign-up link coming soon.</p>}
+            </div>
+          ))}
+        </div>
+      : <div class="card next empty">
+          <p><strong>Next date not announced yet.</strong></p>
+          <p class="small">Dates are posted on Instagram 2–4 weeks ahead.</p>
+          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Follow us on Instagram →</a>
+        </div>}
+    <p class="small hint">Each meetup has its own sign-up form — always use the latest announced link.</p>
+  </section>
+
+  <section class="wrap wrap--reading page-section">
+    <h2 class="d2">What happens at a meetup</h2>
+    <ol class="flow">
+      {flow.map((f, i) => (
+        <li class="card step"><div class="no">{i + 1}</div><div><h3 class="d3">{f.t}</h3><p class="small">{f.d}</p></div></li>
+      ))}
+    </ol>
+    <p class="small flow-more"><a href={l('/support')}>Full support details (resume, interviews, housing, after arrival) →</a></p>
+    <div class="note"><strong>Everything is free.</strong> No participation or placement fees, ever.</div>
+  </section>
+
+  <section class="wrap wrap--reading page-section">
+    <h2 class="d2">Past meetups</h2>
+    <p class="lead">The {past.length} most recent. Earlier ones are on
+      <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram</a>.</p>
+    <ul class="hist">
+      {past.map(e => (
+        <li class="card h">
+          <span class="no">#{e.no}</span>
+          <span class="date">{fmt(e.date)}</span>
+          <span class="tag area">{city(e.city)}</span>
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span lang="ja">開催報告</span> ↗</a>}
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

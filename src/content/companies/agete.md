@@ -8,6 +8,8 @@ placements: 12
 fullTimeConverted: 1
 onlineInterview: false
 tagline: "1990 年生於東京的日本珠寶品牌"
+taglineJa: "1990年東京生まれのジュエリーブランド"
+taglineEn: "Tokyo-born jewelry brand, est. 1990"
 highlights:
   - "累計 12 人任職"
   - "有轉正職實績（海外事業部）"

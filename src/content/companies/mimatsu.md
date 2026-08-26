@@ -9,6 +9,8 @@ placements: 1
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "創業 94 年，以和服與禮服為主的老牌綜合時尚企業"
+taglineJa: "創業94年、着物とドレスの老舗総合ファッション企業"
+taglineEn: "94-year-old fashion house for kimono and dresses"
 highlights:
   - "門市口譯兼販售"
   - "未來有機會進總公司做正職（SNS 營運等）"

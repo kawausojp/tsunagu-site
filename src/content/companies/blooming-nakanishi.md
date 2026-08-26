@@ -9,6 +9,8 @@ placements: 1
 fullTimeConverted: 1
 onlineInterview: false
 tagline: "1879 年創業的日本傳統企業"
+taglineJa: "1879年創業の日本の伝統企業"
+taglineEn: "Traditional Japanese company founded in 1879"
 highlights:
   - "辦公室／總合職，不是門市"
   - "1 人已於 2025 年 4 月以正社員入社"

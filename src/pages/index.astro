@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import '../styles/home.css';
 import CompanyCard from '../components/CompanyCard.astro';
 import SenpaiAvatar from '../components/SenpaiAvatar.astro';
 import { Image } from 'astro:assets';
@@ -30,7 +31,7 @@ const stats = [
   { n: String(companies.length), u: '個', t: '合作品牌' },
 ];
 ---
-<Base title="把台灣的好人才，牽到日本"
+<Base title="把台灣的好人才，牽到日本" altPaths={{ zh: '/', ja: '/ja/', en: '/en/' }}
   description="想去日本打工度假或留學？Tsunagu 免費媒合台灣人與日本企業：交流會、履歷面試輔導、抵日後追蹤，35 個合作品牌。">
 
   <!-- HERO -->
@@ -132,112 +133,3 @@ const stats = [
   </section>
 
 </Base>
-
-<style>
-  .hero{background:linear-gradient(165deg,var(--pink-50) 0%,var(--cream) 46%,var(--sky-50) 100%);
-    padding:72px 0 64px;border-bottom:1px solid var(--line)}
-  .hero-inner{display:grid;justify-items:center;text-align:center}
-  .hero h1{font-size:clamp(40px,4.8vw,62px);line-height:1.25;letter-spacing:.045em;
-    white-space:nowrap;text-wrap:balance}
-  .hero :global(.chars){width:200px;height:auto;margin:20px auto 18px;
-    transition:transform .28s var(--ease)}
-  @media (hover:hover) and (pointer:fine){ .hero-inner:hover :global(.chars){transform:rotate(-2deg)} }
-  .ja-sub{font-size:13px;letter-spacing:.22em;color:var(--pink-700);margin:0 0 12px}
-  .hero .lead{max-width:720px;margin:0 auto}
-  /* 進場：依內容順序短暫錯開，不改變版面位置。 */
-  .hero-inner>*{animation:hero-rise .28s var(--ease) backwards}
-  .hero-inner>*:nth-child(2){animation-delay:70ms}
-  .hero-inner>*:nth-child(3){animation-delay:140ms}
-  .hero-inner>*:nth-child(4){animation-delay:210ms}
-  .hero-inner>*:nth-child(5){animation-delay:280ms}
-  @keyframes hero-rise{from{opacity:0;transform:translateY(14px)}}
-  .cta-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px;margin-top:26px}
-  /* お知らせ：一行字＋底部細線，不做框 */
-  .news{display:flex;align-items:baseline;gap:14px;margin-top:26px;padding:0 0 14px;
-    border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink-900)}
-  .news:hover .news-txt{color:var(--pink-700)}
-  .news-tag{flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--pink-700);
-    background:var(--pink-50);padding:4px 11px;border-radius:var(--r-xs)}
-  .news-txt{min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-  .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-    padding:36px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:22px;text-align:center;margin-top:40px}
-  .band .n{font-family:var(--f-latin);font-weight:700;font-size:clamp(40px,4.5vw,52px);line-height:1.1;color:var(--pink-700)}
-  .band .n small{font-size:17px;margin-left:3px}
-  .band .t{font-size:13px;color:var(--ink-600);margin-top:4px}
-
-  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:18px;margin-top:28px}
-  .co-split{display:grid;grid-template-columns:250px 1fr;gap:44px;align-items:start}
-  .co-side{position:sticky;top:96px}
-  .co-side .lead{margin:14px 0 22px}
-  .co-split .grid3{margin-top:0;grid-template-columns:repeat(2,1fr)}
-  @media (max-width:900px){
-    .co-split{grid-template-columns:1fr;gap:8px}
-    .co-side{position:static}
-  }
-  .more{margin-top:28px}
-  .alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-
-  .voice{display:flex;gap:28px;align-items:flex-start;margin-top:28px;max-width:760px}
-  .v-avatar{width:96px;height:96px;flex:0 0 96px;border-radius:var(--r-full);overflow:hidden}
-  .v-avatar :global(svg){width:100%;height:100%;display:block}
-  /* 引文用日式鉤括號，開引號掛出版心（光學對齊） */
-  .v-quote{margin:0;font-family:var(--f-display);font-size:19px;line-height:1.9;
-    color:var(--ink-900);letter-spacing:.03em;text-indent:-.6em}
-  .v-quote::before{content:'「';color:var(--pink-300)}
-  .v-quote::after{content:'」';color:var(--pink-300)}
-  .v-meta{margin:14px 0 0;color:var(--ink-600)}
-
-  .vid-sec .lead{margin-bottom:22px}
-  .video{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;
-    background:linear-gradient(135deg,var(--pink-100),var(--sky-100));box-shadow:var(--sh-3);margin-bottom:12px}
-  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-
-  .final{background:var(--sky-50);border-top:1px solid var(--line)}
-  .final-split{display:grid;grid-template-columns:1fr 200px;gap:40px;align-items:end}
-  .final .lead{margin:12px 0 0}
-  :global(.final-chars){width:200px;height:auto}
-  @media (max-width:720px){
-    .final-split{grid-template-columns:1fr}
-    :global(.final-chars){width:150px;margin:0 auto}
-  }
-
-  @media (max-width:720px){
-    .hero{background:var(--paper);padding:28px 0 30px;border-bottom:1px solid var(--mobile-line)}
-    .hero h1{font-size:clamp(30px,8.6vw,36px);white-space:normal;line-height:1.32;
-      letter-spacing:.025em}
-    .headline-part{display:block;white-space:nowrap}
-    .headline-comma{display:none}
-    .hero :global(.chars){width:152px;margin:16px auto 14px}
-    .hero .lead{max-width:32em;text-align:center}
-    .cta-row{gap:10px;margin-top:20px}
-    .hero .cta-row .btn-primary{width:100%}
-    .hero .cta-row .action-link{margin-inline:auto}
-    .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:var(--paper);
-      padding:0;margin-top:20px;border:1px solid var(--mobile-line);border-radius:12px;overflow:hidden}
-    .band>div{display:flex;min-height:88px;flex-direction:column;align-items:center;justify-content:center;
-      padding:14px 8px}
-    .band>div:nth-child(odd){border-right:1px solid var(--mobile-line)}
-    .band>div:nth-child(-n+2){border-bottom:1px solid var(--mobile-line)}
-    .band .n{font-size:clamp(27px,8vw,31px)}
-    .band .n small{font-size:14px}
-    .band .t{font-size:12px;margin-top:5px}
-    .grid3{gap:12px;margin-top:20px}
-    .news{margin-top:18px;padding:10px 14px}
-    .news-txt{font-size:13px}
-
-    /* 企業卡兩格一列：IG 探索頁式的密度，滑動高度減半 */
-    .grid-co{grid-template-columns:repeat(2,1fr);gap:10px}
-
-    .more{margin-top:20px}
-    .more .action-link{margin-left:2px}
-    .alt{background:var(--greige-50);border-color:var(--mobile-line)}
-    .voice{gap:16px;margin-top:20px}
-    .v-avatar{width:64px;height:64px;flex-basis:64px}
-    .v-quote{font-size:16px}
-    .video{border:1px solid var(--mobile-line);border-radius:12px;box-shadow:none}
-    .final{background:var(--sky-50);border-top:1px solid var(--mobile-line)}
-    .final .cta-row{flex-direction:column;align-items:center}
-  }
-</style>

@@ -1,0 +1,90 @@
+---
+import Base from '../../../layouts/Base.astro';
+import '../../../styles/page-apply.css';
+// 線上收件流程目前不存在（2026-08-26 使用者確認）。若日後建立 Google 表單，
+// 填入網址即自動切換為內嵌表單，以下聯絡導流版面會被取代。
+const FORM_URL = '';
+import { href } from '../../../i18n/ui';
+const l = (p: string) => href('en', p);
+---
+<Base title="Submit Your Profile" lang="en" altPaths={{ zh: '/apply/', ja: '/ja/apply/', en: '/en/apply/' }} description="Decided on Japan? How to send us your profile, plus resume-photo and interview tips.">
+  <section class="page-head"><div class="wrap wrap--page">
+    <h1 class="d1">Already decided on Japan?</h1>
+    <p class="lead">Send us your details and we’ll set up a one-on-one consultation. The full resume can come later.</p>
+  </div></section>
+
+  <section class="wrap wrap--page page-section">
+    <h2 class="d2">How to reach us</h2>
+    {FORM_URL
+      ? <div class="stack contact-stack">
+          <div class="formwrap"><iframe src={FORM_URL} loading="lazy" title="Profile submission form"></iframe></div>
+          <div class="notice">
+            <strong>About your data:</strong> the form is handled by Google Forms and goes directly to the organizer’s Google Workspace. This website stores no personal data.
+          </div>
+        </div>
+      : <>
+          <div class="card contact-panel">
+            <article class="contact-option">
+              <span class="contact-no" aria-hidden="true">01</span>
+              <h3 class="d3">Talk to us at a meetup</h3>
+              <p class="small">No resume needed — just tell us your timeline, Japanese level and what you’d like to do.</p>
+              <a class="action-link" href={l('/events')}>See the next meetup →</a>
+            </article>
+            <article class="contact-option">
+              <span class="contact-no" aria-hidden="true">02</span>
+              <h3 class="d3">DM us directly</h3>
+              <p class="small">Can’t make a meetup? Reach out on Instagram and we’ll tell you what to prepare.</p>
+              <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp ↗</a>
+            </article>
+          </div>
+          <p class="small privacy">Contact happens via the meetup page or Instagram; this site itself never receives or stores your personal data.</p>
+        </>}
+  </section>
+
+  <section class="wrap wrap--page page-section">
+    <h2 class="d2">Resume photos, done right</h2>
+    <p class="lead">The most popular part of our seminar. Japanese resume photos have rules — and fashion roles bend them a little.</p>
+    <div class="two">
+      <div class="card box">
+        <h3 class="d3">Standard resume photo</h3>
+        <ul>
+          <li>Mouth closed, corners turned up</li>
+          <li>A refined smile, not a grin</li>
+          <li>❌ No smile / stiff expression</li>
+          <li>❌ Residence-card-style ID photo</li>
+        </ul>
+      </div>
+      <div class="card box alt">
+        <h3 class="d3">Applying to fashion brands</h3>
+        <ul>
+          <li>Add a <strong>more natural, smiling photo</strong> beyond the formal one</li>
+          <li>Include a <strong>full-body shot</strong></li>
+          <li>Something you’d post on Instagram works</li>
+          <li>What they want to see is that you love dressing up</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap wrap--page page-section">
+    <h2 class="d2">Interview tips</h2>
+    <div class="two">
+      <div class="card box">
+        <h3 class="d3">How you speak</h3>
+        <ul>
+          <li>Bright, clear, energetic — speak a little louder than usual</li>
+          <li>Sit up straight and keep still</li>
+          <li><strong>Say「はい」once.</strong> Repeating it (“hai hai hai”) reads as dismissive in Japanese, even though repetition feels natural in Chinese.</li>
+        </ul>
+      </div>
+      <div class="card box">
+        <h3 class="d3">What to prepare</h3>
+        <ul>
+          <li>Prepare answers to common questions (we provide samples)</li>
+          <li>Research the brand thoroughly</li>
+          <li>Check the website and Instagram — visit a store if you can</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>

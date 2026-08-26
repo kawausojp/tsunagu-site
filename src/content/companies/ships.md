@@ -9,6 +9,8 @@ placements: 1
 fullTimeConverted: 1
 onlineInterview: false
 tagline: "1977 年開出銀座一號店的日本老牌選品店"
+taglineJa: "1977年銀座に1号店を開いた日本の老舗セレクトショップ"
+taglineEn: "Storied Japanese select shop; first store in Ginza, 1977"
 highlights:
   - "1 人自 2024 年 9 月起任職並轉正職"
 sourceSlide: 116

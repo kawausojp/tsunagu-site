@@ -9,6 +9,8 @@ placements: 3
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "1845 年誕生於瑞士的巧克力品牌"
+taglineJa: "1845年スイス生まれのチョコレートブランド"
+taglineEn: "Swiss chocolate brand born in 1845"
 highlights:
   - "大阪、京都、福岡各 1 人採用"
 sourceSlide: 149

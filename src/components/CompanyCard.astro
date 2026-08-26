@@ -1,12 +1,13 @@
 ---
 import CategoryIcon from './CategoryIcon.astro';
 import { ui, type Lang } from '../i18n/ui';
+import { CAT_LABEL } from '../lib/site';
 interface Props { c: any; href: string; lang?: Lang }
 const { c, href, lang = 'zh' } = Astro.props;
 const t = ui[lang];
 const d = c.data;
 const tagline = (lang === 'ja' && d.taglineJa) || (lang === 'en' && d.taglineEn) || d.tagline;
-const catLabel = (lang === 'ja' && d.categoryLabelJa) || (lang === 'en' && d.categoryLabelEn) || d.categoryLabel;
+const catLabel = (lang === 'ja' && (d.categoryLabelJa ?? CAT_LABEL.ja[d.category])) || (lang === 'en' && (d.categoryLabelEn ?? CAT_LABEL.en[d.category])) || d.categoryLabel;
 const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel]
   .filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
 ---

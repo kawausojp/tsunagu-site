@@ -1,0 +1,55 @@
+---
+import Base from '../../../layouts/Base.astro';
+import '../../../styles/page-support.css';
+import { href } from '../../../i18n/ui';
+const base = '';
+const l = (p: string) => href('ja', p);
+---
+<Base title="サポート内容" lang="ja" altPaths={{ zh: '/support/', ja: '/ja/support/', en: '/en/support/' }} description="履歴書・面接・住まい・来日後のフォローまで。ツナグのサポートは全て無料です。">
+  <section class="page-head"><div class="wrap wrap--page">
+    <h1 class="d1">サポート内容</h1>
+    <p class="lead">来日してから「やりたい仕事が見つからない」「条件が想像と違う」と気づく人は少なくありません。
+      能力の問題ではなく、「自分の伝え方」を知らないだけのことが多いのです。</p>
+  </div></section>
+
+  <section class="wrap wrap--page page-section">
+    <div class="grid">
+      <div class="card b"><h2 class="d3">来日前</h2><ul>
+        <li>性格・日本語レベル・英語力・経歴・希望職種・将来の目標をヒアリング</li>
+        <li>履歴書の作成・添削</li>
+        <li>面接練習（対面またはオンライン）</li>
+        <li>台湾で中国語による「渡日前研修」を実施</li>
+      </ul></div>
+      <div class="card b"><h2 class="d3">来日後</h2><ul>
+        <li>中国語でのフォローアップ・相談対応</li>
+        <li>住まい：提携先の OAKHOUSE（シェア／個室）・LEOPALACE（個室）を紹介可能</li>
+        <li>転職・正社員登用の相談</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="wrap wrap--page page-section">
+    <h2 class="d2">アパレル・アクセサリー店を勧める理由</h2>
+    <div class="reasons">
+      <div class="card r"><p>こうした店舗の求人は<strong>中国語では出回らず</strong>、自力では見つけにくいからです。</p></div>
+      <div class="card r"><p>アジア圏のお客様が多い店舗では、<strong>中国語がそのまま戦力</strong>になります。</p></div>
+      <div class="card r"><p>一日中日本語で働く環境は、<strong>語学の伸びがまるで違います</strong>。</p></div>
+    </div>
+  </section>
+
+  <section class="wrap wrap--page page-section">
+    <h2 class="d2">日本語がまだ不安な方へ</h2>
+    <p class="lead">アパレル系は N3 以上が目安です。まだ届かない場合は、まず 2〜4 ヶ月ほど語学要件の低い仕事
+      （駅そば、カレー店 C&amp;C など）で環境に慣れてから挑戦する道もあります。</p>
+    <div class="note">
+      アパレルは長期勤務が基本ですが、「まず 3 ヶ月」から受け入れる企業もあります。そうした店舗をお探しします。
+    </div>
+  </section>
+
+  <section class="wrap page-section free">
+    <h2 class="d2">すべて無料です</h2>
+    <p class="lead">交流会の参加費も、就職マッチングの紹介料もいただきません。
+      時給などの条件は企業・ブランド・店舗によりますが、日本企業への提示原則は<strong>「日本人と同一条件」</strong>です。</p>
+    <a class="btn btn-primary" href={l('/events')}>交流会に申し込む</a>
+  </section>
+</Base>

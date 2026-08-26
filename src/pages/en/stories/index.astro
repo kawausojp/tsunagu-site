@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import SenpaiAvatar from '../../../components/SenpaiAvatar.astro';
+import Base from '../../../layouts/Base.astro';
+import '../../../styles/page-stories.css';
+const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
+import { href } from '../../../i18n/ui';
+const l = (p: string) => href('en', p);
+const brands = [...new Set(stories.map(s=>s.data.company))];
+---
+<Base title="Alumni Stories" lang="en" altPaths={{ zh: '/stories/', ja: '/ja/stories/', en: '/en/stories/' }} description="Taiwanese alumni working in Japan through Tsunagu — where they are, what they do, what they learned.">
+  <section class="page-head"><div class="wrap wrap--reading">
+    <h1 class="d1">Our alumni, now in Japan</h1>
+    <p class="lead">
+      They all started with just “I’d like to try Japan.” Here are stories from {stories.length} alumni across {brands.length} brands — working holidays, study abroad and exchange.
+    </p>
+    <div class="note">
+      Stories are published in their original language (Chinese), excerpted from Tsunagu’s Instagram, with a link to each original post.
+      {/* 內部待辦（勿放回畫面）：轉載是否需另取得本人同意，見 CLAUDE.md */}
+    </div>
+  </div></section>
+
+  <section class="wrap wrap--reading list">
+    {stories.map(s => (
+      <article class="card item" id={s.id} tabindex="-1" aria-labelledby={`${s.id}-title`}>
+        <header class="top">
+          <div class="avatar"><SenpaiAvatar name={s.data.name} size={56} /></div>
+          <div>
+            <h2 class="d3" id={`${s.id}-title`} lang="ja">{s.data.name}</h2>
+            <p class="meta small">
+              <span class="tag">{s.data.visa}</span>
+              <span>since {s.data.started}</span>
+              <span class="sep">·</span>
+              <strong>{s.data.company}</strong>
+              <span class="sep">·</span>
+              <span>{s.data.location}</span>
+            </p>
+          </div>
+        </header>
+
+        <p class="lead-q" lang="zh-Hant">{s.data.lead}</p>
+
+        {s.data.messages.length > 0 && (
+          <ul class="msgs" lang="zh-Hant">{s.data.messages.map(m => <li>{m}</li>)}</ul>
+        )}
+
+        {s.data.advice.length > 0 && (
+          <div class="advice">
+            <h3>Advice for juniors (original text)</h3>
+            <ol lang="zh-Hant">{s.data.advice.map(a => <li>{a}</li>)}</ol>
+          </div>
+        )}
+
+        <a class="src small" href={`https://www.instagram.com/p/${s.data.igCode}/`} target="_blank" rel="noopener">
+          Read the original on Instagram ({s.data.igPosted}) ↗
+        </a>
+      </article>
+    ))}
+  </section>
+
+  <section class="wrap wrap--reading cta">
+    <div class="band">
+      <h2 class="d2">You could be next</h2>
+      <p class="lead">Every one of them started with a single meetup.</p>
+      <a class="btn btn-primary" href={l('/events')}>Join a meetup</a>
+    </div>
+  </section>
+</Base>
+<script>
+  const focusStoryTarget = () => {
+    let id = '';
+    try {
+      id = decodeURIComponent(window.location.hash.slice(1));
+    } catch {
+      return;
+    }
+    const target = id ? document.getElementById(id) : null;
+    if (!(target instanceof HTMLElement) || !target.classList.contains('item')) return;
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ block:'start' });
+      target.focus({ preventScroll:true });
+    });
+  };
+  focusStoryTarget();
+  window.addEventListener('hashchange', focusStoryTarget);
+</script>

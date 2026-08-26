@@ -1,0 +1,40 @@
+/* 品牌詳情頁樣式（三語共用） */
+  .hero{background:var(--cream);padding:40px 0 44px;border-bottom:1px solid var(--line)}
+  .back{display:inline-block;font-size:13.5px;color:var(--ink-600);text-decoration:none;margin-bottom:18px}
+  .back:hover{color:var(--pink-700)}
+  .corp{font-size:14px;color:var(--ink-600);margin:6px 0 12px}
+  .hero .tags{margin-top:18px}
+  .body{padding-top:44px;padding-bottom:20px}
+  .prose{font-size:17px;line-height:1.95}
+  .hl{margin-top:32px;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 26px}
+  .hl ul{margin:12px 0 0;padding-left:1.25em}
+  .hl li{margin-bottom:6px;font-size:15px}
+  .numbers{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
+  .numbers > div{flex:1 1 180px;background:linear-gradient(120deg,var(--pink-50),var(--sky-50));
+    border-radius:var(--r-lg);padding:22px;text-align:center}
+  .numbers .n{font-family:var(--f-latin);font-weight:700;font-size:38px;color:var(--pink-700);line-height:1.1}
+  .numbers .t{font-size:13px;color:var(--ink-600);margin-top:4px}
+  .note{margin-top:28px}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
+  @media (max-width:720px){
+    .hero{background:#fff;padding:20px 0 24px;border-bottom-color:var(--mobile-line)}
+    .back{margin-bottom:14px}
+    .hero h1{font-size:clamp(25px,8vw,30px);line-height:1.4;letter-spacing:.025em;overflow-wrap:anywhere}
+    .corp{margin:5px 0 10px}
+    .hero .lead{margin-top:8px}
+    .hero .tags{margin-top:14px;gap:6px}
+    .body{padding-top:32px;padding-bottom:8px}
+    .prose{font-size:15.5px;line-height:1.85}
+    .hl{margin-top:26px;border-color:var(--mobile-line);border-radius:12px;padding:18px 16px}
+    .hl ul{margin-top:10px}
+    .hl li{font-size:14px;line-height:1.8}
+    .numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:20px}
+    .numbers>div{padding:16px 10px;background:#fff;border:1px solid var(--mobile-line);border-radius:12px}
+    .numbers .n{font-size:32px}
+    .note{margin-top:22px}
+    .cta{flex-direction:column;align-items:flex-start;gap:6px;margin-top:28px}
+  }
+  .related{margin:26px 0 6px}
+  .related .d3{margin-bottom:8px}
+  .rel-link{display:block;padding:6px 0;color:var(--sky-700);text-decoration:none}
+  .rel-link:hover{text-decoration:underline}

@@ -9,6 +9,8 @@ placements: 3
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "引領日本時尚與文化的精選店"
+taglineJa: "日本のファッションと文化を牽引するセレクトショップ"
+taglineEn: "The select shop leading Japanese fashion and culture"
 highlights:
   - "希望能待滿 6 個月以上"
   - "會英文更佳"

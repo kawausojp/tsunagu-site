@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import '../../styles/page-events.css';
 import data from '../../data/events.json';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -53,7 +54,7 @@ const flow = [
   { t:'之後的每一步', d:'履歷、面試練習、簽證、抵日後追蹤——我們陪你走到底。' },
 ];
 ---
-<Base title="交流會場次與報名" description="Tsunagu 交流會，台北・台中・高雄・東京・大阪輪流舉辦，參加免費。">
+<Base title="交流會場次與報名" altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }} description="Tsunagu 交流會，台北・台中・高雄・東京・大阪輪流舉辦，參加免費。">
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">來交流會看看</h1>
@@ -115,43 +116,3 @@ const flow = [
     </ul>
   </section>
 </Base>
-<style>
-  .since{margin-top:14px;color:var(--ink-600)}
-  .upcoming-list{display:grid;gap:16px}
-  .next{padding:26px 28px}
-  .next.empty p{margin:0 0 10px}
-  .when{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
-  .when .no{font-family:var(--f-latin);font-weight:700;color:var(--pink-700);font-size:14px}
-  .when .date{font-size:19px;font-weight:700;font-family:var(--f-display)}
-  .sessions{margin:0 0 16px;color:var(--ink-600)}
-  .hint{margin-top:12px;color:var(--ink-600)}
-  .flow{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
-  .step{display:flex;gap:16px;padding:18px 20px;align-items:flex-start}
-  .step .no{width:30px;height:30px;flex:0 0 30px;border-radius:var(--r-full);background:var(--pink-100);
-    color:var(--pink-700);font-family:var(--f-latin);font-weight:700;display:flex;
-    align-items:center;justify-content:center;font-size:14px}
-  .step p{margin:2px 0 0}
-  .note{margin-top:22px}
-  .hist{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-direction:column;gap:8px}
-  .h{display:flex;gap:12px;align-items:center;padding:12px 18px;flex-wrap:wrap}
-  .h .no{font-family:var(--f-latin);font-weight:700;font-size:13px;color:var(--ink-600);flex:0 0 92px;white-space:nowrap}
-  .h .date{font-weight:700;font-size:14.5px}
-  .h .ig{margin-left:auto;color:var(--sky-700);text-decoration:none}
-  .h .ig:hover{text-decoration:underline}
-  @media (max-width:720px){
-    .since{margin-top:10px}
-    .upcoming-list{gap:12px}
-    .next{padding:18px 16px}
-    .when{gap:8px;margin-bottom:8px}
-    .when .date{font-size:17px}
-    .next .btn-primary{width:100%;margin-top:4px}
-    .flow{gap:10px}
-    .step{gap:12px;padding:16px}
-    .step .no{width:28px;height:28px;flex-basis:28px;font-size:13px}
-    .note{margin-top:18px}
-    .hist{gap:0;border:1px solid var(--mobile-line);border-radius:12px;overflow:hidden}
-    .h{gap:8px;padding:12px 14px;border:0;border-bottom:1px solid var(--mobile-line);border-radius:0}
-    .h:last-child{border-bottom:0}
-    .h .no{flex-basis:80px}
-  }
-</style>

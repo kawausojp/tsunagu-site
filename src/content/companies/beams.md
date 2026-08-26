@@ -9,6 +9,8 @@ placements: 8
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "擁有 30 個以上品牌線的日本選品店"
+taglineJa: "30以上のレーベルを擁する日本のセレクトショップ"
+taglineEn: "Japanese select shop with 30+ labels"
 highlights:
   - "累計 8 人採用"
   - "髮色等造型相對自由"

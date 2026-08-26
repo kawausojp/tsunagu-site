@@ -9,6 +9,8 @@ placements: 9
 fullTimeConverted: 3
 onlineInterview: false
 tagline: "1930 年創業、超過 90 年的老牌眼鏡企業"
+taglineJa: "1930年創業、90年を超える老舗メガネ企業"
+taglineEn: "Japanese eyewear company since 1930"
 highlights:
   - "累計 9 人採用，3 人轉正職"
   - "服裝與髮色自由"

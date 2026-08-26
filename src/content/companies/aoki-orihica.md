@@ -9,6 +9,8 @@ placements: 4
 fullTimeConverted: 1
 onlineInterview: false
 tagline: "日本紳士服連鎖前二大的服飾企業"
+taglineJa: "日本紳士服チェーン大手2社のアパレル企業"
+taglineEn: "One of Japan's two largest menswear chains"
 highlights:
   - "累計 4 人採用"
   - "男女皆可，有完整前輩帶訓"

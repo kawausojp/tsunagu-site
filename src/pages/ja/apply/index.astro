@@ -1,0 +1,90 @@
+---
+import Base from '../../../layouts/Base.astro';
+import '../../../styles/page-apply.css';
+// 線上收件流程目前不存在（2026-08-26 使用者確認）。若日後建立 Google 表單，
+// 填入網址即自動切換為內嵌表單，以下聯絡導流版面會被取代。
+const FORM_URL = '';
+import { href } from '../../../i18n/ui';
+const l = (p: string) => href('ja', p);
+---
+<Base title="プロフィール送付" lang="ja" altPaths={{ zh: '/apply/', ja: '/ja/apply/', en: '/en/apply/' }} description="日本行きを決めた方へ。プロフィール・履歴書の提出方法と、履歴書写真・面接のポイント。">
+  <section class="page-head"><div class="wrap wrap--page">
+    <h1 class="d1">日本行きを決めた方へ</h1>
+    <p class="lead">まずは情報をお寄せください。個別面談を手配します。履歴書は後からで構いません。</p>
+  </div></section>
+
+  <section class="wrap wrap--page page-section">
+    <h2 class="d2">情報の送り方</h2>
+    {FORM_URL
+      ? <div class="stack contact-stack">
+          <div class="formwrap"><iframe src={FORM_URL} loading="lazy" title="プロフィール送付フォーム"></iframe></div>
+          <div class="notice">
+            <strong>個人情報について：</strong>フォームは Google フォームで受け付け、データは主催者の Google Workspace に直接送られます。本サイトは個人情報を一切保存しません。
+          </div>
+        </div>
+      : <>
+          <div class="card contact-panel">
+            <article class="contact-option">
+              <span class="contact-no" aria-hidden="true">01</span>
+              <h3 class="d3">まず交流会で話す</h3>
+              <p class="small">履歴書は不要です。渡航時期・日本語レベル・希望の仕事を会場でお聞かせください。</p>
+              <a class="action-link" href={l('/events')}>次回の交流会を見る →</a>
+            </article>
+            <article class="contact-option">
+              <span class="contact-no" aria-hidden="true">02</span>
+              <h3 class="d3">DM で連絡する</h3>
+              <p class="small">日程が合わない場合は Instagram からご連絡ください。必要な準備をご案内します。</p>
+              <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp ↗</a>
+            </article>
+          </div>
+          <p class="small privacy">受付は交流会ページまたは Instagram で行います。本サイト自体は個人情報を受け取りません。</p>
+        </>}
+  </section>
+
+  <section class="wrap wrap--page page-section">
+    <h2 class="d2">履歴書写真の撮り方</h2>
+    <p class="lead">説明会で最も好評のページです。日本の履歴書写真には作法があり、アパレルはまた少し違います。</p>
+    <div class="two">
+      <div class="card box">
+        <h3 class="d3">一般的な履歴書写真</h3>
+        <ul>
+          <li>口は閉じ、口角は上げる</li>
+          <li>上品な微笑み（大笑いは NG）</li>
+          <li>❌ 無表情・硬い表情</li>
+          <li>❌ 在留カードのような証明写真</li>
+        </ul>
+      </div>
+      <div class="card box alt">
+        <h3 class="d3">アパレル応募の場合</h3>
+        <ul>
+          <li>履歴書写真より<strong>自然な笑顔の写真</strong>を別途用意</li>
+          <li><strong>全身写真</strong>も 1 枚追加</li>
+          <li>Instagram に載せるような自然な一枚で OK</li>
+          <li>見たいのは「おしゃれが好き」という事実だからです</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap wrap--page page-section">
+    <h2 class="d2">面接のポイント</h2>
+    <div class="two">
+      <div class="card box">
+        <h3 class="d3">話し方</h3>
+        <ul>
+          <li>明るく・はっきり・元気に、声は大きめに</li>
+          <li>姿勢を正し、体を揺らさない</li>
+          <li><strong>「はい」は一回。</strong>中国語の「對對對」の感覚で「ハイハイハイ」と重ねると、いい加減な印象になります。</li>
+        </ul>
+      </div>
+      <div class="card box">
+        <h3 class="d3">内容の準備</h3>
+        <ul>
+          <li>定番の質問への回答を用意（質問例はこちらで提供します）</li>
+          <li>応募先ブランドをしっかり研究する</li>
+          <li>公式サイト・Instagram を見て、可能なら店舗にも足を運ぶ</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>

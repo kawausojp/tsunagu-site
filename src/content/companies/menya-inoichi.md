@@ -8,6 +8,8 @@ placements: 0
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "連續 9 年入選米其林必比登的京都拉麵店"
+taglineJa: "ミシュラン・ビブグルマン9年連続選出の京都ラーメン店"
+taglineEn: "Kyoto ramen shop, Michelin Bib Gourmand nine years running"
 highlights:
   - "有留學生→打工度假→正職的完整實績"
 sourceSlide: 61

@@ -9,6 +9,8 @@ placements: 4
 fullTimeConverted: 1
 onlineInterview: false
 tagline: "匯集大量 Made in Japan 飾品與雜貨的店"
+taglineJa: "Made in Japanのアクセサリー・雑貨が集まる店"
+taglineEn: "A trove of Made-in-Japan accessories and goods"
 highlights: []
 sourceSlide: 91
 verified: true

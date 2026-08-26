@@ -1,0 +1,69 @@
+---
+import Base from '../../../layouts/Base.astro';
+import '../../../styles/page-about.css';
+import { href } from '../../../i18n/ui';
+const l = (p: string) => href('en', p);
+// 連結原則（CLAUDE.md 紅線 #3）：只外連報社原文，不貼報紙掃描圖。
+// 繊研 2025 兩篇與日經 2024.10.07 經查無線上版（senken.co.jp 404 實測），標紙面刊載。
+const media = [
+  { name:'Nikkei (morning edition)', date:'2024.10.07', note:'Featured Haru at Kimono Yamato', print:true },
+  { name:'Senken Shimbun', date:'2026.01.28', url:'https://senken.co.jp/posts/bp-260128' },
+  { name:'Senken Shimbun', date:'2025.07.17', print:true },
+  { name:'Senken Shimbun', date:'2025.02.12', print:true },
+  { name:'Yahoo! News Japan', date:'2024.08.07' },
+  { name:'Taipei Keizai Shimbun', date:'2023.06.06', url:'https://taipei.keizai.biz/headline/418/' },
+];
+---
+<Base title="About Tsunagu" lang="en" altPaths={{ zh: '/about/', ja: '/ja/about/', en: '/en/about/' }} description="Who runs Tsunagu, and why we started connecting Taiwanese talent with Japanese companies.">
+  <section class="page-head"><div class="wrap wrap--reading">
+    <h1 class="d1">Why we do this</h1>
+  </div></section>
+
+  <section class="wrap wrap--reading page-section">
+    <div class="prose">
+      <p>For eight years, our work has been bringing Japan’s best products, brands and culture to customers in Taiwan.</p>
+      <p>Along the way we saw how many Taiwanese people love Japan and want to study or work there. Tourism alone brings 550–620 thousand Taiwanese visitors to Japan every month — 6.76 million in 2025.</p>
+      <p>Japan, meanwhile, faces a serious labor shortage. Post-pandemic tourism and a weak yen brought a flood of visitors — and not enough staff to serve them, especially in fashion and food service.</p>
+      <p><strong>So this is what we do: bring Taiwan’s talent to Japan.</strong> Not just any job — companies that genuinely want to work with Taiwanese people.</p>
+    </div>
+  </section>
+
+  <section class="wrap wrap--reading page-section">
+    <h2 class="d2">Who we are</h2>
+    <div class="grid">
+      <div class="card b">
+        <h3 class="d3" lang="ja">株式会社ブレーンアンドパートナー</h3>
+        <p class="small">Founded in Japan in 1980; commercial-facility consultancy. Helps run the Japan Council of Shopping Centers (~1,000 member companies).</p>
+      </div>
+      <div class="card b">
+        <h3 class="d3">智囊和夥伴有限公司</h3>
+        <p class="small">Brain &amp; Partner Taiwan Inc., founded 2018. Opening consultant for Breeze Nan Shan atre in Taipei (2019); planned and operated 10+ stores.</p>
+      </div>
+    </div>
+    <p class="small">Past projects: BLUE BOTTLE COFFEE, JAPAN RAIL CAFE, MAISON DE REEFUR, Sasaraya, Kimono Yamato, and Nanaya (the world’s richest matcha gelato). Own stores: bpt ROOM (Breeze Nan Shan 2F, Taipei, 2019–2025.9) and Shion Flowers (Taoyuan).</p>
+  </section>
+
+  <section class="wrap wrap--reading page-section">
+    <h2 class="d2">Media coverage</h2>
+    <ul class="media">
+      {media.map(m => (
+        <li class="card m">
+          <span class="d">{m.date}</span>
+          {m.url
+            ? <a class="n m-link" href={m.url} target="_blank" rel="noopener">{m.name} ↗</a>
+            : <span class="n">{m.name}</span>}
+          {m.note && <span class="small note-t">{m.note}</span>}
+          {m.print && <span class="small note-t">Print only</span>}
+        </li>
+      ))}
+    </ul>
+    {/* 內部待辦（勿放回畫面）：各則報導的原文連結（標題＋日期＋外連，不貼截圖），見 CLAUDE.md */}
+  </section>
+
+  <section class="wrap wrap--reading page-section">
+    <div class="cta-row">
+      <a class="btn btn-primary" href={l('/events')}>Meet us at a meetup →</a>
+      <a class="action-link" href={l('/stories')}>Read alumni stories →</a>
+    </div>
+  </section>
+</Base>
