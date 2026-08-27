@@ -25,13 +25,13 @@ const l = (p: string) => href('ja', p);
       : <>
           <div class="card contact-panel">
             <article class="contact-option">
-              <span class="contact-no" aria-hidden="true">01</span>
+              <span class="contact-no" aria-hidden="true">1</span>
               <h3 class="d3">まず交流会で話す</h3>
               <p class="small">完璧な履歴書は不要です。渡航時期・日本語レベル・希望職種を会場でお聞かせください。</p>
-              <a class="action-link" href={l('/events')}>次回の交流会を見る →</a>
+              <a class="btn btn-primary" href={l('/events')}>次回の交流会を見る →</a>
             </article>
             <article class="contact-option">
-              <span class="contact-no" aria-hidden="true">02</span>
+              <span class="contact-no" aria-hidden="true">2</span>
               <h3 class="d3">DM で連絡する</h3>
               <p class="small">日程が合わない場合は Instagram からご連絡ください。必要な準備をご案内します。</p>
               <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp ↗</a>
@@ -85,6 +85,15 @@ const l = (p: string) => href('ja', p);
           <li>公式サイト・Instagram を見て、可能なら店舗にも足を運ぶ</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="wrap wrap--page page-section closing">
+    <h2 class="d2">準備はできましたか？</h2>
+    <p class="lead">このページのポイントを持って、交流会でお会いしましょう。</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href={l('/events')}>交流会に申し込む →</a>
+      <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram の DM で相談 ↗</a>
     </div>
   </section>
 </Base>

@@ -6,7 +6,7 @@ import CompanyCard from '../components/CompanyCard.astro';
 import SenpaiAvatar from '../components/SenpaiAvatar.astro';
 import { Image } from 'astro:assets';
 import characters from '../assets/tsunagu-characters.png';
-import { VIDEO_ID, nextEvent, fmtEventDate, fmtEventNo, totalHeld } from '../lib/site';
+import { VIDEO_ID, nextEvent, fmtEventDate, totalHeld } from '../lib/site';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const companies = (await getCollection('companies'))
@@ -50,15 +50,15 @@ const stats = [
     </div>
   </section>
 
-  <!-- NEWS（お知らせ式公告列）＋ 快速入口 -->
-  <div class="wrap">
-    {nextEv && (
-      <a class="news" href={`${base}/events`}>
+  <!-- NEWS：有下一場時 hero CTA 已載明場次（公告列與其重複，2026-08-27 定案改為僅無場次時出現） -->
+  {!nextEv && (
+    <div class="wrap">
+      <a class="news" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">
         <span class="news-tag" lang="ja">お知らせ</span>
-        <span class="news-txt">第 {fmtEventNo(nextEv.no, 'zh')} 回交流會　{nextEvDate}{nextEv.city}・開放報名中 <span aria-hidden="true">→</span></span>
+        <span class="news-txt">下一場交流會尚未公布，追蹤 Instagram 接收場次通知 <span aria-hidden="true">↗</span></span>
       </a>
-    )}
-  </div>
+    </div>
+  )}
 
   <!-- STATS -->
   <div class="wrap"><div class="band">
@@ -68,19 +68,6 @@ const stats = [
   </div>
   </div>
 
-  <!-- VIDEO -->
-  <section class="section vid-sec">
-    <div class="wrap">
-      <h2 class="d2">先看看交流會現場</h2>
-      <p class="lead">影片中有 Tsunagu 的訪談段落。</p>
-      <div class="video">
-        <iframe src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}`}
-          title="公視晚間新聞：每年開放台灣 1 萬打工度假名額（內含 Tsunagu 訪談）"
-          loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-          allowfullscreen></iframe>
-      </div>
-    </div>
-  </section>
 
   <!-- COMPANIES -->
   <section class="section alt">
@@ -110,6 +97,20 @@ const stats = [
         </div>
       </div>
       <div class="more"><a class="action-link" href={`${base}/stories`}>看 {stories.length} 位學長姐的第一手分享 →</a></div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="section vid-sec">
+    <div class="wrap">
+      <h2 class="d2">先看看交流會現場</h2>
+      <p class="lead">影片中有 Tsunagu 的訪談段落。</p>
+      <div class="video">
+        <iframe src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}`}
+          title="公視晚間新聞：每年開放台灣 1 萬打工度假名額（內含 Tsunagu 訪談）"
+          loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
     </div>
   </section>
 

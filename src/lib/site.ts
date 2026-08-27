@@ -34,6 +34,27 @@ export function fmtEventDate(date: string, lang: Lang) {
   return lang === 'en' ? `${m}/${d} (${wd})` : `${m}/${d}（${wd}）`;
 }
 
+/** stories 的 company 名 → 對應品牌頁 id（與 [slug].astro 的 relatedStories 同一套寬鬆前綴比對，方向相反）。
+ * 找不到回傳 null（該品牌未揭露時 company 維持純文字）。 */
+const normName = (x: string) => x.normalize('NFKC').toLowerCase().replace(/[^a-z0-9぀-ヿ一-鿿]/g, '');
+export function matchCompanyId(storyCompany: string, companies: { id: string; name: string }[]) {
+  const sn = normName(storyCompany);
+  if (sn.length < 2) return null;
+  const snFirst = normName(storyCompany.split(/[\s/]/)[0]);
+  for (const c of companies) {
+    const dn = normName(c.name);
+    if (sn === dn || dn.startsWith(sn) || sn.startsWith(dn) || (snFirst.length > 2 && dn.startsWith(snFirst))) return c.id;
+  }
+  return null;
+}
+
+/** 品牌頁：highlights 首條常與 placements 大數字磁磚重複（「累計 N 人任職/採用」）。
+ * 有磁磚時把該條從列表濾掉，同一數字不在同屏出現兩次。內容不修改，只是不重複呈現。 */
+export function dedupHighlights(highlights: string[], placements: number) {
+  if (placements <= 0) return highlights;
+  return highlights.filter(h => !/^累計\s?\d+\s?(人|位|名)(任職|採用|入職)/.test(h));
+}
+
 /** 場次編號「88,89」的顯示層分隔：zh「88、89」／ja「88・89」／en「88–89」（資料源保持逗號） */
 export function fmtEventNo(no: string, lang: Lang) {
   const sep = lang === 'ja' ? '・' : lang === 'en' ? '–' : '、';

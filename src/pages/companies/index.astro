@@ -22,10 +22,6 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
         簡報中揭露的 {companies.length} 個品牌，分屬 39 家簽約企業。
         這些店多半不會在中文求職網站上刊登職缺——這正是為什麼自己找很難找到。
       </p>
-      <div class="notice">
-        <strong>關於招募狀態：</strong>這裡列出的是品牌介紹與過往任職實績，
-        不是即時職缺。實際在徵什麼、條件如何，請以交流會現場或個別諮詢的說明為準。
-      </div>
     </div>
   </section>
 
@@ -37,7 +33,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
           aria-controls="company-grid" data-search-input />
       </label>
       <details class="filter-options" data-filter-options open>
-        <summary>篩選條件</summary>
+        <summary data-filter-summary>篩選條件</summary>
         <div class="filter-groups">
           <div class="grp" role="group" aria-labelledby="filter-area-label">
             <span class="lbl" id="filter-area-label">地區</span>
@@ -61,7 +57,14 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       <button type="button" class="reset" data-reset hidden>清除搜尋與篩選</button>
     </div>
     <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
-      data-status>顯示 {companies.length} 個品牌</span><span aria-hidden="true">／本頁品牌合計 {totalPlacements} 人次任職</span></p>
+      data-status>顯示 {companies.length} 個品牌</span><span>／全 {companies.length} 個品牌合計 {totalPlacements} 人次任職</span></p>
+  </div>
+
+  <div class="wrap">
+    <div class="notice">
+      <strong>關於招募狀態：</strong>這裡列出的是品牌介紹與過往任職實績，
+      不是即時職缺。實際在徵什麼、條件如何，請以<a href={`${base}/events`}>交流會</a>現場或個別諮詢的說明為準。
+    </div>
   </div>
 
   <section class="wrap list">
@@ -70,6 +73,15 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       {companies.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
     </div>
     <p class="empty small" data-empty hidden>沒有符合條件的品牌，試試放寬篩選。</p>
+  </section>
+
+  <section class="wrap page-section closing">
+    <h2 class="d2">看到有興趣的品牌了嗎？</h2>
+    <p class="lead">實際在徵什麼，來交流會現場問最快。</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href={`${base}/events`}>報名交流會 →</a>
+      <a class="action-link" href={`${base}/stories`}>看看前輩在這些品牌的經驗 →</a>
+    </div>
   </section>
 </Base>
 
@@ -83,6 +95,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
   const emptyEl = document.querySelector('[data-empty]') as HTMLElement;
   const resetEl = document.querySelector<HTMLButtonElement>('[data-reset]')!;
   const filterOptions = document.querySelector<HTMLDetailsElement>('[data-filter-options]');
+  const summaryEl = document.querySelector<HTMLElement>('[data-filter-summary]');
   const normalise = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim();
 
   function apply(){
@@ -102,8 +115,11 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     emptyEl.hidden = n > 0;
     const any = searchEl.value.length > 0 || active.area.size || active.cat.size || active.jlpt.size;
     resetEl.hidden = !any;
+    const picked = active.area.size + active.cat.size + active.jlpt.size;
+    if (summaryEl) summaryEl.textContent = picked ? `篩選條件（已選 ${picked}）` : '篩選條件';
   }
 
+  const mobileFilters = window.matchMedia('(max-width: 720px)');
   searchEl.addEventListener('input', apply);
   document.querySelectorAll('button.f').forEach(b => {
     const el = b as HTMLElement;
@@ -119,11 +135,10 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     searchEl.value = '';
     (Object.keys(active) as (keyof typeof active)[]).forEach(k => active[k].clear());
     document.querySelectorAll('button.f').forEach(b => b.setAttribute('aria-pressed','false'));
-    searchEl.focus();
+    if (!mobileFilters.matches) searchEl.focus();
     apply();
   });
 
-  const mobileFilters = window.matchMedia('(max-width: 720px)');
   if (filterOptions && mobileFilters.matches) filterOptions.open = false;
   if (filterOptions) filterOptions.dataset.ready = '';
   mobileFilters.addEventListener('change', event => {

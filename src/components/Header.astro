@@ -89,7 +89,8 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     white-space:nowrap;margin-left:auto}
   .mobile-tabs{display:none}
   .burger{display:none;width:var(--control-min);height:var(--control-min);flex:0 0 var(--control-min);
-    background:none;border:0;padding:11px;cursor:pointer}
+    background:none;border:0;border-radius:var(--r-xs);padding:11px;cursor:pointer;transition:.2s var(--ease)}
+  .burger:hover{background:var(--pink-50)}
   .burger span{display:block;width:22px;height:2px;background:var(--ink-900);border-radius:2px}
   .burger span+span{margin-top:5px}
   .drawer{display:none;flex-direction:column;gap:4px;max-height:calc(100dvh - 68px);overflow-y:auto;
@@ -127,7 +128,8 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   }
   .lang{position:relative}
   .lang summary{display:inline-flex;align-items:center;gap:6px;list-style:none;cursor:pointer;
-    font-size:13px;font-weight:500;color:var(--ink-600);padding:7px 10px;border-radius:var(--r-xs);
+    min-height:var(--control-min);font-size:13px;font-weight:500;color:var(--ink-600);
+    padding:7px 10px;border-radius:var(--r-xs);
     border:1px solid var(--line);transition:.2s var(--ease)}
   .lang summary::-webkit-details-marker{display:none}
   .lang summary:hover{color:var(--ink-900);border-color:var(--ink-400)}
@@ -135,8 +137,8 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   .lang ul{position:absolute;right:0;top:calc(100% + 6px);margin:0;padding:6px;list-style:none;
     background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);
     box-shadow:var(--sh-2);min-width:128px;z-index:60}
-  .lang li a{display:block;padding:8px 12px;border-radius:var(--r-xs);text-decoration:none;
-    font-size:13.5px;color:var(--ink-900)}
+  .lang li a{display:flex;align-items:center;min-height:40px;padding:8px 12px;
+    border-radius:var(--r-xs);text-decoration:none;font-size:13.5px;color:var(--ink-900)}
   .lang li a:hover{background:var(--greige-50)}
   .lang li a[aria-current="true"]{color:var(--pink-700);font-weight:700}
   .lang-short{display:none}
@@ -154,6 +156,20 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   const mobile = window.matchMedia('(max-width: 1080px)');
   const compact = window.matchMedia('(max-width: 720px)');
 
+  // 語言選單：點選單外或 Esc 收合（details 原生不會自己關）
+  const lang = document.querySelector<HTMLDetailsElement>('[data-lang-menu]');
+  if (lang) {
+    document.addEventListener('click', event => {
+      if (lang.open && event.target instanceof Node && !lang.contains(event.target)) lang.open = false;
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && lang.open) {
+        lang.open = false;
+        lang.querySelector('summary')?.focus();
+      }
+    });
+  }
+
   if (b && d) {
     const setOpen = (open: boolean, restoreFocus = false) => {
       d.toggleAttribute('data-open', open);
@@ -166,6 +182,10 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
 
     b.addEventListener('click', () => setOpen(!d.hasAttribute('data-open')));
     d.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('click', event => {
+      if (!d.hasAttribute('data-open')) return;
+      if (event.target instanceof Node && !d.contains(event.target) && !b.contains(event.target)) setOpen(false);
+    });
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && d.hasAttribute('data-open')) setOpen(false, true);
     });

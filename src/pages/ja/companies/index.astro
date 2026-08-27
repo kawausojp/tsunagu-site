@@ -24,9 +24,6 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
         公開中の {companies.length} ブランド（契約企業 39 社）。
         その多くは中国語の求人サイトには出てきません。だからこそ、個人で探すのは難しいのです。
       </p>
-      <div class="notice">
-        <strong>募集状況について：</strong>掲載しているのはブランド紹介と勤務実績であり、リアルタイムの求人情報ではありません。募集内容・条件は交流会または個別相談でご確認ください。
-      </div>
     </div>
   </section>
 
@@ -38,7 +35,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
           aria-controls="company-grid" data-search-input />
       </label>
       <details class="filter-options" data-filter-options open>
-        <summary>絞り込み</summary>
+        <summary data-filter-summary>絞り込み</summary>
         <div class="filter-groups">
           <div class="grp" role="group" aria-labelledby="filter-area-label">
             <span class="lbl" id="filter-area-label">エリア</span>
@@ -62,7 +59,13 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       <button type="button" class="reset" data-reset hidden>検索・絞り込みをクリア</button>
     </div>
     <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
-      data-status>{companies.length} ブランドを表示中</span><span aria-hidden="true">／掲載ブランド合計で延べ {totalPlacements} 名の勤務実績</span></p>
+      data-status>{companies.length} ブランドを表示中</span><span>／全 {companies.length} ブランド合計で延べ {totalPlacements} 名の勤務実績</span></p>
+  </div>
+
+  <div class="wrap">
+    <div class="notice">
+      <strong>募集状況について：</strong>掲載しているのはブランド紹介と勤務実績であり、リアルタイムの求人情報ではありません。募集内容・条件は<a href={l('/events')}>交流会</a>または個別相談でご確認ください。
+    </div>
   </div>
 
   <section class="wrap list">
@@ -71,6 +74,15 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       {companies.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="ja" />)}
     </div>
     <p class="empty small" data-empty hidden>条件に合うブランドがありません。条件を変更してみてください。</p>
+  </section>
+
+  <section class="wrap page-section closing">
+    <h2 class="d2">気になるブランドはありましたか？</h2>
+    <p class="lead">実際の募集内容は、交流会で直接ご確認いただけます。</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href={l('/events')}>交流会に申し込む →</a>
+      <a class="action-link" href={l('/stories')}>先輩の体験談を見る →</a>
+    </div>
   </section>
 </Base>
 
@@ -84,6 +96,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
   const emptyEl = document.querySelector('[data-empty]') as HTMLElement;
   const resetEl = document.querySelector<HTMLButtonElement>('[data-reset]')!;
   const filterOptions = document.querySelector<HTMLDetailsElement>('[data-filter-options]');
+  const summaryEl = document.querySelector<HTMLElement>('[data-filter-summary]');
   const normalise = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim();
 
   function apply(){
@@ -103,8 +116,11 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     emptyEl.hidden = n > 0;
     const any = searchEl.value.length > 0 || active.area.size || active.cat.size || active.jlpt.size;
     resetEl.hidden = !any;
+    const picked = active.area.size + active.cat.size + active.jlpt.size;
+    if (summaryEl) summaryEl.textContent = picked ? `絞り込み（${picked} 件選択中）` : '絞り込み';
   }
 
+  const mobileFilters = window.matchMedia('(max-width: 720px)');
   searchEl.addEventListener('input', apply);
   document.querySelectorAll('button.f').forEach(b => {
     const el = b as HTMLElement;
@@ -120,11 +136,10 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     searchEl.value = '';
     (Object.keys(active) as (keyof typeof active)[]).forEach(k => active[k].clear());
     document.querySelectorAll('button.f').forEach(b => b.setAttribute('aria-pressed','false'));
-    searchEl.focus();
+    if (!mobileFilters.matches) searchEl.focus();
     apply();
   });
 
-  const mobileFilters = window.matchMedia('(max-width: 720px)');
   if (filterOptions && mobileFilters.matches) filterOptions.open = false;
   if (filterOptions) filterOptions.dataset.ready = '';
   mobileFilters.addEventListener('change', event => {

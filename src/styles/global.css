@@ -48,7 +48,7 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:88px}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-height) + 20px)}
 body{
   margin:0;background:var(--cream);color:var(--ink-900);
   font-family:var(--f-body);font-weight:400;line-height:1.85;
@@ -59,7 +59,7 @@ p{margin:0 0 1em}
 a{color:var(--sky-700);text-underline-offset:3px}
 img{max-width:100%;height:auto;display:block}
 strong{font-weight:700;color:var(--ink-900)}
-:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px;border-radius:4px}
+:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px;border-radius:var(--r-xs)}
 main:focus{outline:none}
 
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;
@@ -80,7 +80,6 @@ main:focus{outline:none}
 .page-section>.d2:first-child{margin-bottom:18px}
 .stack{display:grid;gap:var(--stack-gap)}
 .stack>*{margin-block:0}
-.cluster{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 
 /* ── 標題（日系：字距拉開、行高放鬆、字重不過粗） ── */
 .d1{font-family:var(--f-display);font-weight:700;font-size:clamp(29px,5vw,46px);
@@ -88,8 +87,6 @@ main:focus{outline:none}
 .d2{font-family:var(--f-display);font-weight:700;font-size:clamp(21px,3.2vw,29px);
     line-height:1.5;letter-spacing:.05em}
 .d3{font-family:var(--f-display);font-weight:700;font-size:18px;line-height:1.6;letter-spacing:.03em}
-.eyebrow{font-family:var(--f-latin);font-weight:500;letter-spacing:.3em;text-transform:uppercase;
-    font-size:11px;color:var(--pink-700);margin:0 0 14px}
 .lead{color:var(--ink-600);max-width:36em;font-size:16px;line-height:2}
 .small{font-size:13.5px;color:var(--ink-600);line-height:1.9}
 
@@ -131,24 +128,25 @@ main:focus{outline:none}
   .btn:hover{transform:translateY(-2px)}
   .card-link:hover{box-shadow:var(--sh-3);transform:translateY(-3px)}
 }
+.btn:active{transform:translateY(0);filter:brightness(.96)}
+.action-link:active{opacity:.75}
 
 /* 補充注釋：日式 ※ 起頭，無底色（一個畫面最多一個有底色的強調 = .notice） */
 .note{padding:14px 0 0;border-top:1px solid var(--line);font-size:13.5px;
-  color:var(--ink-600);line-height:1.9}
+  color:var(--ink-600);line-height:1.9;max-width:44em}
 .note::before{content:'※';color:var(--pink-700);margin-right:.5em}
 .note strong{color:var(--ink-900)}
 /* 必讀聲明（免責、法遵、個資）：全站唯一保留底色的區塊，每頁至多一個 */
 .notice{background:var(--note-bg);border:1px solid var(--note-line);border-radius:var(--r-sm);
-  margin-top:20px;padding:14px 18px;font-size:13.5px;color:var(--note-ink);line-height:1.9}
+  margin-top:20px;padding:14px 18px;font-size:13.5px;color:var(--note-ink);line-height:1.9;max-width:46em}
 .notice strong{color:var(--ink-900)}
-.stack>.notice{margin-block:0}
 
 /* 手機版採用安靜、任務優先的單層介面；桌面版保留原有品牌表現。 */
 @media (max-width:720px){
   :root{
     --layout-gutter:16px;
     --r-sm:8px;--r-md:12px;--r-lg:14px;--r-xl:18px;
-    --sh-1:none;--sh-2:0 1px 2px rgba(63,63,70,.08);--sh-3:0 8px 24px rgba(63,63,70,.10);
+    --sh-1:none;--sh-2:0 1px 2px rgba(180,140,150,.10);--sh-3:0 8px 24px rgba(180,140,150,.12);
     --header-height:101px;
     --content-section-gap:40px;
     --stack-gap:16px;
@@ -168,14 +166,13 @@ main:focus{outline:none}
   .d1{font-size:clamp(30px,9vw,36px);line-height:1.32;letter-spacing:.02em}
   .d2{font-size:22px;line-height:1.4;letter-spacing:.02em}
   .d3{font-size:16px;line-height:1.55;letter-spacing:.01em}
-  .eyebrow{font-size:10px;letter-spacing:.22em;margin-bottom:10px}
   .lead{font-size:15px;line-height:1.8}
   .small{font-size:12.5px;line-height:1.75}
-  main .btn{min-height:var(--mobile-control-height);padding:11px 18px;box-shadow:none;font-size:14px}
+  main .btn{min-height:var(--mobile-control-height);padding:11px 18px;font-size:14px}
   main .btn-secondary{border-color:var(--mobile-control-line);color:var(--ink-900)}
   main .btn-ghost{border-color:var(--mobile-line);color:var(--ink-900)}
   main .action-link{min-height:44px;padding:7px 0;font-size:14px}
-  main .card{border-radius:12px;border-color:var(--mobile-line);box-shadow:none}
+  main .card{border-radius:var(--r-md);border-color:var(--mobile-line);box-shadow:none}
   main .card-link:focus-visible{box-shadow:none}
   .notice{margin-top:16px;padding:14px 16px}
 }
@@ -183,5 +180,5 @@ main:focus{outline:none}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;
     transition-delay:0ms!important;scroll-behavior:auto!important}
-  .card-link:hover,.btn:hover,.play:hover,button.f:hover{transform:none!important}
+  .card-link:hover,.btn:hover,button.f:hover,.hero-inner:hover .chars{transform:none!important}
 }

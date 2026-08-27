@@ -5,9 +5,14 @@ import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-stories.css';
 const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
 import { href } from '../../../i18n/ui';
-import { VISA_LABEL } from '../../../lib/site';
+import { VISA_LABEL, matchCompanyId } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const brands = [...new Set(stories.map(s=>s.data.company))];
+const companiesAll = (await getCollection('companies')).map(c => ({ id: c.id, name: c.data.name }));
+const companyHref = new Map(stories.map(s => {
+  const id = matchCompanyId(s.data.company, companiesAll);
+  return [s.id, id ? l(`/companies/${id}`) : null];
+}));
 ---
 <Base title="Alumni Stories" lang="en" altPaths={{ zh: '/stories/', ja: '/ja/stories/', en: '/en/stories/' }} description="Taiwanese alumni working in Japan through Tsunagu — where they are, what they do, what they learned.">
   <section class="page-head"><div class="wrap wrap--reading">
@@ -21,6 +26,15 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
     </div>
   </div></section>
 
+  <nav class="wrap wrap--reading jump" aria-label="Jump to an alumni story">
+    {stories.map(s => (
+      <a class="jump-chip" href={`#${s.id}`}>
+        <span class="jump-ava"><SenpaiAvatar name={s.data.name} size={26} /></span>
+        <span lang="ja">{s.data.name}</span>
+      </a>
+    ))}
+  </nav>
+
   <section class="wrap wrap--reading list">
     {stories.map(s => (
       <article class="card item" id={s.id} tabindex="-1" aria-labelledby={`${s.id}-title`}>
@@ -31,10 +45,10 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
             <p class="meta small">
               <span class="tag">{VISA_LABEL.en[s.data.visa] ?? s.data.visa}</span>
               <span>since {s.data.started}</span>
-              <span class="sep">·</span>
-              <strong>{s.data.company}</strong>
-              <span class="sep">·</span>
-              <span lang="zh-Hant">{s.data.location}</span>
+              <span class="pair"><span class="sep">·</span>{companyHref.get(s.id)
+                ? <a class="co-link" href={companyHref.get(s.id)}><strong>{s.data.company}</strong></a>
+                : <strong>{s.data.company}</strong>}</span>
+              <span class="pair"><span class="sep">·</span><span lang="zh-Hant">{s.data.location}</span></span>
             </p>
           </div>
         </header>
@@ -60,7 +74,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
   </section>
 
   <section class="wrap wrap--reading cta">
-    <div class="band">
+    <div class="cta-band">
       <h2 class="d2">You could be next</h2>
       <p class="lead">Every one of them started with a single meetup.</p>
       <a class="btn btn-primary" href={l('/events')}>Join a meetup</a>

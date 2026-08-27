@@ -25,13 +25,13 @@ const l = (p: string) => href('en', p);
       : <>
           <div class="card contact-panel">
             <article class="contact-option">
-              <span class="contact-no" aria-hidden="true">01</span>
+              <span class="contact-no" aria-hidden="true">1</span>
               <h3 class="d3">Talk to us at a meetup</h3>
               <p class="small">No resume needed — just tell us your timeline, Japanese level and what you’d like to do.</p>
-              <a class="action-link" href={l('/events')}>See the next meetup →</a>
+              <a class="btn btn-primary" href={l('/events')}>See the next meetup →</a>
             </article>
             <article class="contact-option">
-              <span class="contact-no" aria-hidden="true">02</span>
+              <span class="contact-no" aria-hidden="true">2</span>
               <h3 class="d3">DM us directly</h3>
               <p class="small">Can’t make a meetup? Reach out on Instagram and we’ll tell you what to prepare.</p>
               <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp ↗</a>
@@ -85,6 +85,15 @@ const l = (p: string) => href('en', p);
           <li>Check the website and Instagram — visit a store if you can</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="wrap wrap--page page-section closing">
+    <h2 class="d2">Ready to go?</h2>
+    <p class="lead">Bring what you learned here to a meetup — that’s where it all starts.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href={l('/events')}>Join a meetup →</a>
+      <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Or DM us on Instagram ↗</a>
     </div>
   </section>
 </Base>

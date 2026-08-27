@@ -15,7 +15,7 @@
   .grp{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
   .lbl{font-size:12px;font-weight:700;color:var(--ink-600);width:38px;flex:0 0 38px}
   button.f{min-height:var(--control-min);border:1.5px solid transparent;cursor:pointer;font-family:inherit;
-    padding:8px 14px;transition:.18s var(--ease)}
+    padding:8px 14px;transition:.2s var(--ease)}
   button.f[aria-pressed="true"]{border-color:currentColor;font-weight:700;box-shadow:var(--sh-1)}
   .reset{align-self:flex-start;background:none;border:0;color:var(--pink-700);font-weight:700;
     min-height:var(--control-min);font-size:13px;cursor:pointer;padding:8px 0;text-decoration:underline;font-family:inherit}
@@ -23,20 +23,22 @@
   .list{margin:20px auto 0;padding-bottom:20px}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px}
   .empty{text-align:center;padding:48px 0;color:var(--ink-600)}
+  .closing{margin-bottom:64px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
   @media (hover:hover) and (pointer:fine){button.f:hover{transform:translateY(-1px)}}
   @media (max-width:720px){
     .tools{margin-top:20px}
     .filters{gap:12px}
     .search{max-width:none}
     .search input{min-height:var(--mobile-field-height);border:1px solid var(--mobile-control-line);
-      border-radius:12px;background:#fff;font-size:16px;padding:12px 16px}
-    .filter-options{border:1px solid var(--mobile-line);border-radius:12px;padding:0 14px;background:#fff}
+      border-radius:var(--r-md);background:var(--paper);font-size:16px;padding:12px 16px}
+    .filter-options{border:1px solid var(--mobile-line);border-radius:var(--r-md);padding:0 14px;background:var(--paper)}
     .filter-options:not([data-ready]) .filter-groups{display:none}
     .filter-options summary{display:flex;min-height:var(--mobile-control-height)}
     .filter-options[open] summary{border-bottom:1px solid var(--mobile-line)}
     .filter-groups{gap:14px;padding:14px 0 16px}
     .lbl{width:100%;flex-basis:100%}
-    .filter-options button.f{min-height:44px;background:#fff;border:1px solid var(--mobile-line);
+    .filter-options button.f{min-height:44px;background:var(--paper);border:1px solid var(--mobile-line);
       color:var(--ink-600);padding:8px 13px}
     .filter-options button.f[aria-pressed="true"]{background:var(--sky-50);border-color:var(--sky-700);
       color:var(--sky-700);box-shadow:none}

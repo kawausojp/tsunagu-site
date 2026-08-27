@@ -25,13 +25,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       : <>
           <div class="card contact-panel">
             <article class="contact-option">
-              <span class="contact-no" aria-hidden="true">01</span>
+              <span class="contact-no" aria-hidden="true">1</span>
               <h3 class="d3">先到交流會聊聊</h3>
               <p class="small">不用先準備完整履歷，現場告訴我們你的時間、日語程度與想做的工作。</p>
-              <a class="action-link" href={`${base}/events`}>查看下一場交流會 →</a>
+              <a class="btn btn-primary" href={`${base}/events`}>查看下一場交流會 →</a>
             </article>
             <article class="contact-option">
-              <span class="contact-no" aria-hidden="true">02</span>
+              <span class="contact-no" aria-hidden="true">2</span>
               <h3 class="d3">直接私訊我們</h3>
               <p class="small">如果時間不方便，先從 Instagram 聯絡，我們會告訴你需要準備什麼。</p>
               <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp ↗</a>
@@ -86,6 +86,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <li>看官網、看 Instagram，有機會就去店裡走一趟</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="wrap wrap--page page-section closing">
+    <h2 class="d2">準備得差不多了？</h2>
+    <p class="lead">帶著這頁的重點來交流會，現場就能開始。</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href={`${base}/events`}>報名交流會 →</a>
+      <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">或先用 IG 私訊聊聊 ↗</a>
     </div>
   </section>
 </Base>

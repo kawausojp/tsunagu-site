@@ -6,10 +6,10 @@ const l = (p: string) => href('en', p);
 // 連結原則（CLAUDE.md 紅線 #3）：只外連報社原文，不貼報紙掃描圖。
 // 繊研 2025 兩篇與日經 2024.10.07 經查無線上版（senken.co.jp 404 實測），標紙面刊載。
 const media = [
-  { name:'Nikkei (morning edition)', date:'2024.10.07', note:'Featured Haru at Kimono Yamato', print:true },
   { name:'Senken Shimbun', date:'2026.01.28', url:'https://senken.co.jp/posts/bp-260128' },
   { name:'Senken Shimbun', date:'2025.07.17', print:true },
   { name:'Senken Shimbun', date:'2025.02.12', print:true },
+  { name:'Nikkei (morning edition)', date:'2024.10.07', note:'Featured Haru at Kimono Yamato', print:true },
   { name:'Yahoo! News Japan', date:'2024.08.07' },
   { name:'Taipei Keizai Shimbun', date:'2023.06.06', url:'https://taipei.keizai.biz/headline/418/' },
 ];
@@ -17,11 +17,11 @@ const media = [
 <Base title="About Tsunagu" lang="en" altPaths={{ zh: '/about/', ja: '/ja/about/', en: '/en/about/' }} description="Who runs Tsunagu, and why we started connecting Taiwanese talent with Japanese companies.">
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">Why we do this</h1>
+    <p class="lead">For eight years, our work has been bringing Japan’s best products, brands and culture to customers in Taiwan.</p>
   </div></section>
 
   <section class="wrap wrap--reading page-section">
     <div class="prose">
-      <p>For eight years, our work has been bringing Japan’s best products, brands and culture to customers in Taiwan.</p>
       <p>Along the way we saw how many Taiwanese people love Japan and want to study or work there. Tourism alone brings 550,000–620,000 Taiwanese visitors to Japan every month — 6.76 million visits in 2025.</p>
       <p>Japan, meanwhile, faces a serious labor shortage. Post-pandemic tourism and a weak yen brought a flood of visitors — and not enough staff to serve them, especially in fashion and food service.</p>
       <p><strong>So this is what we do: bring Taiwan’s talent to Japan.</strong> Not just any job — companies that genuinely want to work with Taiwanese people.</p>

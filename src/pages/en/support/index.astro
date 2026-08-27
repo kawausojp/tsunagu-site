@@ -2,7 +2,6 @@
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-support.css';
 import { href } from '../../../i18n/ui';
-const base = '';
 const l = (p: string) => href('en', p);
 ---
 <Base title="How We Help" lang="en" altPaths={{ zh: '/support/', ja: '/ja/support/', en: '/en/support/' }} description="Resume, interviews, housing, and follow-up after arrival — all of Tsunagu’s support is free.">
@@ -50,6 +49,7 @@ const l = (p: string) => href('en', p);
     <h2 class="d2">All of this is free</h2>
     <p class="lead">No meetup fees, no placement fees — ever. Wages vary by company, brand and store,
       but our principle to every Japanese employer is simple: <strong>the same conditions as Japanese staff</strong>.</p>
-    <a class="btn btn-primary" href={l('/events')}>Join a meetup</a>
+    <div class="cta-row"><a class="btn btn-primary" href={l('/events')}>Join a meetup</a>
+    <a class="action-link" href={l('/apply')}>Already decided? Start here →</a></div>
   </section>
 </Base>

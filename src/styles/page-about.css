@@ -1,23 +1,24 @@
 /* about 頁樣式（三語共用） */
-  .prose{font-size:17px;line-height:1.95}
+  .prose{font-size:17px;line-height:1.95;max-width:42em}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
   @media (max-width:720px){ .grid{grid-template-columns:1fr} }
-  .b{padding:22px 24px}
+  .b{padding:var(--card-pad)}
   .b p{margin:8px 0 0}
   .media{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
   .m{padding:14px 18px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
   .m .d{font-family:var(--f-latin);font-weight:600;color:var(--ink-600);font-size:13px;flex:0 0 92px}
   .m .n{font-weight:700;font-size:15px}
   .note-t{color:var(--ink-600)}
+  .page-section>.small{max-width:40em}
   @media (max-width:720px){
     .prose{font-size:15.5px;line-height:1.85}
     .grid{gap:12px;margin-bottom:14px}
     .b{padding:18px 16px}
-    .media{gap:0;border:1px solid var(--mobile-line);border-radius:12px;overflow:hidden}
+    .media{gap:0;border:1px solid var(--mobile-line);border-radius:var(--r-md);overflow:hidden}
     .m{gap:8px;padding:12px 14px;border:0;border-bottom:1px solid var(--mobile-line);border-radius:0}
     .m:last-child{border-bottom:0}
     .m .d{flex-basis:82px}
   }
   .cta-row{display:flex;flex-wrap:wrap;gap:12px}
-  .m-link{color:var(--sky-700);text-decoration:none}
+  .m-link{display:inline-flex;align-items:center;min-height:var(--control-min);color:var(--sky-700);text-decoration:none}
   .m-link:hover{text-decoration:underline}

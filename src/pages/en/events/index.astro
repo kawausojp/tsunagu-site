@@ -58,7 +58,7 @@ const flow = [
       across {data.cities.map(c => city(c)).map((c, i, a) => i === a.length - 1 && a.length > 1 ? `and ${c}` : c).join(', ').replace(', and ', ' and ')}.</p>
   </div></section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--reading page-section" id="signup">
     <h2 class="d2">Next meetup</h2>
     {upcoming.length > 0
       ? <div class="upcoming-list">
@@ -71,7 +71,10 @@ const flow = [
               </div>
               {e.sessions && <p class="small sessions">Sessions: {e.sessions.join(' / ')}</p>}
               {e.signupUrl
-                ? <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Go to sign-up form →</a>
+                ? <>
+                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Go to sign-up form ↗<span class="sr-only"> (opens in a new window)</span></a>
+                    <p class="small hint">Each meetup has its own sign-up form — always use the latest announced link.</p>
+                  </>
                 : <p class="small">Sign-up link coming soon.</p>}
             </div>
           ))}
@@ -79,9 +82,8 @@ const flow = [
       : <div class="card next empty">
           <p><strong>Next date not announced yet.</strong></p>
           <p class="small">Dates are posted on Instagram 2–4 weeks ahead. The most recent meetup was #{fmtEventNo(past[0]?.no ?? '', 'en')} ({fmt(past[0]?.date)} · {city(past[0]?.city)}).</p>
-          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Follow us on Instagram →</a>
+          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Follow us on Instagram ↗</a>
         </div>}
-    <p class="small hint">Each meetup has its own sign-up form — always use the latest announced link.</p>
   </section>
 
   <section class="wrap wrap--reading page-section">
@@ -109,5 +111,6 @@ const flow = [
         </li>
       ))}
     </ul>
+    <p class="small backtop"><a href="#signup">↑ Back to sign-up</a></p>
   </section>
 </Base>

@@ -23,11 +23,12 @@ const relatedStories = allStories.filter(st => {
   return sn === dn || dn.startsWith(sn) || sn.startsWith(dn) || (snFirst.length > 2 && dn.startsWith(snFirst));
 }).sort((a, b) => a.data.order - b.data.order);
 import { href } from '../../../i18n/ui';
-import { CAT_LABEL, VISA_LABEL } from '../../../lib/site';
+import { CAT_LABEL, VISA_LABEL, dedupHighlights } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const catLabel = CAT_LABEL.en[d.category] ?? d.categoryLabel;
 const tagline = d.taglineEn ?? d.tagline;
 const AREA: Record<string,string> = { tokyo:'Tokyo', osaka:'Osaka', kyoto:'Kyoto', fukuoka:'Fukuoka', kobe:'Kobe', hokkaido:'Hokkaido' };
+const hl = dedupHighlights(d.highlights, d.placements);
 ---
 <Base title={`${d.name} — Work in Japan`} lang="en"
   altPaths={{ zh: `/companies/${c.id}/`, ja: `/ja/companies/${c.id}/`, en: `/en/companies/${c.id}/` }}
@@ -51,10 +52,10 @@ const AREA: Record<string,string> = { tokyo:'Tokyo', osaka:'Osaka', kyoto:'Kyoto
     <div class="wrap wrap--prose body">
       <div class="prose" lang="zh-Hant"><Content /></div>
 
-      {d.highlights.length > 0 && (
+      {hl.length > 0 && (
         <div class="hl">
           <h2 class="d3">Highlights (original text)</h2>
-          <ul lang="zh-Hant">{d.highlights.map((h:string) => <li>{h}</li>)}</ul>
+          <ul lang="zh-Hant">{hl.map((h:string) => <li>{h}</li>)}</ul>
         </div>
       )}
 

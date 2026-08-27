@@ -52,7 +52,7 @@ const flow = [
       地點涵蓋{data.cities.join('、')}。</p>
   </div></section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--reading page-section" id="signup">
     <h2 class="d2">下一場</h2>
     {upcoming.length > 0
       ? <div class="upcoming-list">
@@ -65,7 +65,10 @@ const flow = [
               </div>
               {e.sessions && <p class="small sessions">場次：{e.sessions.join('　／　')}</p>}
               {e.signupUrl
-                ? <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往報名表單 →</a>
+                ? <>
+                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往報名表單 ↗<span class="sr-only">（另開新視窗）</span></a>
+                    <p class="small hint">每一場的報名表單都不一樣，請以最新公告的連結為準。</p>
+                  </>
                 : <p class="small">報名連結待公布。</p>}
             </div>
           ))}
@@ -73,9 +76,8 @@ const flow = [
       : <div class="card next empty">
           <p><strong>下一場尚未公布。</strong></p>
           <p class="small">場次通常提前 2–4 週在 Instagram 公告。最近一場是第 {fmtEventNo(past[0]?.no ?? '', 'zh')} 回（{fmt(past[0]?.date)}・{past[0]?.city}）。</p>
-          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">追蹤 IG 接收場次通知 →</a>
+          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">追蹤 IG 接收場次通知 ↗</a>
         </div>}
-    <p class="small hint">每一場的報名表單都不一樣，請以最新公告的連結為準。</p>
   </section>
 
   <section class="wrap wrap--reading page-section">
@@ -103,5 +105,6 @@ const flow = [
         </li>
       ))}
     </ul>
+    <p class="small backtop"><a href="#signup">↑ 回到本頁報名下一場</a></p>
   </section>
 </Base>

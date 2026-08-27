@@ -8,7 +8,7 @@
     transition:transform .28s var(--ease)}
   @media (hover:hover) and (pointer:fine){ .hero-inner:hover .chars{transform:rotate(-2deg)} }
   .ja-sub{font-size:13px;letter-spacing:.22em;color:var(--pink-700);margin:0 0 12px}
-  .hero .lead{max-width:720px;margin:0 auto}
+  .hero .lead{max-width:640px;margin:0 auto}
   /* 進場：依內容順序短暫錯開，不改變版面位置。 */
   .hero-inner>*{animation:hero-rise .28s var(--ease) backwards}
   .hero-inner>*:nth-child(2){animation-delay:70ms}
@@ -22,7 +22,7 @@
     border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink-900)}
   .news:hover .news-txt{color:var(--pink-700)}
   .news-tag{flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--pink-700);
-    background:var(--pink-50);padding:4px 11px;border-radius:var(--r-xs)}
+    background:var(--pink-50);border:1px solid var(--pink-200);padding:3px 10px;border-radius:var(--r-xs)}
   .news-txt{min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
@@ -38,7 +38,7 @@
   .co-side .lead{margin:14px 0 22px}
   .co-split .grid3{margin-top:0;grid-template-columns:repeat(2,1fr)}
   @media (max-width:900px){
-    .co-split{grid-template-columns:1fr;gap:8px}
+    .co-split{grid-template-columns:1fr;gap:16px}
     .co-side{position:static}
   }
   .more{margin-top:28px}
@@ -80,7 +80,7 @@
     .hero .cta-row .btn-primary{width:100%}
     .hero .cta-row .action-link{margin-inline:auto}
     .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:var(--paper);
-      padding:0;margin-top:20px;border:1px solid var(--mobile-line);border-radius:12px;overflow:hidden}
+      padding:0;margin-top:20px;border:1px solid var(--mobile-line);border-radius:var(--r-md);overflow:hidden}
     .band>div{display:flex;min-height:88px;flex-direction:column;align-items:center;justify-content:center;
       padding:14px 8px}
     .band>div:nth-child(odd){border-right:1px solid var(--mobile-line)}
@@ -90,7 +90,7 @@
     .band .t{font-size:12px;margin-top:5px}
     .grid3{gap:12px;margin-top:20px}
     .news{margin-top:18px;padding:10px 14px}
-    .news-txt{font-size:13px}
+    .news-txt{font-size:13px;white-space:normal;overflow:visible;text-overflow:clip}
 
     /* 企業卡兩格一列：IG 探索頁式的密度，滑動高度減半 */
     .grid-co{grid-template-columns:repeat(2,1fr);gap:10px}
@@ -101,7 +101,7 @@
     .voice{gap:16px;margin-top:20px}
     .v-avatar{width:64px;height:64px;flex-basis:64px}
     .v-quote{font-size:16px}
-    .video{border:1px solid var(--mobile-line);border-radius:12px;box-shadow:none}
+    .video{border:1px solid var(--mobile-line);border-radius:var(--r-md);box-shadow:none}
     .final{background:var(--sky-50);border-top:1px solid var(--mobile-line)}
     .final .cta-row{flex-direction:column;align-items:center}
   }

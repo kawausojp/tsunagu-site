@@ -58,7 +58,7 @@ const flow = [
       {data.cities.map(c => city(c)).join('・')}で実施しています。</p>
   </div></section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--reading page-section" id="signup">
     <h2 class="d2">次回開催</h2>
     {upcoming.length > 0
       ? <div class="upcoming-list">
@@ -71,7 +71,10 @@ const flow = [
               </div>
               {e.sessions && <p class="small sessions">時間：{e.sessions.join('　／　')}</p>}
               {e.signupUrl
-                ? <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">申込フォームへ →</a>
+                ? <>
+                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">申込フォームへ ↗<span class="sr-only">（新しいウィンドウで開きます）</span></a>
+                    <p class="small hint">申込フォームは開催回ごとに異なります。最新のお知らせに掲載しているリンクからお申し込みください。</p>
+                  </>
                 : <p class="small">申込リンクは近日公開予定です。</p>}
             </div>
           ))}
@@ -79,9 +82,8 @@ const flow = [
       : <div class="card next empty">
           <p><strong>次回日程は未定です。</strong></p>
           <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。直近の開催は第 {fmtEventNo(past[0]?.no ?? '', 'ja')} 回（{fmt(past[0]?.date)}・{city(past[0]?.city)}）でした。</p>
-          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram をフォロー →</a>
+          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram をフォロー ↗</a>
         </div>}
-    <p class="small hint">申込フォームは開催回ごとに異なります。最新のお知らせに掲載しているリンクからお申し込みください。</p>
   </section>
 
   <section class="wrap wrap--reading page-section">
@@ -109,5 +111,6 @@ const flow = [
         </li>
       ))}
     </ul>
+    <p class="small backtop"><a href="#signup">↑ 次回の申込に戻る</a></p>
   </section>
 </Base>

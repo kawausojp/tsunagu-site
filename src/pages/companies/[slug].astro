@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { dedupHighlights } from '../../lib/site';
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-company.css';
 
@@ -24,6 +25,7 @@ const relatedStories = allStories.filter(st => {
 }).sort((a, b) => a.data.order - b.data.order);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡', kobe:'神戶', hokkaido:'北海道' };
+const hl = dedupHighlights(d.highlights, d.placements);
 ---
 <Base title={`${d.name} 赴日工作介紹`}
   altPaths={{ zh: `/companies/${c.id}/`, ja: `/ja/companies/${c.id}/`, en: `/en/companies/${c.id}/` }}
@@ -47,10 +49,10 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
     <div class="wrap wrap--prose body">
       <div class="prose"><Content /></div>
 
-      {d.highlights.length > 0 && (
+      {hl.length > 0 && (
         <div class="hl">
           <h2 class="d3">重點</h2>
-          <ul>{d.highlights.map((h:string) => <li>{h}</li>)}</ul>
+          <ul>{hl.map((h:string) => <li>{h}</li>)}</ul>
         </div>
       )}
 

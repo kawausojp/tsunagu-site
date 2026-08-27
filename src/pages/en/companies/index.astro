@@ -24,9 +24,6 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
         {companies.length} brands across 39 contracted companies.
         Most never post jobs on Chinese-language job boards — which is exactly why they’re hard to find on your own.
       </p>
-      <div class="notice">
-        <strong>About openings:</strong> these are brand profiles and past placement records, not live job listings. For current openings and conditions, ask at a meetup or in an individual consultation.
-      </div>
     </div>
   </section>
 
@@ -38,7 +35,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
           aria-controls="company-grid" data-search-input />
       </label>
       <details class="filter-options" data-filter-options open>
-        <summary>Filters</summary>
+        <summary data-filter-summary>Filters</summary>
         <div class="filter-groups">
           <div class="grp" role="group" aria-labelledby="filter-area-label">
             <span class="lbl" id="filter-area-label">Area</span>
@@ -62,7 +59,13 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       <button type="button" class="reset" data-reset hidden>Clear search & filters</button>
     </div>
     <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
-      data-status>Showing {companies.length} brands</span><span aria-hidden="true">/ {totalPlacements} total placements across these brands</span></p>
+      data-status>Showing {companies.length} brands</span><span>/ {totalPlacements} total placements across all {companies.length} brands</span></p>
+  </div>
+
+  <div class="wrap">
+    <div class="notice">
+      <strong>About openings:</strong> these are brand profiles and past placement records, not live job listings. For current openings and conditions, ask at a <a href={l('/events')}>meetup</a> or in an individual consultation.
+    </div>
   </div>
 
   <section class="wrap list">
@@ -71,6 +74,15 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       {companies.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="en" />)}
     </div>
     <p class="empty small" data-empty hidden>No brands match — try loosening the filters.</p>
+  </section>
+
+  <section class="wrap page-section closing">
+    <h2 class="d2">Found a brand you like?</h2>
+    <p class="lead">The fastest way to learn what they’re hiring for is to ask at a meetup.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href={l('/events')}>Join a meetup →</a>
+      <a class="action-link" href={l('/stories')}>Read alumni stories →</a>
+    </div>
   </section>
 </Base>
 
@@ -84,6 +96,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
   const emptyEl = document.querySelector('[data-empty]') as HTMLElement;
   const resetEl = document.querySelector<HTMLButtonElement>('[data-reset]')!;
   const filterOptions = document.querySelector<HTMLDetailsElement>('[data-filter-options]');
+  const summaryEl = document.querySelector<HTMLElement>('[data-filter-summary]');
   const normalise = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim();
 
   function apply(){
@@ -103,8 +116,11 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     emptyEl.hidden = n > 0;
     const any = searchEl.value.length > 0 || active.area.size || active.cat.size || active.jlpt.size;
     resetEl.hidden = !any;
+    const picked = active.area.size + active.cat.size + active.jlpt.size;
+    if (summaryEl) summaryEl.textContent = picked ? `Filters (${picked} selected)` : 'Filters';
   }
 
+  const mobileFilters = window.matchMedia('(max-width: 720px)');
   searchEl.addEventListener('input', apply);
   document.querySelectorAll('button.f').forEach(b => {
     const el = b as HTMLElement;
@@ -120,11 +136,10 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     searchEl.value = '';
     (Object.keys(active) as (keyof typeof active)[]).forEach(k => active[k].clear());
     document.querySelectorAll('button.f').forEach(b => b.setAttribute('aria-pressed','false'));
-    searchEl.focus();
+    if (!mobileFilters.matches) searchEl.focus();
     apply();
   });
 
-  const mobileFilters = window.matchMedia('(max-width: 720px)');
   if (filterOptions && mobileFilters.matches) filterOptions.open = false;
   if (filterOptions) filterOptions.dataset.ready = '';
   mobileFilters.addEventListener('change', event => {
