@@ -63,11 +63,15 @@ const flow = [
                 <span class="date">{fmt(e.date)}</span>
                 <span class="tag area">{e.city}</span>
               </div>
-              {e.sessions && <p class="small sessions">場次：{e.sessions.join('　／　')}</p>}
+              <dl class="ev-meta">
+                {e.sessions && <><dt>場次</dt><dd>{e.sessions.join('　／　')}</dd></>}
+                {e.venue && <><dt>地點</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}</dd></>}
+                <dt>費用</dt><dd>免費</dd>
+              </dl>
               {e.signupUrl
                 ? <>
-                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往報名表單 ↗<span class="sr-only">（另開新視窗）</span></a>
-                    <p class="small hint">每一場的報名表單都不一樣，請以最新公告的連結為準。</p>
+                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往 Google 表單報名 ↗<span class="sr-only">（另開新視窗）</span></a>
+                    <p class="small hint">將開啟外部 Google 表單。每一場的報名表單都不一樣，請以最新公告的連結為準。</p>
                   </>
                 : <p class="small">報名連結待公布。</p>}
             </div>

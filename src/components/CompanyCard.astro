@@ -13,7 +13,8 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
   .filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
 ---
 <a class="card card-link co" href={href} data-search={searchText}
-   data-areas={d.areas.join(' ')} data-cat={d.category} data-jlpt={d.jlpt ?? 'none'}>
+   data-areas={d.areas.join(' ')} data-cat={d.category} data-jlpt={d.jlpt ?? 'none'}
+   data-online={d.onlineInterview ? '1' : '0'} data-fulltime={d.fullTimeConverted > 0 ? '1' : '0'}>
   <div class="thumb">
     <CategoryIcon cat={d.category} size={44} />
   </div>

@@ -22,7 +22,9 @@
   .count{margin:16px 0 0;color:var(--ink-600)}
   .list{margin:20px auto 0;padding-bottom:20px}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px}
-  .empty{text-align:center;padding:48px 0;color:var(--ink-600)}
+  .empty{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;
+    padding:48px 0;color:var(--ink-600)}
+  .empty p{margin:0}
   .closing{margin-bottom:64px}
   .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
   @media (hover:hover) and (pointer:fine){button.f:hover{transform:translateY(-1px)}}

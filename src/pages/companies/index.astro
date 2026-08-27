@@ -25,7 +25,10 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     </div>
   </section>
 
-  <div class="wrap tools">
+  <div class="wrap tools" data-filter-root
+    data-status-tpl="顯示 {n} 個品牌"
+    data-summary-label="篩選條件"
+    data-summary-picked="篩選條件（已選 {n}）">
     <div class="filters">
       <label class="search">
         <span>搜尋品牌</span>
@@ -52,9 +55,16 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
             <button type="button" class="tag f" data-f="jlpt" data-v="none"
               aria-pressed="false" aria-controls="company-grid">未特別要求</button>
           </div>
+          <div class="grp" role="group" aria-labelledby="filter-flag-label">
+            <span class="lbl" id="filter-flag-label">條件</span>
+            <button type="button" class="tag f" data-f="flag" data-v="online"
+              aria-pressed="false" aria-controls="company-grid">可線上面試</button>
+            <button type="button" class="tag f" data-f="flag" data-v="fulltime"
+              aria-pressed="false" aria-controls="company-grid">有轉正職實績</button>
+          </div>
         </div>
       </details>
-      <button type="button" class="reset" data-reset hidden>清除搜尋與篩選</button>
+      <button type="button" class="reset" data-reset data-reset-toggle hidden>清除搜尋與篩選</button>
     </div>
     <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
       data-status>顯示 {companies.length} 個品牌</span><span>／全 {companies.length} 個品牌合計 {totalPlacements} 人次任職</span></p>
@@ -72,7 +82,10 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <div class="grid" id="company-grid" data-grid>
       {companies.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
     </div>
-    <p class="empty small" data-empty hidden>沒有符合條件的品牌，試試放寬篩選。</p>
+    <div class="empty" data-empty hidden>
+      <p class="small">沒有符合條件的品牌。</p>
+      <button type="button" class="btn btn-secondary" data-reset>清除全部條件，看所有品牌</button>
+    </div>
   </section>
 
   <section class="wrap page-section closing">
@@ -87,61 +100,6 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 
 
 <script>
-  const active = { area:new Set<string>(), cat:new Set<string>(), jlpt:new Set<string>() };
-  const grid = document.querySelector('[data-grid]') as HTMLElement;
-  const cards = Array.from(grid.querySelectorAll('.co')) as HTMLElement[];
-  const searchEl = document.querySelector<HTMLInputElement>('[data-search-input]')!;
-  const statusEl = document.querySelector<HTMLElement>('[data-status]')!;
-  const emptyEl = document.querySelector('[data-empty]') as HTMLElement;
-  const resetEl = document.querySelector<HTMLButtonElement>('[data-reset]')!;
-  const filterOptions = document.querySelector<HTMLDetailsElement>('[data-filter-options]');
-  const summaryEl = document.querySelector<HTMLElement>('[data-filter-summary]');
-  const normalise = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim();
-
-  function apply(){
-    let n = 0;
-    const query = normalise(searchEl.value);
-    cards.forEach(c => {
-      const areas = (c.dataset.areas || '').split(' ');
-      const okSearch = !query || (c.dataset.search || '').includes(query);
-      const okArea = !active.area.size || areas.some(a => active.area.has(a));
-      const okCat  = !active.cat.size  || active.cat.has(c.dataset.cat || '');
-      const okJl   = !active.jlpt.size || active.jlpt.has(c.dataset.jlpt || 'none');
-      const show = okSearch && okArea && okCat && okJl;
-      c.style.display = show ? '' : 'none';
-      if (show) n++;
-    });
-    statusEl.textContent = `顯示 ${n} 個品牌`;
-    emptyEl.hidden = n > 0;
-    const any = searchEl.value.length > 0 || active.area.size || active.cat.size || active.jlpt.size;
-    resetEl.hidden = !any;
-    const picked = active.area.size + active.cat.size + active.jlpt.size;
-    if (summaryEl) summaryEl.textContent = picked ? `篩選條件（已選 ${picked}）` : '篩選條件';
-  }
-
-  const mobileFilters = window.matchMedia('(max-width: 720px)');
-  searchEl.addEventListener('input', apply);
-  document.querySelectorAll('button.f').forEach(b => {
-    const el = b as HTMLElement;
-    el.addEventListener('click', () => {
-      const f = el.dataset.f as keyof typeof active;
-      const v = el.dataset.v!;
-      if (active[f].has(v)) { active[f].delete(v); el.setAttribute('aria-pressed','false'); }
-      else { active[f].add(v); el.setAttribute('aria-pressed','true'); }
-      apply();
-    });
-  });
-  resetEl.addEventListener('click', () => {
-    searchEl.value = '';
-    (Object.keys(active) as (keyof typeof active)[]).forEach(k => active[k].clear());
-    document.querySelectorAll('button.f').forEach(b => b.setAttribute('aria-pressed','false'));
-    if (!mobileFilters.matches) searchEl.focus();
-    apply();
-  });
-
-  if (filterOptions && mobileFilters.matches) filterOptions.open = false;
-  if (filterOptions) filterOptions.dataset.ready = '';
-  mobileFilters.addEventListener('change', event => {
-    if (filterOptions) filterOptions.open = !event.matches;
-  });
+  import { initCompanyFilter } from '../../scripts/company-filter';
+  initCompanyFilter();
 </script>

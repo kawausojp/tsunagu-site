@@ -69,11 +69,15 @@ const flow = [
                 <span class="date">{fmt(e.date)}</span>
                 <span class="tag area">{city(e.city)}</span>
               </div>
-              {e.sessions && <p class="small sessions">Sessions: {e.sessions.join(' / ')}</p>}
+              <dl class="ev-meta">
+                {e.sessions && <><dt>Sessions</dt><dd>{e.sessions.join(' / ')}</dd></>}
+                {e.venue && <><dt>Venue</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}</dd></>}
+                <dt>Cost</dt><dd>Free</dd>
+              </dl>
               {e.signupUrl
                 ? <>
-                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Go to sign-up form ↗<span class="sr-only"> (opens in a new window)</span></a>
-                    <p class="small hint">Each meetup has its own sign-up form — always use the latest announced link.</p>
+                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Sign up via Google Form ↗<span class="sr-only"> (opens in a new window)</span></a>
+                    <p class="small hint">Opens an external Google Form. Each meetup has its own form — always use the latest announced link.</p>
                   </>
                 : <p class="small">Sign-up link coming soon.</p>}
             </div>

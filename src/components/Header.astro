@@ -53,7 +53,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       <span></span><span></span><span></span>
     </button>
   </div>
-  <nav class="mobile-tabs" aria-label={t.quickNav}>
+  <nav class="mobile-tabs" aria-label={t.quickNav} data-tabs>
     {nav.map(n => (
       <a href={n.href} class:list={{ on: isCurrent(n.href) }}
         aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.short}</a>
@@ -114,8 +114,16 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     .wordmark{width:clamp(88px,26vw,112px)}
     .mobile-cta{display:none}
     .burger{display:none}
+    /* 往下讀時分頁列滑走（頁首 100px→56px），往上捲立刻回來。一觸即達與閱讀空間兼顧 */
+    .bar{z-index:2}
     .mobile-tabs{display:flex;align-items:center;justify-content:safe center;gap:2px;width:100%;
-      min-height:44px;margin:0 auto;padding:0 8px;overflow-x:auto;scrollbar-width:none;background:#fff}
+      min-height:44px;margin:0 auto;padding:0 8px;overflow-x:auto;scrollbar-width:none;
+      background:var(--paper);
+      transition:transform .24s var(--ease),opacity .18s linear,margin-bottom .24s var(--ease)}
+    header[data-tabs-hidden] .mobile-tabs{transform:translateY(-100%);opacity:0;
+      pointer-events:none;margin-bottom:-44px}
+    /* 分頁列邊緣漸淡：暗示還能左右捲 */
+    .mobile-tabs{mask-image:linear-gradient(90deg,transparent,#000 12px,#000 calc(100% - 12px),transparent)}
     .mobile-tabs::-webkit-scrollbar{display:none}
     .mobile-tabs a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;
       padding:5px 4px;color:var(--ink-600);font-size:12px;font-weight:500;
@@ -155,6 +163,34 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   const d = document.querySelector<HTMLElement>('[data-drawer]');
   const mobile = window.matchMedia('(max-width: 1080px)');
   const compact = window.matchMedia('(max-width: 720px)');
+
+  // 手機版：往下讀時收起分頁列釋放畫面，往上捲或接近頁首時放回來
+  const headerEl = document.querySelector('header');
+  const tabsEl = document.querySelector('[data-tabs]');
+  if (headerEl && tabsEl) {
+    const SHOW_ABOVE = 140;   // 這個捲動位置以上一律顯示
+    const STEP = 8;           // 忽略微小抖動
+    let last = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const y = Math.max(0, window.scrollY);
+      const delta = y - last;
+      if (Math.abs(delta) < STEP) return;
+      last = y;
+      if (!compact.matches) { headerEl.removeAttribute('data-tabs-hidden'); return; }
+      if (y < SHOW_ABOVE || delta < 0) headerEl.removeAttribute('data-tabs-hidden');
+      else headerEl.setAttribute('data-tabs-hidden', '');
+    };
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }, { passive: true });
+    // 鍵盤使用者 tab 到分頁列時，確保它是可見的
+    tabsEl.addEventListener('focusin', () => headerEl.removeAttribute('data-tabs-hidden'));
+    compact.addEventListener('change', () => headerEl.removeAttribute('data-tabs-hidden'));
+  }
 
   // 語言選單：點選單外或 Esc 收合（details 原生不會自己關）
   const lang = document.querySelector<HTMLDetailsElement>('[data-lang-menu]');

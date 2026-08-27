@@ -69,11 +69,15 @@ const flow = [
                 <span class="date">{fmt(e.date)}</span>
                 <span class="tag area">{city(e.city)}</span>
               </div>
-              {e.sessions && <p class="small sessions">時間：{e.sessions.join('　／　')}</p>}
+              <dl class="ev-meta">
+                {e.sessions && <><dt>時間</dt><dd>{e.sessions.join('　／　')}</dd></>}
+                {e.venue && <><dt>会場</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}</dd></>}
+                <dt>参加費</dt><dd>無料</dd>
+              </dl>
               {e.signupUrl
                 ? <>
-                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">申込フォームへ ↗<span class="sr-only">（新しいウィンドウで開きます）</span></a>
-                    <p class="small hint">申込フォームは開催回ごとに異なります。最新のお知らせに掲載しているリンクからお申し込みください。</p>
+                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Google フォームで申し込む ↗<span class="sr-only">（新しいウィンドウで開きます）</span></a>
+                    <p class="small hint">外部の Google フォームが開きます。申込フォームは開催回ごとに異なりますので、最新のお知らせに掲載しているリンクをご利用ください。</p>
                   </>
                 : <p class="small">申込リンクは近日公開予定です。</p>}
             </div>
