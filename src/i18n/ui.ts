@@ -17,7 +17,7 @@ export const ui = {
       { path: '/about', label: '關於 Tsunagu', short: '關於我們' },
     ],
     signup: '報名交流會',
-    signupShort: '報名',
+    signupShort: '報名交流會',
     home: 'ツナグ Tsunagu 首頁',
     mainMenu: '主選單',
     quickNav: '快速導覽',
