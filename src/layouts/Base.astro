@@ -12,6 +12,11 @@ const OG_ALT: Record<Lang, string> = {
   ja: 'ツナグ－台湾の優秀な人材を、日本へ',
   en: 'Tsunagu — Bringing Taiwan’s talent to Japan',
 };
+// 全站暫不開放搜尋引擎收錄：footer 的就業服務許可資訊（機構名稱／許可證字號／地址／電話）
+// 尚未填入，見 CLAUDE.md「上線前必須解決的」。填好後把 deploy.yml 建置步驟的
+// TSUNAGU_NOINDEX 拿掉即可正式公開；robots.txt 維持允許檢索，noindex 才會被讀到。
+const SITE_NOINDEX = process.env.TSUNAGU_NOINDEX === '1';
+const hideFromSearch = noindex || SITE_NOINDEX;
 const pageTitle = `${title}｜ツナグ Tsunagu`;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
@@ -42,7 +47,7 @@ const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
   <meta name="twitter:title" content={pageTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
-  {noindex && <meta name="robots" content="noindex,follow" />}
+  {hideFromSearch && <meta name="robots" content="noindex,follow" />}
   {!noindex && <link rel="canonical" href={canonicalUrl} />}
   {!noindex && !altPaths && <link rel="alternate" hreflang={LANG_META[lang].htmlLang} href={canonicalUrl} />}
   {!noindex && altPaths && Object.entries(altPaths).map(([l, p]) => (

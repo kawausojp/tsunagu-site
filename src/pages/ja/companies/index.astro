@@ -5,7 +5,7 @@ import '../../../styles/page-companies.css';
 import CompanyCard from '../../../components/CompanyCard.astro';
 
 import { href } from '../../../i18n/ui';
-import { CAT_LABEL, CITY } from '../../../lib/site';
+import { CAT_LABEL } from '../../../lib/site';
 const l = (p: string) => href('ja', p);
 const companies = (await getCollection('companies'))
   .sort((a, b) => b.data.placements - a.data.placements || a.data.name.localeCompare(b.data.name));
