@@ -22,7 +22,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       <h1 class="d1">提携企業</h1>
       <p class="lead">
         公開中の {companies.length} ブランド（契約企業 39 社）。
-        いずれも中国語の求人サイトには掲載されない店舗ばかりです。
+        その多くは中国語の求人サイトに求人を出しません。だからこそ、個人で探すのは難しいのです。
       </p>
       <div class="notice">
         <strong>募集状況について：</strong>掲載しているのはブランド紹介と勤務実績であり、リアルタイムの求人情報ではありません。募集内容・条件は交流会または個別相談でご確認ください。
@@ -55,14 +55,14 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
             {jlpts.map(j => <button type="button" class="tag jlpt f" data-f="jlpt" data-v={j}
               aria-pressed="false" aria-controls="company-grid">{j} 以上</button>)}
             <button type="button" class="tag f" data-f="jlpt" data-v="none"
-              aria-pressed="false" aria-controls="company-grid">特に不問</button>
+              aria-pressed="false" aria-controls="company-grid">不問</button>
           </div>
         </div>
       </details>
       <button type="button" class="reset" data-reset hidden>検索・絞り込みをクリア</button>
     </div>
     <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
-      data-status>{companies.length} ブランドを表示中</span><span aria-hidden="true">／掲載ブランド合計 {totalPlacements} 名の勤務実績</span></p>
+      data-status>{companies.length} ブランドを表示中</span><span aria-hidden="true">／掲載ブランド合計で延べ {totalPlacements} 名の勤務実績</span></p>
   </div>
 
   <section class="wrap list">
@@ -70,7 +70,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <div class="grid" id="company-grid" data-grid>
       {companies.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="ja" />)}
     </div>
-    <p class="empty small" data-empty hidden>条件に合うブランドがありません。絞り込みを緩めてみてください。</p>
+    <p class="empty small" data-empty hidden>条件に合うブランドがありません。条件を変更してみてください。</p>
   </section>
 </Base>
 
@@ -99,7 +99,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       c.style.display = show ? '' : 'none';
       if (show) n++;
     });
-    statusEl.textContent = `顯示 ${n} 個品牌`;
+    statusEl.textContent = `${n} ブランドを表示中`;
     emptyEl.hidden = n > 0;
     const any = searchEl.value.length > 0 || active.area.size || active.cat.size || active.jlpt.size;
     resetEl.hidden = !any;

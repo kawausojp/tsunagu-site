@@ -8,7 +8,7 @@ placements: 2
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "以優雅可愛為目標的禮服選品店"
-taglineJa: "エレガント×キュートを目指すドレスセレクトショップ"
+taglineJa: "エレガント×キュートを打ち出すドレスセレクトショップ"
 taglineEn: "Dress select shop, elegant meets cute"
 highlights:
   - "可穿禮服拍社群內容"

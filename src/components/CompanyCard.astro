@@ -8,7 +8,8 @@ const t = ui[lang];
 const d = c.data;
 const tagline = (lang === 'ja' && d.taglineJa) || (lang === 'en' && d.taglineEn) || d.tagline;
 const catLabel = (lang === 'ja' && (d.categoryLabelJa ?? CAT_LABEL.ja[d.category])) || (lang === 'en' && (d.categoryLabelEn ?? CAT_LABEL.en[d.category])) || d.categoryLabel;
-const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel]
+// 搜尋文字含 zh 原值＋當前語言的 tagline／品類，日英頁才能用當地語言命中
+const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline, catLabel]
   .filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
 ---
 <a class="card card-link co" href={href} data-search={searchText}

@@ -4,7 +4,7 @@ import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
 import data from '../../../data/events.json';
 import { href } from '../../../i18n/ui';
-import { todayTaipei, fmtEventDate, CITY } from '../../../lib/site';
+import { todayTaipei, fmtEventDate, fmtSince, CITY } from '../../../lib/site';
 
 const l = (p: string) => href('en', p);
 const today = todayTaipei();
@@ -26,8 +26,8 @@ const flow = [
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">Come to a meetup</h1>
     <p class="lead">Hear directly from Japanese companies about who they’re hiring — and from alumni about what the work is really like.</p>
-    <p class="small since"><strong>{data.totalHeld}</strong> meetups held since {data.since},
-      across Taipei, Taichung, Kaohsiung, Tokyo and Osaka.</p>
+    <p class="small since"><strong>{data.totalHeld}</strong> meetups held since {fmtSince(data.since, 'en')},
+      across {data.cities.map(c => city(c)).join(', ')}.</p>
   </div></section>
 
   <section class="wrap wrap--reading page-section">

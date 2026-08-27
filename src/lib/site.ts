@@ -37,6 +37,35 @@ export const eventsList = eventsData.events;
 
 export const CAT_LABEL: Record<Lang, Record<string, string>> = {
   zh: { apparel: '服飾', bag: '包款', eyewear: '眼鏡', food: '餐飲', goods: '飾品雜貨', group: '複合集團', hat: '帽子', jewelry: '珠寶飾品', kimono: '和服', shoes: '鞋履包款', socks: '襪類' },
-  ja: { apparel: 'アパレル', bag: 'バッグ', eyewear: 'メガネ', food: '飲食', goods: '雑貨・小物', group: '複合企業', hat: '帽子', jewelry: 'ジュエリー', kimono: '着物', shoes: 'シューズ・バッグ', socks: '靴下' },
+  ja: { apparel: 'アパレル', bag: 'バッグ', eyewear: 'メガネ', food: '飲食', goods: 'アクセサリー・雑貨', group: '複合企業', hat: '帽子', jewelry: 'ジュエリー', kimono: '着物', shoes: 'シューズ・バッグ', socks: '靴下' },
   en: { apparel: 'Fashion', bag: 'Bags', eyewear: 'Eyewear', food: 'Food', goods: 'Goods', group: 'Group', hat: 'Hats', jewelry: 'Jewelry', kimono: 'Kimono', shoes: 'Shoes & Bags', socks: 'Socks' },
 };
+
+// 簽證標籤三語對照（stories frontmatter 的 visa 是繁中原值；ja/en 頁顯示時轉換）
+export const VISA_LABEL: Record<Lang, Record<string, string>> = {
+  zh: {},
+  ja: {
+    打工度假: 'ワーキングホリデー',
+    留學: '留学',
+    留學生: '留学',
+    交換留學: '交換留学',
+    '打工度假 → 工作簽證': 'ワーキングホリデー → 就労ビザ',
+  },
+  en: {
+    打工度假: 'Working Holiday',
+    留學: 'Study Abroad',
+    留學生: 'Student',
+    交換留學: 'Exchange Student',
+    '打工度假 → 工作簽證': 'Working Holiday → Work Visa',
+  },
+};
+
+/** "2023-06" → 「2023 年 6 月」／「June 2023」／zh「2023 年 6 月」 */
+export function fmtSince(since: string, lang: Lang) {
+  const [y, m] = since.split('-').map(Number);
+  if (lang === 'en') {
+    const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return `${MONTHS[m - 1]} ${y}`;
+  }
+  return `${y} 年 ${m} 月`;
+}

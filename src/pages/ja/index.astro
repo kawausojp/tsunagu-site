@@ -9,42 +9,43 @@ import SenpaiAvatar from '../../components/SenpaiAvatar.astro';
 import { Image } from 'astro:assets';
 import characters from '../../assets/tsunagu-characters.png';
 import { href } from '../../i18n/ui';
-import { VIDEO_ID, nextEvent, fmtEventDate, totalHeld, CITY } from '../../lib/site';
+import { VIDEO_ID, nextEvent, fmtEventDate, totalHeld, CITY, VISA_LABEL } from '../../lib/site';
 
 const l = (p: string) => href('ja', p);
 const companies = (await getCollection('companies'))
   .sort((a, b) => b.data.placements - a.data.placements);
 const featured = companies.slice(0, 6);
-const firstStory = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order)[0];
+const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order);
+const firstStory = stories[0];
 
 const nextEv = nextEvent();
 const nextEvDate = nextEv ? fmtEventDate(nextEv.date, 'ja') : '';
 const heroCta = nextEv
-  ? `${nextEvDate}${CITY.ja[nextEv.city] ?? nextEv.city}交流会に申し込む →`
+  ? `${nextEvDate}・${CITY.ja[nextEv.city] ?? nextEv.city}の交流会に申し込む →`
   : '次回の交流会に申し込む →';
 const stats = [
   { n: '2,874', u: '名', t: '交流会参加者数' },
-  { n: '163', u: '名', t: '日本での就業を実現' },
+  { n: '163', u: '名', t: '日本での就業者数' },
   { n: String(totalHeld), u: '回', t: '交流会開催実績' },
-  { n: String(companies.length), u: '社', t: '提携ブランド' },
+  { n: String(companies.length), u: '', t: '提携ブランド' },
 ];
 ---
-<Base title="台湾の優秀な人財を、日本へ" lang="ja"
-  description="日本で働きたい台湾人と日本企業をつなぐ無料マッチング交流会。履歴書・面接サポートから来日後のフォローまで、参加者は全て無料。"
+<Base title="台湾の優秀な人材を、日本へ" lang="ja"
+  description="日本で働きたい台湾人と日本企業をつなぐマッチング交流会。履歴書・面接サポートから来日後のフォローまで、台湾の皆さまはすべて無料。"
   altPaths={{ zh: '/', ja: '/ja/', en: '/en/' }}>
 
   <!-- HERO -->
   <section class="hero">
     <div class="wrap hero-inner">
       <p class="ja-sub" lang="ja">台湾人と日本企業をツナグ</p>
-      <h1 class="d1"><span class="headline-part">台湾の優秀な人財を</span><span class="headline-comma">、</span><span class="headline-part">日本へ</span></h1>
+      <h1 class="d1"><span class="headline-part">台湾の優秀な人材を</span><span class="headline-comma">、</span><span class="headline-part">日本へ</span></h1>
       <Image src={characters}
         alt="ツナグのキャラクター：JPと書かれた青い服の犬と、TWと書かれたピンクの服の猫が手をつないで座っている"
         widths={[240, 480]} sizes="(max-width: 720px) 152px, 200px" loading="eager" class="chars" />
       <p class="lead">
-        留学・ワーキングホリデーで来日する台湾人財と、
-        台湾人と一緒に働きたい日本企業をマッチングしています。
-        <strong>履歴書から面接、来日後のフォローまで、参加者は全て無料。</strong>
+        留学やワーキングホリデーで来日する台湾の若者と、
+        台湾出身のスタッフを迎えたい日本企業をマッチングしています。
+        <strong>履歴書の作成から面接、来日後のフォローまで、台湾の皆さまはすべて無料。</strong>
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href={l('/events')}>{heroCta}</a>
@@ -75,10 +76,10 @@ const stats = [
   <section class="section vid-sec">
     <div class="wrap">
       <h2 class="d2">交流会の様子</h2>
-      <p class="lead">台湾公共テレビのニュースで紹介されました（ツナグのインタビューを含む）。</p>
+      <p class="lead">台湾の公共放送・公視のニュースで紹介されました（ツナグへのインタビューを含む）。</p>
       <div class="video">
         <iframe src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}`}
-          title="台湾公共テレビ：日本のワーキングホリデー枠拡大のニュース（ツナグのインタビューを含む）"
+          title="台湾公共テレビ：台湾向けワーキングホリデー枠・年間 1 万人のニュース（ツナグへのインタビューを含む）"
           loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
           allowfullscreen></iframe>
       </div>
@@ -90,8 +91,8 @@ const stats = [
     <div class="wrap co-split">
       <div class="co-side">
         <h2 class="d2">提携している日本企業</h2>
-        <p class="lead">ファッションを中心に、飲食・宝飾など多様な業種のブランドと提携しています。以下は勤務者数の多い 6 社です。</p>
-        <a class="action-link" href={l('/companies')}>提携ブランド {companies.length} 社を全て見る →</a>
+        <p class="lead">中国語の求人サイトには出てこない店舗を、私たちが直接おつなぎします。以下は勤務実績の多い 6 ブランドです。</p>
+        <a class="action-link" href={l('/companies')}>{companies.length} ブランドをすべて見る →</a>
       </div>
       <div class="grid3 grid-co">
         {featured.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="ja" />)}
@@ -102,18 +103,18 @@ const stats = [
   <!-- STORIES -->
   <section class="section">
     <div class="wrap">
-      <h2 class="d2">先輩たちの声</h2>
+      <h2 class="d2">先輩の声</h2>
       <div class="voice">
         <div class="v-avatar"><SenpaiAvatar name={firstStory.data.name} size={96} /></div>
         <div>
           <blockquote class="v-quote" lang="zh-Hant">{firstStory.data.lead}</blockquote>
           <p class="small v-meta">
-            <span lang="ja">{firstStory.data.name}</span>　ワーキングホリデー・{firstStory.data.company}
+            <span lang="ja">{firstStory.data.name}</span>　{VISA_LABEL.ja[firstStory.data.visa] ?? firstStory.data.visa}・{firstStory.data.company}（{firstStory.data.location}）
             <br/>※ 体験談は原文（中国語）のまま掲載しています。
           </p>
         </div>
       </div>
-      <div class="more"><a class="action-link" href={l('/stories')}>14 名の先輩の体験談を見る →</a></div>
+      <div class="more"><a class="action-link" href={l('/stories')}>{stories.length} 名の先輩の体験談を見る →</a></div>
     </div>
   </section>
 
@@ -122,10 +123,10 @@ const stats = [
     <div class="wrap final-split">
       <div>
         <h2 class="d2">まずは交流会へ</h2>
-        <p class="lead">準備は何もいりません。日本企業がどんな人財を求めているか、まず聞きに来てください。</p>
+        <p class="lead">何かを決めてから来る必要はありません。準備も不要です。日本企業がどんな人材を求めているか、まず聞きに来てください。</p>
         <div class="cta-row">
           <a class="btn btn-primary" href={l('/events')}>次回の交流会を見る →</a>
-          <a class="action-link" href={l('/apply')}>日本行きを決めている方はこちら →</a>
+          <a class="action-link" href={l('/apply')}>日本行きを決めた方はこちら →</a>
         </div>
       </div>
       <Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" />

@@ -5,6 +5,7 @@ import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-stories.css';
 const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
 import { href } from '../../../i18n/ui';
+import { VISA_LABEL } from '../../../lib/site';
 const l = (p: string) => href('ja', p);
 const brands = [...new Set(stories.map(s=>s.data.company))];
 ---
@@ -12,10 +13,10 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">先輩たちは、いま日本に</h1>
     <p class="lead">
-      彼らもかつては「日本に行ってみたい」だけでした。{stories.length} 名の先輩の体験談を、{brands.length} ブランドにわたって掲載しています。
+      先輩たちも、はじめは「日本に行ってみたい」という気持ちだけでした。{brands.length} ブランドで働く {stories.length} 名の体験談を掲載しています。ワーキングホリデー・留学・交換留学など、在留資格もさまざまです。
     </p>
     <div class="note">
-      体験談は Tsunagu Instagram の投稿原文（中国語）のまま掲載し、各記事に原文リンクを付けています。
+      体験談はツナグの Instagram の投稿原文（中国語）のまま掲載し、各記事に原文リンクを付けています。
       {/* 內部待辦（勿放回畫面）：轉載是否需另取得本人同意，見 CLAUDE.md */}
     </div>
   </div></section>
@@ -28,7 +29,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
           <div>
             <h2 class="d3" id={`${s.id}-title`} lang="ja">{s.data.name}</h2>
             <p class="meta small">
-              <span class="tag">{s.data.visa}</span>
+              <span class="tag">{VISA_LABEL.ja[s.data.visa] ?? s.data.visa}</span>
               <span>{s.data.started} 〜</span>
               <span class="sep">·</span>
               <strong>{s.data.company}</strong>
@@ -52,7 +53,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
         )}
 
         <a class="src small" href={`https://www.instagram.com/p/${s.data.igCode}/`} target="_blank" rel="noopener">
-          Instagram 原文を読む（{s.data.igPosted}）↗
+          Instagram の原文を読む（{s.data.igPosted}）↗
         </a>
       </article>
     ))}
@@ -61,7 +62,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
   <section class="wrap wrap--reading cta">
     <div class="band">
       <h2 class="d2">次はあなたの番</h2>
-      <p class="lead">全員、一度の交流会から始まりました。</p>
+      <p class="lead">みんな、はじまりは一度の交流会でした。</p>
       <a class="btn btn-primary" href={l('/events')}>交流会に申し込む</a>
     </div>
   </section>

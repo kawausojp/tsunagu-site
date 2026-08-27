@@ -22,7 +22,7 @@ const relatedStories = allStories.filter(st => {
   return sn === dn || dn.startsWith(sn) || sn.startsWith(dn) || (snFirst.length > 2 && dn.startsWith(snFirst));
 }).sort((a, b) => a.data.order - b.data.order);
 import { href } from '../../../i18n/ui';
-import { CAT_LABEL } from '../../../lib/site';
+import { CAT_LABEL, VISA_LABEL } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const catLabel = CAT_LABEL.en[d.category] ?? d.categoryLabel;
 const tagline = d.taglineEn ?? d.tagline;
@@ -72,7 +72,7 @@ const AREA: Record<string,string> = { tokyo:'Tokyo', osaka:'Osaka', kyoto:'Kyoto
         <div class="related">
           <h2 class="d3">Alumni who worked here</h2>
           {relatedStories.map(st => (
-            <a class="rel-link" href={l(`/stories#${st.id}`)}><span lang="ja">{st.data.name}</span>（{st.data.visa}）— read their story →</a>
+            <a class="rel-link" href={l(`/stories#${st.id}`)}><span lang="ja">{st.data.name}</span> ({VISA_LABEL.en[st.data.visa] ?? st.data.visa}) — read their story →</a>
           ))}
         </div>
       )}

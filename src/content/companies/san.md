@@ -8,7 +8,7 @@ placements: 0
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "日本設計師操刀的 Made in Japan 壓克力飾品"
-taglineJa: "日本人デザイナーによるMade in Japanアクリルアクセサリー"
+taglineJa: "日本人デザイナーによる Made in Japan のアクリルアクセサリー"
 taglineEn: "Made-in-Japan acrylic jewelry by Japanese designers"
 highlights:
   - "辦公室工作＋直播口譯"

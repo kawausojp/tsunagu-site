@@ -9,7 +9,7 @@ placements: 0
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "把星巴克帶進日本的集團，旗下約 40 個品牌"
-taglineJa: "スターバックスを日本に導入したグループ、約40ブランドを展開"
+taglineJa: "スターバックスを日本に上陸させたグループ、約40ブランドを展開"
 taglineEn: "The group that brought Starbucks to Japan — about 40 brands"
 highlights:
   - "旗下約 40 個品牌"

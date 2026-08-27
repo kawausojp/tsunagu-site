@@ -9,7 +9,7 @@ placements: 3
 fullTimeConverted: 2
 onlineInterview: false
 tagline: "2000 年開在東京下北澤，以「T-shirts × Art」發聲"
-taglineJa: "2000年下北沢発、「Tシャツ×アート」で発信"
+taglineJa: "2000年下北沢発、「Tシャツ×アート」を発信するブランド"
 taglineEn: "Tokyo Shimokitazawa since 2000 — T-shirts × Art"
 highlights:
   - "東京 2 人從兼職轉正職"

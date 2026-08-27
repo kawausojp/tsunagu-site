@@ -9,7 +9,7 @@ placements: 0
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "東京地鐵站內的蕎麥麵店與咖哩店 C&C"
-taglineJa: "東京メトロ駅構内のそば店・カレー店C&C"
+taglineJa: "東京メトロ駅構内でそば店とカレーショップ「C&C」を展開"
 taglineEn: "Soba shops and C&C curry inside Tokyo Metro stations"
 highlights:
   - "日語門檻較低，適合剛抵日"

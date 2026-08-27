@@ -99,7 +99,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       c.style.display = show ? '' : 'none';
       if (show) n++;
     });
-    statusEl.textContent = `顯示 ${n} 個品牌`;
+    statusEl.textContent = `Showing ${n} brands`;
     emptyEl.hidden = n > 0;
     const any = searchEl.value.length > 0 || active.area.size || active.cat.size || active.jlpt.size;
     resetEl.hidden = !any;

@@ -8,7 +8,7 @@ placements: 3
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "1920 年創業、超過百年的日本老牌珠寶"
-taglineJa: "1920年創業、100年を超える老舗ジュエラー"
+taglineJa: "1920年創業の老舗ジュエラー"
 taglineEn: "Century-old Japanese jeweler, est. 1920"
 highlights:
   - "希望能待滿 6 個月以上"

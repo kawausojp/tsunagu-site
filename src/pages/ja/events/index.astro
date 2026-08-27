@@ -4,7 +4,7 @@ import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
 import data from '../../../data/events.json';
 import { href } from '../../../i18n/ui';
-import { todayTaipei, fmtEventDate, CITY } from '../../../lib/site';
+import { todayTaipei, fmtEventDate, fmtSince, CITY } from '../../../lib/site';
 
 const l = (p: string) => href('ja', p);
 const today = todayTaipei();
@@ -14,20 +14,48 @@ const past = sorted.filter(e => e.date < today);
 const fmt = (d: string) => `${d.slice(0, 4)}/${fmtEventDate(d, 'ja')}`.replace('/（', '（');
 const city = (c: string) => CITY.ja[c] ?? c;
 
+// Event 構造化データ：未来の回で会場情報が揃うもののみ（zh 版と同基準）。
+// 交流会は中国語で実施のため inLanguage は zh-Hant のまま（ja に変えると事実と異なる）。
+const eventsLd = upcoming.filter(e => e.venue && e.address).map(e => {
+  const times = (e.sessions ?? []).map(t => t.split('–'));
+  const lastTime = times.at(-1);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: `第 ${e.no} 回 台湾人と日本企業をツナグ交流会`,
+    startDate: times[0] ? `${e.date}T${times[0][0]}:00+08:00` : e.date,
+    endDate: lastTime ? `${e.date}T${lastTime[1]}:00+08:00` : e.date,
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    location: {
+      '@type': 'Place',
+      name: e.venue,
+      address: { '@type': 'PostalAddress', streetAddress: e.address, addressLocality: e.city, addressCountry: 'TW' },
+    },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'TWD',
+      availability: 'https://schema.org/InStock', url: e.signupUrl },
+    organizer: { '@type': 'Organization', name: 'ツナグ Tsunagu',
+      url: 'https://www.instagram.com/tw.tsunagu.jp/' },
+    inLanguage: 'zh-Hant',
+    isAccessibleForFree: true,
+  };
+});
+
 const flow = [
-  { t: '当日の流れ', d: '日本企業が求める人財像を紹介し、先輩が日本で働くリアルを共有します。' },
-  { t: '個別面談', d: '日本語レベル・希望職種・渡航時期についてお聞かせください。' },
-  { t: 'その後のステップ', d: '履歴書・面接練習・ビザ・来日後のフォローまで、最後まで伴走します。' },
+  { t: '当日の会場で', d: '日本企業が求める人材像を紹介し、先輩が語る日本で働く実際の姿をお伝えします。' },
+  { t: '個別相談', d: '日本語レベル・希望職種・渡航時期についてお聞かせください。' },
+  { t: 'その後のステップ', d: '履歴書の作成から面接練習、在留資格の手続き、来日後のフォローまで、最後まで伴走します。' },
 ];
 ---
-<Base title="交流会日程・お申し込み" lang="ja"
+<Base title="交流会日程・申込" lang="ja"
   altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }}
   description="台北・台中・高雄・東京・大阪で開催する台湾人と日本企業のマッチング交流会。参加無料。">
+  {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   <section class="page-head"><div class="wrap wrap--reading">
-    <h1 class="d1">まずは交流会へ</h1>
-    <p class="lead">日本企業がどんな人財を探しているか、先輩の生の声とあわせて聞ける場です。</p>
-    <p class="small since">{data.since} から累計 <strong>{data.totalHeld}</strong> 回開催。
-      台北・台中・高雄・東京・大阪で実施しています。</p>
+    <h1 class="d1">交流会に来てみませんか</h1>
+    <p class="lead">日本企業がどんな人材を求めているか、先輩の生の声とあわせて聞ける場です。</p>
+    <p class="small since">{fmtSince(data.since, 'ja')}から累計 <strong>{data.totalHeld}</strong> 回開催。
+      {data.cities.map(c => city(c)).join('・')}で実施しています。</p>
   </div></section>
 
   <section class="wrap wrap--reading page-section">
@@ -44,16 +72,16 @@ const flow = [
               {e.sessions && <p class="small sessions">時間：{e.sessions.join('　／　')}</p>}
               {e.signupUrl
                 ? <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">申込フォームへ →</a>
-                : <p class="small">申込リンクは近日公開。</p>}
+                : <p class="small">申込リンクは近日公開予定です。</p>}
             </div>
           ))}
         </div>
       : <div class="card next empty">
           <p><strong>次回日程は未定です。</strong></p>
-          <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。</p>
+          <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。直近の開催は第 {past[0]?.no} 回（{fmt(past[0]?.date)}・{city(past[0]?.city)}）でした。</p>
           <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram をフォロー →</a>
         </div>}
-    <p class="small hint">申込フォームは開催回ごとに異なります。最新の告知リンクをご利用ください。</p>
+    <p class="small hint">申込フォームは開催回ごとに異なります。最新のお知らせに掲載しているリンクからお申し込みください。</p>
   </section>
 
   <section class="wrap wrap--reading page-section">
@@ -64,12 +92,12 @@ const flow = [
       ))}
     </ol>
     <p class="small flow-more"><a href={l('/support')}>サポート内容の詳細（履歴書・面接・住まい・来日後）→</a></p>
-    <div class="note"><strong>全て無料。</strong>参加費・紹介料は一切いただきません。</div>
+    <div class="note"><strong>すべて無料。</strong>参加費・紹介料は、台湾の皆さまからは一切いただきません。詳しくは「サポート内容」をご覧ください。</div>
   </section>
 
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">開催実績</h2>
-    <p class="lead">直近 {past.length} 回の記録。それ以前は
+    <p class="lead">直近 {past.length} 回の開催記録です。それ以前は
       <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram</a> をご覧ください。</p>
     <ul class="hist">
       {past.map(e => (

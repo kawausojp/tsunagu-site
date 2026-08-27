@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-events.css';
 import data from '../../data/events.json';
+import { fmtSince } from '../../lib/site';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const todayInTimeZone = (date: Date, timeZone: string) => {
@@ -59,7 +60,7 @@ const flow = [
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">來交流會看看</h1>
     <p class="lead">聽日本企業說他們在找什麼樣的人，也聽已經在日本的前輩分享第一手經驗。</p>
-    <p class="small since">自 {data.since} 起累計舉辦 <strong>{data.totalHeld}</strong> 場，
+    <p class="small since">自 {fmtSince(data.since, 'zh')}起累計舉辦 <strong>{data.totalHeld}</strong> 場，
       地點涵蓋 {data.cities.join('、')}。</p>
   </div></section>
 

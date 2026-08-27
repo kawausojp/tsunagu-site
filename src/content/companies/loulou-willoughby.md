@@ -8,7 +8,7 @@ placements: 0
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "帶著特別感與稀有性的華麗品牌"
-taglineJa: "特別感と希少性をまとった華やかなブランド"
+taglineJa: "特別感と希少性のある華やかなブランド"
 taglineEn: "A glamorous label with a rare, special feel"
 highlights: []
 sourceSlide: 60
