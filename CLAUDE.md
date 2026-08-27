@@ -214,8 +214,18 @@ npm run build    # → dist/
 npm run preview
 ```
 
-部署：推 `main` 觸發 `.github/workflows/deploy.yml`。
-第一次要到 repo Settings → Pages → Source 選「GitHub Actions」。
+### 部署現況（2026-08-28 已上線）
+
+- 倉庫：<https://github.com/kawausojp/tsunagu-site>（public）
+- 網址：<https://kawausojp.github.io/tsunagu-site/>
+- 推 `main` 自動觸發 `.github/workflows/deploy.yml`（另有每日 00:17 台北時間排程重建，
+  讓過期場次自動移到「舉辦紀錄」）。Pages 來源已設為 GitHub Actions，不用再手動設定。
+
+⚠️ **目前全站 noindex（不被 Google 收錄）**：`deploy.yml` 建置步驟設了 `TSUNAGU_NOINDEX: '1'`，
+Base.astro 讀到就對 127 頁輸出 `robots: noindex,follow`。
+**這是刻意的**——footer 的就業服務許可資訊（機構名稱／許可證字號／地址／電話）尚未填入，
+見下方「上線前必須解決的」。**資料補齊並確認可正式對外後，刪掉 deploy.yml 那兩行即可公開收錄。**
+（robots.txt 維持 `Allow: /`：要讓爬蟲讀得到 noindex，設 Disallow 反而讀不到。）
 
 `astro.config.mjs` 開頭的 `site` / `base` 要依實際網域改：
 
