@@ -25,9 +25,9 @@
     background:var(--pink-50);border:1px solid var(--pink-200);padding:3px 10px;border-radius:var(--r-xs)}
   .news-txt{min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-  .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-    padding:36px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:22px;text-align:center;margin-top:40px}
+  /* 不加上下框：上緣與 hero 底線平行、下緣正好和下一區的頂線疊在一起，都是重複的線 */
+  .band{padding:36px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:22px;text-align:center;margin-top:36px}
   .band .n{font-family:var(--f-latin);font-weight:700;font-size:clamp(40px,4.5vw,52px);line-height:1.1;color:var(--pink-700)}
   .band .n small{font-size:17px;margin-left:3px}
   .band .t{font-size:13px;color:var(--ink-600);margin-top:4px}
