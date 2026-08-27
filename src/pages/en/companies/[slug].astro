@@ -12,6 +12,7 @@ const d = c.data;
 const { Content } = await render(c);
 // 在這個品牌工作過的學長姐（company 名寬鬆比對；資料本來就在庫裡，接上而已）
 const allStories = await getCollection('stories');
+const companiesCount = (await getCollection('companies')).length;
 const norm = (x: string) => x.normalize('NFKC').toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u4e00-\u9fff]/g, '');
 const dn = norm(d.name);
 const relatedStories = allStories.filter(st => {
@@ -48,12 +49,12 @@ const AREA: Record<string,string> = { tokyo:'Tokyo', osaka:'Osaka', kyoto:'Kyoto
     </div>
 
     <div class="wrap wrap--prose body">
-      <div class="prose"><Content /></div>
+      <div class="prose" lang="zh-Hant"><Content /></div>
 
       {d.highlights.length > 0 && (
         <div class="hl">
           <h2 class="d3">Highlights (original text)</h2>
-          <ul>{d.highlights.map((h:string) => <li>{h}</li>)}</ul>
+          <ul lang="zh-Hant">{d.highlights.map((h:string) => <li>{h}</li>)}</ul>
         </div>
       )}
 
@@ -78,7 +79,7 @@ const AREA: Record<string,string> = { tokyo:'Tokyo', osaka:'Osaka', kyoto:'Kyoto
       )}
       <div class="cta">
         <a class="btn btn-primary" href={l('/events')}>Ask about it at a meetup →</a>
-        <a class="action-link" href={l('/companies')}>See all 35 partner brands →</a>
+        <a class="action-link" href={l('/companies')}>See all {companiesCount} partner brands →</a>
       </div>
     </div>
   </article>

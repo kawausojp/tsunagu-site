@@ -2,10 +2,10 @@
 // 頁面內容不走字典——ja/en 頁是獨立檔案，文案直接寫在該頁（維護見 CLAUDE.md）。
 export type Lang = 'zh' | 'ja' | 'en';
 
-export const LANG_META: Record<Lang, { label: string; htmlLang: string; prefix: string }> = {
-  zh: { label: '繁體中文', htmlLang: 'zh-Hant', prefix: '' },
-  ja: { label: '日本語', htmlLang: 'ja', prefix: '/ja' },
-  en: { label: 'English', htmlLang: 'en', prefix: '/en' },
+export const LANG_META: Record<Lang, { label: string; short: string; htmlLang: string; prefix: string }> = {
+  zh: { label: '繁體中文', short: '繁中', htmlLang: 'zh-Hant', prefix: '' },
+  ja: { label: '日本語', short: '日本語', htmlLang: 'ja', prefix: '/ja' },
+  en: { label: 'English', short: 'EN', htmlLang: 'en', prefix: '/en' },
 };
 
 export const ui = {
@@ -23,6 +23,7 @@ export const ui = {
     quickNav: '快速導覽',
     mobileMenu: '行動版主選單',
     openMenu: '開啟主選單',
+    closeMenu: '關閉主選單',
     langMenu: '切換語言',
     skip: '跳到主要內容',
     footerSite: '網站',
@@ -60,6 +61,7 @@ export const ui = {
     quickNav: 'クイックナビ',
     mobileMenu: 'モバイルメニュー',
     openMenu: 'メニューを開く',
+    closeMenu: 'メニューを閉じる',
     langMenu: '言語を切り替える',
     skip: '本文へスキップ',
     footerSite: 'サイト',
@@ -77,7 +79,7 @@ export const ui = {
     organizer: '主催：Brain & Partner Taiwan Inc.（智囊和夥伴有限公司）',
     card: {
       placements: (n: number) => `累計 ${n} 名が就業`,
-      fullTime: (n: number) => `${n} 名が正社員に登用`,
+      fullTime: (n: number) => `正社員登用 ${n} 名`,
       online: 'オンライン面接可',
       jlpt: (lv: string) => `${lv} 以上`,
     },
@@ -97,6 +99,7 @@ export const ui = {
     quickNav: 'Quick navigation',
     mobileMenu: 'Mobile menu',
     openMenu: 'Open menu',
+    closeMenu: 'Close menu',
     langMenu: 'Switch language',
     skip: 'Skip to main content',
     footerSite: 'Site',

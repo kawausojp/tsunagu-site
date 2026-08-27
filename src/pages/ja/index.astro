@@ -9,7 +9,7 @@ import SenpaiAvatar from '../../components/SenpaiAvatar.astro';
 import { Image } from 'astro:assets';
 import characters from '../../assets/tsunagu-characters.png';
 import { href } from '../../i18n/ui';
-import { VIDEO_ID, nextEvent, fmtEventDate, totalHeld, CITY, VISA_LABEL } from '../../lib/site';
+import { VIDEO_ID, nextEvent, fmtEventDate, fmtEventNo, totalHeld, CITY, VISA_LABEL } from '../../lib/site';
 
 const l = (p: string) => href('ja', p);
 const companies = (await getCollection('companies'))
@@ -25,13 +25,13 @@ const heroCta = nextEv
   : '次回の交流会に申し込む →';
 const stats = [
   { n: '2,874', u: '名', t: '交流会参加者数' },
-  { n: '163', u: '名', t: '日本での就業者数' },
+  { n: '163', u: '名', t: '日本での就業を実現' },
   { n: String(totalHeld), u: '回', t: '交流会開催実績' },
   { n: String(companies.length), u: '', t: '提携ブランド' },
 ];
 ---
 <Base title="台湾の優秀な人材を、日本へ" lang="ja"
-  description="日本で働きたい台湾人と日本企業をつなぐマッチング交流会。履歴書・面接サポートから来日後のフォローまで、台湾の皆さまはすべて無料。"
+  description="日本で働きたい台湾人と日本企業をつなぐマッチング交流会。履歴書・面接サポートから来日後のフォローまで、台湾の皆さまは、すべて無料でご利用いただけます。"
   altPaths={{ zh: '/', ja: '/ja/', en: '/en/' }}>
 
   <!-- HERO -->
@@ -45,7 +45,7 @@ const stats = [
       <p class="lead">
         留学やワーキングホリデーで来日する台湾の若者と、
         台湾出身のスタッフを迎えたい日本企業をマッチングしています。
-        <strong>履歴書の作成から面接、来日後のフォローまで、台湾の皆さまはすべて無料。</strong>
+        <strong>履歴書の作成から面接、来日後のフォローまで、台湾の皆さまは、すべて無料。</strong>
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href={l('/events')}>{heroCta}</a>
@@ -59,7 +59,7 @@ const stats = [
     {nextEv && (
       <a class="news" href={l('/events')}>
         <span class="news-tag" lang="ja">お知らせ</span>
-        <span class="news-txt">第 {nextEv.no} 回交流会　{nextEvDate}{CITY.ja[nextEv.city] ?? nextEv.city}・申込受付中 <span aria-hidden="true">→</span></span>
+        <span class="news-txt">第 {fmtEventNo(nextEv.no, 'ja')} 回交流会　{nextEvDate}{CITY.ja[nextEv.city] ?? nextEv.city}・申込受付中 <span aria-hidden="true">→</span></span>
       </a>
     )}
   </div>
@@ -79,7 +79,7 @@ const stats = [
       <p class="lead">台湾の公共放送・公視のニュースで紹介されました（ツナグへのインタビューを含む）。</p>
       <div class="video">
         <iframe src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}`}
-          title="台湾公共テレビ：台湾向けワーキングホリデー枠・年間 1 万人のニュース（ツナグへのインタビューを含む）"
+          title="台湾の公共放送・公視：台湾向けワーキングホリデー枠・年間 1 万人のニュース（ツナグへのインタビューを含む）"
           loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
           allowfullscreen></iframe>
       </div>
@@ -91,7 +91,7 @@ const stats = [
     <div class="wrap co-split">
       <div class="co-side">
         <h2 class="d2">提携している日本企業</h2>
-        <p class="lead">中国語の求人サイトには出てこない店舗を、私たちが直接おつなぎします。以下は勤務実績の多い 6 ブランドです。</p>
+        <p class="lead">中国語の求人サイトには出てこない店舗と皆さまを、私たちが直接おつなぎします。以下は勤務実績の多い 6 ブランドです。</p>
         <a class="action-link" href={l('/companies')}>{companies.length} ブランドをすべて見る →</a>
       </div>
       <div class="grid3 grid-co">

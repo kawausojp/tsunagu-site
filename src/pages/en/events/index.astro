@@ -4,7 +4,7 @@ import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
 import data from '../../../data/events.json';
 import { href } from '../../../i18n/ui';
-import { todayTaipei, fmtEventDate, fmtSince, CITY } from '../../../lib/site';
+import { todayTaipei, fmtEventDate, fmtEventNo, fmtSince, CITY } from '../../../lib/site';
 
 const l = (p: string) => href('en', p);
 const today = todayTaipei();
@@ -13,6 +13,33 @@ const upcoming = sorted.filter(e => e.date >= today).reverse();
 const past = sorted.filter(e => e.date < today);
 const fmt = (d: string) => `${d.slice(0, 4)}/${fmtEventDate(d, 'en')}`;
 const city = (c: string) => CITY.en[c] ?? c;
+
+// Event structured data: upcoming events with full venue info only (same rule as zh/ja).
+// Meetups are held in Chinese, so inLanguage stays zh-Hant.
+const eventsLd = upcoming.filter(e => e.venue && e.address).map(e => {
+  const times = (e.sessions ?? []).map(t => t.split('–'));
+  const lastTime = times.at(-1);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: `第 ${e.no.replace(/,/g, '、')} 回 台湾人と日本企業をツナグ交流会`,
+    startDate: times[0] ? `${e.date}T${times[0][0]}:00+08:00` : e.date,
+    endDate: lastTime ? `${e.date}T${lastTime[1]}:00+08:00` : e.date,
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    location: {
+      '@type': 'Place',
+      name: e.venue,
+      address: { '@type': 'PostalAddress', streetAddress: e.address, addressLocality: e.city, addressCountry: 'TW' },
+    },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'TWD',
+      availability: 'https://schema.org/InStock', url: e.signupUrl },
+    organizer: { '@type': 'Organization', name: 'ツナグ Tsunagu',
+      url: 'https://www.instagram.com/tw.tsunagu.jp/' },
+    inLanguage: 'zh-Hant',
+    isAccessibleForFree: true,
+  };
+});
 
 const flow = [
   { t: 'On the day', d: 'Japanese companies present who they’re looking for; alumni share what working in Japan is really like.' },
@@ -23,11 +50,12 @@ const flow = [
 <Base title="Meetup Schedule & Sign-up" lang="en"
   altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }}
   description="Free matching meetups in Taipei, Taichung, Kaohsiung, Tokyo and Osaka, connecting Taiwanese talent with Japanese companies.">
+  {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">Come to a meetup</h1>
     <p class="lead">Hear directly from Japanese companies about who they’re hiring — and from alumni about what the work is really like.</p>
     <p class="small since"><strong>{data.totalHeld}</strong> meetups held since {fmtSince(data.since, 'en')},
-      across {data.cities.map(c => city(c)).join(', ')}.</p>
+      across {data.cities.map(c => city(c)).map((c, i, a) => i === a.length - 1 && a.length > 1 ? `and ${c}` : c).join(', ').replace(', and ', ' and ')}.</p>
   </div></section>
 
   <section class="wrap wrap--reading page-section">
@@ -37,7 +65,7 @@ const flow = [
           {upcoming.map(e => (
             <div class="card next">
               <div class="when">
-                <span class="no">#{e.no}</span>
+                <span class="no">#{fmtEventNo(e.no, 'en')}</span>
                 <span class="date">{fmt(e.date)}</span>
                 <span class="tag area">{city(e.city)}</span>
               </div>
@@ -50,7 +78,7 @@ const flow = [
         </div>
       : <div class="card next empty">
           <p><strong>Next date not announced yet.</strong></p>
-          <p class="small">Dates are posted on Instagram 2–4 weeks ahead.</p>
+          <p class="small">Dates are posted on Instagram 2–4 weeks ahead. The most recent meetup was #{fmtEventNo(past[0]?.no ?? '', 'en')} ({fmt(past[0]?.date)} · {city(past[0]?.city)}).</p>
           <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Follow us on Instagram →</a>
         </div>}
     <p class="small hint">Each meetup has its own sign-up form — always use the latest announced link.</p>
@@ -74,7 +102,7 @@ const flow = [
     <ul class="hist">
       {past.map(e => (
         <li class="card h">
-          <span class="no">#{e.no}</span>
+          <span class="no">#{fmtEventNo(e.no, 'en')}</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{city(e.city)}</span>
           {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span lang="ja">開催報告</span> ↗</a>}

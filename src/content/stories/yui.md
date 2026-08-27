@@ -1,6 +1,6 @@
 ---
 name: "ユイ"
-visa: "留學生"
+visa: "留學"
 started: "2023.09"
 company: "ANAYI"
 location: "東京・銀座"

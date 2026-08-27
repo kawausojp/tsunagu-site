@@ -1,6 +1,6 @@
 ---
 name: "カヤ"
-visa: "留學生"
+visa: "留學"
 started: "2023.08"
 company: "MUK ムカイ"
 location: "東京・新宿／銀座"

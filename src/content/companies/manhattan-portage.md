@@ -9,7 +9,7 @@ placements: 7
 fullTimeConverted: 4
 onlineInterview: true
 tagline: "來自紐約的包款品牌，日本限定款眾多"
-taglineJa: "NY発のバッグブランド、日本限定モデル多数"
+taglineJa: "ニューヨーク発のバッグブランド、日本限定モデル多数"
 taglineEn: "NYC bag brand with many Japan-exclusive models"
 highlights:
   - "累計 7 人採用，其中 4 人轉正職"

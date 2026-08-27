@@ -25,11 +25,19 @@ export const CITY: Record<Lang, Record<string, string>> = {
   en: { 台北: 'Taipei', 台中: 'Taichung', 高雄: 'Kaohsiung', 東京: 'Tokyo', 大阪: 'Osaka' },
 };
 
-/** 9/20（日）／9/20（Sun）格式 */
+/** zh/ja「9/20（日）」；en「9/20 (Sun)」半形。
+ * 星期一律用 Date.UTC + getUTCDay()：getDay() 依 build 環境時區取值，
+ * 在 GitHub Actions（UTC）上會比台北早一天、全站星期錯一天。 */
 export function fmtEventDate(date: string, lang: Lang) {
-  const m = Number(date.slice(5, 7)), d = Number(date.slice(8, 10));
-  const wd = WD[lang][new Date(`${date}T00:00:00+08:00`).getDay()];
-  return `${m}/${d}（${wd}）`;
+  const [y, m, d] = date.split('-').map(Number);
+  const wd = WD[lang][new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+  return lang === 'en' ? `${m}/${d} (${wd})` : `${m}/${d}（${wd}）`;
+}
+
+/** 場次編號「88,89」的顯示層分隔：zh「88、89」／ja「88・89」／en「88–89」（資料源保持逗號） */
+export function fmtEventNo(no: string, lang: Lang) {
+  const sep = lang === 'ja' ? '・' : lang === 'en' ? '–' : '、';
+  return no.replace(/,/g, sep);
 }
 
 export const totalHeld = eventsData.totalHeld;

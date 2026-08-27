@@ -9,7 +9,7 @@ fullTimeConverted: 0
 onlineInterview: false
 tagline: "2008 年誕生的高爾夫服飾品牌，木村拓哉為全球代言人"
 taglineJa: "2008年誕生のゴルフウェアブランド、木村拓哉さんがグローバルアンバサダー"
-taglineEn: "Golf apparel since 2008; Takuya Kimura is global ambassador"
+taglineEn: "Golf apparel since 2008; Takuya Kimura is its global ambassador"
 highlights:
   - "不會打高爾夫也 OK"
   - "男女皆可"

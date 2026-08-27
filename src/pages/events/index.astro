@@ -2,22 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-events.css';
 import data from '../../data/events.json';
-import { fmtSince } from '../../lib/site';
+import { todayTaipei, fmtEventDate, fmtEventNo, fmtSince } from '../../lib/site';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const todayInTimeZone = (date: Date, timeZone: string) => {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone, year:'numeric', month:'2-digit', day:'2-digit',
-  }).formatToParts(date);
-  const value = Object.fromEntries(parts.map(part => [part.type, part.value]));
-  return `${value.year}-${value.month}-${value.day}`;
-};
-const today = todayInTimeZone(new Date(), 'Asia/Taipei');
+const today = todayTaipei();
 const sorted = [...data.events].sort((a, b) => b.date.localeCompare(a.date));
 const upcoming = sorted.filter(e => e.date >= today).reverse();
 const past = sorted.filter(e => e.date < today);
-
-const WD = ['日','一','二','三','四','五','六'];
 
 // Event 結構化資料：僅未來場次且場地齊備者（Google Event 標記要求結構化地址）
 const eventsLd = upcoming.filter(e => e.venue && e.address).map(e => {
@@ -26,7 +17,7 @@ const eventsLd = upcoming.filter(e => e.venue && e.address).map(e => {
   return {
     '@context': 'https://schema.org',
     '@type': 'Event',
-    name: `第 ${e.no} 回 台湾人と日本企業をツナグ交流会`,
+    name: `第 ${fmtEventNo(e.no, 'zh')} 回 台湾人と日本企業をツナグ交流会`,
     startDate: times[0] ? `${e.date}T${times[0][0]}:00+08:00` : e.date,
     endDate: lastTime ? `${e.date}T${lastTime[1]}:00+08:00` : e.date,
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
@@ -44,10 +35,7 @@ const eventsLd = upcoming.filter(e => e.venue && e.address).map(e => {
     isAccessibleForFree: true,
   };
 });
-const fmt = (d: string) => {
-  const [y, m, dd] = d.split('-').map(Number);
-  return `${y}/${m}/${dd}（${WD[new Date(Date.UTC(y, m - 1, dd)).getUTCDay()]}）`;
-};
+const fmt = (d: string) => `${d.slice(0, 4)}/${fmtEventDate(d, 'zh')}`;
 
 const flow = [
   { t:'當天現場', d:'日本企業介紹他們在找什麼樣的人，前輩分享在日本工作的實際情況。' },
@@ -61,7 +49,7 @@ const flow = [
     <h1 class="d1">來交流會看看</h1>
     <p class="lead">聽日本企業說他們在找什麼樣的人，也聽已經在日本的前輩分享第一手經驗。</p>
     <p class="small since">自 {fmtSince(data.since, 'zh')}起累計舉辦 <strong>{data.totalHeld}</strong> 場，
-      地點涵蓋 {data.cities.join('、')}。</p>
+      地點涵蓋{data.cities.join('、')}。</p>
   </div></section>
 
   <section class="wrap wrap--reading page-section">
@@ -71,7 +59,7 @@ const flow = [
           {upcoming.map(e => (
             <div class="card next">
               <div class="when">
-                <span class="no">第 {e.no} 回</span>
+                <span class="no">第 {fmtEventNo(e.no, 'zh')} 回</span>
                 <span class="date">{fmt(e.date)}</span>
                 <span class="tag area">{e.city}</span>
               </div>
@@ -84,7 +72,7 @@ const flow = [
         </div>
       : <div class="card next empty">
           <p><strong>下一場尚未公布。</strong></p>
-          <p class="small">場次通常提前 2–4 週在 Instagram 公告。最近一場是第 {past[0]?.no} 回（{fmt(past[0]?.date)}・{past[0]?.city}）。</p>
+          <p class="small">場次通常提前 2–4 週在 Instagram 公告。最近一場是第 {fmtEventNo(past[0]?.no ?? '', 'zh')} 回（{fmt(past[0]?.date)}・{past[0]?.city}）。</p>
           <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">追蹤 IG 接收場次通知 →</a>
         </div>}
     <p class="small hint">每一場的報名表單都不一樣，請以最新公告的連結為準。</p>
@@ -103,12 +91,12 @@ const flow = [
 
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">舉辦紀錄</h2>
-    <p class="lead">最近 {past.length} 次開催的紀錄。更早的在
+    <p class="lead">最近 {past.length} 場的舉辦紀錄。更早的在
       <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram</a>。</p>
     <ul class="hist">
       {past.map(e => (
         <li class="card h">
-          <span class="no">第 {e.no} 回</span>
+          <span class="no">第 {fmtEventNo(e.no, 'zh')} 回</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{e.city}</span>
           {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span lang="ja">開催報告</span> ↗</a>}

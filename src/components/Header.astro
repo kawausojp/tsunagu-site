@@ -35,7 +35,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/>
         </svg>
-        {LANG_META[lang].label}
+        <span class="lang-full">{LANG_META[lang].label}</span><span class="lang-short" aria-hidden="true">{LANG_META[lang].short}</span>
       </summary>
       <ul>
         {langs.map(l => (
@@ -49,7 +49,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     <a class="btn btn-primary mobile-cta" href={eventsHref} aria-label={t.signup}
       aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signupShort}</a>
     <button class="burger" type="button" aria-label={t.openMenu} aria-expanded="false"
-      aria-controls="mobile-menu" data-burger>
+      aria-controls="mobile-menu" data-burger data-label-open={t.openMenu} data-label-close={t.closeMenu}>
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -107,9 +107,10 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   }
   @media (max-width:720px){
     header{background:#fff;backdrop-filter:none;border-bottom-color:var(--mobile-line)}
-    .bar{display:flex;justify-content:center;height:56px;gap:0;padding:0 16px}
-    .logo{justify-content:center;gap:7px}
-    .wordmark{width:112px}
+    /* logo 置中、語言鈕絕對定位靠右：兩者脫開，窄機不再互擠 */
+    .bar{display:flex;justify-content:center;height:56px;gap:0;padding:0 16px;position:relative}
+    .logo{justify-content:center;gap:7px;max-width:calc(100% - 140px)}
+    .wordmark{width:clamp(88px,26vw,112px)}
     .mobile-cta{display:none}
     .burger{display:none}
     .mobile-tabs{display:flex;align-items:center;justify-content:safe center;gap:2px;width:100%;
@@ -138,8 +139,12 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     font-size:13.5px;color:var(--ink-900)}
   .lang li a:hover{background:var(--greige-50)}
   .lang li a[aria-current="true"]{color:var(--pink-700);font-weight:700}
+  .lang-short{display:none}
   @media (max-width:720px){
+    .lang{position:absolute;right:16px;top:50%;transform:translateY(-50%)}
     .lang summary{padding:6px 8px;font-size:12px}
+    .lang-full{display:none}
+    .lang-short{display:inline}
   }
 </style>
 
@@ -154,7 +159,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       d.toggleAttribute('data-open', open);
       d.hidden = !open;
       b.setAttribute('aria-expanded', String(open));
-      b.setAttribute('aria-label', open ? '關閉主選單' : '開啟主選單');
+      b.setAttribute('aria-label', (open ? b.dataset.labelClose : b.dataset.labelOpen) ?? '');
       document.body.classList.toggle('menu-open', open);
       if (!open && restoreFocus) b.focus();
     };

@@ -6,33 +6,29 @@ import CompanyCard from '../components/CompanyCard.astro';
 import SenpaiAvatar from '../components/SenpaiAvatar.astro';
 import { Image } from 'astro:assets';
 import characters from '../assets/tsunagu-characters.png';
-import events from '../data/events.json';
+import { VIDEO_ID, nextEvent, fmtEventDate, fmtEventNo, totalHeld } from '../lib/site';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const companies = (await getCollection('companies'))
   .sort((a, b) => b.data.placements - a.data.placements);
 const featured = companies.slice(0, 6);
-const firstStory = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order)[0];
+const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
+const firstStory = stories[0];
 
-const VIDEO_ID = 'UmWq6sPcrJs'; // 內含 Tsunagu 訪談
-const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei' }).format(new Date());
-const nextEv = [...events.events].filter(e => e.date >= today).sort((a,b)=>a.date.localeCompare(b.date))[0];
-const WD = ['日','一','二','三','四','五','六'];
+const nextEv = nextEvent();
+const nextEvDate = nextEv ? fmtEventDate(nextEv.date, 'zh') : '';
 const heroCta = nextEv
-  ? `報名 ${Number(nextEv.date.slice(5,7))}/${Number(nextEv.date.slice(8,10))}（${WD[new Date(nextEv.date+'T00:00:00+08:00').getDay()]}）${nextEv.city}交流會 →`
+  ? `報名 ${nextEvDate}${nextEv.city}交流會 →`
   : '報名下一場交流會 →';
-const nextEvDate = nextEv
-  ? `${Number(nextEv.date.slice(5,7))}/${Number(nextEv.date.slice(8,10))}（${WD[new Date(nextEv.date+'T00:00:00+08:00').getDay()]}）`
-  : '';
 const stats = [
   { n: '2,874', u: '人', t: '參加過交流會' },
   { n: '163',   u: '人', t: '找到日本工作' },
-  { n: String(events.totalHeld), u: '場', t: '已舉辦的交流會' },
+  { n: String(totalHeld), u: '場', t: '已舉辦的交流會' },
   { n: String(companies.length), u: '個', t: '合作品牌' },
 ];
 ---
 <Base title="把台灣的好人才，牽到日本" altPaths={{ zh: '/', ja: '/ja/', en: '/en/' }}
-  description="想去日本打工度假或留學？Tsunagu 免費媒合台灣人與日本企業：交流會、履歷面試輔導、抵日後追蹤，35 個合作品牌。">
+  description={`想去日本打工度假或留學？Tsunagu 免費媒合台灣人與日本企業：交流會、履歷面試輔導、抵日後追蹤，${companies.length} 個合作品牌。`}>
 
   <!-- HERO -->
   <section class="hero">
@@ -59,7 +55,7 @@ const stats = [
     {nextEv && (
       <a class="news" href={`${base}/events`}>
         <span class="news-tag" lang="ja">お知らせ</span>
-        <span class="news-txt">第 {nextEv.no} 回交流會　{nextEvDate}{nextEv.city}・報名受付中 →</span>
+        <span class="news-txt">第 {fmtEventNo(nextEv.no, 'zh')} 回交流會　{nextEvDate}{nextEv.city}・開放報名中 <span aria-hidden="true">→</span></span>
       </a>
     )}
   </div>
@@ -113,7 +109,7 @@ const stats = [
           </p>
         </div>
       </div>
-      <div class="more"><a class="action-link" href={`${base}/stories`}>看 14 位學長姐的第一手分享 →</a></div>
+      <div class="more"><a class="action-link" href={`${base}/stories`}>看 {stories.length} 位學長姐的第一手分享 →</a></div>
     </div>
   </section>
 

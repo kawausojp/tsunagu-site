@@ -9,7 +9,7 @@ placements: 2
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "主打流行敏感度高的女性客群"
-taglineJa: "トレンド感度の高い女性に向けたレディースアパレルブランド"
+taglineJa: "トレンド感度の高い女性のためのアパレルブランド"
 taglineEn: "For trend-conscious women"
 highlights:
   - "希望具備中日文與接客經驗"

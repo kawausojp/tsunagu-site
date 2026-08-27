@@ -10,7 +10,7 @@ fullTimeConverted: 2
 onlineInterview: true
 tagline: "2015 年於紐約發表的「My Standard Bag」包款品牌"
 taglineJa: "2015年ニューヨーク発、「My Standard Bag」を掲げるバッグブランド"
-taglineEn: "NYC bag brand behind “My Standard Bag,” 2015"
+taglineEn: "NYC bag brand behind the 2015 “My Standard Bag”"
 highlights:
   - "累計 15 人採用（最多）"
   - "2 人取得工作簽轉正職"

@@ -34,7 +34,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
               <span class="sep">·</span>
               <strong>{s.data.company}</strong>
               <span class="sep">·</span>
-              <span>{s.data.location}</span>
+              <span lang="zh-Hant">{s.data.location}</span>
             </p>
           </div>
         </header>
@@ -47,7 +47,7 @@ const brands = [...new Set(stories.map(s=>s.data.company))];
 
         {s.data.advice.length > 0 && (
           <div class="advice">
-            <h3>Advice for juniors (original text)</h3>
+            <h3>Their advice (original text)</h3>
             <ol lang="zh-Hant">{s.data.advice.map(a => <li>{a}</li>)}</ol>
           </div>
         )}

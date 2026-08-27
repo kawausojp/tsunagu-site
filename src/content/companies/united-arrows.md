@@ -8,7 +8,7 @@ jlpt: "N2"
 placements: 3
 fullTimeConverted: 0
 onlineInterview: false
-tagline: "引領日本時尚與文化的精選店"
+tagline: "引領日本時尚與文化的選品店"
 taglineJa: "日本のファッションと文化を牽引するセレクトショップ"
 taglineEn: "The select shop leading Japanese fashion and culture"
 highlights:

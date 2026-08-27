@@ -49,12 +49,12 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
     </div>
 
     <div class="wrap wrap--prose body">
-      <div class="prose"><Content /></div>
+      <div class="prose" lang="zh-Hant"><Content /></div>
 
       {d.highlights.length > 0 && (
         <div class="hl">
           <h2 class="d3">ポイント（原文）</h2>
-          <ul>{d.highlights.map((h:string) => <li>{h}</li>)}</ul>
+          <ul lang="zh-Hant">{d.highlights.map((h:string) => <li>{h}</li>)}</ul>
         </div>
       )}
 
@@ -71,7 +71,7 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
 
       {relatedStories.length > 0 && (
         <div class="related">
-          <h2 class="d3">このブランドで働いた先輩</h2>
+          <h2 class="d3">このブランドで働く先輩</h2>
           {relatedStories.map(st => (
             <a class="rel-link" href={l(`/stories#${st.id}`)}><span lang="ja">{st.data.name}</span> さん（{VISA_LABEL.ja[st.data.visa] ?? st.data.visa}）の体験談 →</a>
           ))}

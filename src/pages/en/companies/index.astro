@@ -99,7 +99,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       c.style.display = show ? '' : 'none';
       if (show) n++;
     });
-    statusEl.textContent = `Showing ${n} brands`;
+    statusEl.textContent = `Showing ${n} brand${n === 1 ? '' : 's'}`;
     emptyEl.hidden = n > 0;
     const any = searchEl.value.length > 0 || active.area.size || active.cat.size || active.jlpt.size;
     resetEl.hidden = !any;

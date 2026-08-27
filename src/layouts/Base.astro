@@ -55,7 +55,7 @@ const ogImage = new URL(`${base}/img/og-default.png`, Astro.site);
     name: 'ツナグ Tsunagu',
     alternateName: '台湾人と日本企業をツナグ',
     legalName: '智囊和夥伴有限公司（Brain & Partner Taiwan Inc.）',
-    url: Astro.site?.toString(),
+    url: new URL(`${base}/`, Astro.site).toString(),
     logo: new URL(`${base}/img/icon-512.png`, Astro.site).toString(),
     sameAs: [
       'https://www.instagram.com/tw.tsunagu.jp/',

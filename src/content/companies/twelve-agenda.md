@@ -10,7 +10,7 @@ fullTimeConverted: 0
 onlineInterview: false
 tagline: "「12 個月的衣櫃」——簡約優質單品混搭當下心情"
 taglineJa: "「12ヶ月のワードローブ」。上質なシンプルを気分でミックス"
-taglineEn: "A 12-month wardrobe — quality basics, mixed to mood"
+taglineEn: "A 12-month wardrobe — quality basics, mixed to match the mood"
 highlights:
   - "有總公司 EC 職缺"
 sourceSlide: 139

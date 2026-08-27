@@ -12,6 +12,7 @@ const d = c.data;
 const { Content } = await render(c);
 // 在這個品牌工作過的學長姐（company 名寬鬆比對；資料本來就在庫裡，接上而已）
 const allStories = await getCollection('stories');
+const companiesCount = (await getCollection('companies')).length;
 const norm = (x: string) => x.normalize('NFKC').toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u4e00-\u9fff]/g, '');
 const dn = norm(d.name);
 const relatedStories = allStories.filter(st => {
@@ -75,7 +76,7 @@ const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡',
       )}
       <div class="cta">
         <a class="btn btn-primary" href={`${base}/events`}>報名交流會，現場問清楚</a>
-        <a class="action-link" href={`${base}/companies`}>看全部 35 家合作品牌 →</a>
+        <a class="action-link" href={`${base}/companies`}>看全部 {companiesCount} 個合作品牌 →</a>
       </div>
     </div>
   </article>

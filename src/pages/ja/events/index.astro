@@ -4,7 +4,7 @@ import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
 import data from '../../../data/events.json';
 import { href } from '../../../i18n/ui';
-import { todayTaipei, fmtEventDate, fmtSince, CITY } from '../../../lib/site';
+import { todayTaipei, fmtEventDate, fmtEventNo, fmtSince, CITY } from '../../../lib/site';
 
 const l = (p: string) => href('ja', p);
 const today = todayTaipei();
@@ -22,7 +22,7 @@ const eventsLd = upcoming.filter(e => e.venue && e.address).map(e => {
   return {
     '@context': 'https://schema.org',
     '@type': 'Event',
-    name: `第 ${e.no} 回 台湾人と日本企業をツナグ交流会`,
+    name: `第 ${fmtEventNo(e.no, 'ja')} 回 台湾人と日本企業をツナグ交流会`,
     startDate: times[0] ? `${e.date}T${times[0][0]}:00+08:00` : e.date,
     endDate: lastTime ? `${e.date}T${lastTime[1]}:00+08:00` : e.date,
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
@@ -42,7 +42,7 @@ const eventsLd = upcoming.filter(e => e.venue && e.address).map(e => {
 });
 
 const flow = [
-  { t: '当日の会場で', d: '日本企業が求める人材像を紹介し、先輩が語る日本で働く実際の姿をお伝えします。' },
+  { t: '当日のプログラム', d: '日本企業が求める人材像を紹介し、先輩が、日本で働く実際の姿を語ります。' },
   { t: '個別相談', d: '日本語レベル・希望職種・渡航時期についてお聞かせください。' },
   { t: 'その後のステップ', d: '履歴書の作成から面接練習、在留資格の手続き、来日後のフォローまで、最後まで伴走します。' },
 ];
@@ -65,7 +65,7 @@ const flow = [
           {upcoming.map(e => (
             <div class="card next">
               <div class="when">
-                <span class="no">第 {e.no} 回</span>
+                <span class="no">第 {fmtEventNo(e.no, 'ja')} 回</span>
                 <span class="date">{fmt(e.date)}</span>
                 <span class="tag area">{city(e.city)}</span>
               </div>
@@ -78,7 +78,7 @@ const flow = [
         </div>
       : <div class="card next empty">
           <p><strong>次回日程は未定です。</strong></p>
-          <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。直近の開催は第 {past[0]?.no} 回（{fmt(past[0]?.date)}・{city(past[0]?.city)}）でした。</p>
+          <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。直近の開催は第 {fmtEventNo(past[0]?.no ?? '', 'ja')} 回（{fmt(past[0]?.date)}・{city(past[0]?.city)}）でした。</p>
           <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram をフォロー →</a>
         </div>}
     <p class="small hint">申込フォームは開催回ごとに異なります。最新のお知らせに掲載しているリンクからお申し込みください。</p>
@@ -102,7 +102,7 @@ const flow = [
     <ul class="hist">
       {past.map(e => (
         <li class="card h">
-          <span class="no">第 {e.no} 回</span>
+          <span class="no">第 {fmtEventNo(e.no, 'ja')} 回</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{city(e.city)}</span>
           {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener">開催報告 ↗</a>}

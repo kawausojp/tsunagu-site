@@ -8,7 +8,7 @@ jlpt: null
 placements: 2
 fullTimeConverted: 1
 onlineInterview: false
-tagline: "專營世界各地優質鞋款的進口鞋專門店"
+tagline: "世界各地優質鞋款的進口鞋專門店"
 taglineJa: "世界の良質なシューズを扱うインポート専門店"
 taglineEn: "Import specialist for fine shoes from around the world"
 highlights:
