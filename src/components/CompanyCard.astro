@@ -29,11 +29,14 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
     <p class="tag-line">{tagline}</p>
     {(d.placements > 0 || d.fullTimeConverted > 0 || d.onlineInterview) && (
       <p class="stats-line">
+        {/* 每段各自 nowrap：只允許在分隔符處斷，否則「2 人轉正職」會在半形空格拆行 */}
         {[
           d.placements > 0 && t.card.placements(d.placements),
           d.fullTimeConverted > 0 && t.card.fullTime(d.fullTimeConverted),
           d.onlineInterview && t.card.online,
-        ].filter(Boolean).join(lang === 'en' ? ' · ' : '・')}
+        ].filter(Boolean).map((seg, i, arr) => (
+          <span class="seg">{seg}{i < arr.length - 1 ? (lang === 'en' ? ' · ' : '・') : ''}</span>
+        ))}
       </p>
     )}
   </div>
@@ -50,6 +53,7 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
   .tags{margin:10px 0 12px}
   .tag-line{font-size:var(--fs-sm);color:var(--ink-600);line-height:1.8;margin:0 0 12px}
   .stats-line{margin:auto 0 0;font-size:var(--fs-xs);color:var(--pink-700);letter-spacing:.02em}
+  .stats-line .seg{white-space:nowrap}
   .co h3{overflow-wrap:break-word}
   @media (max-width:720px){
     /* 兩格一列的半寬卡：只留品牌名、地區/職種標籤、實績。公司登記名與 tagline 進詳情頁看 */
@@ -62,5 +66,10 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
     .tags{margin:8px 0 9px;gap:4px}
     .tags :global(.tag){font-size:var(--fs-3xs);padding:3px 8px}
     .stats-line{font-size:var(--fs-2xs)}
+  }
+  /* 320–400px：卡片內容寬 113px、"WILLOUGHBY" 需 116px，差 3px 就被切成
+     "WILLOUGHB / Y"。keep-all 同時防止「BLOOMING 中西」被拆成另一個孤字。 */
+  @media (max-width:400px){
+    .co h3{font-size:var(--fs-sm);word-break:keep-all}
   }
 </style>

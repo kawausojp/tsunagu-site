@@ -19,8 +19,8 @@ const t = ui[lang];
     </div>
     <div>
       <h2>{t.footerContact}</h2>
-      <a href="https://www.instagram.com/tw.tsunagu.jp/" rel="me noopener" target="_blank">Instagram @tw.tsunagu.jp <span aria-hidden="true">↗</span></a>
-      <a href="https://www.threads.com/@tw.tsunagu.jp" rel="me noopener" target="_blank">Threads @tw.tsunagu.jp <span aria-hidden="true">↗</span></a>
+      <a href="https://www.instagram.com/tw.tsunagu.jp/" rel="me noopener" target="_blank">Instagram <span class="nowrap">@tw.tsunagu.jp <span aria-hidden="true">↗</span></span></a>
+      <a href="https://www.threads.com/@tw.tsunagu.jp" rel="me noopener" target="_blank">Threads <span class="nowrap">@tw.tsunagu.jp <span aria-hidden="true">↗</span></span></a>
     </div>
   </div>
 
@@ -55,7 +55,9 @@ const t = ui[lang];
     /* 權重需高於上面那條，否則 .legal 的 clamp 會被蓋掉 */
     footer .legal p.small{font-size:clamp(9px,2.75vw,var(--fs-xs))}
     h2{font-size:var(--fs-2xs);margin-bottom:7px}
-    footer a{display:flex;align-items:center;min-height:44px;padding:7px 0;font-size:var(--fs-xs);line-height:1.5}
+    /* flex-wrap 必要：連結內的 <span class="nowrap"> 是獨立 flex item，
+       不換行的話整段最小寬度會把 grid 欄撐爆（320px 實測 +19px） */
+    footer a{display:flex;flex-wrap:wrap;align-items:center;min-height:44px;padding:7px 0;font-size:var(--fs-xs);line-height:1.5}
     .legal{margin-top:24px;padding-top:20px;border-top-color:var(--mobile-line)}
   }
 </style>

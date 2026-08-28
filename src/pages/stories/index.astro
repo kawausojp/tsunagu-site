@@ -17,8 +17,7 @@ const companyHref = new Map(stories.map(s => {
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">學長姐現在在日本</h1>
     <p class="lead">
-      他們也曾經只是「想去日本看看」。以下是 {stories.length} 位學長姐的分享，
-      涵蓋 {brands.length} 個品牌，從打工度假、留學到交換留學都有。
+      他們也曾經只是「想去日本看看」。以下是 {stories.length} 位學長姐的分享，涵蓋 {brands.length} 個品牌，從打工度假、留學到交換留學都有。
     </p>
     <div class="note">
       內容摘自 Tsunagu Instagram 上學長姐的原文分享，每篇都附原文連結。
@@ -67,7 +66,7 @@ const companyHref = new Map(stories.map(s => {
         )}
 
         <a class="src small" href={`https://www.instagram.com/p/${s.data.igCode}/`} target="_blank" rel="noopener">
-          讀 Instagram 原文（{s.data.igPosted}）↗
+          讀 Instagram 原文<span class="nowrap">（{s.data.igPosted}）↗</span>
         </a>
       </article>
     ))}

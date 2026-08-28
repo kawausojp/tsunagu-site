@@ -78,6 +78,8 @@ strong{font-weight:700;color:var(--ink-900)}
   transition-property:none}  /* 不讓元素的 transition:all 把焦點框做成動畫 */
 main:focus{outline:none}
 
+.nowrap{white-space:nowrap}
+
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;
   margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;
   white-space:nowrap!important;border:0!important}
@@ -104,7 +106,7 @@ main:focus{outline:none}
     line-height:1.5;letter-spacing:.05em}
 .d3{font-family:var(--f-display);font-weight:700;font-size:var(--fs-2xl);line-height:1.6;letter-spacing:.03em}
 /* 多行大標的斷行平衡（桌面限定；手機 d1 由 .headline-part 手動斷行，不套用） */
-@media (min-width:721px){ .d1,.d2{text-wrap:balance} }
+/* balance 改為不分斷點（手機的 d2 孤字同樣需要）；見下方斷行區塊 */
 .lead{color:var(--ink-600);max-width:36em;font-size:var(--fs-lg);line-height:2}
 .small{font-size:var(--fs-xs);color:var(--ink-600);line-height:1.9}
 
@@ -130,6 +132,25 @@ main:focus{outline:none}
 html[lang="en"] .lead{max-width:62ch}
 html[lang="en"] .note{max-width:64ch}
 html[lang="en"] .notice{max-width:64ch}
+
+/* ── 斷行 ──
+   text-wrap:pretty 目前只有 Chromium 支援（主流量的 iOS WebKit 吃不到），
+   所以它只是漸進增強；真正不能斷的地方一律用 .nowrap 從結構上綁住。 */
+p,li,dd,blockquote,figcaption{text-wrap:pretty}
+h1,h2,h3{text-wrap:balance}
+
+/* 日文：Chrome 的預設 line-break 不套長音符「ー」與拗促音的行頭禁則，
+   實測 16 處「マ/ッチング」「ワ/ーキングホリデー」這類斷法。strict 可全數解決。 */
+html[lang="ja"]{line-break:strict}
+/* 標題以文節（意味の切れ目）斷行，避免 balance 把活用語尾劈開（提携してい/る日本企業）。
+   Chrome 119+ 生效，其他瀏覽器忽略、退回現狀。本文不適用——右緣會過度參差。 */
+html[lang="ja"] :is(.d1,.d2,.d3){word-break:auto-phrase}
+
+/* 英文：ch 量的是「0」字寬，比實際小寫平均寬，62ch 會渲染成 68–75 字元 */
+html[lang="en"] .lead{max-width:58ch}
+html[lang="en"] .note{max-width:60ch}
+html[lang="en"] .notice{max-width:60ch}
+html[lang="en"] .prose{max-width:56ch}
 
 /* ── 標籤 ── */
 .tag{display:inline-block;white-space:nowrap;font-size:var(--fs-2xs);font-weight:500;padding:3px 10px;letter-spacing:.03em;

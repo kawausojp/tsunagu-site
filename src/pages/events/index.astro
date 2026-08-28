@@ -49,7 +49,7 @@ const flow = [
     <h1 class="d1">來交流會看看</h1>
     <p class="lead">聽日本企業說他們在找什麼樣的人，也聽已經在日本的學長姐分享第一手經驗。</p>
     <p class="small since">自 {fmtSince(data.since, 'zh')}起累計舉辦 <strong>{data.totalHeld}</strong> 場，
-      地點涵蓋{data.cities.join('、')}。</p>
+      地點涵蓋{data.cities.map((c: string, i: number) => (<span class="nowrap">{c}{i < data.cities.length - 1 ? '、' : ''}</span>))}。</p>
   </div></section>
 
   <section class="wrap wrap--reading page-section" id="signup">
@@ -65,7 +65,7 @@ const flow = [
               </div>
               <dl class="ev-meta">
                 {e.sessions && <><dt>場次</dt><dd>{e.sessions.join('　／　')}</dd></>}
-                {e.venue && <><dt>地點</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">在 Google 地圖開啟 ↗<span class="sr-only">（另開新視窗）</span></a>}</dd></>}
+                {e.venue && <><dt>地點</dt><dd>{e.venue}{e.address && <span class="addr"><span class="nowrap">（{e.address}）</span></span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">在 Google 地圖開啟 ↗<span class="sr-only">（另開新視窗）</span></a>}</dd></>}
                 <dt>費用</dt><dd>免費</dd>
               </dl>
               {e.signupUrl
@@ -98,7 +98,7 @@ const flow = [
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">舉辦紀錄</h2>
     <p class="lead">最近 {past.length} 場的舉辦紀錄。更早的在
-      <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram</a>。</p>
+      <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram。</a></p>
     <ul class="hist">
       {past.map(e => (
         <li class="card h">

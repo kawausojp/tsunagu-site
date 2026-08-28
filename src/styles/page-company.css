@@ -19,7 +19,7 @@
   @media (max-width:720px){
     .hero{background:var(--paper);padding:20px 0 24px;border-bottom-color:var(--mobile-line)}
     .back{margin-bottom:14px}
-    .hero h1{font-size:clamp(25px,8vw,30px);line-height:1.4;letter-spacing:.025em;overflow-wrap:anywhere}
+    .hero h1{font-size:clamp(25px,8vw,30px);line-height:1.4;letter-spacing:.025em;overflow-wrap:break-word}
     .corp{margin:5px 0 10px}
     .hero .lead{margin-top:8px}
     .hero .tags{margin-top:14px;gap:6px}
