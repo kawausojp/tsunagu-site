@@ -109,3 +109,7 @@ export function fmtSourceDeck(lang: Lang, page?: number) {
   if (lang === 'ja') return `『第 ${no} 回 台北交流会スライド ${SOURCE_DECK.date}』${p}`;
   return `《第 ${no} 回 台北交流会スライド ${SOURCE_DECK.date}》${p}`;
 }
+
+/** 首頁影片的起始秒數（2026-08-28 使用者指定：直接嵌入、從特定段落開始）。
+ *  要換段落改這裡即可，三語首頁共用。 */
+export const VIDEO_START = 0;

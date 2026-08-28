@@ -61,21 +61,6 @@
   .video{position:relative;aspect-ratio:16/9;max-width:760px;border-radius:var(--r-lg);overflow:hidden;
     background:linear-gradient(135deg,var(--pink-100),var(--sky-100));box-shadow:var(--sh-3);margin-bottom:12px}
   .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  /* 門面：整塊是按鈕，按下才載入 iframe */
-  .video-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
-    justify-content:center;gap:14px;width:100%;height:100%;padding:24px;
-    background:none;border:0;cursor:pointer;font-family:inherit;color:var(--ink-900);
-    transition:background .24s var(--ease)}
-  .vp-ring{display:flex;align-items:center;justify-content:center;width:64px;height:64px;
-    border-radius:var(--r-full);background:var(--paper);color:var(--pink-700);
-    box-shadow:var(--sh-2);transition:transform .24s var(--ease)}
-  .vp-ring svg{margin-left:3px}
-  .vp-title{max-width:34em;font-size:var(--fs-sm);line-height:1.7;color:var(--ink-900);text-align:center}
-  @media (hover:hover) and (pointer:fine){
-    .video-play:hover{background:rgba(255,255,255,.34)}
-    .video-play:hover .vp-ring{transform:scale(1.06)}
-  }
-  .video-play:focus-visible{outline:3px solid var(--focus-ring);outline-offset:-4px}
   .vid-more{margin:0}
 
   .final{background:var(--sky-50);border-top:1px solid var(--line)}
@@ -105,8 +90,10 @@
     .hero .cta-row .action-link{margin-inline:auto}
     .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:var(--paper);
       padding:0;margin-top:20px;border:1px solid var(--mobile-line);border-radius:var(--r-md);overflow:hidden}
-    .band>div{display:flex;min-height:88px;flex-direction:column;align-items:center;justify-content:center;
-      padding:14px 8px}
+    /* 不用 min-height：iOS Safari 的 flex 直欄不把 min-height 算進置中，
+       內容會貼頂、空間全掉到底部（線上實測截圖）。改對稱 padding 撐高。 */
+    .band>div{display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:16px 8px 17px}
     .band>div:nth-child(odd){border-right:1px solid var(--mobile-line)}
     .band>div:nth-child(-n+2){border-bottom:1px solid var(--mobile-line)}
     .band .n{font-size:clamp(27px,8vw,31px)}
@@ -126,9 +113,6 @@
     .v-avatar{width:64px;height:64px;flex-basis:64px}
     .v-quote{font-size:var(--fs-lg)}
     .video{border:1px solid var(--mobile-line);border-radius:var(--r-md);box-shadow:none}
-    .video-play{gap:10px;padding:16px}
-    .vp-ring{width:54px;height:54px}
-    .vp-title{font-size:var(--fs-xs)}
     .final{background:var(--sky-50);border-top:1px solid var(--mobile-line)}
     .final .cta-row{flex-direction:column;align-items:center}
   }

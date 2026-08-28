@@ -9,7 +9,7 @@ import SenpaiAvatar from '../../components/SenpaiAvatar.astro';
 import { Image } from 'astro:assets';
 import characters from '../../assets/tsunagu-characters.png';
 import { href } from '../../i18n/ui';
-import { VIDEO_ID, nextEvent, fmtEventDate, totalHeld, CITY, VISA_LABEL } from '../../lib/site';
+import { VIDEO_ID, VIDEO_START, nextEvent, fmtEventDate, totalHeld, CITY, VISA_LABEL } from '../../lib/site';
 
 const l = (p: string) => href('en', p);
 const companies = (await getCollection('companies'))
@@ -109,18 +109,12 @@ const stats = [
     <div class="wrap">
       <h2 class="d2">See a meetup in action</h2>
       <p class="lead">Featured on Taiwan Public Television news (includes an interview with Tsunagu).</p>
-      <!-- 點擊後才載入：iframe 即使標了 loading="lazy"，仍會在使用者捲到之前拉 4.2MB，
-           並把訪客 IP 送給 Google。底色沿用既有粉彩，不引入第三方縮圖。 -->
+      <!-- 直接嵌入（2026-08-28 使用者指定：不做點擊門面，從 VIDEO_START 秒開始）。 -->
       <div class="video">
-        <button type="button" class="video-play" data-video-id={VIDEO_ID}
-          aria-label={`Play video: Taiwan PTS news: Japan’s 10,000-per-year working-holiday quota for Taiwan (includes Tsunagu interview)`}>
-          <span class="vp-ring" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-              <path d="M8 5.5v13l11-6.5z" fill="currentColor"/>
-            </svg>
-          </span>
-          <span class="vp-title">Taiwan PTS news: Japan’s 10,000-per-year working-holiday quota for Taiwan (includes Tsunagu interview)</span>
-        </button>
+        <iframe src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?start=${VIDEO_START}`}
+          title="Taiwan PTS news: Japan’s 10,000-per-year working-holiday quota for Taiwan (includes Tsunagu interview)"
+          loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+          allowfullscreen></iframe>
       </div>
       <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">Watch on YouTube ↗</a></p>
     </div>
@@ -142,7 +136,3 @@ const stats = [
   </section>
 
 </Base>
-
-<script>
-  import "../../scripts/video-facade";
-</script>
