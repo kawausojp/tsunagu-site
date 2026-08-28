@@ -3,13 +3,14 @@
 // 企業照片需品牌授權（CLAUDE.md 紅線 #5），插圖是零風險替代；拿到授權照片可逐家換。
 interface Props { cat: string; size?: number; }
 const { cat, size = 40 } = Astro.props;
-const S = '#5F5049';           // 線稿 = --ink-900
-const P = '#F8CBDF';           // pink-200
-const PL = '#F8CBDF';          // 粉彩填色（200 級，白底可見）
-const B = '#C3D8ED';           // sky-200
-const BL = '#C3D8ED';          // 粉彩填色（200 級，白底可見）
-const Y = '#FDF6E9';           // note-bg
-const G = '#F4EBE6';           // greige-100
+// 色值一律吃 :root 的 CSS 變數（inline SVG 的 fill/stroke 支援 var()），改 token 自動同步
+const S = 'var(--ink-900)';    // 線稿
+const P = 'var(--pink-200)';
+const PL = 'var(--pink-200)';  // 粉彩填色（200 級，白底可見）
+const B = 'var(--sky-200)';
+const BL = 'var(--sky-200)';   // 粉彩填色（200 級，白底可見）
+const Y = 'var(--note-bg)';
+const G = 'var(--line)';       // 原 --greige-100（#F4EBE6，與 --line 1.06:1 不可分）已併入 --line
 ---
 <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden="true"
   stroke={S} stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">

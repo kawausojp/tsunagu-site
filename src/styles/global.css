@@ -8,14 +8,16 @@
 :root{
   /* ── 粉 ── */
   --pink-50:#FFF6F9; --pink-100:#FDEAF1; --pink-200:#F8CBDF; --pink-300:#F5B9D1;
-  --pink-400:#EE9CBB; --pink-500:#FF6699;          /* 品牌識別色，僅用於極小的點綴 */
+  --pink-400:#D06A90;                              /* 按鈕底線 對白 3.42:1 ✓（WCAG 1.4.11 非文字對比）*/
+  --pink-500:#FF6699;                              /* 品牌識別色（記錄用，全站 0 處使用；不可承載文字）*/
   --pink-700:#9F5D7B;                              /* 玫瑰字色 4.66:1 ✓ */
   /* ── 藍 ── */
   --sky-50:#F2F8FC; --sky-100:#E2EFF8; --sky-200:#C3D8ED;
-  --sky-500:#00B0F0;                               /* 品牌識別色，僅用於極小的點綴 */
+  --sky-500:#00B0F0;                               /* 品牌識別色（記錄用，全站 0 處使用；不可承載文字）*/
   --sky-700:#4F7488;                               /* 藍字色 4.91:1 ✓ */
   /* ── 暖褐（文字與線） ── */
-  --cream:#FFFCFA; --paper:#FFFFFF; --greige-50:#FBF6F3; --greige-100:#F4EBE6;
+  --cream:#FFFCFA; --paper:#FFFFFF; --greige-50:#FBF6F3;
+  --header-bg:rgba(255,250,248,.92);               /* cream 92%：桌機頁首毛玻璃底 */
   --line:#F0E4DE;                                  /* 髮絲分隔線（非控制項邊界） */
   --control-line:#9B8B82;                          /* 控制項邊界 3.21:1 ✓ WCAG 1.4.11 */
   --ink-400:#A2938A;                               /* 裝飾字，不承載重要資訊 */
@@ -122,10 +124,11 @@ html[lang="en"] .notice{max-width:64ch}
 
 /* ── 標籤 ── */
 .tag{display:inline-block;white-space:nowrap;font-size:12px;font-weight:500;padding:3px 10px;letter-spacing:.03em;
-  border-radius:var(--r-xs);background:var(--greige-50);border:1px solid var(--greige-100);color:var(--ink-600);line-height:1.6}
+  border-radius:var(--r-xs);background:var(--greige-50);border:1px solid var(--line);color:var(--ink-600);line-height:1.6}
 .tag.area{background:var(--sky-50);border-color:var(--sky-200);color:var(--sky-700)}
 .tag.job{background:var(--pink-50);border-color:var(--pink-200);color:var(--pink-700)}
-.tag.jlpt{background:var(--note-bg);border-color:var(--note-line);color:var(--note-ink)}
+/* .tag.jlpt 走預設中性樣式（greige-50 底＋line 框＋ink-600 字 4.82:1 ✓）——
+   黃色系 --note-* 只屬 .notice 必讀聲明，「N2 以上」是中性事實標籤 */
 .tags{display:flex;flex-wrap:wrap;gap:8px}
 
 /* ── 卡片 ── */

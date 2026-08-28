@@ -4,12 +4,14 @@
 interface Props { name: string; size?: number; }
 const { name, size = 56 } = Astro.props;
 const seed = [...name].reduce((a, c) => a + c.codePointAt(0)!, 0);
-const S = '#5F5049';
+const S = 'var(--ink-900)';   // 線稿吃 token（inline SVG 的 fill/stroke 支援 var()）
+// 膚色與髮色是刻意的插畫獨立值，不屬 token 系統——不要改成 var()
 const SKIN = '#FBEFE6';
-const BLUSH = '#F5B9D1';
+const BLUSH = 'var(--pink-300)';
 const HAIRS = ['#8A7364', '#5F5049', '#A98F73', '#74604F', '#93705D'];
-const SHIRTS = ['#F8CBDF', '#C3D8ED', '#FDEAF1', '#E2EFF8', '#F4EBE6'];
-const BGS = ['#FFF6F9', '#F2F8FC', '#FBF6F3', '#FDF6E9'];
+// 衣色／底色對齊粉彩 token；最後一個衣色原為 --greige-100，token 已併入 --line
+const SHIRTS = ['var(--pink-200)', 'var(--sky-200)', 'var(--pink-100)', 'var(--sky-100)', 'var(--line)'];
+const BGS = ['var(--pink-50)', 'var(--sky-50)', 'var(--greige-50)', 'var(--note-bg)'];
 const hair = HAIRS[seed % HAIRS.length];
 const shirt = SHIRTS[(seed >> 2) % SHIRTS.length];
 const bg = BGS[(seed >> 4) % BGS.length];

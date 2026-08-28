@@ -74,7 +74,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
 </header>
 
 <style>
-  header{position:sticky;top:0;z-index:50;background:rgba(255,250,248,.92);
+  header{position:sticky;top:0;z-index:50;background:var(--header-bg);
     backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;gap:18px;height:68px}
   .logo :global(svg){flex:0 0 22px}
@@ -117,7 +117,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     .drawer[data-open]{display:flex}
   }
   @media (max-width:720px){
-    header{background:#fff;backdrop-filter:none;border-bottom-color:var(--mobile-line)}
+    header{background:var(--paper);backdrop-filter:none;border-bottom-color:var(--mobile-line)}
     /* logo 置中、語言鈕絕對定位靠右：兩者脫開，窄機不再互擠 */
     .bar{display:flex;justify-content:center;height:56px;gap:0;padding:0 16px;position:relative}
     .logo{justify-content:center;gap:7px;max-width:calc(100% - 140px)}
