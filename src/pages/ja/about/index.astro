@@ -5,12 +5,13 @@ import { href } from '../../../i18n/ui';
 const l = (p: string) => href('ja', p);
 // 連結原則（CLAUDE.md 紅線 #3）：只外連報社原文，不貼報紙掃描圖。
 // 繊研 2025 兩篇與日經 2024.10.07 經查無線上版（senken.co.jp 404 實測），標紙面刊載。
+// 口徑依簡報 p22–p28：媒體名單含 Yahoo!ニュース；Haru／きものやまと 一則繫於 2024.08.07（p24），非日經（p25）。
 const media = [
   { name:'繊研新聞', date:'2026.01.28', url:'https://senken.co.jp/posts/bp-260128' },
   { name:'繊研新聞', date:'2025.07.17', print:true },
   { name:'繊研新聞', date:'2025.02.12', print:true },
-  { name:'日本経済新聞 朝刊', date:'2024.10.07', note:'きものやまと勤務の Haru さんを紹介', print:true },
-  { name:'Yahoo! ニュース', date:'2024.08.07' },
+  { name:'日本経済新聞 朝刊', date:'2024.10.07', print:true },
+  { name:'Yahoo! ニュース', date:'2024.08.07', note:'きものやまと勤務の Haru さんを紹介' },
   { name:'台北経済新聞', date:'2023.06.06', url:'https://taipei.keizai.biz/headline/418/' },
 ];
 ---
@@ -40,7 +41,7 @@ const media = [
         <p class="small">Brain &amp; Partner Taiwan Inc.（2018 年設立）。2019 年に台北・微風南山 atre の開業コンサルティングを担当し、10 店舗以上を企画・運営。</p>
       </div>
     </div>
-    <p class="small">手がけた案件：BLUE BOTTLE COFFEE、JAPAN RAIL CAFE、MAISON DE REEFUR、ささら屋、きものやまと、「世界一濃い抹茶ジェラート」で知られる「ななや」など。直営店 bpt ROOM（台北・微風南山 2F、2019〜2025.9／営業終了）、紫苑花屋（桃園・馬祖新村眷村文創園区）。</p>
+    <p class="small">手がけた案件：BLUE BOTTLE COFFEE、JAPAN RAIL CAFE、MAISON DE REEFUR、ささら屋、きものやまと、「世界一濃い抹茶ジェラート」で知られる「ななや」など。直営店 bpt ROOM（台北・微風南山 2F、2019〜2025.9）、紫苑花屋（桃園・馬祖新村眷村文創園区）。</p>
   </section>
 
   <section class="wrap wrap--reading page-section">

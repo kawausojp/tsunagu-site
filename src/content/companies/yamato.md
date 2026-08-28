@@ -1,5 +1,5 @@
 ---
-name: "kimono やまと / Y. & SONS"
+name: "きものやまと / Y. & SONS"
 corporateName: "株式会社やまと"
 category: "kimono"
 categoryLabel: "和服"
@@ -14,7 +14,6 @@ taglineEn: "Japanese kimono specialist with 109 years of history"
 highlights:
   - "累計 5 人採用，1 人從兼職轉正職"
   - "前輩 Haru 現於總公司 PR ＋門市"
-  - "可線上面試"
 sourceSlide: 100
 verified: true
 ---

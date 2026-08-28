@@ -10,7 +10,7 @@ fullTimeConverted: 0
 onlineInterview: false
 tagline: "集結 BAYCREW'S 人氣品牌的選品店"
 taglineJa: "BAYCREW'Sの人気ブランドを集めたセレクトショップ"
-taglineEn: "Select shop featuring BAYCREW'S popular labels"
+taglineEn: "Select shop featuring BAYCREW’S popular labels"
 highlights: []
 sourceSlide: 152
 verified: true

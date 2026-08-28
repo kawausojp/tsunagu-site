@@ -13,7 +13,6 @@ taglineEn: "Tokyo-born jewelry brand, est. 1990"
 highlights:
   - "累計 12 人任職"
   - "有轉正職實績（海外事業部）"
-  - "台灣也有 11 間店"
 sourceSlide: 52
 verified: true
 ---

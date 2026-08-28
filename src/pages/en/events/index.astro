@@ -22,7 +22,7 @@ const eventsLd = upcoming.filter(e => e.venue && e.address).map(e => {
   return {
     '@context': 'https://schema.org',
     '@type': 'Event',
-    name: `第 ${e.no.replace(/,/g, '、')} 回 台湾人と日本企業をツナグ交流会`,
+    name: `第 ${fmtEventNo(e.no, 'ja')} 回 台湾人と日本企業をツナグ交流会`,
     startDate: times[0] ? `${e.date}T${times[0][0]}:00+08:00` : e.date,
     endDate: lastTime ? `${e.date}T${lastTime[1]}:00+08:00` : e.date,
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',

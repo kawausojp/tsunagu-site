@@ -23,7 +23,7 @@ const relatedStories = allStories.filter(st => {
   return sn === dn || dn.startsWith(sn) || sn.startsWith(dn) || (snFirst.length > 2 && dn.startsWith(snFirst));
 }).sort((a, b) => a.data.order - b.data.order);
 import { href } from '../../../i18n/ui';
-import { CAT_LABEL, VISA_LABEL, dedupHighlights } from '../../../lib/site';
+import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const catLabel = CAT_LABEL.en[d.category] ?? d.categoryLabel;
 const tagline = d.taglineEn ?? d.tagline;
@@ -67,7 +67,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
       )}
 
       <div class="note">
-        <strong>Source:</strong> Taipei meetup deck 2026.4.18{d.sourceSlide && `, p.${d.sourceSlide}`}. Openings and conditions change — confirm at a meetup or consultation. * Body text is shown in its original language (Chinese).
+        <strong>Source:</strong> {fmtSourceDeck('en', d.sourceSlide)}. Openings and conditions change — confirm at a meetup or consultation. * Body text is shown in its original language (Chinese).
       </div>
 
       {relatedStories.length > 0 && (

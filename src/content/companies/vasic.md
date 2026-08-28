@@ -14,7 +14,6 @@ taglineEn: "NYC bag brand behind the 2015 “My Standard Bag”"
 highlights:
   - "累計 15 人採用（最多）"
   - "2 人取得工作簽轉正職"
-  - "可線上面試"
 sourceSlide: 84
 verified: true
 ---

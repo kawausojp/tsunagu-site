@@ -98,3 +98,14 @@ export function fmtSince(since: string, lang: Lang) {
   }
   return `${y} 年 ${m} 月`;
 }
+
+/** 品牌資料的出處：主辦方簡報。標題頁自載「交流会 -第76,77回- 2026年4月18日」。
+ *  三語原本各寫一套（逗號／中黑、補零與否），改由此處統一渲染。 */
+export const SOURCE_DECK = { no: '76,77', date: '2026.4.18' };
+export function fmtSourceDeck(lang: Lang, page?: number) {
+  const no = fmtEventNo(SOURCE_DECK.no, lang);
+  const p = page ? (lang === 'zh' ? `第 ${page} 頁` : `p.${page}`) : '';
+  if (lang === 'en') return `Taipei meetup deck, sessions #${no}, ${SOURCE_DECK.date}${p ? `, ${p}` : ''}`;
+  if (lang === 'ja') return `『第 ${no} 回 台北交流会スライド ${SOURCE_DECK.date}』${p}`;
+  return `《第 ${no} 回 台北交流会スライド ${SOURCE_DECK.date}》${p}`;
+}

@@ -22,7 +22,7 @@ const relatedStories = allStories.filter(st => {
   return sn === dn || dn.startsWith(sn) || sn.startsWith(dn) || (snFirst.length > 2 && dn.startsWith(snFirst));
 }).sort((a, b) => a.data.order - b.data.order);
 import { href } from '../../../i18n/ui';
-import { CAT_LABEL, VISA_LABEL, dedupHighlights } from '../../../lib/site';
+import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck } from '../../../lib/site';
 const l = (p: string) => href('ja', p);
 const companiesCount = (await getCollection('companies')).length;
 const catLabel = CAT_LABEL.ja[d.category] ?? d.categoryLabel;
@@ -67,12 +67,12 @@ const hl = dedupHighlights(d.highlights, d.placements);
       )}
 
       <div class="note">
-        <strong>出典：</strong>『第 76・77 回 台北交流会スライド 2026.04.18』{d.sourceSlide && `p.${d.sourceSlide}`}。募集条件・状況は変動します。最新情報は交流会または個別相談でご確認ください。※ 本文は原文（中国語）のまま掲載しています。
+        <strong>出典：</strong>{fmtSourceDeck('ja', d.sourceSlide)}。募集条件・状況は変動します。最新情報は交流会または個別相談でご確認ください。※ 本文は原文（中国語）のまま掲載しています。
       </div>
 
       {relatedStories.length > 0 && (
         <div class="related">
-          <h2 class="d3">このブランドで働く先輩</h2>
+          <h2 class="d3">このブランドで働いていた先輩</h2>
           {relatedStories.map(st => (
             <a class="rel-link" href={l(`/stories#${st.id}`)}><span lang="ja">{st.data.name}</span> さん（{VISA_LABEL.ja[st.data.visa] ?? st.data.visa}）の体験談 →</a>
           ))}
