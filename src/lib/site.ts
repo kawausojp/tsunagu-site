@@ -111,5 +111,6 @@ export function fmtSourceDeck(lang: Lang, page?: number) {
 }
 
 /** 首頁影片的起始秒數（2026-08-28 使用者指定：直接嵌入、從特定段落開始）。
+ *  0 分 46.55 秒 = Tsunagu 訪談段落的開始（參數只吃整數秒，取 46）。
  *  要換段落改這裡即可，三語首頁共用。 */
-export const VIDEO_START = 0;
+export const VIDEO_START = 46;
