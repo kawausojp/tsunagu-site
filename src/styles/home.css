@@ -88,8 +88,9 @@
     .cta-row{gap:10px;margin-top:20px}
     .hero .cta-row .btn-primary{width:100%}
     .hero .cta-row .action-link{margin-inline:auto}
+    /* margin-bottom：卡片底框不能貼著下一區的頂線（兩條線會疊在一起） */
     .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:var(--paper);
-      padding:0;margin-top:20px;border:1px solid var(--mobile-line);border-radius:var(--r-md);overflow:hidden}
+      padding:0;margin:20px 0 24px;border:1px solid var(--mobile-line);border-radius:var(--r-md);overflow:hidden}
     /* 不用 min-height：iOS Safari 的 flex 直欄不把 min-height 算進置中，
        內容會貼頂、空間全掉到底部（線上實測截圖）。改對稱 padding 撐高。 */
     .band>div{display:flex;flex-direction:column;align-items:center;justify-content:center;
