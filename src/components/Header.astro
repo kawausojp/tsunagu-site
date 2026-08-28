@@ -221,10 +221,12 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
         lang.querySelector('summary')?.focus();
       }
     });
-    // Tab 走出選單也要收合，否則展開狀態會留在畫面上
+    // Tab 走出選單才收合。relatedTarget 為 null 時不可關：iOS Safari 點連結
+    // 不給焦點，會發出 relatedTarget=null 的 focusout，關掉選單會讓點擊落空
+    // （2026-08-28 實測：iPhone 上完全無法切換語言）
     lang.addEventListener('focusout', event => {
       const next = event.relatedTarget;
-      if (lang.open && (!(next instanceof Node) || !lang.contains(next))) lang.open = false;
+      if (lang.open && next instanceof Node && !lang.contains(next)) lang.open = false;
     });
   }
 

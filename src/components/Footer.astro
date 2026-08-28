@@ -42,12 +42,18 @@ const t = ui[lang];
   footer a{display:block;font-size:var(--fs-sm);color:var(--ink-600);text-decoration:none;padding:4px 0}
   footer a:hover{color:var(--pink-700)}
   .legal{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+  /* 主辦單位一行帶完：中文全名＋英文法人名在窄螢幕會折成兩段，
+     使用者定案「寧可字變小也不要拆成兩段」，故縮到裝得下為止。
+     320px 需 ~9px 才塞得下最長的繁中字串（實測），下限取 9px。 */
+  .legal p{white-space:nowrap;font-size:clamp(9px,2.75vw,var(--fs-xs))}
   @media (max-width:720px){
     footer{padding:32px 0 24px;margin-top:32px;border-top-color:var(--mobile-line)}
     .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 16px}
     .grid>div:first-child{grid-column:1/-1}
     footer :global(.wm){width:140px;margin-bottom:12px}
     footer p.small{font-size:var(--fs-xs);line-height:1.7;margin-bottom:10px}
+    /* 權重需高於上面那條，否則 .legal 的 clamp 會被蓋掉 */
+    footer .legal p.small{font-size:clamp(9px,2.75vw,var(--fs-xs))}
     h2{font-size:var(--fs-2xs);margin-bottom:7px}
     footer a{display:flex;align-items:center;min-height:44px;padding:7px 0;font-size:var(--fs-xs);line-height:1.5}
     .legal{margin-top:24px;padding-top:20px;border-top-color:var(--mobile-line)}
