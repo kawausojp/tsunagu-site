@@ -151,9 +151,11 @@ html[lang="en"] .notice{max-width:64ch}
   .btn:hover{transform:translateY(-2px)}
   .card-link:hover{box-shadow:var(--sh-3);transform:translateY(-3px)}
 }
-/* 觸控：卡片按下的輕微回饋（桌面 hover 抬升的觸控版對應） */
+/* 觸控回饋：手機沒有 hover，按壓縮放是唯一「有反應」的訊號 */
 @media (pointer:coarse){
   .card-link:active{transform:scale(.985);transition-duration:80ms}
+  .btn:active{transform:scale(.97)}
+  .tag.f:active{transform:scale(.94);transition-duration:80ms}
 }
 .btn:active{transform:translateY(0);filter:brightness(.96)}
 .action-link:active{opacity:.75}
@@ -215,5 +217,6 @@ html[lang="en"] .notice{max-width:64ch}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;
     transition-delay:0ms!important;scroll-behavior:auto!important}
-  .card-link:hover,.card-link:active,.btn:hover,button.f:hover,.hero-inner:hover .chars{transform:none!important}
+  .card-link:hover,.card-link:active,.btn:hover,.btn:active,button.f:hover,.tag.f:active,
+  .hero-inner:hover .chars,.hero .chars.is-wiggling{transform:none!important}
 }

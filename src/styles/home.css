@@ -5,8 +5,15 @@
   .hero h1{font-size:clamp(40px,4.8vw,62px);line-height:1.25;letter-spacing:.045em;
     white-space:nowrap;text-wrap:balance}
   .hero .chars{width:200px;height:auto;margin:20px auto 18px;
-    transition:transform .28s var(--ease)}
+    transition:transform .28s var(--ease);transform-origin:50% 90%}
   @media (hover:hover) and (pointer:fine){ .hero-inner:hover .chars{transform:rotate(-2deg)} }
+  /* 按一下角色會輕輕晃一下——手機沒有 hover，這是牠們唯一的回應方式 */
+  .hero .chars.is-wiggling{animation:chars-wiggle .5s var(--ease)}
+  @keyframes chars-wiggle{
+    30%{transform:rotate(-3.5deg) scale(1.03)}
+    62%{transform:rotate(2.5deg) scale(1.01)}
+    100%{transform:rotate(0) scale(1)}
+  }
   .ja-sub{font-size:var(--fs-xs);letter-spacing:.22em;color:var(--pink-700);margin:0 0 12px}
   .hero .lead{max-width:640px;margin:0 auto}
   /* 進場：依內容順序短暫錯開，不改變版面位置。 */
@@ -28,7 +35,8 @@
   /* 不加上下框：上緣與 hero 底線平行、下緣正好和下一區的頂線疊在一起，都是重複的線 */
   .band{padding:36px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
     gap:22px;text-align:center;margin-top:36px}
-  .band .n{font-family:var(--f-latin);font-weight:700;font-size:clamp(40px,4.5vw,52px);line-height:1.1;color:var(--pink-700)}
+  /* tabular-nums：數字跳動時每位數等寬，版面不會抖 */
+  .band .n{font-family:var(--f-latin);font-weight:700;font-variant-numeric:tabular-nums;font-size:clamp(40px,4.5vw,52px);line-height:1.1;color:var(--pink-700)}
   .band .n small{font-size:var(--fs-xl);margin-left:3px}
   .band .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:4px}
 

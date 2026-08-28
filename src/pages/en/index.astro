@@ -66,7 +66,7 @@ const stats = [
   <!-- STATS -->
   <div class="wrap"><div class="band">
     {stats.map(s => (
-      <div><div class="n">{s.n}<small>{s.u}</small></div><div class="t">{s.t}</div></div>
+      <div><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div><div class="t">{s.t}</div></div>
     ))}
   </div>
   </div>
@@ -136,3 +136,7 @@ const stats = [
   </section>
 
 </Base>
+
+<script>
+  import "../../scripts/motion";
+</script>
