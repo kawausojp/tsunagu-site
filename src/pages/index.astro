@@ -105,11 +105,18 @@ const stats = [
     <div class="wrap">
       <h2 class="d2">先看看交流會現場</h2>
       <p class="lead">影片中有 Tsunagu 的訪談段落。</p>
+      <!-- 點擊後才載入：iframe 即使標了 loading="lazy"，仍會在使用者捲到之前拉 4.2MB，
+           並把訪客 IP 送給 Google。底色沿用既有粉彩，不引入第三方縮圖。 -->
       <div class="video">
-        <iframe src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}`}
-          title="公視晚間新聞：每年開放台灣 1 萬打工度假名額（內含 Tsunagu 訪談）"
-          loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-          allowfullscreen></iframe>
+        <button type="button" class="video-play" data-video-id={VIDEO_ID}
+          aria-label={`播放影片：公視晚間新聞：每年開放台灣 1 萬打工度假名額（內含 Tsunagu 訪談）`}>
+          <span class="vp-ring" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+              <path d="M8 5.5v13l11-6.5z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="vp-title">公視晚間新聞：每年開放台灣 1 萬打工度假名額（內含 Tsunagu 訪談）</span>
+        </button>
       </div>
       <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">在 YouTube 上觀看 ↗</a></p>
     </div>
@@ -131,3 +138,7 @@ const stats = [
   </section>
 
 </Base>
+
+<script>
+  import "../scripts/video-facade";
+</script>

@@ -16,4 +16,4 @@ sourceSlide: 152
 verified: true
 ---
 
-LaLaport 福岡店。前輩 Wendy 曾在這裡工作。
+LaLaport 福岡店，已有台灣夥伴在此工作。

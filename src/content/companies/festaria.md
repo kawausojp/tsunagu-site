@@ -12,7 +12,7 @@ taglineJa: "1920年創業の老舗ジュエラー"
 taglineEn: "Century-old Japanese jeweler, est. 1920"
 highlights:
   - "希望能待滿 6 個月以上"
-  - "有正社員晉用可能"
+  - "有轉正職的可能"
 sourceSlide: 97
 verified: true
 ---

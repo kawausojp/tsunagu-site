@@ -12,7 +12,7 @@ tagline: "世界各地優質鞋款的進口鞋專門店"
 taglineJa: "世界の良質なシューズを扱うインポート専門店"
 taglineEn: "Import specialist for fine shoes from around the world"
 highlights:
-  - "銀座三越 1 人為正社員"
+  - "銀座三越 1 人為正職"
   - "以長期任職為前提"
 sourceSlide: 132
 verified: true

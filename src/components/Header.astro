@@ -10,7 +10,11 @@ const t = ui[lang];
 const nav = t.nav.map(n => ({ href: href(lang, n.path), label: n.label, short: n.short }));
 const path = Astro.url.pathname;
 const eventsHref = href(lang, '/events');
-const isCurrent = (h: string) => path === h || path.startsWith(`${h}/`);
+// 導覽 href 無結尾斜線、pathname 有，比較前先正規化
+const norm = (u: string) => (u.length > 1 ? u.replace(/\/$/, '') : u);
+const isCurrent = (h: string) => norm(path) === norm(h) || path.startsWith(`${h}/`);
+// 在區段內但不是該頁本身時用 'true'（'page' 只給真正的當前頁）
+const currentVal = (h: string) => (norm(path) === norm(h) ? 'page' : 'true');
 const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   code: l, label: LANG_META[l].label, current: l === lang,
   href: switchHref(lang, l, path),
@@ -27,7 +31,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     <nav class="desktop-nav" aria-label={t.mainMenu}>
       {nav.map(n => (
         <a href={n.href} class:list={['navlink', { on: isCurrent(n.href) }]}
-          aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
+          aria-current={isCurrent(n.href) ? currentVal(n.href) : undefined}>{n.label}</a>
       ))}
     </nav>
     <details class="lang" data-lang-menu>
@@ -56,7 +60,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   <nav class="mobile-tabs" aria-label={t.quickNav} data-tabs>
     {nav.map(n => (
       <a href={n.href} class:list={{ on: isCurrent(n.href) }}
-        aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.short}</a>
+        aria-current={isCurrent(n.href) ? currentVal(n.href) : undefined}>{n.short}</a>
     ))}
     <a class:list={['signup-tab', { on: isCurrent(eventsHref) }]} href={eventsHref} aria-label={t.signup}
       aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signupShort}</a>
@@ -64,7 +68,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   <div class="drawer" id="mobile-menu" role="navigation" aria-label={t.mobileMenu} data-drawer hidden>
     {nav.map(n => (
       <a href={n.href} class:list={{ on: isCurrent(n.href) }}
-        aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
+        aria-current={isCurrent(n.href) ? currentVal(n.href) : undefined}>{n.label}</a>
     ))}
   </div>
 </header>
@@ -130,6 +134,11 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       pointer-events:none;margin-bottom:-44px}
     /* 分頁列邊緣漸淡：暗示還能左右捲 */
     .mobile-tabs{mask-image:linear-gradient(90deg,transparent,#000 12px,#000 calc(100% - 12px),transparent)}
+    /* 320px：六個分頁 334px 塞不進 304px，主 CTA 會被壓到剩一半 */
+    @media (max-width:340px){
+      .mobile-tabs{padding:0 4px}
+      .mobile-tabs a{font-size:11px;padding:0 5px}
+    }
     .mobile-tabs::-webkit-scrollbar{display:none}
     .mobile-tabs a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;
       padding:5px 4px;color:var(--ink-600);font-size:12px;font-weight:500;
@@ -137,6 +146,8 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     /* 目前頁面＝粗體藍字（--sky-700，品牌藍的可讀版），不用底色框（2026-08-27 使用者定案） */
     .mobile-tabs a.on{color:var(--sky-700);font-weight:700}
     .mobile-tabs a.signup-tab{min-width:44px;color:var(--pink-700);font-weight:700}
+    /* 捲動容器會裁掉 outline，焦點框改用不受 overflow 影響的 box-shadow */
+    .mobile-tabs a:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus-ring)}
     .mobile-tabs a.signup-tab.on{color:var(--sky-700)}
     .drawer,.drawer[data-open]{display:none!important}
   }
@@ -151,7 +162,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   .lang ul{position:absolute;right:0;top:calc(100% + 6px);margin:0;padding:6px;list-style:none;
     background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);
     box-shadow:var(--sh-2);min-width:128px;z-index:60}
-  .lang li a{display:flex;align-items:center;min-height:40px;padding:8px 12px;
+  .lang li a{display:flex;align-items:center;min-height:var(--control-min);padding:8px 12px;
     border-radius:var(--r-xs);text-decoration:none;font-size:13.5px;color:var(--ink-900)}
   .lang li a:hover{background:var(--greige-50)}
   .lang li a[aria-current="true"]{color:var(--pink-700);font-weight:700}
@@ -210,6 +221,11 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
         lang.querySelector('summary')?.focus();
       }
     });
+    // Tab 走出選單也要收合，否則展開狀態會留在畫面上
+    lang.addEventListener('focusout', event => {
+      const next = event.relatedTarget;
+      if (lang.open && (!(next instanceof Node) || !lang.contains(next))) lang.open = false;
+    });
   }
 
   if (b && d) {
@@ -219,6 +235,9 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       b.setAttribute('aria-expanded', String(open));
       b.setAttribute('aria-label', (open ? b.dataset.labelClose : b.dataset.labelOpen) ?? '');
       document.body.classList.toggle('menu-open', open);
+      // 抽屜開啟時把其餘內容設為 inert：body 是 overflow:hidden，
+      // 焦點跑出去會停在捲不到、也看不見的元素上（WCAG 2.4.3／2.4.7）
+      for (const el of document.querySelectorAll('main, footer')) el.toggleAttribute('inert', open);
       if (!open && restoreFocus) b.focus();
     };
 

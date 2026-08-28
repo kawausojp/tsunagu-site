@@ -18,7 +18,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 ---
 <Base title="提携企業" lang="ja" altPaths={{ zh: '/companies/', ja: '/ja/companies/', en: '/en/companies/' }} description="ツナグ提携の日本企業・ブランド一覧。エリア・職種・日本語レベルで絞り込めます。">
   <section class="page-head">
-    <div class="wrap wrap--page">
+    <div class="wrap">
       <h1 class="d1">提携企業</h1>
       <p class="lead">
         公開中の {companies.length} ブランド（契約企業 39 社）。
@@ -69,7 +69,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       <button type="button" class="reset" data-reset data-reset-toggle hidden>検索・絞り込みをクリア</button>
     </div>
     <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
-      data-status>{companies.length} ブランドを表示中</span><span>／全 {companies.length} ブランド合計で延べ {totalPlacements} 名の勤務実績</span></p>
+      data-status>{companies.length} ブランドを表示中</span><span>／本ページの {companies.length} ブランド合計で延べ {totalPlacements} 名の勤務実績</span></p>
   </div>
 
   <div class="wrap">

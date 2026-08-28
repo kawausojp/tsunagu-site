@@ -12,8 +12,7 @@ tagline: "1894 年創業的英國戶外生活風格品牌，英國王室御用"
 taglineJa: "1894年創業、英国王室御用達のアウトドアライフスタイルブランド"
 taglineEn: "British outdoor lifestyle brand since 1894, by royal warrant"
 highlights:
-  - "東京・大阪積極徵求女性"
-  - "京都男女皆徵"
+  - "東京・大阪・京都皆有增員需求"
   - "歡迎留學生／有販售經驗、想拿工作簽者"
 sourceSlide: 68
 verified: true

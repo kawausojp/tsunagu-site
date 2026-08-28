@@ -11,16 +11,17 @@
   --pink-400:#EE9CBB; --pink-500:#FF6699;          /* 品牌識別色，僅用於極小的點綴 */
   --pink-700:#9F5D7B;                              /* 玫瑰字色 4.66:1 ✓ */
   /* ── 藍 ── */
-  --sky-50:#F2F8FC; --sky-100:#E2EFF8; --sky-200:#C3D8ED; --sky-300:#A8C7E4;
+  --sky-50:#F2F8FC; --sky-100:#E2EFF8; --sky-200:#C3D8ED;
   --sky-500:#00B0F0;                               /* 品牌識別色，僅用於極小的點綴 */
   --sky-700:#4F7488;                               /* 藍字色 4.91:1 ✓ */
   /* ── 暖褐（文字與線） ── */
   --cream:#FFFCFA; --paper:#FFFFFF; --greige-50:#FBF6F3; --greige-100:#F4EBE6;
-  --line:#F0E4DE;
+  --line:#F0E4DE;                                  /* 髮絲分隔線（非控制項邊界） */
+  --control-line:#9B8B82;                          /* 控制項邊界 3.21:1 ✓ WCAG 1.4.11 */
   --ink-400:#A2938A;                               /* 裝飾字，不承載重要資訊 */
   --ink-600:#7A6A60;                               /* 次要文字 5.07:1 ✓ */
   --ink-900:#5F5049;                               /* 主文字 7.53:1 ✓ */
-  /* ── 提醒（待補欄位） ── */
+  /* ── 必讀聲明（.notice：免責／法遵／個資） ── */
   --note-bg:#FDF6E9; --note-line:#E4CFA6; --note-ink:#8A6A30;
   /* ── 字體 ── */
   --f-display:"BIZ UDPGothic","Noto Sans TC","Noto Sans JP",sans-serif;
@@ -47,6 +48,8 @@
   --focus-ring:var(--pink-700);
 }
 
+/* 本站只有淺色版；未宣告會被 Android Chrome 的自動深色模式整站反轉 */
+:root{color-scheme:light}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-height) + 20px);
   /* iOS 橫向時不自動放大字級；點擊閃光改用品牌粉而非系統灰 */
@@ -62,7 +65,8 @@ p{margin:0 0 1em}
 a{color:var(--sky-700);text-underline-offset:3px}
 img{max-width:100%;height:auto;display:block}
 strong{font-weight:700;color:var(--ink-900)}
-:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px;border-radius:var(--r-xs)}
+:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px;border-radius:var(--r-xs);
+  transition-property:none}  /* 不讓元素的 transition:all 把焦點框做成動畫 */
 main:focus{outline:none}
 
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;
@@ -103,17 +107,21 @@ main:focus{outline:none}
 .btn-primary:hover{background:var(--pink-300)}
 .btn-secondary{background:var(--paper);color:var(--sky-700);border-color:var(--sky-200)}
 .btn-secondary:hover{background:var(--sky-50);border-color:var(--sky-700)}
-.btn-soft{background:var(--sky-100);color:var(--ink-900)}
-.btn-soft:hover{background:var(--sky-200)}
 .btn-ghost{background:transparent;color:var(--ink-600);border-color:var(--line)}
 .btn-ghost:hover{border-color:var(--ink-400);color:var(--ink-900)}
 .action-link{display:inline-flex;align-items:center;min-height:var(--control-min);padding:6px 0;
   color:var(--sky-700);font-weight:700;font-size:14px;line-height:1.5;text-decoration:none;
-  border-bottom:1px solid var(--sky-200)}
+  border-bottom:1px solid var(--sky-700)}
 .action-link:hover{color:var(--ink-900);border-bottom-color:var(--sky-700)}
 
+/* 英文一個字元約 0.5em，同一組 em 上限在英文下會裝進約兩倍字元
+   （實測 .note 85–93 字元／行）。ch 在 CJK 不穩，所以只加在 en。 */
+html[lang="en"] .lead{max-width:62ch}
+html[lang="en"] .note{max-width:64ch}
+html[lang="en"] .notice{max-width:64ch}
+
 /* ── 標籤 ── */
-.tag{display:inline-block;font-size:12px;font-weight:500;padding:3px 10px;letter-spacing:.03em;
+.tag{display:inline-block;white-space:nowrap;font-size:12px;font-weight:500;padding:3px 10px;letter-spacing:.03em;
   border-radius:var(--r-xs);background:var(--greige-50);border:1px solid var(--greige-100);color:var(--ink-600);line-height:1.6}
 .tag.area{background:var(--sky-50);border-color:var(--sky-200);color:var(--sky-700)}
 .tag.job{background:var(--pink-50);border-color:var(--pink-200);color:var(--pink-700)}
@@ -141,9 +149,9 @@ main:focus{outline:none}
 /* 觸控裝置：內文裸連結（非按鈕）以透明覆蓋層擴大點擊範圍到約 44px，
    不動版面也不動底線位置（inline padding 會把 border-bottom 往下推，所以用 ::after） */
 @media (pointer:coarse){
-  main p a:not(.btn):not(.action-link){position:relative}
-  main p a:not(.btn):not(.action-link)::after{content:'';position:absolute;
-    left:-6px;right:-6px;top:-10px;bottom:-10px}
+  main :is(p,li,dd,.notice,.note) a:not(.btn):not(.action-link){position:relative}
+  main :is(p,li,dd,.notice,.note) a:not(.btn):not(.action-link)::after{content:'';position:absolute;
+    left:-6px;right:-6px;top:-12px;bottom:-12px}
 }
 
 /* 補充注釋：日式 ※ 起頭，無底色（一個畫面最多一個有底色的強調 = .notice） */
@@ -167,7 +175,6 @@ main:focus{outline:none}
     --stack-gap:16px;
     --card-pad:16px;
     --mobile-line:#DED8D4;
-    --mobile-control-line:#9B8B82;
     --mobile-control-height:52px;
     --mobile-field-height:60px;
   }
@@ -184,7 +191,7 @@ main:focus{outline:none}
   .lead{font-size:15px;line-height:1.8}
   .small{font-size:12.5px;line-height:1.75}
   main .btn{min-height:var(--mobile-control-height);padding:11px 18px;font-size:14px}
-  main .btn-secondary{border-color:var(--mobile-control-line);color:var(--ink-900)}
+  main .btn-secondary{border-color:var(--control-line);color:var(--ink-900)}
   main .btn-ghost{border-color:var(--mobile-line);color:var(--ink-900)}
   main .action-link{min-height:44px;padding:7px 0;font-size:14px}
   main .card{border-radius:var(--r-md);border-color:var(--mobile-line);box-shadow:none}

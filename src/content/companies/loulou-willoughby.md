@@ -15,4 +15,4 @@ sourceSlide: 60
 verified: true
 ---
 
-簡報中列出 NEWoMan 新宿店。
+已知有 NEWoMan 新宿店。

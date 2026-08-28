@@ -13,7 +13,7 @@ taglineJa: "1879年創業の日本の老舗企業"
 taglineEn: "Traditional Japanese company founded in 1879"
 highlights:
   - "辦公室／總合職，不是門市"
-  - "1 人已於 2025 年 4 月以正社員入社"
+  - "1 人已於 2025 年 4 月以正職入職"
 sourceSlide: 125
 verified: true
 ---

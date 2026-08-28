@@ -5,7 +5,7 @@
   .contact-option+.contact-option{border-left:1px solid var(--line)}
   /* 圓形序號章（同 events 的 .step .no）：不是 eyebrow，是本來就圓的東西 */
   .contact-no{display:flex;width:30px;height:30px;margin-bottom:10px;border-radius:var(--r-full);
-    background:var(--pink-100);color:var(--pink-700);font-family:var(--f-latin);font-weight:700;
+    background:var(--pink-100);color:var(--ink-900);font-family:var(--f-latin);font-weight:700;
     font-size:14px;align-items:center;justify-content:center}
   .contact-option p{margin:8px 0 12px}
   .privacy{margin:14px 0 0;color:var(--ink-600)}

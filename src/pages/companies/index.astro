@@ -16,10 +16,10 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 ---
 <Base title="合作企業" altPaths={{ zh: '/companies/', ja: '/ja/companies/', en: '/en/companies/' }} description="Tsunagu 合作的日本企業與品牌一覽，可依地區、職種、日語程度篩選。">
   <section class="page-head">
-    <div class="wrap wrap--page">
+    <div class="wrap">
       <h1 class="d1">合作企業</h1>
       <p class="lead">
-        簡報中揭露的 {companies.length} 個品牌，分屬 39 家簽約企業。
+        目前公開的 {companies.length} 個品牌，分屬 39 家簽約企業。
         這些店多半不會在中文求職網站上刊登職缺——這正是為什麼自己找很難找到。
       </p>
     </div>
@@ -67,7 +67,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       <button type="button" class="reset" data-reset data-reset-toggle hidden>清除搜尋與篩選</button>
     </div>
     <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
-      data-status>顯示 {companies.length} 個品牌</span><span>／全 {companies.length} 個品牌合計 {totalPlacements} 人次任職</span></p>
+      data-status>顯示 {companies.length} 個品牌</span><span>／本頁 {companies.length} 個品牌合計 {totalPlacements} 人次任職</span></p>
   </div>
 
   <div class="wrap">
@@ -93,7 +93,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <p class="lead">實際在徵什麼，來交流會現場問最快。</p>
     <div class="cta-row">
       <a class="btn btn-primary" href={`${base}/events`}>報名交流會 →</a>
-      <a class="action-link" href={`${base}/stories`}>看看前輩在這些品牌的經驗 →</a>
+      <a class="action-link" href={`${base}/stories`}>看看學長姐在這些品牌的經驗 →</a>
     </div>
   </section>
 </Base>

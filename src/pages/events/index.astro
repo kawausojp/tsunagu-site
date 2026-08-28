@@ -38,7 +38,7 @@ const eventsLd = upcoming.filter(e => e.venue && e.address).map(e => {
 const fmt = (d: string) => `${d.slice(0, 4)}/${fmtEventDate(d, 'zh')}`;
 
 const flow = [
-  { t:'當天現場', d:'日本企業介紹他們在找什麼樣的人，前輩分享在日本工作的實際情況。' },
+  { t:'當天現場', d:'日本企業介紹他們在找什麼樣的人，學長姐分享在日本工作的實際情況。' },
   { t:'個別面談', d:'聊聊你的日語程度、想做什麼、什麼時候去。' },
   { t:'之後的每一步', d:'履歷、面試練習、簽證、抵日後追蹤——我們陪你走到底。' },
 ];
@@ -47,7 +47,7 @@ const flow = [
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">來交流會看看</h1>
-    <p class="lead">聽日本企業說他們在找什麼樣的人，也聽已經在日本的前輩分享第一手經驗。</p>
+    <p class="lead">聽日本企業說他們在找什麼樣的人，也聽已經在日本的學長姐分享第一手經驗。</p>
     <p class="small since">自 {fmtSince(data.since, 'zh')}起累計舉辦 <strong>{data.totalHeld}</strong> 場，
       地點涵蓋{data.cities.join('、')}。</p>
   </div></section>

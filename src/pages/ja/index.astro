@@ -24,7 +24,7 @@ const heroCta = nextEv
   ? `${nextEvDate}・${CITY.ja[nextEv.city] ?? nextEv.city}の交流会に申し込む →`
   : '次回の交流会に申し込む →';
 const stats = [
-  { n: '2,874', u: '名', t: '交流会参加者数' },
+  { n: '2,874', u: '名', t: '交流会参加者' },
   { n: '163', u: '名', t: '日本での就業を実現' },
   { n: String(totalHeld), u: '回', t: '交流会開催実績' },
   { n: String(companies.length), u: '', t: '提携ブランド' },
@@ -110,11 +110,18 @@ const stats = [
     <div class="wrap">
       <h2 class="d2">交流会の様子</h2>
       <p class="lead">台湾の公共放送・公視のニュースで紹介されました（ツナグへのインタビューを含む）。</p>
+      <!-- 點擊後才載入：iframe 即使標了 loading="lazy"，仍會在使用者捲到之前拉 4.2MB，
+           並把訪客 IP 送給 Google。底色沿用既有粉彩，不引入第三方縮圖。 -->
       <div class="video">
-        <iframe src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}`}
-          title="台湾の公共放送・公視：台湾向けワーキングホリデー枠・年間 1 万人のニュース（ツナグへのインタビューを含む）"
-          loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-          allowfullscreen></iframe>
+        <button type="button" class="video-play" data-video-id={VIDEO_ID}
+          aria-label={`動画を再生：台湾の公共放送・公視：台湾向けワーキングホリデー枠・年間 1 万人のニュース（ツナグへのインタビューを含む）`}>
+          <span class="vp-ring" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+              <path d="M8 5.5v13l11-6.5z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="vp-title">台湾の公共放送・公視：台湾向けワーキングホリデー枠・年間 1 万人のニュース（ツナグへのインタビューを含む）</span>
+        </button>
       </div>
       <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">YouTube で見る ↗</a></p>
     </div>
@@ -136,3 +143,7 @@ const stats = [
   </section>
 
 </Base>
+
+<script>
+  import "../../scripts/video-facade";
+</script>

@@ -18,7 +18,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 ---
 <Base title="Partner Brands" lang="en" altPaths={{ zh: '/companies/', ja: '/ja/companies/', en: '/en/companies/' }} description="All Japanese brands partnering with Tsunagu — filter by area, role and Japanese level.">
   <section class="page-head">
-    <div class="wrap wrap--page">
+    <div class="wrap">
       <h1 class="d1">Partner brands</h1>
       <p class="lead">
         {companies.length} brands across 39 contracted companies.
@@ -28,7 +28,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
   </section>
 
   <div class="wrap tools" data-filter-root
-    data-status-tpl="Showing {n} brands"
+    data-status-tpl="Showing {n} of 35 brands"
     data-summary-label="Filters"
     data-summary-picked="Filters ({n} selected)">
     <div class="filters">
@@ -69,7 +69,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       <button type="button" class="reset" data-reset data-reset-toggle hidden>Clear search & filters</button>
     </div>
     <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
-      data-status>Showing {companies.length} brands</span><span>/ {totalPlacements} total placements across all {companies.length} brands</span></p>
+      data-status>Showing {companies.length} of {companies.length} brands</span><span> / {totalPlacements} total placements across the {companies.length} brands listed here</span></p>
   </div>
 
   <div class="wrap">

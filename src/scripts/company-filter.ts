@@ -44,7 +44,7 @@ export function initCompanyFilter() {
     if (searchEl!.value.trim()) params.set('q', searchEl!.value.trim());
     for (const k of KEYS) if (active[k].size) params.set(k, [...active[k]].join(','));
     const qs = params.toString();
-    history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+    history.replaceState(null, '', (qs ? `?${qs}` : location.pathname) + location.hash);
   }
 
   function apply(updateUrl = true) {
@@ -67,8 +67,10 @@ export function initCompanyFilter() {
     searchEl!.value = '';
     for (const k of KEYS) active[k].clear();
     for (const b of buttons) b.setAttribute('aria-pressed', 'false');
-    // 行動版搶焦會彈出鍵盤蓋住結果，只在桌面把焦點還給搜尋框
+    // 桌面把焦點還給搜尋框；行動版搶焦會彈出鍵盤蓋住結果，改交給結果列
+    // （這顆按鈕 apply() 後會 hidden，不轉移焦點就會掉到 <body>）
     if (!mobile.matches) searchEl!.focus();
+    else { statusEl!.setAttribute('tabindex', '-1'); statusEl!.focus(); }
     apply();
   }
 
@@ -76,15 +78,28 @@ export function initCompanyFilter() {
   const params = new URLSearchParams(location.search);
   const q = params.get('q');
   if (q) searchEl.value = q;
+  // 只接受畫面上真的存在的值，否則會出現「已選 4」但一顆 chip 都沒亮的死結
+  const valid: Record<string, Set<string>> = {};
+  for (const b of buttons) {
+    const f = b.dataset.f, v = b.dataset.v;
+    if (f && v) (valid[f] ??= new Set()).add(v);
+  }
+  let dropped = false;
   for (const k of KEYS) {
     const raw = params.get(k);
-    if (raw) for (const v of raw.split(',').filter(Boolean)) active[k].add(v);
+    if (!raw) continue;
+    for (const v of raw.split(',').filter(Boolean)) {
+      if (valid[k]?.has(v)) active[k].add(v);
+      else dropped = true;
+    }
   }
   for (const b of buttons) {
     const f = b.dataset.f as Key | undefined;
     const v = b.dataset.v;
     if (f && v && active[f]?.has(v)) b.setAttribute('aria-pressed', 'true');
   }
+
+  if (dropped) syncUrl();   // 把垃圾參數清出網址
 
   searchEl.addEventListener('input', () => apply());
   for (const b of buttons) {
