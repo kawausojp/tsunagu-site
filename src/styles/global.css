@@ -48,7 +48,10 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-height) + 20px)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-height) + 20px);
+  /* iOS 橫向時不自動放大字級；點擊閃光改用品牌粉而非系統灰 */
+  -webkit-text-size-adjust:100%;text-size-adjust:100%;
+  -webkit-tap-highlight-color:rgba(248,203,223,.32)}
 body{
   margin:0;background:var(--cream);color:var(--ink-900);
   font-family:var(--f-body);font-weight:400;line-height:1.85;
@@ -128,8 +131,20 @@ main:focus{outline:none}
   .btn:hover{transform:translateY(-2px)}
   .card-link:hover{box-shadow:var(--sh-3);transform:translateY(-3px)}
 }
+/* 觸控：卡片按下的輕微回饋（桌面 hover 抬升的觸控版對應） */
+@media (pointer:coarse){
+  .card-link:active{transform:scale(.985);transition-duration:80ms}
+}
 .btn:active{transform:translateY(0);filter:brightness(.96)}
 .action-link:active{opacity:.75}
+
+/* 觸控裝置：內文裸連結（非按鈕）以透明覆蓋層擴大點擊範圍到約 44px，
+   不動版面也不動底線位置（inline padding 會把 border-bottom 往下推，所以用 ::after） */
+@media (pointer:coarse){
+  main p a:not(.btn):not(.action-link){position:relative}
+  main p a:not(.btn):not(.action-link)::after{content:'';position:absolute;
+    left:-6px;right:-6px;top:-10px;bottom:-10px}
+}
 
 /* 補充注釋：日式 ※ 起頭，無底色（一個畫面最多一個有底色的強調 = .notice） */
 .note{padding:14px 0 0;border-top:1px solid var(--line);font-size:13.5px;
@@ -180,5 +195,5 @@ main:focus{outline:none}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;
     transition-delay:0ms!important;scroll-behavior:auto!important}
-  .card-link:hover,.btn:hover,button.f:hover,.hero-inner:hover .chars{transform:none!important}
+  .card-link:hover,.card-link:active,.btn:hover,button.f:hover,.hero-inner:hover .chars{transform:none!important}
 }

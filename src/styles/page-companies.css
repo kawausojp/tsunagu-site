@@ -25,6 +25,8 @@
   .empty{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;
     padding:48px 0;color:var(--ink-600)}
   .empty p{margin:0}
+  /* display:flex 會蓋過 [hidden] 的 UA display:none，必須明確補回 */
+  .empty[hidden]{display:none}
   .closing{margin-bottom:64px}
   .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
   @media (hover:hover) and (pointer:fine){button.f:hover{transform:translateY(-1px)}}

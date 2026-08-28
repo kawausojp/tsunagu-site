@@ -43,8 +43,13 @@
   .cta-band .lead{margin:8px auto 20px}
   @media (max-width:720px){
     .page-head .note{margin-top:16px}
-    .jump{margin-top:16px;gap:6px}
-    .jump-chip{font-size:12px}
+    /* 手機：14 顆 chip 折行會吃掉近一整屏，改單行橫向滑動（同 .mobile-tabs 的邊緣淡出） */
+    .jump{margin-top:16px;gap:6px;flex-wrap:nowrap;overflow-x:auto;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;
+      padding-bottom:4px;scroll-snap-type:x proximity;
+      mask-image:linear-gradient(90deg,transparent,#000 12px,#000 calc(100% - 20px),transparent)}
+    .jump::-webkit-scrollbar{display:none}
+    .jump-chip{font-size:12px;flex:0 0 auto;scroll-snap-align:start}
     .list{margin-top:20px;gap:12px}
     .item{padding:18px 16px;scroll-margin-top:calc(var(--header-height) + 16px)}
     .item:target{border-color:var(--pink-300);box-shadow:none;outline:2px solid var(--pink-200);outline-offset:2px}
