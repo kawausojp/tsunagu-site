@@ -6,7 +6,7 @@
   /* 圓形序號章（同 events 的 .step .no）：不是 eyebrow，是本來就圓的東西 */
   .contact-no{display:flex;width:30px;height:30px;margin-bottom:10px;border-radius:var(--r-full);
     background:var(--pink-100);color:var(--ink-900);font-family:var(--f-latin);font-weight:700;
-    font-size:14px;align-items:center;justify-content:center}
+    font-size:var(--fs-sm);align-items:center;justify-content:center}
   .contact-option p{margin:8px 0 12px}
   .privacy{margin:14px 0 0;color:var(--ink-600)}
   .formwrap{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line)}
@@ -18,7 +18,7 @@
   .box{padding:var(--card-pad)}
   .box.alt{background:linear-gradient(140deg,var(--pink-50),var(--paper))}
   .box ul{margin:12px 0 0;padding-left:1.2em}
-  .box li{margin-bottom:7px;font-size:14.5px;line-height:1.8}
+  .box li{margin-bottom:7px;font-size:var(--fs-md);line-height:1.8}
   @media (max-width:720px){
     .contact-panel{grid-template-columns:1fr}
     .contact-option{padding:18px 16px}

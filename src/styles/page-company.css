@@ -1,19 +1,19 @@
 /* 品牌詳情頁樣式（三語共用） */
   .hero{background:var(--cream);padding:40px 0 44px;border-bottom:1px solid var(--line)}
-  .back{display:inline-flex;align-items:center;min-height:var(--control-min);font-size:13.5px;color:var(--ink-600);text-decoration:none;margin-bottom:8px}
+  .back{display:inline-flex;align-items:center;min-height:var(--control-min);font-size:var(--fs-xs);color:var(--ink-600);text-decoration:none;margin-bottom:8px}
   .back:hover{color:var(--pink-700)}
-  .corp{font-size:14px;color:var(--ink-600);margin:6px 0 12px}
+  .corp{font-size:var(--fs-sm);color:var(--ink-600);margin:6px 0 12px}
   .hero .tags{margin-top:18px}
   .body{padding-top:44px;padding-bottom:20px}
-  .prose{font-size:17px;line-height:1.95;max-width:42em}
+  .prose{font-size:var(--fs-xl);line-height:1.95;max-width:42em}
   .hl{margin-top:32px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 26px}
   .hl ul{margin:12px 0 0;padding-left:1.25em}
-  .hl li{margin-bottom:6px;font-size:15px}
+  .hl li{margin-bottom:6px;font-size:var(--fs-md)}
   .numbers{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
   .numbers > div{flex:1 1 180px;background:linear-gradient(120deg,var(--pink-50),var(--sky-50));
     border-radius:var(--r-lg);padding:22px;text-align:center}
-  .numbers .n{font-family:var(--f-latin);font-weight:700;font-size:38px;color:var(--pink-700);line-height:1.1}
-  .numbers .t{font-size:13px;color:var(--ink-600);margin-top:4px}
+  .numbers .n{font-family:var(--f-latin);font-weight:700;font-size:var(--fs-stat);color:var(--pink-700);line-height:1.1}
+  .numbers .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:4px}
   .note{margin-top:28px}
   .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
   @media (max-width:720px){
@@ -24,10 +24,10 @@
     .hero .lead{margin-top:8px}
     .hero .tags{margin-top:14px;gap:6px}
     .body{padding-top:32px;padding-bottom:8px}
-    .prose{font-size:15.5px;line-height:1.85}
+    .prose{font-size:var(--fs-lg);line-height:1.85}
     .hl{margin-top:26px;border-color:var(--mobile-line);border-radius:var(--r-md);padding:18px 16px}
     .hl ul{margin-top:10px}
-    .hl li{font-size:14px;line-height:1.8}
+    .hl li{font-size:var(--fs-sm);line-height:1.8}
     .numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:20px}
     .numbers>div{padding:16px 10px;background:var(--paper);border:1px solid var(--mobile-line);border-radius:var(--r-md)}
     .numbers .n{font-size:clamp(24px,7vw,28px)}  /* 不可大於首頁 .band .n 的 31px（階層） */

@@ -29,6 +29,13 @@
   --f-display:"BIZ UDPGothic","Noto Sans TC","Noto Sans JP",sans-serif;
   --f-body:"Noto Sans TC","BIZ UDPGothic","Noto Sans JP",system-ui,sans-serif;
   --f-latin:"Jost",system-ui,sans-serif;
+  /* ── 字級階梯（2026-08-28 收斂 0.5px 級距後全站唯一來源） ──
+     3xs=11 手機微標籤 · 2xs=12 標註 · xs=13 註記/小標 · sm=14 UI/小正文
+     md=15 緊湊正文 · lg=16 正文 · xl=17 prose · 2xl=18 d3 · 3xl=20 引言/強調
+     stat=38 數字磁磚展示級（桌機唯一）。d1/d2/hero 大標用 clamp()，
+     手機標題階 24/22 為定案階層——皆不入此階梯 */
+  --fs-3xs:11px; --fs-2xs:12px; --fs-xs:13px; --fs-sm:14px; --fs-md:15px;
+  --fs-lg:16px; --fs-xl:17px; --fs-2xl:18px; --fs-3xl:20px; --fs-stat:38px;
   /* ── 形 ── */
   /* 形狀語言：圓形只給本來就圓的（頭像、圓點、播放鈕）；文字容器用紙的形狀 */
   --r-xs:4px; --r-sm:8px; --r-md:12px; --r-lg:20px; --r-xl:28px; --r-full:999px;
@@ -95,13 +102,15 @@ main:focus{outline:none}
     line-height:1.45;letter-spacing:.06em}
 .d2{font-family:var(--f-display);font-weight:700;font-size:clamp(21px,3.2vw,29px);
     line-height:1.5;letter-spacing:.05em}
-.d3{font-family:var(--f-display);font-weight:700;font-size:18px;line-height:1.6;letter-spacing:.03em}
-.lead{color:var(--ink-600);max-width:36em;font-size:16px;line-height:2}
-.small{font-size:13.5px;color:var(--ink-600);line-height:1.9}
+.d3{font-family:var(--f-display);font-weight:700;font-size:var(--fs-2xl);line-height:1.6;letter-spacing:.03em}
+/* 多行大標的斷行平衡（桌面限定；手機 d1 由 .headline-part 手動斷行，不套用） */
+@media (min-width:721px){ .d1,.d2{text-wrap:balance} }
+.lead{color:var(--ink-600);max-width:36em;font-size:var(--fs-lg);line-height:2}
+.small{font-size:var(--fs-xs);color:var(--ink-600);line-height:1.9}
 
 /* ── 按鈕：粉彩底 + 褐字，全站不出現深色塊 ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  font-family:var(--f-body);font-weight:700;font-size:14.5px;letter-spacing:.04em;
+  font-family:var(--f-body);font-weight:700;font-size:var(--fs-md);letter-spacing:.04em;
   min-height:var(--control-min);line-height:1.25;padding:10px 20px;
   border-radius:var(--r-md);border:1.5px solid transparent;
   cursor:pointer;text-decoration:none;transition:.24s var(--ease)}
@@ -112,7 +121,7 @@ main:focus{outline:none}
 .btn-ghost{background:transparent;color:var(--ink-600);border-color:var(--line)}
 .btn-ghost:hover{border-color:var(--ink-400);color:var(--ink-900)}
 .action-link{display:inline-flex;align-items:center;min-height:var(--control-min);padding:6px 0;
-  color:var(--sky-700);font-weight:700;font-size:14px;line-height:1.5;text-decoration:none;
+  color:var(--sky-700);font-weight:700;font-size:var(--fs-sm);line-height:1.5;text-decoration:none;
   border-bottom:1px solid var(--sky-700)}
 .action-link:hover{color:var(--ink-900);border-bottom-color:var(--sky-700)}
 
@@ -123,7 +132,7 @@ html[lang="en"] .note{max-width:64ch}
 html[lang="en"] .notice{max-width:64ch}
 
 /* ── 標籤 ── */
-.tag{display:inline-block;white-space:nowrap;font-size:12px;font-weight:500;padding:3px 10px;letter-spacing:.03em;
+.tag{display:inline-block;white-space:nowrap;font-size:var(--fs-2xs);font-weight:500;padding:3px 10px;letter-spacing:.03em;
   border-radius:var(--r-xs);background:var(--greige-50);border:1px solid var(--line);color:var(--ink-600);line-height:1.6}
 .tag.area{background:var(--sky-50);border-color:var(--sky-200);color:var(--sky-700)}
 .tag.job{background:var(--pink-50);border-color:var(--pink-200);color:var(--pink-700)}
@@ -158,13 +167,13 @@ html[lang="en"] .notice{max-width:64ch}
 }
 
 /* 補充注釋：日式 ※ 起頭，無底色（一個畫面最多一個有底色的強調 = .notice） */
-.note{padding:14px 0 0;border-top:1px solid var(--line);font-size:13.5px;
+.note{padding:14px 0 0;border-top:1px solid var(--line);font-size:var(--fs-xs);
   color:var(--ink-600);line-height:1.9;max-width:44em}
 .note::before{content:'※';color:var(--pink-700);margin-right:.5em}
 .note strong{color:var(--ink-900)}
 /* 必讀聲明（免責、法遵、個資）：全站唯一保留底色的區塊，每頁至多一個 */
 .notice{background:var(--note-bg);border:1px solid var(--note-line);border-radius:var(--r-sm);
-  margin-top:20px;padding:14px 18px;font-size:13.5px;color:var(--note-ink);line-height:1.9;max-width:46em}
+  margin-top:20px;padding:14px 18px;font-size:var(--fs-sm);color:var(--note-ink);line-height:1.9;max-width:46em}
 .notice strong{color:var(--ink-900)}
 
 /* 手機版採用安靜、任務優先的單層介面；桌面版保留原有品牌表現。 */
@@ -185,18 +194,19 @@ html[lang="en"] .notice{max-width:64ch}
   body{background:var(--paper);line-height:1.75}
   .section{padding:44px 0}
   .page-head{background:var(--paper);padding:26px 0 24px;border-bottom-color:var(--mobile-line)}
+  /* 24/22 是手機標題階（定案階層），不入 --fs 階梯 */
   .page-head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
   .page-head .lead{margin-top:12px}
   .page-section>.d2:first-child{margin-bottom:12px}
   .d1{font-size:clamp(30px,9vw,36px);line-height:1.32;letter-spacing:.02em}
   .d2{font-size:22px;line-height:1.4;letter-spacing:.02em}
-  .d3{font-size:16px;line-height:1.55;letter-spacing:.01em}
-  .lead{font-size:15px;line-height:1.8}
-  .small{font-size:12.5px;line-height:1.75}
-  main .btn{min-height:var(--mobile-control-height);padding:11px 18px;font-size:14px}
+  .d3{font-size:var(--fs-lg);line-height:1.55;letter-spacing:.01em}
+  .lead{font-size:var(--fs-md);line-height:1.8}
+  .small{font-size:var(--fs-2xs);line-height:1.75}
+  main .btn{min-height:var(--mobile-control-height);padding:11px 18px;font-size:var(--fs-sm)}
   main .btn-secondary{border-color:var(--control-line);color:var(--ink-900)}
   main .btn-ghost{border-color:var(--mobile-line);color:var(--ink-900)}
-  main .action-link{min-height:44px;padding:7px 0;font-size:14px}
+  main .action-link{min-height:44px;padding:7px 0;font-size:var(--fs-sm)}
   main .card{border-radius:var(--r-md);border-color:var(--mobile-line);box-shadow:none}
   main .card-link:focus-visible{box-shadow:none}
   .notice{margin-top:16px;padding:14px 16px}

@@ -7,7 +7,7 @@
   .hero .chars{width:200px;height:auto;margin:20px auto 18px;
     transition:transform .28s var(--ease)}
   @media (hover:hover) and (pointer:fine){ .hero-inner:hover .chars{transform:rotate(-2deg)} }
-  .ja-sub{font-size:13px;letter-spacing:.22em;color:var(--pink-700);margin:0 0 12px}
+  .ja-sub{font-size:var(--fs-xs);letter-spacing:.22em;color:var(--pink-700);margin:0 0 12px}
   .hero .lead{max-width:640px;margin:0 auto}
   /* 進場：依內容順序短暫錯開，不改變版面位置。 */
   .hero-inner>*{animation:hero-rise .28s var(--ease) backwards}
@@ -21,16 +21,16 @@
   .news{display:flex;align-items:baseline;gap:14px;margin-top:26px;padding:0 0 14px;
     border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink-900)}
   .news:hover .news-txt{color:var(--pink-700)}
-  .news-tag{flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--pink-700);
+  .news-tag{flex:0 0 auto;font-size:var(--fs-2xs);font-weight:700;letter-spacing:.08em;color:var(--pink-700);
     background:var(--pink-50);border:1px solid var(--pink-200);padding:3px 10px;border-radius:var(--r-xs)}
-  .news-txt{min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .news-txt{min-width:0;font-size:var(--fs-sm);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   /* 不加上下框：上緣與 hero 底線平行、下緣正好和下一區的頂線疊在一起，都是重複的線 */
   .band{padding:36px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
     gap:22px;text-align:center;margin-top:36px}
   .band .n{font-family:var(--f-latin);font-weight:700;font-size:clamp(40px,4.5vw,52px);line-height:1.1;color:var(--pink-700)}
-  .band .n small{font-size:17px;margin-left:3px}
-  .band .t{font-size:13px;color:var(--ink-600);margin-top:4px}
+  .band .n small{font-size:var(--fs-xl);margin-left:3px}
+  .band .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:4px}
 
   /* 首頁四個同級標題原本各有各的下間距（14/28/0/12px），其中影片區是 0 貼著行框 */
   .section .d2 + *{margin-top:14px}
@@ -50,7 +50,7 @@
   .v-avatar{width:96px;height:96px;flex:0 0 96px;border-radius:var(--r-full);overflow:hidden}
   .v-avatar svg{width:100%;height:100%;display:block}
   /* 引文用日式鉤括號，開引號掛出版心（光學對齊） */
-  .v-quote{margin:0;font-family:var(--f-display);font-size:19px;line-height:1.9;
+  .v-quote{margin:0;font-family:var(--f-display);font-size:var(--fs-3xl);line-height:1.9;
     color:var(--ink-900);letter-spacing:.03em;text-indent:-.6em}
   .v-quote::before{content:'「';color:var(--pink-700)}
   .v-quote::after{content:'」';color:var(--pink-700)}
@@ -70,7 +70,7 @@
     border-radius:var(--r-full);background:var(--paper);color:var(--pink-700);
     box-shadow:var(--sh-2);transition:transform .24s var(--ease)}
   .vp-ring svg{margin-left:3px}
-  .vp-title{max-width:34em;font-size:14px;line-height:1.7;color:var(--ink-900);text-align:center}
+  .vp-title{max-width:34em;font-size:var(--fs-sm);line-height:1.7;color:var(--ink-900);text-align:center}
   @media (hover:hover) and (pointer:fine){
     .video-play:hover{background:rgba(255,255,255,.34)}
     .video-play:hover .vp-ring{transform:scale(1.06)}
@@ -110,11 +110,11 @@
     .band>div:nth-child(odd){border-right:1px solid var(--mobile-line)}
     .band>div:nth-child(-n+2){border-bottom:1px solid var(--mobile-line)}
     .band .n{font-size:clamp(27px,8vw,31px)}
-    .band .n small{font-size:14px}
-    .band .t{font-size:12px;margin-top:5px}
+    .band .n small{font-size:var(--fs-sm)}
+    .band .t{font-size:var(--fs-2xs);margin-top:5px}
     .grid3{gap:12px;margin-top:20px}
     .news{margin-top:18px;padding:10px 14px}
-    .news-txt{font-size:13px;white-space:normal;overflow:visible;text-overflow:clip}
+    .news-txt{font-size:var(--fs-xs);white-space:normal;overflow:visible;text-overflow:clip}
 
     /* 企業卡兩格一列：IG 探索頁式的密度，滑動高度減半 */
     .grid-co{grid-template-columns:repeat(2,1fr);gap:10px}
@@ -124,11 +124,11 @@
     .alt{background:var(--greige-50);border-color:var(--mobile-line)}
     .voice{gap:16px;margin-top:20px}
     .v-avatar{width:64px;height:64px;flex-basis:64px}
-    .v-quote{font-size:16px}
+    .v-quote{font-size:var(--fs-lg)}
     .video{border:1px solid var(--mobile-line);border-radius:var(--r-md);box-shadow:none}
     .video-play{gap:10px;padding:16px}
     .vp-ring{width:54px;height:54px}
-    .vp-title{font-size:12.5px}
+    .vp-title{font-size:var(--fs-xs)}
     .final{background:var(--sky-50);border-top:1px solid var(--mobile-line)}
     .final .cta-row{flex-direction:column;align-items:center}
   }

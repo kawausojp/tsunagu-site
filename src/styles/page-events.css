@@ -4,15 +4,15 @@
   .next{padding:26px 28px}
   .next.empty p{margin:0 0 10px}
   .when{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
-  .when .no{font-family:var(--f-latin);font-weight:700;color:var(--pink-700);font-size:14px}
-  .when .date{font-size:19px;font-weight:700;font-family:var(--f-display)}
+  .when .no{font-family:var(--f-latin);font-weight:700;color:var(--pink-700);font-size:var(--fs-sm)}
+  .when .date{font-size:var(--fs-3xl);font-weight:700;font-family:var(--f-display)}
   /* 報名前的決策資訊：時間・地點・費用一眼看完，不做底色框 */
   .ev-meta{display:grid;grid-template-columns:auto 1fr;gap:7px 18px;margin:0 0 18px;
-    font-size:13.5px;line-height:1.8;color:var(--ink-600)}
+    font-size:var(--fs-sm);line-height:1.8;color:var(--ink-600)}
   .ev-meta dt{font-weight:700;color:var(--ink-900);white-space:nowrap}
   .ev-meta dd{margin:0;min-width:0}
   .ev-meta .addr{color:var(--ink-600)}
-  .map-link{display:inline-block;margin-left:10px;padding:6px 0;font-size:13px}
+  .map-link{display:inline-block;margin-left:10px;padding:6px 0;font-size:var(--fs-xs)}
   .hint{margin:12px 0 0;color:var(--ink-600)}
   .backtop{margin-top:16px}
   .backtop a{display:inline-flex;align-items:center;min-height:var(--control-min);color:var(--sky-700);text-decoration:none}
@@ -21,13 +21,13 @@
   .step{display:flex;gap:16px;padding:18px 20px;align-items:flex-start}
   .step .no{width:30px;height:30px;flex:0 0 30px;border-radius:var(--r-full);background:var(--pink-100);
     color:var(--ink-900);font-family:var(--f-latin);font-weight:700;display:flex;
-    align-items:center;justify-content:center;font-size:14px}
+    align-items:center;justify-content:center;font-size:var(--fs-sm)}
   .step p{margin:2px 0 0}
   .note{margin-top:22px}
   .hist{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-direction:column;gap:8px}
   .h{display:flex;gap:12px;align-items:center;padding:12px 18px;flex-wrap:wrap}
-  .h .no{font-family:var(--f-latin);font-weight:700;font-size:13px;color:var(--ink-600);flex:0 0 92px;white-space:nowrap}
-  .h .date{font-weight:700;font-size:14.5px}
+  .h .no{font-family:var(--f-latin);font-weight:700;font-size:var(--fs-xs);color:var(--ink-600);flex:0 0 92px;white-space:nowrap}
+  .h .date{font-weight:700;font-size:var(--fs-md)}
   .h .ig{margin-left:auto;display:inline-flex;align-items:center;min-height:var(--control-min);color:var(--sky-700);text-decoration:none}
   .h .ig:hover{text-decoration:underline}
   @media (max-width:720px){
@@ -35,14 +35,14 @@
     .upcoming-list{gap:12px}
     .next{padding:18px 16px}
     .when{gap:8px;margin-bottom:8px}
-    .when .date{font-size:17px}
-    .ev-meta{gap:5px 14px;margin-bottom:14px;font-size:12.5px}
+    .when .date{font-size:var(--fs-xl)}
+    .ev-meta{gap:5px 14px;margin-bottom:14px;font-size:var(--fs-xs)}
     .ev-meta .addr{display:block}
     .map-link{margin-left:0}
     .next .btn-primary{width:100%;margin-top:4px}
     .flow{gap:10px}
     .step{gap:12px;padding:16px}
-    .step .no{width:28px;height:28px;flex-basis:28px;font-size:13px}
+    .step .no{width:28px;height:28px;flex-basis:28px;font-size:var(--fs-xs)}
     .note{margin-top:18px}
     .hist{gap:0;border:1px solid var(--mobile-line);border-radius:var(--r-md);overflow:hidden}
     .h{gap:8px;padding:12px 14px;border:0;border-bottom:1px solid var(--mobile-line);border-radius:0}

@@ -38,8 +38,8 @@ const t = ui[lang];
   footer{background:var(--paper);border-top:1px solid var(--line);padding:56px 0 40px;margin-top:40px}
   .grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px}
   footer :global(.wm){width:170px;height:auto;margin-bottom:14px}
-  h2{font-size:13px;letter-spacing:.06em;color:var(--ink-600);margin-bottom:10px;font-weight:700}
-  footer a{display:block;font-size:14px;color:var(--ink-600);text-decoration:none;padding:4px 0}
+  h2{font-size:var(--fs-xs);letter-spacing:.06em;color:var(--ink-600);margin-bottom:10px;font-weight:700}
+  footer a{display:block;font-size:var(--fs-sm);color:var(--ink-600);text-decoration:none;padding:4px 0}
   footer a:hover{color:var(--pink-700)}
   .legal{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
   @media (max-width:720px){
@@ -47,9 +47,9 @@ const t = ui[lang];
     .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 16px}
     .grid>div:first-child{grid-column:1/-1}
     footer :global(.wm){width:140px;margin-bottom:12px}
-    footer p.small{font-size:12.5px;line-height:1.7;margin-bottom:10px}
-    h2{font-size:12.5px;margin-bottom:7px}
-    footer a{display:flex;align-items:center;min-height:44px;padding:7px 0;font-size:13px;line-height:1.5}
+    footer p.small{font-size:var(--fs-xs);line-height:1.7;margin-bottom:10px}
+    h2{font-size:var(--fs-2xs);margin-bottom:7px}
+    footer a{display:flex;align-items:center;min-height:44px;padding:7px 0;font-size:var(--fs-xs);line-height:1.5}
     .legal{margin-top:24px;padding-top:20px;border-top-color:var(--mobile-line)}
   }
 </style>
