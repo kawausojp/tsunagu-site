@@ -12,6 +12,7 @@
   .ev-meta dt{font-weight:700;color:var(--ink-900);white-space:nowrap}
   .ev-meta dd{margin:0;min-width:0}
   .ev-meta .addr{color:var(--ink-600)}
+  .map-link{display:inline-block;margin-left:10px;padding:6px 0;font-size:13px}
   .hint{margin:12px 0 0;color:var(--ink-600)}
   .backtop{margin-top:16px}
   .backtop a{display:inline-flex;align-items:center;min-height:var(--control-min);color:var(--sky-700);text-decoration:none}
@@ -37,6 +38,7 @@
     .when .date{font-size:17px}
     .ev-meta{gap:5px 14px;margin-bottom:14px;font-size:12.5px}
     .ev-meta .addr{display:block}
+    .map-link{margin-left:0}
     .next .btn-primary{width:100%;margin-top:4px}
     .flow{gap:10px}
     .step{gap:12px;padding:16px}

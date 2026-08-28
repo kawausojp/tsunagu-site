@@ -65,7 +65,7 @@ const flow = [
               </div>
               <dl class="ev-meta">
                 {e.sessions && <><dt>場次</dt><dd>{e.sessions.join('　／　')}</dd></>}
-                {e.venue && <><dt>地點</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}</dd></>}
+                {e.venue && <><dt>地點</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">在 Google 地圖開啟 ↗<span class="sr-only">（另開新視窗）</span></a>}</dd></>}
                 <dt>費用</dt><dd>免費</dd>
               </dl>
               {e.signupUrl

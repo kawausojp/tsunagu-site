@@ -71,7 +71,7 @@ const flow = [
               </div>
               <dl class="ev-meta">
                 {e.sessions && <><dt>Sessions</dt><dd>{e.sessions.join(' / ')}</dd></>}
-                {e.venue && <><dt>Venue</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}</dd></>}
+                {e.venue && <><dt>Venue</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">Open in Google Maps ↗<span class="sr-only"> (opens in a new window)</span></a>}</dd></>}
                 <dt>Cost</dt><dd>Free</dd>
               </dl>
               {e.signupUrl

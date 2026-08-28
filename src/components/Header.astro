@@ -22,7 +22,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       <Heart size={22} />
       <Image src={wordmark} alt="TSUNAGU" widths={[110, 220, 330]} sizes="110px" class="wordmark"
         loading="eager" fetchpriority="high" decoding="sync" />
-      <span class="zh" lang="ja">台湾人と日本企業をツナグ</span>
+      {lang === 'zh' && <span class="zh" lang="ja">台湾人と日本企業をツナグ</span>}
     </a>
     <nav class="desktop-nav" aria-label={t.mainMenu}>
       {nav.map(n => (
@@ -78,8 +78,10 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     color:var(--ink-900);flex:0 1 auto;min-width:0}
   .wordmark{width:clamp(88px,28vw,110px);height:auto;display:block}
   /* 標語與語言鈕都不折行：折成兩行會把 68px 的列撐開、上下對不齊 */
+  /* ja/en 不渲染標語：導覽項較長，1120px 版心裝不下（hero 首行已重複這句）。
+     min-width:0＋ellipsis 是防呆——未來導覽再變長時標語會截斷省略，絕不可重疊。 */
   .zh{font-size:12px;color:var(--ink-600);border-left:1px solid var(--line);padding-left:10px;
-    white-space:nowrap}
+    white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
   .desktop-nav{display:flex;gap:6px;margin-left:auto}
   .navlink{display:inline-flex;align-items:center;min-height:var(--control-min);font-size:14.5px;
     font-weight:500;color:var(--ink-600);text-decoration:none;padding:8px 10px;
