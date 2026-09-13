@@ -46,7 +46,9 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
   /* 第一列：品類圖標（小方塊）＋品牌名＋登記名。名稱區固定「名稱＋登記名」的高度（52px），
      內容垂直置中：無登記名的卡，品牌名就對齊圖標中線（使用者 2026-09-14），下一列高度仍一致 */
   .head{display:flex;gap:12px;align-items:center}
-  .co.card{border-color:transparent}   /* 灰底上靠底色分離，髮絲框反而髒 */
+  /* 淺藍底上：髮絲框換成粉色光暈邊線（使用者 2026-09-14：高級感），hover 光暈加深 */
+  .co.card{border-color:transparent;box-shadow:var(--glow-pink)}
+  .co.card:hover,.co.card:focus-visible{box-shadow:var(--glow-pink-hover)}
   /* 圖標方塊框＝品類主色（與 CategoryIcon 的 COLOR 表同步），卡片之間才有色彩差異 */
   .ico{flex:0 0 44px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
     border:1.5px solid var(--pink-300);border-radius:var(--r-sm);background:var(--paper)}
