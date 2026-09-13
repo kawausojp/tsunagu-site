@@ -268,6 +268,16 @@ npm run build    # → dist/
 npm run preview
 ```
 
+### Artifact 預覽鏡像（2026-09-13）
+
+使用者要一個在 Claude 裡直接看的同步版：<https://claude.ai/code/artifact/497c86fd-9c5a-4a57-bdc4-5f6039175f01>
+- `scripts/mk-artifact.py .artifact` 把 `dist/` 轉成相對路徑版（Artifact 不吃根路徑；
+  `_astro/` 是保留字所以改名 `assets/`），輸出到 `.artifact/`（已 gitignore）
+- 然後用 Artifact 工具以 `file_path: .artifact/index.html`、`root: .artifact`、`files` 為
+  其餘 156 檔的 map 重新發布——**同一個 file_path 才會更新同一個 URL**
+- **每次 push 部署後都要同步一次**，否則鏡像會落後線上版
+- 已知限制：YouTube iframe 在 Artifact 裡被 CSP 擋掉（顯示空白），其餘功能正常
+
 ### 部署現況（2026-08-28 已上線）
 
 - 倉庫：<https://github.com/kawausojp/tsunagu-site>（public）
