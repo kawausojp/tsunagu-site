@@ -52,7 +52,6 @@
   /* tabular-nums：數字跳動時每位數等寬，版面不會抖 */
   .band .n{font-family:var(--f-latin);font-weight:700;font-variant-numeric:tabular-nums;line-height:1.05;color:var(--pink-300)}
   .band .n small{font-size:var(--fs-xl);margin-left:3px;color:var(--ink-600)}  /* 單位小字用灰，數字才是粉 */
-  .band .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:0}
 
   /* 首頁四個同級標題原本各有各的下間距（14/28/0/12px），其中影片區是 0 貼著行框 */
   .section .d2 + *{margin-top:14px}
@@ -119,7 +118,6 @@
     .bubble .n{font-size:clamp(32px,9.6vw,40px)}
     .bubble .n small{font-size:var(--fs-sm)}
     .band .n small{font-size:var(--fs-sm)}
-    .band .t{font-size:var(--fs-2xs);margin-top:5px}
     .grid3{gap:12px;margin-top:20px}
     .news{margin-top:18px;padding:10px 14px}
     .news-txt{font-size:var(--fs-xs);white-space:normal;overflow:visible;text-overflow:clip}
