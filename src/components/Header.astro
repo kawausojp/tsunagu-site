@@ -95,15 +95,19 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
 
   /* 抽屜：桌機是漢堡下方的右對齊面板；手機全寬 */
   .drawer{display:none;flex-direction:column;gap:2px;position:absolute;right:var(--layout-gutter);
-    top:calc(100% + 8px);width:300px;padding:10px;background:var(--paper);
+    top:calc(100% + 8px);width:300px;padding:10px;
+    background:rgba(255,255,255,.78);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);
     border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--sh-2);z-index:60}
+  /* 滑鼠移到選單鈕就開（桌機）：鈕與面板之間 8px 空隙用 ::before 補滿，游標移下去不會中途關掉 */
+  .drawer::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:10px}
   .drawer[data-open]{display:flex}
   .drawer a{display:flex;align-items:center;min-height:var(--control-min);padding:10px 12px;
     border-radius:var(--r-xs);text-decoration:none;color:var(--ink-900);font-weight:500;font-size:var(--fs-md)}
-  .drawer a:hover{background:var(--greige-50)}
-  .drawer a.on{font-weight:700;box-shadow:inset 3px 0 0 var(--pink-300)}
+  .drawer a:hover{background:rgba(245,245,245,.85)}
+  /* 當前頁＝粉字（使用者 2026-09-14：不要左側色條），2.0:1 與 action-link 同為其決定 */
+  .drawer a.on{font-weight:700;color:var(--pink-300)}
   /* 報名：與其他列同樣式，只用粗體區分（做成粉按鈕會突兀）；桌機面板已有頁首報名鈕故隱藏 */
-  .drawer-cta{display:none;font-weight:700}
+  .drawer a.drawer-cta{display:none;font-weight:700}   /* 權重要壓過 .drawer a{display:flex} */
 
   @media (max-width:720px){
     header{background:var(--paper);backdrop-filter:none;border-bottom-color:var(--mobile-line)}
@@ -114,8 +118,8 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       box-shadow:none;padding:8px var(--layout-gutter) 18px;max-height:calc(100dvh - 56px);overflow-y:auto;
       overscroll-behavior:contain}
     .drawer a{padding:10px 4px;border-radius:0;border-bottom:1px solid var(--line)}
-    .drawer a.on{box-shadow:none;border-bottom:2px solid var(--pink-300)}
-    .drawer-cta{display:flex}
+    .drawer a.on{border-bottom-color:var(--line)}
+    .drawer a.drawer-cta{display:flex}
     :global(body.menu-open){overflow:hidden}
   }
 
@@ -203,6 +207,25 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       if (!open && restoreFocus) b.focus();
     };
     b.addEventListener('click', () => setOpen(!d.hasAttribute('data-open')));
+    // 桌機滑鼠：移到選單鈕即開，離開鈕＋面板 160ms 後關（斜向移入面板不會閃關）；觸控裝置維持點擊
+    const hoverable = window.matchMedia('(hover:hover) and (pointer:fine)');
+    let closeTimer = 0;
+    const cancelClose = () => { window.clearTimeout(closeTimer); };
+    const scheduleClose = () => {
+      cancelClose();
+      closeTimer = window.setTimeout(() => { if (!compact.matches) setOpen(false); }, 160);
+    };
+    for (const el of [b, d]) {
+      el.addEventListener('pointerenter', event => {
+        if (event.pointerType !== 'mouse' || !hoverable.matches || compact.matches) return;
+        cancelClose();
+        if (!d.hasAttribute('data-open')) setOpen(true);
+      });
+      el.addEventListener('pointerleave', event => {
+        if (event.pointerType !== 'mouse' || !hoverable.matches || compact.matches) return;
+        scheduleClose();
+      });
+    }
     d.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
     document.addEventListener('click', event => {
       if (!d.hasAttribute('data-open')) return;

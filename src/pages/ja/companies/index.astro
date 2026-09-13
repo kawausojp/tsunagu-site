@@ -77,14 +77,16 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     </div>
   </div>
 
-  <section class="wrap list">
-    <h2 class="sr-only">検索結果</h2>
-    <div class="grid" id="company-grid" data-grid>
-      {companies.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="ja" />)}
-    </div>
-    <div class="empty" data-empty hidden>
-      <p class="small">条件に合うブランドがありません。</p>
-      <button type="button" class="btn btn-secondary" data-reset>条件をクリアして全ブランドを見る</button>
+  <section class="list">
+    <div class="wrap">
+      <h2 class="sr-only">検索結果</h2>
+      <div class="grid" id="company-grid" data-grid>
+        {companies.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="ja" />)}
+      </div>
+      <div class="empty" data-empty hidden>
+        <p class="small">条件に合うブランドがありません。</p>
+        <button type="button" class="btn btn-secondary" data-reset>条件をクリアして全ブランドを見る</button>
+      </div>
     </div>
   </section>
 
@@ -92,7 +94,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <h2 class="d2">気になるブランドはありましたか？</h2>
     <p class="lead">実際の募集内容は、交流会で直接ご確認いただけます。</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={l('/events')}>交流会に申し込む →</a>
+      <a class="btn btn-primary" href={l('/events')}>交流会に申し込む</a>
       <a class="action-link" href={l('/stories')}>先輩の体験談を見る →</a>
     </div>
   </section>

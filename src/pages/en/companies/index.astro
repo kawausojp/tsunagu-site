@@ -78,14 +78,16 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     </div>
   </div>
 
-  <section class="wrap list">
-    <h2 class="sr-only">Search results</h2>
-    <div class="grid" id="company-grid" data-grid>
-      {companies.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="en" />)}
-    </div>
-    <div class="empty" data-empty hidden>
-      <p class="small">No brands match these filters.</p>
-      <button type="button" class="btn btn-secondary" data-reset>Clear all filters and see every brand</button>
+  <section class="list">
+    <div class="wrap">
+      <h2 class="sr-only">Search results</h2>
+      <div class="grid" id="company-grid" data-grid>
+        {companies.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="en" />)}
+      </div>
+      <div class="empty" data-empty hidden>
+        <p class="small">No brands match these filters.</p>
+        <button type="button" class="btn btn-secondary" data-reset>Clear all filters and see every brand</button>
+      </div>
     </div>
   </section>
 
@@ -93,7 +95,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <h2 class="d2">Found a brand you like?</h2>
     <p class="lead">The fastest way to learn what they’re hiring for is to ask at a meetup.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={l('/events')}>Join a meetup →</a>
+      <a class="btn btn-primary" href={l('/events')}>Join a meetup</a>
       <a class="action-link" href={l('/stories')}>Read alumni stories →</a>
     </div>
   </section>

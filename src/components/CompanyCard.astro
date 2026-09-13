@@ -1,7 +1,7 @@
 ---
 import CategoryIcon from './CategoryIcon.astro';
 import { ui, type Lang } from '../i18n/ui';
-import { CAT_LABEL } from '../lib/site';
+import { CAT_LABEL, SKY_CATEGORIES } from '../lib/site';
 interface Props { c: any; href: string; lang?: Lang }
 const { c, href, lang = 'zh' } = Astro.props;
 const t = ui[lang];
@@ -18,7 +18,7 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
   <!-- 2026-09-13 使用者參考 Cake／Yourator 重排：圖標在名稱左側同一列、順序固定、標籤與實績貼底，
        同列各卡每一行對齊（有無登記名、tagline 長短都不影響） -->
   <div class="head">
-    <span class="ico"><CategoryIcon cat={d.category} size={30} /></span>
+    <span class="ico" data-tone={SKY_CATEGORIES.has(d.category) ? 'sky' : 'pink'}><CategoryIcon cat={d.category} size={30} /></span>
     <div class="ttl">
       <h3 class="d3">{d.name}</h3>
       {d.corporateName && <div class="corp" lang="ja">{d.corporateName}</div>}
@@ -46,8 +46,11 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
   /* 第一列：品類圖標（小方塊）＋品牌名＋登記名。名稱區固定「名稱＋登記名」的高度（52px），
      內容垂直置中：無登記名的卡，品牌名就對齊圖標中線（使用者 2026-09-14），下一列高度仍一致 */
   .head{display:flex;gap:12px;align-items:center}
+  .co.card{border-color:transparent}   /* 灰底上靠底色分離，髮絲框反而髒 */
+  /* 圖標方塊框＝品類主色（與 CategoryIcon 的 COLOR 表同步），卡片之間才有色彩差異 */
   .ico{flex:0 0 44px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
-    border:1px solid var(--line);border-radius:var(--r-sm);background:var(--paper)}
+    border:1.5px solid var(--pink-300);border-radius:var(--r-sm);background:var(--paper)}
+  .ico[data-tone="sky"]{border-color:var(--sky-300)}
   .ttl{min-width:0;flex:1;min-height:52px;display:flex;flex-direction:column;justify-content:center}
   .co h3{overflow-wrap:break-word;line-height:1.5}
   .corp{font-size:var(--fs-2xs);color:var(--ink-600);line-height:1.6;margin-top:2px;

@@ -24,8 +24,10 @@
   .reset{align-self:flex-start;background:none;border:0;color:var(--pink-700);font-weight:700;
     min-height:var(--control-min);font-size:var(--fs-xs);cursor:pointer;padding:8px 0;text-decoration:underline;text-decoration-color:var(--sky-300);text-decoration-thickness:2px;text-underline-offset:3px;font-family:inherit}
   .count{margin:16px 0 0;color:var(--ink-600)}
-  .list{margin:20px auto 0}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px}
+  /* 列表區用 greige 全寬底（2026-09-14 使用者：卡片全白＋頁面全白，35 張看了眼花）——
+     這是 greige 當區塊底的唯一例外，讓白卡從底色浮出來 */
+  .list{margin:24px 0 0;padding:32px 0 44px;background:var(--greige-50)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:22px}
   .empty{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;
     padding:48px 0;color:var(--ink-600)}
   .empty p{margin:0}
@@ -53,6 +55,6 @@
       font-weight:700;color:var(--ink-900);box-shadow:none}
     .filter-options button.f.job[aria-pressed="true"]{background:var(--pink-300);border-color:var(--pink-300)}
     .count{margin-top:12px}
-    .list{margin-top:16px}
+    .list{margin-top:16px;padding:20px 0 28px}
     .grid{grid-template-columns:repeat(2,1fr);gap:10px}
   }

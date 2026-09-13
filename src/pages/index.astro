@@ -19,8 +19,8 @@ const firstStory = stories[0];
 const nextEv = nextEvent();
 const nextEvDate = nextEv ? fmtEventDate(nextEv.date, 'zh') : '';
 const heroCta = nextEv
-  ? `報名 ${nextEvDate}${nextEv.city}交流會 →`
-  : '報名下一場交流會 →';
+  ? `報名 ${nextEvDate}${nextEv.city}交流會`
+  : '報名下一場交流會';
 const stats = [
   { icon: 'people', n: '2,874', u: '人', t: '參加過交流會' },
   { icon: 'job', n: '163',   u: '人', t: '找到日本工作' },
@@ -124,7 +124,7 @@ const stats = [
         <h2 class="d2">下一步，先來交流會看看</h2>
         <p class="lead">不用先決定什麼，也不用準備履歷。先來聽日本企業說他們在找什麼樣的人。</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href={`${base}/events`}>查看下一場交流會 →</a>
+          <a class="btn btn-primary" href={`${base}/events`}>查看下一場交流會</a>
           <a class="action-link" href={`${base}/apply`}>已經決定要去日本了 →</a>
         </div>
       </div>

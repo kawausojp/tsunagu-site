@@ -114,3 +114,6 @@ export function fmtSourceDeck(lang: Lang, page?: number) {
  *  0:47 = Tsunagu 訪談段落的開始。
  *  要換段落改這裡即可，三語首頁共用。 */
 export const VIDEO_START = 47;
+
+/** 品類的主色調：藍＝鞋／襪／眼鏡，其餘粉。CategoryIcon 線條色與企業卡圖標框共用 */
+export const SKY_CATEGORIES = new Set(['shoes', 'socks', 'eyewear']);

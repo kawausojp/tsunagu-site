@@ -23,7 +23,7 @@ const nextEv = nextEvent();
 const nextEvDate = nextEv ? fmtEventDate(nextEv.date, 'en') : '';
 const heroCta = nextEv
   ? `Join the ${nextEvDate} meetup in ${CITY.en[nextEv.city] ?? nextEv.city} →`
-  : 'Join the next meetup →';
+  : 'Join the next meetup';
 const stats = [
   { icon: 'people', n: '2,874', u: '', t: 'meetup attendees' },
   { icon: 'job', n: '163', u: '', t: 'placed in jobs in Japan' },
@@ -129,7 +129,7 @@ const stats = [
         <h2 class="d2">Start with a meetup</h2>
         <p class="lead">No preparation needed — no resume, no decisions. Just come and hear what Japanese companies are looking for.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href={l('/events')}>See the next meetup →</a>
+          <a class="btn btn-primary" href={l('/events')}>See the next meetup</a>
           <a class="action-link" href={l('/apply')}>Already decided? Start here →</a>
         </div>
       </div>

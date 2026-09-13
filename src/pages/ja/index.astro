@@ -22,8 +22,8 @@ const firstStory = stories[0];
 const nextEv = nextEvent();
 const nextEvDate = nextEv ? fmtEventDate(nextEv.date, 'ja') : '';
 const heroCta = nextEv
-  ? `${nextEvDate}・${CITY.ja[nextEv.city] ?? nextEv.city}の交流会に申し込む →`
-  : '次回の交流会に申し込む →';
+  ? `${nextEvDate}・${CITY.ja[nextEv.city] ?? nextEv.city}の交流会に申し込む`
+  : '次回の交流会に申し込む';
 const stats = [
   { icon: 'people', n: '2,874', u: '名', t: '交流会参加者' },
   { icon: 'job', n: '163', u: '名', t: '日本での就業を実現' },
@@ -129,7 +129,7 @@ const stats = [
         <h2 class="d2">まずは交流会へ</h2>
         <p class="lead">何かを決めてから来る必要はありません。準備も不要です。日本企業がどんな人材を求めているか、まず聞きに来てください。</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href={l('/events')}>次回の交流会を見る →</a>
+          <a class="btn btn-primary" href={l('/events')}>次回の交流会を見る</a>
           <a class="action-link" href={l('/apply')}>日本行きを決めた方はこちら →</a>
         </div>
       </div>

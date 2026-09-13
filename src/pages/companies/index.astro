@@ -75,14 +75,16 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     </div>
   </div>
 
-  <section class="wrap list">
-    <h2 class="sr-only">品牌搜尋結果</h2>
-    <div class="grid" id="company-grid" data-grid>
-      {companies.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
-    </div>
-    <div class="empty" data-empty hidden>
-      <p class="small">沒有符合條件的品牌。</p>
-      <button type="button" class="btn btn-secondary" data-reset>清除全部條件，看所有品牌</button>
+  <section class="list">
+    <div class="wrap">
+      <h2 class="sr-only">品牌搜尋結果</h2>
+      <div class="grid" id="company-grid" data-grid>
+        {companies.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
+      </div>
+      <div class="empty" data-empty hidden>
+        <p class="small">沒有符合條件的品牌。</p>
+        <button type="button" class="btn btn-secondary" data-reset>清除全部條件，看所有品牌</button>
+      </div>
     </div>
   </section>
 
@@ -90,7 +92,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <h2 class="d2">看到有興趣的品牌了嗎？</h2>
     <p class="lead">實際在徵什麼，來交流會現場問最快。</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={`${base}/events`}>報名交流會 →</a>
+      <a class="btn btn-primary" href={`${base}/events`}>報名交流會</a>
       <a class="action-link" href={`${base}/stories`}>看看學長姐在這些品牌的經驗 →</a>
     </div>
   </section>
