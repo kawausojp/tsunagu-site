@@ -41,11 +41,11 @@
   @media (max-width:900px){ .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px} }
   .bubble{width:100%;max-width:244px;aspect-ratio:1;border-radius:var(--r-full);background:var(--paper);
     border:2px solid var(--pink-300);display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:6px;text-align:center;padding:16px}
+    gap:10px;text-align:center;padding:16px}
   .bubble:nth-child(even){border-color:var(--sky-300)}
   /* 上排：圖標＋標籤一列；下排：人數 */
-  .bubble .t{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;margin:0;font-size:var(--fs-sm);color:var(--ink-600);max-width:100%}
-  .bubble .t svg{flex:0 0 auto}
+  .bubble .t{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin:0;font-size:var(--fs-2xl);font-weight:500;color:var(--ink-600);max-width:100%}
+  .bubble .t svg{flex:0 0 auto;width:24px;height:24px}
   /* 數字是主角：放大到泡泡寬度的 1/4 左右 */
   .bubble .n{font-size:clamp(46px,4.3vw,62px)}
   .bubble .n small{font-size:var(--fs-2xl);margin-left:4px}
@@ -114,8 +114,8 @@
     /* 手機 2×2 泡泡 */
     .band{grid-template-columns:repeat(2,1fr);gap:14px;padding:20px 8px 8px;margin:0 0 8px}
     .bubble{max-width:176px;gap:4px;padding:12px}
-    .bubble .t{font-size:var(--fs-2xs);gap:4px}
-    .bubble .t svg{width:16px;height:16px}
+    .bubble .t{font-size:var(--fs-xs);gap:5px}
+    .bubble .t svg{width:18px;height:18px}
     .bubble .n{font-size:clamp(32px,9.6vw,40px)}
     .bubble .n small{font-size:var(--fs-sm)}
     .band .n small{font-size:var(--fs-sm)}
