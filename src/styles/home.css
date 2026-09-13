@@ -1,5 +1,5 @@
 /* 首頁樣式（三語共用）：/、/ja/、/en/ 三頁 import 同一份，改這裡三語同步生效 */
-  .hero{background:linear-gradient(165deg,var(--pink-50) 0%,var(--cream) 46%,var(--sky-50) 100%);
+  .hero{background:var(--paper);
     padding:72px 0 64px;border-bottom:1px solid var(--line)}
   .hero-inner{display:grid;justify-items:center;text-align:center}
   .hero h1{font-size:clamp(40px,4.8vw,62px);line-height:1.25;letter-spacing:.045em;
@@ -28,7 +28,7 @@
   .news{display:flex;align-items:baseline;gap:14px;margin-top:26px;padding:0 0 14px;
     border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink-900)}
   .news:hover .news-txt{color:var(--pink-700)}
-  .news-tag{flex:0 0 auto;font-size:var(--fs-2xs);font-weight:700;letter-spacing:.08em;color:var(--pink-700);
+  .news-tag{flex:0 0 auto;font-size:var(--fs-2xs);font-weight:700;letter-spacing:.08em;color:var(--ink-900);
     background:var(--pink-50);border:1px solid var(--pink-200);padding:3px 10px;border-radius:var(--r-xs)}
   .news-txt{min-width:0;font-size:var(--fs-sm);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
@@ -60,8 +60,8 @@
   /* 引文用日式鉤括號，開引號掛出版心（光學對齊） */
   .v-quote{margin:0;font-family:var(--f-display);font-size:var(--fs-3xl);line-height:1.9;
     color:var(--ink-900);letter-spacing:.03em;text-indent:-.6em}
-  .v-quote::before{content:'「';color:var(--pink-700)}
-  .v-quote::after{content:'」';color:var(--pink-700)}
+  .v-quote::before{content:'「';color:var(--pink-300)}
+  .v-quote::after{content:'」';color:var(--pink-300)}
   .v-meta{margin:14px 0 0;color:var(--ink-600)}
 
   .vid-sec .lead{margin-bottom:22px}

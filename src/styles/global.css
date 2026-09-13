@@ -6,28 +6,29 @@
    · 全站不使用近黑或高彩度色塊；對比靠「褐字 × 粉彩底」達成
    ══════════════════════════════════════════════════════════ */
 :root{
-  /* ── 配色（2026-09-13 改版：以 bpt ROOM logo 為主色，白底＋中性灰字＋珊瑚粉／天空藍點綴）──
-     使用者原話：整體太粉，要像簡報那樣明亮乾淨。所以底色一律純白、文字中性灰，
-     粉與藍只做點綴。token 名稱沿用（--pink-*／--sky-*）避免動到 100+ 處引用。 */
-  /* ── 珊瑚粉（logo 屋頂左側、R、蝴蝶結 ≈ #F3A0AA）── */
-  --pink-50:#FDF5F6; --pink-100:#FDEDEF; --pink-200:#F8CFD4; --pink-300:#F3A0AA;
-  --pink-400:#D25A67;                              /* 主按鈕底線 對白 3.89:1 ✓（1.4.11 非文字）*/
-  --pink-500:#FF6699;                              /* 舊品牌識別色（記錄用，0 處使用；不可承載文字）*/
-  --pink-700:#B2454F;                              /* 珊瑚字色 對白 5.44:1、對 sky-100 4.88:1 ✓ AA */
-  /* ── 天空藍（logo 屋頂右側、O、底線 = #00B0F0）── */
-  --sky-50:#F0F9FE; --sky-100:#E5F5FD; --sky-200:#B5E6FA;
-  --sky-500:#00B0F0;                               /* logo 藍（裝飾／線條可用；對白 2.48:1 不可承載文字）*/
-  --sky-700:#06719B;                               /* 藍字色（連結）對白 5.46:1、對 sky-100 4.89:1 ✓ AA */
-  /* ── 中性（底與文字，取 logo 的灰字 ≈ #595959 系）── */
-  --cream:#FFFFFF; --paper:#FFFFFF; --greige-50:#F5F8FA;   /* cream 名稱沿用但已是純白；greige-50 為交替區的冷白 */
-  --header-bg:rgba(255,255,255,.92);               /* 桌機頁首毛玻璃底 */
-  --line:#E8E8E8;                                  /* 髮絲分隔線（非控制項邊界） */
-  --control-line:#8A8A8A;                          /* 控制項邊界 3.45:1 ✓ WCAG 1.4.11 */
-  --ink-400:#A3A3A3;                               /* 裝飾字，不承載重要資訊 */
-  --ink-600:#6E6E6E;                               /* 次要文字 5.10:1 ✓ AA */
-  --ink-900:#4B4B4B;                               /* 主文字 8.72:1 ✓ AAA */
-  /* ── 必讀聲明（.notice：免責／法遵／個資） ── */
-  --note-bg:#FDF6E9; --note-line:#E4CFA6; --note-ink:#8A6A30;
+  /* ── 配色（2026-09-13 第二版：只有兩個主色＋灰）──
+     使用者：「整個頁面只要這兩個主色（footer 字標的粉與藍），其他地方的粉都太深」。
+     主色 #F3A0AA／#7DD0F5 對白只有 2.0／1.7:1，不能當文字 → 顏色一律放在
+     底色與線條，文字全灰。--pink-700／--sky-700 沿用名稱但值＝灰，讓原本的
+     彩色文字一次歸位；線條／底色請直接用 --pink-300／--sky-300。 */
+  --pink-50:#FEF4F5; --pink-100:#FCE4E7; --pink-200:#F9CCD1;
+  --pink-300:#F3A0AA;                              /* 主色：珊瑚粉（bpt ROOM logo）*/
+  --pink-500:#FF6699;                              /* 舊品牌識別色（記錄用，0 處使用）*/
+  --pink-700:#444444;                              /* ＝灰。原「珊瑚字色」，主色不可承載文字 */
+  --sky-50:#EFF9FE; --sky-100:#DDF3FC; --sky-200:#B8E6FA;
+  --sky-300:#7DD0F5;                               /* 主色：天空藍（logo #00B0F0 的 pastel）*/
+  --sky-500:#00B0F0;                               /* logo 原藍（記錄用）*/
+  --sky-700:#444444;                               /* ＝灰。原「藍字色」，主色不可承載文字 */
+  /* ── 中性 ── */
+  --cream:#FFFFFF; --paper:#FFFFFF; --greige-50:#F5F8FA;
+  --header-bg:rgba(255,255,255,.92);
+  --line:#E8E8E8;
+  --control-line:#8A8A8A;                          /* 控制項邊界 3.45:1 ✓ */
+  --ink-400:#A3A3A3;                               /* 裝飾字 */
+  --ink-600:#6E6E6E;                               /* 次要文字 5.10:1 ✓ */
+  --ink-900:#444444;                               /* 主文字 9.74:1；壓在粉主色 4.83、藍主色 5.66 ✓ */
+  /* ── 必讀聲明：不用第三色，改粉主色框 ── */
+  --note-bg:var(--pink-50); --note-line:var(--pink-300); --note-ink:var(--ink-900);
   /* ── 字體 ── */
   --f-display:"BIZ UDPGothic","Noto Sans TC","Noto Sans JP",sans-serif;
   --f-body:"Noto Sans TC","BIZ UDPGothic","Noto Sans JP",system-ui,sans-serif;
@@ -57,7 +58,7 @@
   --content-section-gap:56px;
   --stack-gap:20px;
   --card-pad:24px;
-  --focus-ring:var(--pink-700);
+  --focus-ring:var(--ink-900);
 }
 
 /* 本站只有淺色版；未宣告會被 Android Chrome 的自動深色模式整站反轉 */
@@ -74,7 +75,7 @@ body{
 }
 h1,h2,h3,h4{font-family:var(--f-display);line-height:1.45;margin:0;font-weight:700;letter-spacing:.02em}
 p{margin:0 0 1em}
-a{color:var(--sky-700);text-underline-offset:3px}
+a{color:var(--ink-900);text-decoration-color:var(--sky-300);text-decoration-thickness:2px;text-underline-offset:3px}
 img{max-width:100%;height:auto;display:block}
 strong{font-weight:700;color:var(--ink-900)}
 :focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px;border-radius:var(--r-xs);
@@ -94,7 +95,7 @@ main:focus{outline:none}
 .section{padding:72px 0}
 
 /* ── 全站版面節奏：內頁共用，不再由每頁各自猜 margin ── */
-.page-head{background:linear-gradient(180deg,var(--pink-50),var(--cream));
+.page-head{background:var(--paper);
   padding:60px 0 48px;border-bottom:1px solid var(--line)}
 .page-head .lead{margin:14px 0 0}
 .page-section{margin-top:var(--content-section-gap)}
@@ -119,16 +120,16 @@ main:focus{outline:none}
   min-height:var(--control-min);line-height:1.25;padding:10px 20px;
   border-radius:var(--r-md);border:1.5px solid transparent;
   cursor:pointer;text-decoration:none;transition:.24s var(--ease)}
-.btn-primary{background:var(--pink-200);color:var(--ink-900);border-bottom:2px solid var(--pink-400)}
-.btn-primary:hover{background:var(--pink-300)}
-.btn-secondary{background:var(--paper);color:var(--sky-700);border-color:var(--sky-200)}
-.btn-secondary:hover{background:var(--sky-50);border-color:var(--sky-700)}
+.btn-primary{background:var(--pink-300);color:var(--ink-900)}
+.btn-primary:hover{background:var(--pink-200)}
+.btn-secondary{background:var(--paper);color:var(--ink-900);border-color:var(--sky-300)}
+.btn-secondary:hover{background:var(--sky-50);border-color:var(--sky-300)}
 .btn-ghost{background:transparent;color:var(--ink-600);border-color:var(--line)}
 .btn-ghost:hover{border-color:var(--ink-400);color:var(--ink-900)}
 .action-link{display:inline-flex;align-items:center;min-height:var(--control-min);padding:6px 0;
   color:var(--sky-700);font-weight:700;font-size:var(--fs-sm);line-height:1.5;text-decoration:none;
-  border-bottom:1px solid var(--sky-700)}
-.action-link:hover{color:var(--ink-900);border-bottom-color:var(--sky-700)}
+  border-bottom:2px solid var(--sky-300)}
+.action-link:hover{border-bottom-color:var(--pink-300)}
 
 /* 英文一個字元約 0.5em，同一組 em 上限在英文下會裝進約兩倍字元
    （實測 .note 85–93 字元／行）。ch 在 CJK 不穩，所以只加在 en。 */
@@ -158,8 +159,8 @@ html[lang="en"] .prose{max-width:56ch}
 /* ── 標籤 ── */
 .tag{display:inline-block;white-space:nowrap;font-size:var(--fs-2xs);font-weight:500;padding:3px 10px;letter-spacing:.03em;
   border-radius:var(--r-xs);background:var(--greige-50);border:1px solid var(--line);color:var(--ink-600);line-height:1.6}
-.tag.area{background:var(--sky-50);border-color:var(--sky-200);color:var(--sky-700)}
-.tag.job{background:var(--pink-50);border-color:var(--pink-200);color:var(--pink-700)}
+.tag.area{background:var(--sky-50);border-color:var(--sky-300);color:var(--ink-900)}
+.tag.job{background:var(--pink-50);border-color:var(--pink-300);color:var(--ink-900)}
 /* .tag.jlpt 走預設中性樣式（greige-50 底＋line 框＋ink-600 字 4.82:1 ✓）——
    黃色系 --note-* 只屬 .notice 必讀聲明，「N2 以上」是中性事實標籤 */
 .tags{display:flex;flex-wrap:wrap;gap:8px}
@@ -195,7 +196,7 @@ html[lang="en"] .prose{max-width:56ch}
 /* 補充注釋：日式 ※ 起頭，無底色（一個畫面最多一個有底色的強調 = .notice） */
 .note{padding:14px 0 0;border-top:1px solid var(--line);font-size:var(--fs-xs);
   color:var(--ink-600);line-height:1.9;max-width:44em}
-.note::before{content:'※';color:var(--pink-700);margin-right:.5em}
+.note::before{content:'※';color:var(--pink-300);margin-right:.5em}
 .note strong{color:var(--ink-900)}
 /* 必讀聲明（免責、法遵、個資）：全站唯一保留底色的區塊，每頁至多一個 */
 .notice{background:var(--note-bg);border:1px solid var(--note-line);border-radius:var(--r-sm);
