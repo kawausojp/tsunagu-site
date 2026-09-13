@@ -129,9 +129,8 @@ main:focus{outline:none}
 .btn-ghost{background:transparent;color:var(--ink-600);border-color:var(--line)}
 .btn-ghost:hover{border-color:var(--ink-400);color:var(--ink-900)}
 .action-link{display:inline-flex;align-items:center;min-height:var(--control-min);padding:6px 0;
-  color:var(--sky-700);font-weight:700;font-size:var(--fs-sm);line-height:1.5;text-decoration:none;
-  border-bottom:2px solid var(--sky-300)}
-.action-link:hover{border-bottom-color:var(--pink-300)}
+  color:var(--sky-700);font-weight:700;font-size:var(--fs-sm);line-height:1.5;text-decoration:none}
+.action-link:hover{text-decoration:underline;text-decoration-color:var(--sky-300);text-decoration-thickness:2px;text-underline-offset:5px}
 
 /* 英文一個字元約 0.5em，同一組 em 上限在英文下會裝進約兩倍字元
    （實測 .note 85–93 字元／行）。ch 在 CJK 不穩，所以只加在 en。 */

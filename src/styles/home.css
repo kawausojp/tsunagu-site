@@ -94,7 +94,7 @@
     .hero .chars{width:152px;margin:16px auto 14px}
     .hero .lead{max-width:32em;text-align:center}
     .cta-row{gap:10px;margin-top:20px}
-    .hero .cta-row .btn-primary{width:100%}
+    .hero .cta-row .btn-primary{width:auto;min-width:240px}
     .hero .cta-row .action-link{margin-inline:auto}
     /* margin-bottom：卡片底框不能貼著下一區的頂線（兩條線會疊在一起） */
     .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:var(--paper);
