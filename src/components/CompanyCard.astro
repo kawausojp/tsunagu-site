@@ -15,61 +15,71 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
 <a class="card card-link co" href={href} data-search={searchText}
    data-areas={d.areas.join(' ')} data-cat={d.category} data-jlpt={d.jlpt ?? 'none'}
    data-online={d.onlineInterview ? '1' : '0'} data-fulltime={d.fullTimeConverted > 0 ? '1' : '0'}>
-  <div class="thumb">
-    <CategoryIcon cat={d.category} size={44} />
+  <!-- 2026-09-13 使用者參考 Cake／Yourator 重排：圖標在名稱左側同一列、順序固定、標籤與實績貼底，
+       同列各卡每一行對齊（有無登記名、tagline 長短都不影響） -->
+  <div class="head">
+    <span class="ico"><CategoryIcon cat={d.category} size={30} /></span>
+    <div class="ttl">
+      <h3 class="d3">{d.name}</h3>
+      <div class="corp" lang="ja">{d.corporateName ?? '\u00A0'}</div>
+    </div>
   </div>
-  <div class="body">
-    <h3 class="d3">{d.name}</h3>
-    {d.corporateName && <div class="corp" lang="ja">{d.corporateName}</div>}
-    <div class="tags">
+  <p class="tag-line">{tagline}</p>
+  <div class="tags">
       {d.areas.map((a:string) => <span class="tag area">{t.area[a]}</span>)}
       <span class="tag job">{catLabel}</span>
       {d.jlpt && <span class="tag jlpt">{t.card.jlpt(d.jlpt)}</span>}
-    </div>
-    <p class="tag-line">{tagline}</p>
-    {(d.placements > 0 || d.fullTimeConverted > 0 || d.onlineInterview) && (
-      <p class="stats-line">
-        {/* 每段各自 nowrap：只允許在分隔符處斷，否則「2 人轉正職」會在半形空格拆行 */}
-        {[
-          d.placements > 0 && t.card.placements(d.placements),
-          d.fullTimeConverted > 0 && t.card.fullTime(d.fullTimeConverted),
-          d.onlineInterview && t.card.online,
-        ].filter(Boolean).map((seg, i, arr) => (
-          <span class="seg">{seg}{i < arr.length - 1 ? (lang === 'en' ? ' · ' : '・') : ''}</span>
-        ))}
-      </p>
-    )}
   </div>
+  <p class="stats-line">
+      {(d.placements > 0 || d.fullTimeConverted > 0 || d.onlineInterview) ? [
+        d.placements > 0 && t.card.placements(d.placements),
+        d.fullTimeConverted > 0 && t.card.fullTime(d.fullTimeConverted),
+        d.onlineInterview && t.card.online,
+      ].filter(Boolean).map((seg, i, arr) => (
+        <span class="seg">{seg}{i < arr.length - 1 ? (lang === 'en' ? ' · ' : '・') : ''}</span>
+      )) : '\u00A0'}
+  </p>
 </a>
 
 <style>
-  .co{display:flex;flex-direction:column;min-width:0;text-decoration:none;color:inherit}
-  /* 色帶只放品類插圖（品牌名由下方標題單獨承載，桌面手機一致）——2026-08-27 使用者定案 */
-  .thumb{height:80px;background:var(--paper);
-    display:flex;align-items:center;justify-content:center}
-  /* 有無 .corp 會讓同列各卡的行位置差到 59px：實績行一律貼底 */
-  .body{padding:16px 18px 20px;display:flex;flex-direction:column;flex:1}
-  .corp{font-size:var(--fs-2xs);color:var(--ink-600);margin:2px 0 10px}
-  .tags{margin:10px 0 12px}
-  .tag-line{font-size:var(--fs-sm);color:var(--ink-600);line-height:1.8;margin:0 0 12px}
-  .stats-line{margin:auto 0 0;font-size:var(--fs-xs);color:var(--ink-600);letter-spacing:.02em}
+  .co{display:flex;flex-direction:column;min-width:0;padding:18px 18px 16px;gap:12px;text-decoration:none;color:inherit}
+  /* 第一列：品類圖標（小方塊）＋品牌名＋登記名。登記名缺時補 nbsp 佔位，讓下一列高度一致 */
+  .head{display:flex;gap:12px;align-items:flex-start}
+  .ico{flex:0 0 44px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);border-radius:var(--r-sm);background:var(--paper)}
+  .ttl{min-width:0;flex:1}
+  .co h3{overflow-wrap:break-word;line-height:1.5}
+  .corp{font-size:var(--fs-2xs);color:var(--ink-600);line-height:1.6;margin-top:2px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* tagline 固定兩行高（超出截斷），底下的標籤列才會對齊 */
+  .tag-line{font-size:var(--fs-sm);color:var(--ink-600);line-height:1.7;margin:0;
+    min-height:calc(1.7em * 2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  /* 標籤列緊接固定兩行高的 tagline → 同列各卡標籤列等高；實績列貼底（可折行，不影響上方） */
+  .tags{margin:0}
+  .stats-line{margin:auto 0 0;font-size:var(--fs-xs);color:var(--ink-600);letter-spacing:.02em;line-height:1.6}
   .stats-line .seg{white-space:nowrap}
-  .co h3{overflow-wrap:break-word}
+  /* 英文段落有空格可自然折行；nowrap 會讓 "1 became full-time" 在半寬卡上被切掉（實測 320–1024 皆有） */
+  :global(html[lang="en"]) .stats-line .seg{white-space:normal}
   @media (max-width:720px){
-    /* 兩格一列的半寬卡：只留品牌名、地區/職種標籤、實績。公司登記名與 tagline 進詳情頁看 */
-    .thumb{height:52px}
-    .thumb :global(svg){width:30px;height:30px}
-    .body{padding:12px 12px 14px}
+    /* 兩格一列的半寬卡：只留圖標＋品牌名、標籤、實績。登記名與 tagline 進詳情頁看 */
+    .co{padding:12px 12px 12px;gap:8px}
+    .head{gap:8px;align-items:center}
+    .ico{flex-basis:32px;width:32px;height:32px}
+    .ico :global(svg){width:22px;height:22px}
     .co h3{font-size:var(--fs-md)}
-    .corp{display:none}
-    .tag-line{display:none}
-    .tags{margin:8px 0 9px;gap:4px}
+    .corp,.tag-line{display:none}
+    /* 半寬卡的品牌名可能折兩行：預留兩行高，標籤列才不會被推下去 */
+    .ttl{min-height:calc(1.5em * 2);display:flex;align-items:center}
+    .tags{gap:4px}
     .tags :global(.tag){font-size:var(--fs-3xs);padding:3px 8px}
     .stats-line{font-size:var(--fs-2xs)}
   }
-  /* 320–400px：卡片內容寬 113px、"WILLOUGHBY" 需 116px，差 3px 就被切成
-     "WILLOUGHB / Y"。keep-all 同時防止「BLOOMING 中西」被拆成另一個孤字。 */
+  /* 320–400px："WILLOUGHBY" 差 3px 就被切成 "WILLOUGHB / Y"；keep-all 同時防「BLOOMING 中西」被拆 */
   @media (max-width:400px){
     .co h3{font-size:var(--fs-sm);word-break:keep-all}
+  }
+  /* 320px 機種：圖標旁只剩約 75px，"WILLOUGHBY" 仍超出 6px → 再降一階並收字距 */
+  @media (max-width:360px){
+    .co h3{font-size:var(--fs-xs);letter-spacing:0}
   }
 </style>
