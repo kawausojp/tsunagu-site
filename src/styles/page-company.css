@@ -10,9 +10,9 @@
   .hl ul{margin:12px 0 0;padding-left:1.25em}
   .hl li{margin-bottom:6px;font-size:var(--fs-md)}
   .numbers{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
-  .numbers > div{flex:1 1 180px;background:linear-gradient(120deg,var(--pink-50),var(--sky-50));
+  .numbers > div{flex:1 1 180px;border:1px solid var(--line);background:var(--paper);
     border-radius:var(--r-lg);padding:22px;text-align:center}
-  .numbers .n{font-family:var(--f-latin);font-weight:700;font-size:var(--fs-stat);color:var(--pink-700);line-height:1.1}
+  .numbers .n{font-family:var(--f-latin);font-weight:700;font-size:var(--fs-stat);color:var(--pink-300);line-height:1.1}
   .numbers .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:4px}
   .note{margin-top:28px}
   .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}

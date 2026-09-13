@@ -38,7 +38,7 @@
   .src{display:inline-flex;align-items:center;min-height:var(--control-min);margin-top:8px;color:var(--sky-700);text-decoration:none;font-weight:500}
   .src:hover{text-decoration:underline}
   .cta{max-width:868px;margin-top:36px}
-  .cta-band{background:linear-gradient(120deg,var(--pink-50),var(--sky-50));border-radius:var(--r-xl);
+  .cta-band{background:var(--paper);border:2px solid var(--sky-300);border-radius:var(--r-xl);
     padding:40px 36px;text-align:center}
   .cta-band .lead{margin:8px auto 20px}
   @media (max-width:720px){

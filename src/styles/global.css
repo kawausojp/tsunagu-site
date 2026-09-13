@@ -11,16 +11,18 @@
      主色 #F3A0AA／#7DD0F5 對白只有 2.0／1.7:1，不能當文字 → 顏色一律放在
      底色與線條，文字全灰。--pink-700／--sky-700 沿用名稱但值＝灰，讓原本的
      彩色文字一次歸位；線條／底色請直接用 --pink-300／--sky-300。 */
-  --pink-50:#FEF4F5; --pink-100:#FCE4E7; --pink-200:#F9CCD1;
+  /* 2026-09-13 使用者：「只要粉藍雙主色，其他深淺都不要」→ 淡階全部收掉：
+     50/100 ＝ 白、200 ＝ 主色。名稱沿用讓 35 處引用自動歸位。 */
+  --pink-50:#FFFFFF; --pink-100:#FFFFFF; --pink-200:#F3A0AA;
   --pink-300:#F3A0AA;                              /* 主色：珊瑚粉（bpt ROOM logo）*/
   --pink-500:#FF6699;                              /* 舊品牌識別色（記錄用，0 處使用）*/
   --pink-700:#444444;                              /* ＝灰。原「珊瑚字色」，主色不可承載文字 */
-  --sky-50:#EFF9FE; --sky-100:#DDF3FC; --sky-200:#B8E6FA;
+  --sky-50:#FFFFFF; --sky-100:#FFFFFF; --sky-200:#7DD0F5;
   --sky-300:#7DD0F5;                               /* 主色：天空藍（logo #00B0F0 的 pastel）*/
   --sky-500:#00B0F0;                               /* logo 原藍（記錄用）*/
   --sky-700:#444444;                               /* ＝灰。原「藍字色」，主色不可承載文字 */
   /* ── 中性 ── */
-  --cream:#FFFFFF; --paper:#FFFFFF; --greige-50:#F5F8FA;
+  --cream:#FFFFFF; --paper:#FFFFFF; --greige-50:#F5F5F5;   /* 交替區：純中性灰白，無藍偏 */
   --header-bg:rgba(255,255,255,.92);
   --line:#E8E8E8;
   --control-line:#8A8A8A;                          /* 控制項邊界 3.45:1 ✓ */
@@ -121,9 +123,9 @@ main:focus{outline:none}
   border-radius:var(--r-md);border:1.5px solid transparent;
   cursor:pointer;text-decoration:none;transition:.24s var(--ease)}
 .btn-primary{background:var(--pink-300);color:var(--ink-900)}
-.btn-primary:hover{background:var(--pink-200)}
+.btn-primary:hover{background:var(--pink-300)}
 .btn-secondary{background:var(--paper);color:var(--ink-900);border-color:var(--sky-300)}
-.btn-secondary:hover{background:var(--sky-50);border-color:var(--sky-300)}
+.btn-secondary:hover{border-color:var(--pink-300)}
 .btn-ghost{background:transparent;color:var(--ink-600);border-color:var(--line)}
 .btn-ghost:hover{border-color:var(--ink-400);color:var(--ink-900)}
 .action-link{display:inline-flex;align-items:center;min-height:var(--control-min);padding:6px 0;
