@@ -21,7 +21,7 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
     <span class="ico"><CategoryIcon cat={d.category} size={30} /></span>
     <div class="ttl">
       <h3 class="d3">{d.name}</h3>
-      <div class="corp" lang="ja">{d.corporateName ?? '\u00A0'}</div>
+      {d.corporateName && <div class="corp" lang="ja">{d.corporateName}</div>}
     </div>
   </div>
   <p class="tag-line">{tagline}</p>
@@ -43,11 +43,12 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
 
 <style>
   .co{display:flex;flex-direction:column;min-width:0;padding:18px 18px 16px;gap:12px;text-decoration:none;color:inherit}
-  /* 第一列：品類圖標（小方塊）＋品牌名＋登記名。登記名缺時補 nbsp 佔位，讓下一列高度一致 */
-  .head{display:flex;gap:12px;align-items:flex-start}
+  /* 第一列：品類圖標（小方塊）＋品牌名＋登記名。名稱區固定「名稱＋登記名」的高度（52px），
+     內容垂直置中：無登記名的卡，品牌名就對齊圖標中線（使用者 2026-09-14），下一列高度仍一致 */
+  .head{display:flex;gap:12px;align-items:center}
   .ico{flex:0 0 44px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
     border:1px solid var(--line);border-radius:var(--r-sm);background:var(--paper)}
-  .ttl{min-width:0;flex:1}
+  .ttl{min-width:0;flex:1;min-height:52px;display:flex;flex-direction:column;justify-content:center}
   .co h3{overflow-wrap:break-word;line-height:1.5}
   .corp{font-size:var(--fs-2xs);color:var(--ink-600);line-height:1.6;margin-top:2px;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
