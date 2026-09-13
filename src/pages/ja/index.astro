@@ -68,7 +68,7 @@ const stats = [
   <!-- 統計：四個泡泡（使用者 2026-09-13 定案） -->
   <div class="wrap"><div class="band">
     {stats.map(s => (
-      <div class="bubble"><StatIcon k={s.icon} /><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div><div class="t">{s.t}</div></div>
+      <div class="bubble"><div class="t"><StatIcon k={s.icon} size={20} />{s.t}</div><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div></div>
     ))}
   </div>
   </div>
