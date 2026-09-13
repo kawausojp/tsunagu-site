@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Heart from './Heart.astro';
-// header 用深色版字標：原色版（粉 #F7C6DB／藍 #ADC3D7）在淺色 header 上只有 1.44／1.75:1
+// 字標：主色版（TSU #F3A0AA／NAGU #7DD0F5），header 與 footer 共用
 import wordmark from '../assets/tsunagu-wordmark.png';
 import { ui, href, switchHref, LANG_META, type Lang } from '../i18n/ui';
 interface Props { lang?: Lang }
@@ -28,12 +28,10 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
         loading="eager" fetchpriority="high" decoding="sync" />
       {lang === 'zh' && <span class="zh" lang="ja">台湾人と日本企業をツナグ</span>}
     </a>
-    <nav class="desktop-nav" aria-label={t.mainMenu}>
-      {nav.map(n => (
-        <a href={n.href} class:list={['navlink', { on: isCurrent(n.href) }]}
-          aria-current={isCurrent(n.href) ? currentVal(n.href) : undefined}>{n.label}</a>
-      ))}
-    </nav>
+    <!-- 2026-09-13 使用者定案：頁首太滿，改漢堡選單（放在語言鈕右邊），桌機手機統一。
+         推翻 8/28「不做漢堡」的決定；手機分頁列一併移除，報名鈕移進抽屜 -->
+    <a class="btn btn-primary cta" href={eventsHref}
+      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signup}</a>
     <details class="lang" data-lang-menu>
       <summary aria-label={t.langMenu}>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -48,108 +46,74 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
         ))}
       </ul>
     </details>
-    <a class="btn btn-primary cta" href={eventsHref}
-      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signup}</a>
-    <a class="btn btn-primary mobile-cta" href={eventsHref} aria-label={t.signup}
-      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signupShort}</a>
     <button class="burger" type="button" aria-label={t.openMenu} aria-expanded="false"
-      aria-controls="mobile-menu" data-burger data-label-open={t.openMenu} data-label-close={t.closeMenu}>
-      <span></span><span></span><span></span>
+      aria-controls="site-menu" data-burger data-label-open={t.openMenu} data-label-close={t.closeMenu}>
+      <span></span><span></span>
     </button>
   </div>
-  <nav class="mobile-tabs" aria-label={t.quickNav} data-tabs>
-    {nav.map(n => (
-      <a href={n.href} class:list={{ on: isCurrent(n.href) }}
-        aria-current={isCurrent(n.href) ? currentVal(n.href) : undefined}>{n.short}</a>
-    ))}
-    <a class:list={['signup-tab', { on: isCurrent(eventsHref) }]} href={eventsHref} aria-label={t.signup}
-      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signupShort}</a>
-  </nav>
-  <div class="drawer" id="mobile-menu" role="navigation" aria-label={t.mobileMenu} data-drawer hidden>
+  <nav class="drawer" id="site-menu" aria-label={t.mainMenu} data-drawer hidden>
     {nav.map(n => (
       <a href={n.href} class:list={{ on: isCurrent(n.href) }}
         aria-current={isCurrent(n.href) ? currentVal(n.href) : undefined}>{n.label}</a>
     ))}
-  </div>
+    <a class="btn btn-primary drawer-cta" href={eventsHref}
+      aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signup}</a>
+  </nav>
 </header>
 
 <style>
   header{position:sticky;top:0;z-index:50;background:var(--header-bg);
     backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
-  .bar{display:flex;align-items:center;gap:18px;height:68px}
+  .bar{display:flex;align-items:center;gap:12px;height:68px}
   .logo :global(svg){flex:0 0 22px}
   .logo{display:flex;align-items:center;gap:10px;min-height:var(--control-min);text-decoration:none;
-    color:var(--ink-900);flex:0 1 auto;min-width:0}
+    color:var(--ink-900);flex:0 1 auto;min-width:0;margin-right:auto}
   .wordmark{width:clamp(88px,28vw,110px);height:auto;display:block}
-  /* 標語與語言鈕都不折行：折成兩行會把 68px 的列撐開、上下對不齊 */
-  /* ja/en 不渲染標語：導覽項較長，1120px 版心裝不下（hero 首行已重複這句）。
-     min-width:0＋ellipsis 是防呆——未來導覽再變長時標語會截斷省略，絕不可重疊。 */
   .zh{font-size:var(--fs-2xs);color:var(--ink-600);border-left:1px solid var(--line);padding-left:10px;
     white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
-  .desktop-nav{display:flex;gap:6px;margin-left:auto}
-  .navlink{display:inline-flex;align-items:center;min-height:var(--control-min);font-size:var(--fs-sm);/* 14：桌機導覽 1200px 折行已修過，不上調 */
-    font-weight:500;color:var(--ink-600);text-decoration:none;padding:8px 10px;
-    transition:.2s var(--ease);white-space:nowrap}
-  .navlink:hover{color:var(--ink-900);box-shadow:inset 0 -3px 0 var(--sky-200)}
-  .navlink.on{color:var(--ink-900);font-weight:700;box-shadow:inset 0 -3px 0 var(--pink-300)}
   .cta{min-height:var(--control-min);padding:10px 20px;font-size:var(--fs-sm);white-space:nowrap}
-  .mobile-cta{display:none;min-height:var(--control-min);padding:9px 15px;font-size:var(--fs-xs);
-    white-space:nowrap;margin-left:auto}
-  .mobile-tabs{display:none}
-  .burger{display:none;width:var(--control-min);height:var(--control-min);flex:0 0 var(--control-min);
-    background:none;border:0;border-radius:var(--r-xs);padding:11px;cursor:pointer;transition:.2s var(--ease)}
-  .burger:hover{background:var(--greige-50)}
-  .burger span{display:block;width:22px;height:2px;background:var(--ink-900);border-radius:2px}
-  .burger span+span{margin-top:5px}
-  .drawer{display:none;flex-direction:column;gap:4px;max-height:calc(100dvh - 68px);overflow-y:auto;
-    overscroll-behavior:contain;padding:12px var(--layout-gutter) 20px;border-top:1px solid var(--line);background:var(--cream)}
-  .drawer a{display:flex;align-items:center;min-height:var(--control-min);padding:10px 0;
-    text-decoration:none;color:var(--ink-900);font-weight:500;border-bottom:1px solid var(--line)}
-  .drawer a.on{color:var(--ink-900);font-weight:700;border-bottom-color:var(--pink-300);border-bottom-width:2px}
-  :global(body.menu-open){overflow:hidden}
-  /* 1200 以下先收掉日文標語：五個導覽項＋語言鈕＋報名鈕在 1120px 版心裡已無餘裕 */
-  @media (max-width:1200px){ .zh{display:none} }
-  @media (max-width:1080px){
-    .bar{gap:8px}
-    .desktop-nav{display:none} .cta{display:none}
-    .mobile-cta{display:inline-flex}
-    .burger{display:block}
-    .drawer[data-open]{display:flex}
-  }
+  /* 900px 以下收掉標語：logo＋報名鈕＋語言＋選單鈕已無餘裕 */
+  @media (max-width:900px){ .zh{display:none} }
+
+  /* 選單鈕：粉藍兩條圓頭短線（logo 屋頂的左粉右藍），開啟時交叉成 X。不用三條灰線 */
+  .burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;
+    width:var(--control-min);height:var(--control-min);flex:0 0 var(--control-min);
+    background:none;border:1px solid var(--line);border-radius:var(--r-xs);padding:0;cursor:pointer;
+    transition:border-color .2s var(--ease)}
+  .burger:hover,.burger[aria-expanded="true"]{border-color:var(--ink-400)}
+  .burger span{display:block;width:20px;height:3px;border-radius:3px;
+    transition:transform .26s var(--ease)}
+  .burger span:nth-child(1){background:var(--pink-300)}
+  .burger span:nth-child(2){background:var(--sky-300);width:14px;align-self:flex-end;margin-right:12px}
+  .burger[aria-expanded="true"] span{width:20px;margin:0;align-self:center}
+  .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(4.5px) rotate(45deg)}
+  .burger[aria-expanded="true"] span:nth-child(2){transform:translateY(-4.5px) rotate(-45deg)}
+
+  /* 抽屜：桌機是漢堡下方的右對齊面板；手機全寬 */
+  .drawer{display:none;flex-direction:column;gap:2px;position:absolute;right:var(--layout-gutter);
+    top:calc(100% + 8px);width:300px;padding:10px;background:var(--paper);
+    border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--sh-2);z-index:60}
+  .drawer[data-open]{display:flex}
+  .drawer a:not(.btn){display:flex;align-items:center;min-height:var(--control-min);padding:10px 12px;
+    border-radius:var(--r-xs);text-decoration:none;color:var(--ink-900);font-weight:500;font-size:var(--fs-md)}
+  .drawer a:not(.btn):hover{background:var(--greige-50)}
+  .drawer a.on{font-weight:700;box-shadow:inset 3px 0 0 var(--pink-300)}
+  .drawer-cta{display:none;margin:8px 0 2px;justify-content:center}
+
   @media (max-width:720px){
     header{background:var(--paper);backdrop-filter:none;border-bottom-color:var(--mobile-line)}
-    /* logo 置中、語言鈕絕對定位靠右：兩者脫開，窄機不再互擠 */
-    .bar{display:flex;justify-content:center;height:56px;gap:0;padding:0 16px;position:relative}
-    .logo{justify-content:center;gap:7px;max-width:calc(100% - 140px)}
+    .bar{height:56px;gap:8px;padding:0 16px}
     .wordmark{width:clamp(88px,26vw,112px)}
-    .mobile-cta{display:none}
-    .burger{display:none}
-    /* 往下讀時分頁列滑走（頁首 100px→56px），往上捲立刻回來。一觸即達與閱讀空間兼顧 */
-    .bar{z-index:2}
-    .mobile-tabs{display:flex;align-items:center;justify-content:safe center;gap:2px;width:100%;
-      min-height:44px;margin:0 auto;padding:0 8px;overflow-x:auto;scrollbar-width:none;
-      background:var(--paper);
-      transition:transform .24s var(--ease),opacity .18s linear,margin-bottom .24s var(--ease)}
-    header[data-tabs-hidden] .mobile-tabs{transform:translateY(-100%);opacity:0;
-      pointer-events:none;margin-bottom:-44px}
-    /* 分頁列邊緣漸淡：暗示還能左右捲 */
-    .mobile-tabs{mask-image:linear-gradient(90deg,transparent,#000 12px,#000 calc(100% - 12px),transparent)}
-    /* 320px：六個分頁 334px 塞不進 304px，主 CTA 會被壓到剩一半 */
-    @media (max-width:340px){
-      .mobile-tabs{padding:0 4px}
-      .mobile-tabs a{font-size:var(--fs-3xs);padding:0 5px}
-    }
-    .mobile-tabs::-webkit-scrollbar{display:none}
-    .mobile-tabs a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;
-      padding:5px 4px;color:var(--ink-600);font-size:var(--fs-2xs);font-weight:500;
-      line-height:1.2;text-decoration:none;white-space:nowrap}
-    /* 目前頁面＝灰粗體＋粉主色底線（2026-09-13 配色改版後），不用底色框（2026-08-27 使用者定案） */
-    .mobile-tabs a.on{color:var(--ink-900);font-weight:700;box-shadow:inset 0 -3px 0 var(--pink-300)}
-    .mobile-tabs a.signup-tab{min-width:44px;color:var(--ink-900);font-weight:700}
-    /* 捲動容器會裁掉 outline，焦點框改用不受 overflow 影響的 box-shadow */
-    .mobile-tabs a:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus-ring)}
-    .drawer,.drawer[data-open]{display:none!important}
+    .cta{display:none}                      /* 手機頁首只留 logo／語言／漢堡；報名鈕在抽屜與 hero */
+    .drawer{position:static;width:auto;border:0;border-top:1px solid var(--mobile-line);border-radius:0;
+      box-shadow:none;padding:8px var(--layout-gutter) 18px;max-height:calc(100dvh - 56px);overflow-y:auto;
+      overscroll-behavior:contain}
+    .drawer a:not(.btn){padding:10px 4px;border-radius:0;border-bottom:1px solid var(--line)}
+    .drawer a.on{box-shadow:none;border-bottom:2px solid var(--pink-300)}
+    .drawer-cta{display:inline-flex;margin:14px auto 0;min-width:240px}
+    :global(body.menu-open){overflow:hidden}
   }
+
   .lang{position:relative}
   .lang summary{display:inline-flex;align-items:center;gap:6px;list-style:none;cursor:pointer;
     min-height:var(--control-min);font-size:var(--fs-xs);font-weight:500;color:var(--ink-600);
@@ -167,7 +131,6 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   .lang li a[aria-current="true"]{color:var(--ink-900);font-weight:700;box-shadow:inset 3px 0 0 var(--pink-300)}
   .lang-short{display:none}
   @media (max-width:720px){
-    .lang{position:absolute;right:16px;top:50%;transform:translateY(-50%)}
     .lang summary{padding:6px 8px;font-size:var(--fs-2xs)}
     .lang-full{display:none}
     .lang-short{display:inline}
@@ -177,36 +140,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
 <script>
   const b = document.querySelector<HTMLButtonElement>('[data-burger]');
   const d = document.querySelector<HTMLElement>('[data-drawer]');
-  const mobile = window.matchMedia('(max-width: 1080px)');
   const compact = window.matchMedia('(max-width: 720px)');
-
-  // 手機版：往下讀時收起分頁列釋放畫面，往上捲或接近頁首時放回來
-  const headerEl = document.querySelector('header');
-  const tabsEl = document.querySelector('[data-tabs]');
-  if (headerEl && tabsEl) {
-    const SHOW_ABOVE = 140;   // 這個捲動位置以上一律顯示
-    const STEP = 8;           // 忽略微小抖動
-    let last = window.scrollY;
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      const y = Math.max(0, window.scrollY);
-      const delta = y - last;
-      if (Math.abs(delta) < STEP) return;
-      last = y;
-      if (!compact.matches) { headerEl.removeAttribute('data-tabs-hidden'); return; }
-      if (y < SHOW_ABOVE || delta < 0) headerEl.removeAttribute('data-tabs-hidden');
-      else headerEl.setAttribute('data-tabs-hidden', '');
-    };
-    window.addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    }, { passive: true });
-    // 鍵盤使用者 tab 到分頁列時，確保它是可見的
-    tabsEl.addEventListener('focusin', () => headerEl.removeAttribute('data-tabs-hidden'));
-    compact.addEventListener('change', () => headerEl.removeAttribute('data-tabs-hidden'));
-  }
 
   // 語言選單：點選單外或 Esc 收合（details 原生不會自己關）
   const lang = document.querySelector<HTMLDetailsElement>('[data-lang-menu]');
@@ -222,7 +156,6 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     });
     // Tab 走出選單才收合。relatedTarget 為 null 時不可關：iOS Safari 點連結
     // 不給焦點，會發出 relatedTarget=null 的 focusout，關掉選單會讓點擊落空
-    // （2026-08-28 實測：iPhone 上完全無法切換語言）
     lang.addEventListener('focusout', event => {
       const next = event.relatedTarget;
       if (lang.open && next instanceof Node && !lang.contains(next)) lang.open = false;
@@ -235,13 +168,13 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       d.hidden = !open;
       b.setAttribute('aria-expanded', String(open));
       b.setAttribute('aria-label', (open ? b.dataset.labelClose : b.dataset.labelOpen) ?? '');
-      document.body.classList.toggle('menu-open', open);
-      // 抽屜開啟時把其餘內容設為 inert：body 是 overflow:hidden，
-      // 焦點跑出去會停在捲不到、也看不見的元素上（WCAG 2.4.3／2.4.7）
-      for (const el of document.querySelectorAll('main, footer')) el.toggleAttribute('inert', open);
+      // 手機全寬抽屜：鎖住背景捲動並把其餘內容設為 inert（焦點不會跑到看不見的地方）
+      const lock = open && compact.matches;
+      document.body.classList.toggle('menu-open', lock);
+      for (const el of document.querySelectorAll('main, footer')) el.toggleAttribute('inert', lock);
+      if (open && lang) lang.open = false;
       if (!open && restoreFocus) b.focus();
     };
-
     b.addEventListener('click', () => setOpen(!d.hasAttribute('data-open')));
     d.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
     document.addEventListener('click', event => {
@@ -251,11 +184,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && d.hasAttribute('data-open')) setOpen(false, true);
     });
-    mobile.addEventListener('change', event => {
-      if (!event.matches) setOpen(false);
-    });
-    compact.addEventListener('change', event => {
-      if (event.matches) setOpen(false);
-    });
+    // 抽屜開著時跨越斷點：桌機面板 ↔ 手機全寬的鎖定狀態不同，直接關掉最安全
+    compact.addEventListener('change', () => setOpen(false));
   }
 </script>
