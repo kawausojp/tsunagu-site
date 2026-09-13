@@ -61,10 +61,18 @@ const stats = [
   )}
 
   <!-- STATS -->
+  <!-- 儀表板：一個主指標（找到日本工作）＋三個次指標（規模） -->
   <div class="wrap"><div class="band">
-    {stats.map(s => (
-      <div><StatIcon k={s.icon} /><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div><div class="t">{s.t}</div></div>
-    ))}
+    <div class="band-hero">
+      <StatIcon k={stats[1].icon} size={36} />
+      <div class="n" data-count={stats[1].n}>{stats[1].n}<small>{stats[1].u}</small></div>
+      <div class="t">{stats[1].t}</div>
+    </div>
+    <div class="band-rest">
+      {[stats[0], stats[2], stats[3]].map(s => (
+        <div><StatIcon k={s.icon} /><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div><div class="t">{s.t}</div></div>
+      ))}
+    </div>
   </div>
   </div>
 

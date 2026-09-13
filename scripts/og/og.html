@@ -1,0 +1,30 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;width:1200px;height:630px;background:#fff;overflow:hidden}
+  body{font-family:"BIZ UDPGothic","Noto Sans TC",sans-serif;color:#444;position:relative}
+  .wrap{position:absolute;inset:0;display:grid;grid-template-columns:1fr 480px;align-items:center;padding:0 80px 0 88px;gap:24px}
+  .brand{display:flex;align-items:center;gap:18px;margin-bottom:34px}
+  .brand svg{width:56px;height:52px}
+  .brand img{height:52px;width:auto;display:block}
+  h1{margin:0 0 18px;font-size:58px;line-height:1.3;letter-spacing:.04em;font-weight:700;color:#444;white-space:nowrap}
+  .ja{margin:0;font-size:22px;letter-spacing:.22em;color:#6E6E6E}
+  .chars{width:460px;height:auto;display:block;justify-self:end}
+  /* logo 的兩色：左粉右藍，做成底部一條細線 */
+  .bar{position:absolute;left:0;right:0;bottom:0;height:10px;display:flex}
+  .bar i{flex:1}.bar .p{background:#F3A0AA}.bar .s{background:#7DD0F5}
+</style></head><body>
+<div class="wrap">
+  <div>
+    <div class="brand">
+      <svg viewBox="0 0 44 40"><defs><clipPath id="h"><path d="M22 40C22 40 0 25.2 0 12.4 0 5.2 5.4 0 12.2 0 16.4 0 20.2 2.2 22 5.6 23.8 2.2 27.6 0 31.8 0 38.6 0 44 5.2 44 12.4 44 25.2 22 40 22 40Z"/></clipPath></defs>
+        <g clip-path="url(#h)"><rect width="44" height="40" fill="#F3A0AA"/><path d="M44 0 L44 40 L10 40 Z" fill="#7DD0F5"/></g></svg>
+      <img src="../../public/img/tsunagu-wordmark.png" alt="">
+    </div>
+    <h1>把台灣的好人才，<br>牽到日本</h1>
+    <p class="ja">台湾人と日本企業をツナグ</p>
+  </div>
+  <img class="chars" src="../../public/img/tsunagu-characters.png" alt="">
+</div>
+<div class="bar"><i class="p"></i><i class="s"></i></div>
+</body></html>
