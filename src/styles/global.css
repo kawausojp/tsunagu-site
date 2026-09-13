@@ -69,7 +69,7 @@
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-height) + 20px);
   /* iOS 橫向時不自動放大字級；點擊閃光改用品牌粉而非系統灰 */
   -webkit-text-size-adjust:100%;text-size-adjust:100%;
-  -webkit-tap-highlight-color:rgba(248,207,212,.32)}
+  -webkit-tap-highlight-color:rgba(243,160,170,.32)}
 body{
   margin:0;background:var(--cream);color:var(--ink-900);
   font-family:var(--f-body);font-weight:400;line-height:1.85;
@@ -78,6 +78,7 @@ body{
 h1,h2,h3,h4{font-family:var(--f-display);line-height:1.45;margin:0;font-weight:700;letter-spacing:.02em}
 p{margin:0 0 1em}
 a{color:var(--ink-900);text-decoration-color:var(--sky-300);text-decoration-thickness:2px;text-underline-offset:3px}
+a:hover{text-decoration-color:var(--pink-300)}
 img{max-width:100%;height:auto;display:block}
 strong{font-weight:700;color:var(--ink-900)}
 :focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px;border-radius:var(--r-xs);
@@ -123,7 +124,7 @@ main:focus{outline:none}
   border-radius:var(--r-md);border:1.5px solid transparent;
   cursor:pointer;text-decoration:none;transition:.24s var(--ease)}
 .btn-primary{background:var(--pink-300);color:var(--paper)}  /* 白字：使用者指定（2026-09-13），對比 2.0:1 為其決定 */
-.btn-primary:hover{background:var(--pink-300)}
+.btn-primary:hover{box-shadow:var(--sh-2)}
 .btn-secondary{background:var(--paper);color:var(--ink-900);border-color:var(--sky-300)}
 .btn-secondary:hover{border-color:var(--pink-300)}
 .btn-ghost{background:transparent;color:var(--ink-600);border-color:var(--line)}
@@ -135,9 +136,6 @@ main:focus{outline:none}
 
 /* 英文一個字元約 0.5em，同一組 em 上限在英文下會裝進約兩倍字元
    （實測 .note 85–93 字元／行）。ch 在 CJK 不穩，所以只加在 en。 */
-html[lang="en"] .lead{max-width:62ch}
-html[lang="en"] .note{max-width:64ch}
-html[lang="en"] .notice{max-width:64ch}
 
 /* ── 斷行 ──
    text-wrap:pretty 目前只有 Chromium 支援（主流量的 iOS WebKit 吃不到），
@@ -153,6 +151,10 @@ html[lang="ja"]{line-break:strict}
 html[lang="ja"] :is(.d1,.d2,.d3){word-break:auto-phrase}
 
 /* 英文：ch 量的是「0」字寬，比實際小寫平均寬，62ch 會渲染成 68–75 字元 */
+/* 英文頁：整頁用 Jost（拉丁字型），否則 U+2019 撇號會由日文字型渲染成全形「Taiwan’ s」；
+   中日文為主的字距（.045em）套在拉丁字上像被拉開，一併收窄 */
+html[lang="en"] body{font-family:var(--f-latin),var(--f-body)}
+html[lang="en"] :is(h1,h2,h3,.d1,.d2,.d3){font-family:var(--f-latin);letter-spacing:.01em}
 html[lang="en"] .lead{max-width:58ch}
 html[lang="en"] .note{max-width:60ch}
 html[lang="en"] .notice{max-width:60ch}
@@ -160,7 +162,7 @@ html[lang="en"] .prose{max-width:56ch}
 
 /* ── 標籤 ── */
 .tag{display:inline-block;white-space:nowrap;font-size:var(--fs-2xs);font-weight:500;padding:3px 10px;letter-spacing:.03em;
-  border-radius:var(--r-xs);background:var(--greige-50);border:1px solid var(--line);color:var(--ink-600);line-height:1.6}
+  border-radius:var(--r-xs);background:var(--paper);border:1px solid var(--ink-400);color:var(--ink-600);line-height:1.6}
 .tag.area{background:var(--sky-50);border-color:var(--sky-300);color:var(--ink-900)}
 .tag.job{background:var(--pink-50);border-color:var(--pink-300);color:var(--ink-900)}
 /* .tag.jlpt 走預設中性樣式（greige-50 底＋line 框＋ink-600 字 4.82:1 ✓）——
@@ -192,7 +194,7 @@ html[lang="en"] .prose{max-width:56ch}
 @media (pointer:coarse){
   main :is(p,li,dd,.notice,.note) a:not(.btn):not(.action-link){position:relative}
   main :is(p,li,dd,.notice,.note) a:not(.btn):not(.action-link)::after{content:'';position:absolute;
-    left:-6px;right:-6px;top:-12px;bottom:-12px}
+    left:-8px;right:-8px;top:-14px;bottom:-14px}
 }
 
 /* 補充注釋：日式 ※ 起頭，無底色（一個畫面最多一個有底色的強調 = .notice） */

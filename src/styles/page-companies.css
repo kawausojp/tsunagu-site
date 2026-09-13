@@ -1,5 +1,4 @@
 /* companies 頁樣式（三語共用） */
-  .page-head .notice{max-width:46em}
   .tools{margin:32px auto 0}
   .filters{display:flex;flex-direction:column;gap:16px}
   .search{display:flex;flex-direction:column;gap:6px;max-width:380px;font-size:var(--fs-2xs);font-weight:700;color:var(--ink-600)}
@@ -16,13 +15,14 @@
   .lbl{font-size:var(--fs-2xs);font-weight:700;color:var(--ink-600);width:auto;min-width:38px;flex:0 0 auto}
   /* 未選中也要有 3:1 的可見邊界（1.4.11）；選中態另以 currentColor＋粗體標示 */
   /* 權重要壓過 .tag.area/.tag.job/.tag.jlpt 的 border-color，否則未選中態邊界只有 1.43:1 */
-  button.tag.f{min-height:var(--control-min);border:1.5px solid var(--control-line);cursor:pointer;font-family:inherit;
-    padding:8px 14px;transition:.2s var(--ease)}
+  button.tag.f{min-height:38px;background:var(--paper);border:1px solid var(--control-line);cursor:pointer;font-family:inherit;
+    padding:6px 12px;transition:color .2s var(--ease),background .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease)}
   /* 選中：粗體＋2px 自己色系的主色框（area 藍／job 粉／其餘藍） */
-  button.f[aria-pressed="true"]{border-width:2px;border-color:var(--sky-300);font-weight:700;box-shadow:var(--sh-1)}
-  button.f.job[aria-pressed="true"]{border-color:var(--pink-300)}
+  /* 選中＝主色實底＋灰粗字（比未選中重，層級才對）；area 藍／job 粉／其餘藍 */
+  button.f[aria-pressed="true"]{background:var(--sky-300);border-color:var(--sky-300);color:var(--ink-900);font-weight:700}
+  button.f.job[aria-pressed="true"]{background:var(--pink-300);border-color:var(--pink-300)}
   .reset{align-self:flex-start;background:none;border:0;color:var(--pink-700);font-weight:700;
-    min-height:var(--control-min);font-size:var(--fs-xs);cursor:pointer;padding:8px 0;text-decoration:underline;font-family:inherit}
+    min-height:var(--control-min);font-size:var(--fs-xs);cursor:pointer;padding:8px 0;text-decoration:underline;text-decoration-color:var(--sky-300);text-decoration-thickness:2px;text-underline-offset:3px;font-family:inherit}
   .count{margin:16px 0 0;color:var(--ink-600)}
   .list{margin:20px auto 0}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px}
@@ -33,7 +33,7 @@
   .empty[hidden]{display:none}
   .closing{margin-bottom:40px}
   .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
-  @media (hover:hover) and (pointer:fine){button.f:hover{transform:translateY(-1px)}}
+  @media (hover:hover) and (pointer:fine){button.f:hover{transform:translateY(-1px);border-color:var(--ink-900)}}
   @media (max-width:720px){
     .tools{margin-top:20px}
     .filters{gap:12px}
@@ -49,8 +49,9 @@
     .filter-options button.tag.f{min-height:44px;background:var(--paper);border:1px solid var(--control-line);
       color:var(--ink-600);padding:8px 13px}
     /* 選中態不能只靠顏色（色弱可辨）：加粗字重與邊框，與桌機版一致 */
-    .filter-options button.f[aria-pressed="true"]{background:var(--sky-50);border-color:var(--sky-300);
-      border-width:2px;font-weight:700;color:var(--ink-900);box-shadow:none}
+    .filter-options button.f[aria-pressed="true"]{background:var(--sky-300);border-color:var(--sky-300);
+      font-weight:700;color:var(--ink-900);box-shadow:none}
+    .filter-options button.f.job[aria-pressed="true"]{background:var(--pink-300);border-color:var(--pink-300)}
     .count{margin-top:12px}
     .list{margin-top:16px}
     .grid{grid-template-columns:repeat(2,1fr);gap:10px}

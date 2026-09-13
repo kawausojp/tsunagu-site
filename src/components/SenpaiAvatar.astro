@@ -11,15 +11,16 @@ const BLUSH = 'var(--pink-300)';
 const HAIRS = ['#8A7364', '#5F5049', '#A98F73', '#74604F', '#93705D'];
 // 衣色／底色對齊粉彩 token；最後一個衣色原為 --greige-100，token 已併入 --line
 const SHIRTS = ['var(--pink-300)', 'var(--sky-300)', 'var(--paper)', 'var(--sky-300)', 'var(--pink-300)'];
-const BGS = ['var(--pink-300)', 'var(--sky-300)', 'var(--greige-50)', 'var(--sky-300)'];
+// 圓底改白＋主色細環（同品類圖標語言）：實色圓＋深褐髮塊疊起來是頁面最沉的點，stories 一屏重複十幾次
+const RINGS = ['var(--pink-300)', 'var(--sky-300)'];
 const hair = HAIRS[seed % HAIRS.length];
 const shirt = SHIRTS[(seed >> 2) % SHIRTS.length];
-const bg = BGS[(seed >> 4) % BGS.length];
+const ring = RINGS[(seed >> 4) % RINGS.length];
 const style = seed % 4;   // 0 長髮 1 短髮 2 丸子頭 3 瀏海雙側髮
 ---
 <svg width={size} height={size} viewBox="0 0 56 56" fill="none" aria-hidden="true"
   stroke={S} stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="28" cy="28" r="27" fill={bg} stroke="none"/>
+  <circle cx="28" cy="28" r="26" fill="var(--paper)" stroke={ring} stroke-width="2"/>
   {style === 0 && <path d="M13 50c0-12-1-20 2-26 3-5 8-8 13-8s10 3 13 8c3 6 2 14 2 26z" fill={hair}/>}
   {style === 2 && <circle cx="28" cy="12" r="6" fill={hair}/>}
   <!-- 臉 -->

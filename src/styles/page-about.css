@@ -4,8 +4,8 @@
   @media (max-width:720px){ .grid{grid-template-columns:1fr} }
   .b{padding:var(--card-pad)}
   .b p{margin:8px 0 0}
-  .media{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
-  .m{padding:14px 18px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+  .media{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+  .m{padding:14px 4px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent}
   .m .d{font-family:var(--f-latin);font-weight:600;color:var(--ink-600);font-size:var(--fs-xs);flex:0 0 92px}
   .m .n{font-weight:700;font-size:var(--fs-md)}
   .note-t{color:var(--ink-600)}

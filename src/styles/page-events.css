@@ -4,7 +4,7 @@
   .next{padding:26px 28px}
   .next.empty p{margin:0 0 10px}
   .when{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
-  .when .no{font-family:var(--f-latin);font-weight:700;color:var(--pink-700);font-size:var(--fs-sm)}
+  .when .no{font-family:var(--f-latin);font-weight:700;color:var(--ink-600);font-size:var(--fs-sm)}
   .when .date{font-size:var(--fs-3xl);font-weight:700;font-family:var(--f-display)}
   /* 報名前的決策資訊：時間・地點・費用一眼看完，不做底色框 */
   .ev-meta{display:grid;grid-template-columns:auto 1fr;gap:7px 18px;margin:0 0 18px;
@@ -19,13 +19,14 @@
   .backtop a:hover{text-decoration:underline}
   .flow{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
   .step{display:flex;gap:16px;padding:18px 20px;align-items:flex-start}
-  .step .no{width:30px;height:30px;flex:0 0 30px;border-radius:var(--r-full);background:var(--pink-300);
+  .step .no{width:30px;height:30px;flex:0 0 30px;border-radius:var(--r-full);background:var(--paper);border:2px solid var(--pink-300);
     color:var(--ink-900);font-family:var(--f-latin);font-weight:700;display:flex;
     align-items:center;justify-content:center;font-size:var(--fs-sm)}
   .step p{margin:2px 0 0}
   .note{margin-top:22px}
-  .hist{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-direction:column;gap:8px}
-  .h{display:flex;gap:12px;align-items:center;padding:12px 18px;flex-wrap:wrap}
+  /* 一行一筆的紀錄不做 12 個獨立卡片（灰框牆），改分隔線清單 */
+  .hist{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+  .h{display:flex;gap:12px;align-items:center;padding:14px 4px;flex-wrap:wrap;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent}
   .h .no{font-family:var(--f-latin);font-weight:700;font-size:var(--fs-xs);color:var(--ink-600);flex:0 0 92px;white-space:nowrap}
   .h .date{font-weight:700;font-size:var(--fs-md)}
   .h .ig{margin-left:auto;display:inline-flex;align-items:center;min-height:var(--control-min);color:var(--sky-700);text-decoration:none}
@@ -39,7 +40,7 @@
     .ev-meta{gap:5px 14px;margin-bottom:14px;font-size:var(--fs-xs)}
     .ev-meta .addr{display:block}
     .map-link{margin-left:0}
-    .next .btn-primary{width:100%;margin-top:4px}
+    .next .btn-primary{width:auto;min-width:240px;margin-top:4px}
     .flow{gap:10px}
     .step{gap:12px;padding:16px}
     .step .no{width:28px;height:28px;flex-basis:28px;font-size:var(--fs-xs)}
