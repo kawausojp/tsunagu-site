@@ -30,6 +30,6 @@
     .privacy{margin-top:12px}
     .two{gap:12px;margin-top:16px}
     .box{padding:18px 16px}
-    .box.alt{background:var(--greige-50)}
+    .box.alt{background:var(--paper)}
     .box ul{margin-top:10px}
   }

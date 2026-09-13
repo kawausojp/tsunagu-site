@@ -6,6 +6,7 @@ import Base from '../../layouts/Base.astro';
 import '../../styles/home.css';
 import CompanyCard from '../../components/CompanyCard.astro';
 import SenpaiAvatar from '../../components/SenpaiAvatar.astro';
+import StatIcon from '../../components/StatIcon.astro';
 import { Image } from 'astro:assets';
 import characters from '../../assets/tsunagu-characters.png';
 import { href } from '../../i18n/ui';
@@ -24,10 +25,10 @@ const heroCta = nextEv
   ? `Join the ${nextEvDate} meetup in ${CITY.en[nextEv.city] ?? nextEv.city} →`
   : 'Join the next meetup →';
 const stats = [
-  { n: '2,874', u: '', t: 'meetup attendees' },
-  { n: '163', u: '', t: 'placed in jobs in Japan' },
-  { n: String(totalHeld), u: '', t: 'meetups held' },
-  { n: String(companies.length), u: '', t: 'partner brands' },
+  { icon: 'people', n: '2,874', u: '', t: 'meetup attendees' },
+  { icon: 'job', n: '163', u: '', t: 'placed in jobs in Japan' },
+  { icon: 'event', n: String(totalHeld), u: '', t: 'meetups held' },
+  { icon: 'brand', n: String(companies.length), u: '', t: 'partner brands' },
 ];
 ---
 <Base title="Bringing Taiwan’s Talent to Japan" lang="en"
@@ -66,7 +67,7 @@ const stats = [
   <!-- STATS -->
   <div class="wrap"><div class="band">
     {stats.map(s => (
-      <div><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div><div class="t">{s.t}</div></div>
+      <div><StatIcon k={s.icon} /><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div><div class="t">{s.t}</div></div>
     ))}
   </div>
   </div>

@@ -20,7 +20,9 @@ const style = seed % 4;   // 0 長髮 1 短髮 2 丸子頭 3 瀏海雙側髮
 ---
 <svg width={size} height={size} viewBox="0 0 56 56" fill="none" aria-hidden="true"
   stroke={S} stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id={`av-${seed}`}><circle cx="28" cy="28" r="25"/></clipPath></defs>
   <circle cx="28" cy="28" r="26" fill="var(--paper)" stroke={ring} stroke-width="2"/>
+  <g clip-path={`url(#av-${seed})`} transform="translate(28 30) scale(1.08) translate(-28 -28)">
   {style === 0 && <path d="M13 50c0-12-1-20 2-26 3-5 8-8 13-8s10 3 13 8c3 6 2 14 2 26z" fill={hair}/>}
   {style === 2 && <circle cx="28" cy="12" r="6" fill={hair}/>}
   <!-- 臉 -->
@@ -41,4 +43,5 @@ const style = seed % 4;   // 0 長髮 1 短髮 2 丸子頭 3 瀏海雙側髮
   <circle cx="35.5" cy="30" r="2" fill={BLUSH} stroke="none" opacity=".7"/>
   <!-- 上衣 -->
   <path d="M13 52c1-8 7-12 15-12s14 4 15 12z" fill={shirt}/>
+  </g>
 </svg>

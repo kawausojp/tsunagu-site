@@ -34,12 +34,14 @@
   .news-txt{min-width:0;font-size:var(--fs-sm);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   /* 不加上下框：上緣與 hero 底線平行、下緣正好和下一區的頂線疊在一起，都是重複的線 */
-  .band{padding:36px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:22px;text-align:center;margin-top:36px}
+  /* 儀表板磁磚（2026-09-13）：圖標＋數字＋標籤，無框；桌機以髮絲直線分隔四格 */
+  .band{padding:32px 0;display:grid;grid-template-columns:repeat(4,1fr);text-align:center;margin-top:24px}
+  .band>div{display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 12px}
+  .band>div+div{border-left:1px solid var(--line)}
   /* tabular-nums：數字跳動時每位數等寬，版面不會抖 */
   .band .n{font-family:var(--f-latin);font-weight:700;font-variant-numeric:tabular-nums;font-size:clamp(40px,4.5vw,52px);line-height:1.1;color:var(--pink-300)}
   .band .n small{font-size:var(--fs-xl);margin-left:3px;color:var(--ink-600)}  /* 單位小字用灰，數字才是粉 */
-  .band .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:4px}
+  .band .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:0}
 
   /* 首頁四個同級標題原本各有各的下間距（14/28/0/12px），其中影片區是 0 貼著行框 */
   .section .d2 + *{margin-top:14px}
@@ -98,15 +100,12 @@
     .cta-row{gap:10px;margin-top:20px}
     .hero .cta-row .btn-primary{width:auto;min-width:240px}
     .hero .cta-row .action-link{margin-inline:auto}
-    /* margin-bottom：卡片底框不能貼著下一區的頂線（兩條線會疊在一起） */
-    .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:var(--paper);
-      padding:0;margin:20px 0 24px;border:1px solid var(--mobile-line);border-radius:var(--r-md);overflow:hidden}
-    /* 不用 min-height：iOS Safari 的 flex 直欄不把 min-height 算進置中，
-       內容會貼頂、空間全掉到底部（線上實測截圖）。改對稱 padding 撐高。 */
-    .band>div{display:flex;flex-direction:column;align-items:center;justify-content:center;
-      padding:16px 8px 17px}
-    .band>div:nth-child(odd){border-right:1px solid var(--mobile-line)}
-    .band>div:nth-child(-n+2){border-bottom:1px solid var(--mobile-line)}
+    /* 手機 2×2，不做外框盒；只留一條髮絲線分隔上下兩列 */
+    .band{grid-template-columns:repeat(2,minmax(0,1fr));padding:20px 0 8px;margin:0 0 8px}
+    .band>div{padding:14px 8px 18px;gap:6px}
+    .band>div+div{border-left:0}
+    .band>div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+    .band svg{width:24px;height:24px}
     .band .n{font-size:clamp(27px,8vw,31px)}
     .band .n small{font-size:var(--fs-sm)}
     .band .t{font-size:var(--fs-2xs);margin-top:5px}
@@ -119,7 +118,7 @@
 
     .more{margin-top:20px}
     .more .action-link{margin-left:2px}
-    .alt{background:var(--greige-50);border-color:var(--mobile-line)}
+    .alt{background:var(--paper);border-color:var(--mobile-line)}
     .voice{gap:16px;margin-top:20px}
     .v-avatar{width:64px;height:64px;flex-basis:64px}
     .v-quote{font-size:var(--fs-lg)}
