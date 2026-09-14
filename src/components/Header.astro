@@ -64,7 +64,9 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
 <style>
   header{position:sticky;top:0;z-index:50;background:var(--header-bg);
     backdrop-filter:saturate(1.4) blur(10px);   /* 無底線（使用者 2026-09-14）；捲動後靠 data-stuck 的淡陰影分隔 */
-    transition:transform .28s var(--ease),box-shadow .28s var(--ease)}
+    /* 不能用全站的 --ease（y2=1.4 會過衝）：header 滑回來會先跑過頭再彈回，頂端露出一條縫看到底下文字
+       （使用者 2026-09-14 iPhone 實測）。貼著螢幕頂的東西一律用不過衝的 ease-out */
+    transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s cubic-bezier(.22,.61,.36,1)}
   /* 收合：往下捲滑走、往上捲回來（同 kawausojapanese 的 Kadence reveal-on-scroll-up）；捲動後縮高＋淡陰影 */
   header[data-hidden]{transform:translate3d(0,-100%,0);pointer-events:none}
   header[data-stuck]{box-shadow:0 4px 18px rgba(70,70,70,.06)}
