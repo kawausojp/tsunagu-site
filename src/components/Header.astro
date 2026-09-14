@@ -63,7 +63,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
 
 <style>
   header{position:sticky;top:0;z-index:50;background:var(--header-bg);
-    backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line);
+    backdrop-filter:saturate(1.4) blur(10px);   /* 無底線（使用者 2026-09-14）；捲動後靠 data-stuck 的淡陰影分隔 */
     transition:transform .28s var(--ease),box-shadow .28s var(--ease)}
   /* 收合：往下捲滑走、往上捲回來（同 kawausojapanese 的 Kadence reveal-on-scroll-up）；捲動後縮高＋淡陰影 */
   header[data-hidden]{transform:translate3d(0,-100%,0);pointer-events:none}
@@ -110,7 +110,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   .drawer a.drawer-cta{display:none;font-weight:700}   /* 權重要壓過 .drawer a{display:flex} */
 
   @media (max-width:720px){
-    header{background:var(--paper);backdrop-filter:none;border-bottom-color:var(--mobile-line)}
+    header{background:var(--paper);backdrop-filter:none}
     .bar{height:56px;gap:8px;padding:0 16px}
     .wordmark{width:clamp(88px,26vw,112px)}
     .cta{display:none}                      /* 手機頁首只留 logo／語言／漢堡；報名鈕在抽屜與 hero */
