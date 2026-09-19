@@ -5,7 +5,7 @@ import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-stories.css';
 const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
 import { href } from '../../../i18n/ui';
-import { VISA_LABEL, matchCompanyId, signupCta } from '../../../lib/site';
+import { VISA_LABEL, matchCompanyId, signupCta, fmtLocation } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const brands = [...new Set(stories.map(s=>s.data.company))];
 const companiesAll = (await getCollection('companies')).map(c => ({ id: c.id, name: c.data.name }));
@@ -48,7 +48,7 @@ const companyHref = new Map(stories.map(s => {
               <span class="pair"><span class="sep">·</span>{companyHref.get(s.id)
                 ? <a class="co-link" href={companyHref.get(s.id)}><strong>{s.data.company}</strong></a>
                 : <strong>{s.data.company}</strong>}</span>
-              <span class="pair"><span class="sep">·</span><span lang="zh-Hant">{s.data.location}</span></span>
+              <span class="pair"><span class="sep">·</span><span>{fmtLocation(s.data.location, 'en')}</span></span>
             </p>
           </div>
         </header>

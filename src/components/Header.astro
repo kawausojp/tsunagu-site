@@ -3,9 +3,9 @@ import { Image } from 'astro:assets';
 import Heart from './Heart.astro';
 // 字標：主色版（TSU #F3A0AA／NAGU #7DD0F5），header 與 footer 共用
 import wordmark from '../assets/tsunagu-wordmark.png';
-import { ui, href, switchHref, LANG_META, type Lang } from '../i18n/ui';
+import { ui, href, switchHref, LANG_META, BASE, type Lang } from '../i18n/ui';
 interface Props { lang?: Lang }
-const { lang = 'zh' } = Astro.props;
+const { lang = 'zh', altPaths } = Astro.props as { lang?: Lang; altPaths?: Partial<Record<Lang, string>> };
 const t = ui[lang];
 const nav = t.nav.map(n => ({ href: href(lang, n.path), label: n.label, short: n.short }));
 const path = Astro.url.pathname;
@@ -17,7 +17,8 @@ const isCurrent = (h: string) => norm(path) === norm(h) || path.startsWith(`${h}
 const currentVal = (h: string) => (norm(path) === norm(h) ? 'page' : 'true');
 const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   code: l, label: LANG_META[l].label, current: l === lang,
-  href: switchHref(lang, l, path),
+  // 頁面有給 altPaths（如 404 導回各語首頁）就用它，否則從 pathname 換前綴
+  href: altPaths?.[l] ? `${BASE}${altPaths[l]}` : switchHref(lang, l, path),
 }));
 ---
 <header>

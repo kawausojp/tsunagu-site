@@ -3,21 +3,42 @@ import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
 import characters from '../assets/tsunagu-characters.png';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// 靜態站只有一張 404，GitHub Pages 對 /ja/… /en/… 打錯的網址也回這張。
+// 三組文案都先輸出（預設顯示繁中），inline script 依網址前綴切換；語言選單導回各語首頁。
+const copy = [
+  { lang: 'zh', h: '走丟了', lead: '這一頁不在。從這裡繼續：', nav: '常用頁面', pre: '',
+    links: [['/events', '報名交流會'], ['/companies', '合作企業'], ['/stories', '學長姐經驗'], ['/', '回首頁']] },
+  { lang: 'ja', h: 'ページが見つかりません', lead: 'このページは存在しません。こちらからどうぞ：', nav: 'よく見られるページ', pre: '/ja',
+    links: [['/events', '交流会に申し込む'], ['/companies', '提携企業'], ['/stories', '先輩の声'], ['/', 'トップへ戻る']] },
+  { lang: 'en', h: 'Page not found', lead: 'This page doesn’t exist. Continue from here:', nav: 'Popular pages', pre: '/en',
+    links: [['/events', 'Join a meetup'], ['/companies', 'Partner brands'], ['/stories', 'Alumni stories'], ['/', 'Back to home']] },
+] as const;
+const CLS = ['btn btn-primary', 'btn btn-secondary', 'btn btn-secondary', 'btn btn-ghost'];
 ---
-<Base title="找不到這一頁" noindex>
+<Base title="找不到這一頁" noindex altPaths={{ zh: '/', ja: '/ja/', en: '/en/' }}>
   <section class="nf"><div class="wrap">
     <Image src={characters} alt="Tsunagu 的兩隻角色：穿著 JP 藍色上衣的狗，和穿著 TW 粉色上衣的貓，牽著手坐在一起"
       widths={[260, 520]} sizes="260px" class="nf-chars" />
-    <h1 class="d1">走丟了</h1>
-    <p class="lead">這一頁不在。從這裡繼續：</p>
-    <nav class="nf-links" aria-label="常用頁面">
-      <a class="btn btn-primary" href={`${base}/events`}>報名交流會</a>
-      <a class="btn btn-secondary" href={`${base}/companies`}>合作企業</a>
-      <a class="btn btn-secondary" href={`${base}/stories`}>學長姐經驗</a>
-      <a class="btn btn-ghost" href={`${base}/`}>回首頁</a>
-    </nav>
+    {copy.map(c => (
+      <div class="nf-copy" data-lang={c.lang} lang={c.lang === 'zh' ? 'zh-Hant' : c.lang} hidden={c.lang !== 'zh'}>
+        <h1 class="d1">{c.h}</h1>
+        <p class="lead">{c.lead}</p>
+        <nav class="nf-links" aria-label={c.nav}>
+          {c.links.map(([p, label], i) => <a class={CLS[i]} href={`${base}${c.pre}${p === '/' ? '/' : p}`}>{label}</a>)}
+        </nav>
+      </div>
+    ))}
   </div></section>
 </Base>
+<script is:inline define:vars={{ base }}>
+  const m = location.pathname.slice(base.length).match(/^\/(ja|en)(\/|$)/);
+  if (m) {
+    document.documentElement.lang = m[1];
+    for (const el of document.querySelectorAll('.nf-copy')) el.hidden = el.dataset.lang !== m[1];
+    const t = { ja: 'ページが見つかりません｜ツナグ Tsunagu', en: 'Page not found | Tsunagu' };
+    document.title = t[m[1]];
+  }
+</script>
 <style>
   .nf{text-align:center;padding:120px 0}
   .nf :global(.nf-chars){width:min(260px,70vw);height:auto;margin:0 auto 28px;display:block}

@@ -1,5 +1,7 @@
 ---
 name: "麵屋 豬一"
+nameJa: "麺屋 猪一"
+nameEn: "Menya Inoichi"
 category: "food"
 categoryLabel: "餐飲"
 areas: ["kyoto", "tokyo"]

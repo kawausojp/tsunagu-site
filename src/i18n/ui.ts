@@ -128,7 +128,7 @@ export const ui = {
   },
 } as const;
 
-const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+export const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 /** 產生指定語言下的站內連結（含 base 與語言前綴） */
 export const href = (lang: Lang, path: string) =>

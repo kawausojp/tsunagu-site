@@ -9,6 +9,7 @@ export async function getStaticPaths() {
 }
 const { c } = Astro.props;
 const d = c.data;
+const name = companyName(d, 'en');
 const { Content } = await render(c);
 // 在這個品牌工作過的學長姐（company 名寬鬆比對；資料本來就在庫裡，接上而已）
 const allStories = await getCollection('stories');
@@ -23,21 +24,21 @@ const relatedStories = allStories.filter(st => {
   return sn === dn || dn.startsWith(sn) || sn.startsWith(dn) || (snFirst.length > 2 && dn.startsWith(snFirst));
 }).sort((a, b) => a.data.order - b.data.order);
 import { href } from '../../../i18n/ui';
-import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck } from '../../../lib/site';
+import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const catLabel = CAT_LABEL.en[d.category] ?? d.categoryLabel;
 const tagline = d.taglineEn ?? d.tagline;
 const AREA: Record<string,string> = { tokyo:'Tokyo', osaka:'Osaka', kyoto:'Kyoto', fukuoka:'Fukuoka', kobe:'Kobe', hokkaido:'Hokkaido' };
 const hl = dedupHighlights(d.highlights, d.placements);
 ---
-<Base title={`${d.name} — Work in Japan`} lang="en"
+<Base title={`${name} — Work in Japan`} lang="en"
   altPaths={{ zh: `/companies/${c.id}/`, ja: `/ja/companies/${c.id}/`, en: `/en/companies/${c.id}/` }}
-  description={`${d.name} (${catLabel}) brand profile and Taiwanese staff placement record${d.placements > 0 ? `: ${d.placements} placed via Tsunagu` : ''}.`}>
+  description={`${name} (${catLabel}) brand profile and Taiwanese staff placement record${d.placements > 0 ? `: ${d.placements} placed via Tsunagu` : ''}.`}>
   <article>
     <div class="hero">
       <div class="wrap wrap--prose">
         <a class="back" href={l('/companies')}>← All partner brands</a>
-        <h1 class="d1">{d.name}</h1>
+        <h1 class="d1">{name}</h1>
         {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
         <p class="lead">{tagline}</p>
         <div class="tags">

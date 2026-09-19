@@ -1,15 +1,16 @@
 ---
 import CategoryIcon from './CategoryIcon.astro';
 import { ui, type Lang } from '../i18n/ui';
-import { CAT_LABEL, SKY_CATEGORIES } from '../lib/site';
+import { CAT_LABEL, SKY_CATEGORIES, companyName } from '../lib/site';
 interface Props { c: any; href: string; lang?: Lang }
 const { c, href, lang = 'zh' } = Astro.props;
 const t = ui[lang];
 const d = c.data;
+const name = companyName(d, lang);
 const tagline = (lang === 'ja' && d.taglineJa) || (lang === 'en' && d.taglineEn) || d.tagline;
 const catLabel = (lang === 'ja' && (d.categoryLabelJa ?? CAT_LABEL.ja[d.category])) || (lang === 'en' && (d.categoryLabelEn ?? CAT_LABEL.en[d.category])) || d.categoryLabel;
 // 搜尋文字含 zh 原值＋當前語言的 tagline／品類，日英頁才能用當地語言命中
-const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline, catLabel]
+const searchText = [d.name, name, d.corporateName, d.tagline, d.categoryLabel, tagline, catLabel]
   .filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
 ---
 <a class="card card-link co" href={href} data-search={searchText}
@@ -20,7 +21,7 @@ const searchText = [d.name, d.corporateName, d.tagline, d.categoryLabel, tagline
   <div class="head">
     <span class="ico" data-tone={SKY_CATEGORIES.has(d.category) ? 'sky' : 'pink'}><CategoryIcon cat={d.category} size={30} /></span>
     <div class="ttl">
-      <h3 class="d3">{d.name}</h3>
+      <h3 class="d3">{name}</h3>
       {d.corporateName && <div class="corp" lang="ja">{d.corporateName}</div>}
     </div>
   </div>

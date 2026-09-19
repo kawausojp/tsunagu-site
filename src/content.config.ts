@@ -6,6 +6,8 @@ const companies = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/companies' }),
   schema: z.object({
     name: z.string(),
+    nameJa: z.string().optional(),   // 繁中化寫法的品牌名（麵屋 豬一）在 ja/en 頁需要各自表記
+    nameEn: z.string().optional(),
     corporateName: z.string().optional(),
     category: z.enum(['apparel','jewelry','kimono','bag','shoes','hat','eyewear','socks','food','goods','group','other']),
     categoryLabel: z.string(),

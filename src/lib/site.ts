@@ -62,6 +62,37 @@ export const MEDIA: { name: Record<Lang, string>; date: string; url?: string; ti
     title: '台北で「台湾人と日本企業をツナグ交流会」　台湾人材を日本へ' },
 ];
 
+/** stories 的 location（繁中原值，如「東京・澀谷」）→ 日／英表記。
+ * 逐詞替換（長詞優先），未收錄的詞原樣通過；zh 原樣回傳。
+ * 審查發現 ja 頁直接渲染「澀谷／表參道／心齋橋」對日本讀者是錯字，且 BIZ UDPGothic 無此字會混字型。 */
+const LOC_WORDS: [string, string, string][] = [
+  ['東京車站附近', '東京駅周辺', 'near Tokyo Station'],
+  ['東京車站', '東京駅', 'Tokyo Station'],
+  ['銀座三越', '銀座三越', 'Ginza Mitsukoshi'],
+  ['心齋橋', '心斎橋', 'Shinsaibashi'],
+  ['表參道', '表参道', 'Omotesando'],
+  ['澀谷', '渋谷', 'Shibuya'],
+  ['新宿', '新宿', 'Shinjuku'],
+  ['銀座', '銀座', 'Ginza'],
+  ['東京', '東京', 'Tokyo'],
+  ['大阪', '大阪', 'Osaka'],
+  ['福岡', '福岡', 'Fukuoka'],
+  ['／', '／', ' / '],
+  ['・', '・', ', '],
+];
+export function fmtLocation(loc: string, lang: Lang) {
+  if (lang === 'zh') return loc;
+  const i = lang === 'ja' ? 1 : 2;
+  let out = loc;
+  for (const w of LOC_WORDS) out = out.split(w[0]).join(w[i]);
+  return out;
+}
+
+/** 品牌顯示名：ja/en 有各自表記（nameJa/nameEn）就用，否則沿用繁中 name。 */
+export function companyName(d: { name: string; nameJa?: string; nameEn?: string }, lang: Lang) {
+  return (lang === 'ja' && d.nameJa) || (lang === 'en' && d.nameEn) || d.name;
+}
+
 /** stories 的 company 名 → 對應品牌頁 id（與 [slug].astro 的 relatedStories 同一套寬鬆前綴比對，方向相反）。
  * 找不到回傳 null（該品牌未揭露時 company 維持純文字）。 */
 const normName = (x: string) => x.normalize('NFKC').toLowerCase().replace(/[^a-z0-9぀-ヿ一-鿿]/g, '');

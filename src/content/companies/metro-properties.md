@@ -1,5 +1,7 @@
 ---
 name: "METRO 系餐飲"
+nameJa: "メトロプロパティーズ系列の飲食店"
+nameEn: "Metro Properties restaurants"
 corporateName: "株式会社メトロプロパティーズ"
 category: "food"
 categoryLabel: "餐飲"
