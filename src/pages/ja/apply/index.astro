@@ -1,4 +1,5 @@
 ---
+import { signupCta } from '../../../lib/site';
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-apply.css';
 // 線上收件流程目前不存在（2026-08-26 使用者確認）。若日後建立 Google 表單，
@@ -41,7 +42,7 @@ const l = (p: string) => href('ja', p);
         </>}
   </section>
 
-  <section class="wrap wrap--page page-section">
+  <section id="photo" class="wrap wrap--page page-section">
     <h2 class="d2">履歴書写真の撮り方</h2>
     <p class="lead">交流会でも特に反響の大きい内容です。日本の履歴書写真には作法があり、アパレルはまた少し違います。</p>
     <div class="two">
@@ -66,7 +67,7 @@ const l = (p: string) => href('ja', p);
     </div>
   </section>
 
-  <section class="wrap wrap--page page-section">
+  <section id="interview" class="wrap wrap--page page-section">
     <h2 class="d2">面接のポイント</h2>
     <div class="two">
       <div class="card box">
@@ -92,7 +93,7 @@ const l = (p: string) => href('ja', p);
     <h2 class="d2">準備はできましたか？</h2>
     <p class="lead">このページのポイントを持って、交流会でお会いしましょう。</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={l('/events')}>交流会に申し込む</a>
+      <a class="btn btn-primary" href={l('/events')}>{signupCta('ja')}</a>
       <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram の DM で相談 ↗</a>
     </div>
   </section>

@@ -77,7 +77,7 @@ const flow = [
               {e.signupUrl
                 ? <>
                     <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Google フォームで申し込む ↗<span class="sr-only">（新しいウィンドウで開きます）</span></a>
-                    <p class="small hint">外部の Google フォームが開きます。申込フォームは開催回ごとに異なりますので、最新のお知らせに掲載しているリンクをご利用ください。</p>
+                    <p class="small hint">第 {fmtEventNo(e.no, 'ja')} 回専用の Google フォームです（外部リンク）。</p>
                   </>
                 : <p class="small">申込リンクは近日公開予定です。</p>}
             </div>
@@ -97,7 +97,7 @@ const flow = [
         <li class="card step"><div class="no">{i + 1}</div><div><h3 class="d3">{f.t}</h3><p class="small">{f.d}</p></div></li>
       ))}
     </ol>
-    <p class="small flow-more"><a href={l('/support')}>サポート内容の詳細（履歴書・面接・住まい・来日後）→</a></p>
+    <p class="small flow-more"><a href={l('/companies')}>参加企業を見る</a>・<a href={l('/apply#photo')}>履歴書写真の撮り方</a>・<a href={l('/support')}>サポート内容の詳細</a></p>
     <div class="note"><strong>すべて無料。</strong>参加費・紹介料は、台湾の皆さまからは一切いただきません。詳しくは「サポート内容」をご覧ください。</div>
   </section>
 

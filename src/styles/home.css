@@ -52,6 +52,8 @@
   /* tabular-nums：數字跳動時每位數等寬，版面不會抖 */
   .band .n{font-family:var(--f-latin);font-weight:700;font-variant-numeric:tabular-nums;line-height:1.05;color:var(--pink-300)}
   .band .n small{font-size:var(--fs-xl);margin-left:3px;color:var(--ink-600)}  /* 單位小字用灰，數字才是粉 */
+  /* 口徑註記：全站最顯眼的數字原本是唯一沒有來源說明的地方（events／companies 頁都有） */
+  .band-note{margin:4px 0 0;text-align:center;color:var(--ink-600);font-size:var(--fs-xs)}
 
   /* 首頁四個同級標題原本各有各的下間距（14/28/0/12px），其中影片區是 0 貼著行框 */
   .section .d2 + *{margin-top:14px}

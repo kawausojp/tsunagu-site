@@ -5,7 +5,7 @@ import '../../../styles/page-companies.css';
 import CompanyCard from '../../../components/CompanyCard.astro';
 
 import { href } from '../../../i18n/ui';
-import { CAT_LABEL, CONTRACTED_COMPANIES } from '../../../lib/site';
+import { CAT_LABEL, CONTRACTED_COMPANIES, signupCta } from '../../../lib/site';
 const l = (p: string) => href('ja', p);
 const companies = (await getCollection('companies'))
   .sort((a, b) => b.data.placements - a.data.placements || a.data.name.localeCompare(b.data.name));
@@ -94,7 +94,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <h2 class="d2">気になるブランドはありましたか？</h2>
     <p class="lead">実際の募集内容は、交流会で直接ご確認いただけます。</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={l('/events')}>交流会に申し込む</a>
+      <a class="btn btn-primary" href={l('/events')}>{signupCta('ja')}</a>
       <a class="action-link" href={l('/stories')}>先輩の体験談を見る →</a>
     </div>
   </section>

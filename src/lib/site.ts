@@ -34,6 +34,34 @@ export function fmtEventDate(date: string, lang: Lang) {
   return lang === 'en' ? `${m}/${d} (${wd})` : `${m}/${d}（${wd}）`;
 }
 
+/** 主 CTA 文字：有下一場就帶日期地點（首頁 hero 與各頁收尾 CTA 三語共用），
+ * 沒有就退回一般字串。審查發現「下一場是哪一天」原本只在首頁 hero 出現一次。 */
+export function signupCta(lang: Lang) {
+  const e = nextEvent();
+  if (!e) return { zh: '報名下一場交流會', ja: '次回の交流会に申し込む', en: 'Join the next meetup' }[lang];
+  const d = fmtEventDate(e.date, lang);
+  const c = CITY[lang][e.city] ?? e.city;
+  if (lang === 'ja') return `${d}・${c}の交流会に申し込む`;
+  if (lang === 'en') return `Join the ${d} meetup in ${c}`;
+  return `報名 ${d}${c}交流會`;
+}
+
+/** 媒體報導（about 頁三語共用；原本三份陣列，新增一則要改三檔）。
+ * 紅線 #3：只放標題＋日期＋外連，不貼截圖。title 為原文標題（2026-09-19 自原文頁面抄錄）。
+ * 繊研 2025 兩篇與日經 2024.10.07 經查無線上版（senken.co.jp 404 實測），標紙面刊載。
+ * 口徑依簡報 p22–p28：媒體名單含 Yahoo!ニュース；Haru／きものやまと 一則繫於 2024.08.07（p24），非日經（p25）。 */
+export const MEDIA: { name: Record<Lang, string>; date: string; url?: string; title?: string; print?: boolean; note?: Record<Lang, string> }[] = [
+  { name: { zh: '繊研新聞', ja: '繊研新聞', en: 'Senken Shimbun' }, date: '2026.01.28', url: 'https://senken.co.jp/posts/bp-260128',
+    title: 'ブレーンアンドパートナーの台湾人材仲介事業　インバウンド対応ニーズで拡大' },
+  { name: { zh: '繊研新聞', ja: '繊研新聞', en: 'Senken Shimbun' }, date: '2025.07.17', print: true },
+  { name: { zh: '繊研新聞', ja: '繊研新聞', en: 'Senken Shimbun' }, date: '2025.02.12', print: true },
+  { name: { zh: '日本經濟新聞 朝刊', ja: '日本経済新聞 朝刊', en: 'Nikkei (morning edition)' }, date: '2024.10.07', print: true },
+  { name: { zh: 'Yahoo! ニュース', ja: 'Yahoo! ニュース', en: 'Yahoo! News Japan' }, date: '2024.08.07',
+    note: { zh: '報導きものやまと的 Haru', ja: 'きものやまと勤務の Haru さんを紹介', en: 'Featured Haru at Kimono Yamato' } },
+  { name: { zh: '台北經濟新聞', ja: '台北経済新聞', en: 'Taipei Keizai Shimbun' }, date: '2023.06.06', url: 'https://taipei.keizai.biz/headline/418/',
+    title: '台北で「台湾人と日本企業をツナグ交流会」　台湾人材を日本へ' },
+];
+
 /** stories 的 company 名 → 對應品牌頁 id（與 [slug].astro 的 relatedStories 同一套寬鬆前綴比對，方向相反）。
  * 找不到回傳 null（該品牌未揭露時 company 維持純文字）。 */
 const normName = (x: string) => x.normalize('NFKC').toLowerCase().replace(/[^a-z0-9぀-ヿ一-鿿]/g, '');

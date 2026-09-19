@@ -1,4 +1,5 @@
 ---
+import { signupCta } from '../../../lib/site';
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-support.css';
 import { href } from '../../../i18n/ui';
@@ -15,8 +16,8 @@ const l = (p: string) => href('en', p);
     <div class="grid">
       <div class="card b"><h2 class="d3">Before you go</h2><ul>
         <li>We learn your personality, Japanese and English level, experience, target roles and goals</li>
-        <li>Resume writing and revision advice</li>
-        <li>Interview practice (in person or online)</li>
+        <li>Resume writing and revision advice (<a href={l('/apply#photo')}>resume photos, done right</a>)</li>
+        <li>Interview practice, in person or online (<a href={l('/apply#interview')}>interview tips</a>)</li>
         <li>Pre-departure training in Chinese, before you leave Taiwan</li>
       </ul></div>
       <div class="card b"><h2 class="d3">After you arrive</h2><ul>
@@ -49,7 +50,7 @@ const l = (p: string) => href('en', p);
     <h2 class="d2">All of this is free</h2>
     <p class="lead">No meetup fees and no placement fees — ever, for participants from Taiwan. Wages vary by company, brand and store,
       but our principle to every Japanese employer is simple: <strong>the same conditions as Japanese staff</strong>.</p>
-    <div class="cta-row"><a class="btn btn-primary" href={l('/events')}>Join a meetup</a>
+    <div class="cta-row"><a class="btn btn-primary" href={l('/events')}>{signupCta('en')}</a>
     <a class="action-link" href={l('/apply')}>Already decided? Start here →</a></div>
   </section>
 </Base>

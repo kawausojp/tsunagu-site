@@ -71,7 +71,7 @@ const flow = [
               {e.signupUrl
                 ? <>
                     <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往 Google 表單報名 ↗<span class="sr-only">（另開新視窗）</span></a>
-                    <p class="small hint">將開啟外部 Google 表單。每一場的報名表單都不一樣，請以最新公告的連結為準。</p>
+                    <p class="small hint">此為第 {fmtEventNo(e.no, 'zh')} 回專用的 Google 表單（外部連結）。</p>
                   </>
                 : <p class="small">報名連結待公布。</p>}
             </div>
@@ -91,7 +91,7 @@ const flow = [
         <li class="card step"><div class="no">{i+1}</div><div><h3 class="d3">{f.t}</h3><p class="small">{f.d}</p></div></li>
       ))}
     </ol>
-    <p class="small flow-more"><a href={`${base}/support`}>完整的支援內容（履歷、面試、住宿、抵日後）→</a></p>
+    <p class="small flow-more"><a href={`${base}/companies`}>先看看有哪些企業會來</a>・<a href={`${base}/apply#photo`}>履歷照片怎麼拍</a>・<a href={`${base}/support`}>完整的支援內容</a></p>
     <div class="note"><strong>全部免費。</strong>參加與媒合都不收費，細節見「我們怎麼幫你」。</div>
   </section>
 

@@ -1,4 +1,5 @@
 ---
+import { signupCta } from '../../lib/site';
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-apply.css';
 // 線上收件流程目前不存在（2026-08-26 使用者確認）。若日後建立 Google 表單，
@@ -40,7 +41,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </>}
   </section>
 
-  <section class="wrap wrap--page page-section">
+  <section id="photo" class="wrap wrap--page page-section">
     <h2 class="d2">履歷照片怎麼拍</h2>
     <p class="lead">這是交流會上最多人受用的一頁。日本的履歷照有它的規矩，但服飾業又不太一樣。</p>
     <div class="two">
@@ -65,7 +66,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
-  <section class="wrap wrap--page page-section">
+  <section id="interview" class="wrap wrap--page page-section">
     <h2 class="d2">面試要注意的幾件事</h2>
     <div class="two">
       <div class="card box">
@@ -91,7 +92,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <h2 class="d2">準備得差不多了？</h2>
     <p class="lead">帶著這頁的重點來交流會，現場就能開始。</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={`${base}/events`}>報名交流會</a>
+      <a class="btn btn-primary" href={`${base}/events`}>{signupCta('zh')}</a>
       <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">或先用 IG 私訊聊聊 ↗</a>
     </div>
   </section>

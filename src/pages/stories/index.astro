@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import SenpaiAvatar from '../../components/SenpaiAvatar.astro';
-import { matchCompanyId } from '../../lib/site';
+import { matchCompanyId, signupCta } from '../../lib/site';
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-stories.css';
 const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
@@ -76,7 +76,7 @@ const companyHref = new Map(stories.map(s => {
     <div class="cta-band">
       <h2 class="d2">下一個換你</h2>
       <p class="lead">他們每個人都是從一場交流會開始的。</p>
-      <a class="btn btn-primary" href={`${base}/events`}>報名交流會</a>
+      <a class="btn btn-primary" href={`${base}/events`}>{signupCta('zh')}</a>
     </div>
   </section>
 </Base>

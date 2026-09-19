@@ -1,4 +1,5 @@
 ---
+import { signupCta } from '../../../lib/site';
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-apply.css';
 // 線上收件流程目前不存在（2026-08-26 使用者確認）。若日後建立 Google 表單，
@@ -41,7 +42,7 @@ const l = (p: string) => href('en', p);
         </>}
   </section>
 
-  <section class="wrap wrap--page page-section">
+  <section id="photo" class="wrap wrap--page page-section">
     <h2 class="d2">Resume photos, done right</h2>
     <p class="lead">The most popular part of our seminar. Japanese resume photos have rules — and fashion roles bend them a little.</p>
     <div class="two">
@@ -66,7 +67,7 @@ const l = (p: string) => href('en', p);
     </div>
   </section>
 
-  <section class="wrap wrap--page page-section">
+  <section id="interview" class="wrap wrap--page page-section">
     <h2 class="d2">Interview tips</h2>
     <div class="two">
       <div class="card box">
@@ -92,7 +93,7 @@ const l = (p: string) => href('en', p);
     <h2 class="d2">Ready to go?</h2>
     <p class="lead">Bring what you learned here to a meetup — that’s where it all starts.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={l('/events')}>Join a meetup</a>
+      <a class="btn btn-primary" href={l('/events')}>{signupCta('en')}</a>
       <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Or DM us on Instagram ↗</a>
     </div>
   </section>

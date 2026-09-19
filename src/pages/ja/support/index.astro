@@ -1,4 +1,5 @@
 ---
+import { signupCta } from '../../../lib/site';
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-support.css';
 import { href } from '../../../i18n/ui';
@@ -14,8 +15,8 @@ const l = (p: string) => href('ja', p);
     <div class="grid">
       <div class="card b"><h2 class="d3">来日前</h2><ul>
         <li>性格・日本語レベル・英語力・経歴・希望職種・将来の目標をヒアリング</li>
-        <li>履歴書の作成・添削</li>
-        <li>面接練習（対面またはオンライン）</li>
+        <li>履歴書の作成・添削（<a href={l('/apply#photo')}>履歴書写真の撮り方</a>）</li>
+        <li>面接練習（対面またはオンライン）　<a href={l('/apply#interview')}>面接のポイント</a></li>
         <li>台湾で中国語による「来日前研修」を実施</li>
       </ul></div>
       <div class="card b"><h2 class="d3">来日後</h2><ul>
@@ -46,7 +47,7 @@ const l = (p: string) => href('ja', p);
   <section class="wrap page-section free">
     <h2 class="d2">すべて無料です</h2>
     <p class="lead">交流会の参加費も、就職マッチングの紹介料も、台湾の皆さまからは一切いただきません。時給などの条件は企業・ブランド・店舗によって異なりますが、<strong>時給などは日本人と同じ条件で、</strong>と日本企業にはお伝えしています。</p>
-    <div class="cta-row"><a class="btn btn-primary" href={l('/events')}>交流会に申し込む</a>
+    <div class="cta-row"><a class="btn btn-primary" href={l('/events')}>{signupCta('ja')}</a>
     <a class="action-link" href={l('/apply')}>日本行きを決めた方はこちら →</a></div>
   </section>
 </Base>

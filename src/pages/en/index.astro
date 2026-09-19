@@ -10,7 +10,7 @@ import StatIcon from '../../components/StatIcon.astro';
 import { Image } from 'astro:assets';
 import characters from '../../assets/tsunagu-characters.png';
 import { href } from '../../i18n/ui';
-import { VIDEO_ID, VIDEO_START, nextEvent, fmtEventDate, totalHeld, CITY, VISA_LABEL } from '../../lib/site';
+import { VIDEO_ID, VIDEO_START, nextEvent, totalHeld, VISA_LABEL, signupCta } from '../../lib/site';
 
 const l = (p: string) => href('en', p);
 const companies = (await getCollection('companies'))
@@ -20,10 +20,7 @@ const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b
 const firstStory = stories[0];
 
 const nextEv = nextEvent();
-const nextEvDate = nextEv ? fmtEventDate(nextEv.date, 'en') : '';
-const heroCta = nextEv
-  ? `Join the ${nextEvDate} meetup in ${CITY.en[nextEv.city] ?? nextEv.city}`
-  : 'Join the next meetup';
+const heroCta = signupCta('en');
 const stats = [
   { icon: 'people', n: '2,874', u: '', t: 'meetup attendees' },
   { icon: 'job', n: '163', u: '', t: 'placed in jobs in Japan' },
@@ -71,6 +68,7 @@ const stats = [
       <div class="bubble"><div class="t"><StatIcon k={s.icon} size={20} />{s.t}</div><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div></div>
     ))}
   </div>
+  <p class="small band-note">Cumulative since June 2023; partner brands are those published so far.</p>
   </div>
 
 

@@ -10,7 +10,7 @@ import StatIcon from '../../components/StatIcon.astro';
 import { Image } from 'astro:assets';
 import characters from '../../assets/tsunagu-characters.png';
 import { href } from '../../i18n/ui';
-import { VIDEO_ID, VIDEO_START, nextEvent, fmtEventDate, totalHeld, CITY, VISA_LABEL } from '../../lib/site';
+import { VIDEO_ID, VIDEO_START, nextEvent, totalHeld, VISA_LABEL, signupCta } from '../../lib/site';
 
 const l = (p: string) => href('ja', p);
 const companies = (await getCollection('companies'))
@@ -20,10 +20,7 @@ const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b
 const firstStory = stories[0];
 
 const nextEv = nextEvent();
-const nextEvDate = nextEv ? fmtEventDate(nextEv.date, 'ja') : '';
-const heroCta = nextEv
-  ? `${nextEvDate}・${CITY.ja[nextEv.city] ?? nextEv.city}の交流会に申し込む`
-  : '次回の交流会に申し込む';
+const heroCta = signupCta('ja');
 const stats = [
   { icon: 'people', n: '2,874', u: '名', t: '交流会参加者' },
   { icon: 'job', n: '163', u: '名', t: '日本での就業を実現' },
@@ -71,6 +68,7 @@ const stats = [
       <div class="bubble"><div class="t"><StatIcon k={s.icon} size={20} />{s.t}</div><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div></div>
     ))}
   </div>
+  <p class="small band-note">2023 年 6 月からの累計。提携ブランド数は公開中のもののみ。</p>
   </div>
 
 

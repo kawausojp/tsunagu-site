@@ -5,7 +5,7 @@ import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-stories.css';
 const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
 import { href } from '../../../i18n/ui';
-import { VISA_LABEL, matchCompanyId } from '../../../lib/site';
+import { VISA_LABEL, matchCompanyId, signupCta } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const brands = [...new Set(stories.map(s=>s.data.company))];
 const companiesAll = (await getCollection('companies')).map(c => ({ id: c.id, name: c.data.name }));
@@ -77,7 +77,7 @@ const companyHref = new Map(stories.map(s => {
     <div class="cta-band">
       <h2 class="d2">You could be next</h2>
       <p class="lead">Every one of them started with a single meetup.</p>
-      <a class="btn btn-primary" href={l('/events')}>Join a meetup</a>
+      <a class="btn btn-primary" href={l('/events')}>{signupCta('en')}</a>
     </div>
   </section>
 </Base>
