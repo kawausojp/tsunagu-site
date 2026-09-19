@@ -7,7 +7,7 @@ import { ui, href, switchHref, LANG_META, BASE, type Lang } from '../i18n/ui';
 interface Props { lang?: Lang; altPaths?: Partial<Record<Lang, string>> }
 const { lang = 'zh', altPaths } = Astro.props;
 const t = ui[lang];
-const nav = t.nav.map(n => ({ href: href(lang, n.path), label: n.label, short: n.short }));
+const nav = t.nav.map(n => ({ href: href(lang, n.path), label: n.label }));
 const path = Astro.url.pathname;
 const eventsHref = href(lang, '/events');
 // 導覽 href 無結尾斜線、pathname 有，比較前先正規化

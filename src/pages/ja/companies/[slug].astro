@@ -27,7 +27,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
   altPaths={{ zh: `/companies/${c.id}/`, ja: `/ja/companies/${c.id}/`, en: `/en/companies/${c.id}/` }}
   description={`${name}（${catLabel}）のブランド紹介と台湾人スタッフの勤務実績${d.placements > 0 ? `：累計 ${d.placements} 名がツナグ経由で就業` : ''}。詳しくは無料の交流会で。`}>
   <article>
-    <div class="hero">
+    <div class="page-head hero">
       <div class="wrap wrap--prose">
         <a class="back" href={l('/companies')}>← 提携企業一覧へ</a>
         <h1 class="d1">{name}</h1>
@@ -42,7 +42,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
       </div>
     </div>
 
-    <div class="wrap wrap--prose body">
+    <div class="wrap wrap--prose page-section body">
       <div class="prose" lang="zh-Hant"><Content /></div>
 
       {hl.length > 0 && (

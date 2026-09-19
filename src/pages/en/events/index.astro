@@ -47,7 +47,7 @@ const flow = [
               </div>
               <dl class="ev-meta">
                 {e.sessions && <><dt>Sessions</dt><dd>{e.sessions.join(' / ')}</dd></>}
-                {e.venue && <><dt>Venue</dt><dd>{e.venue}{e.address && <span class="addr">({e.address})</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>}</dd></>}
+                {e.venue && <><dt>Venue</dt><dd lang="zh-Hant">{e.venue}{e.address && <span class="addr">({e.address})</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>}</dd></>}
                 <dt>Cost</dt><dd>Free</dd>
               </dl>
               {e.signupUrl
@@ -87,7 +87,7 @@ const flow = [
           <span class="d">#{fmtEventNo(e.no, 'en')}</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{city(e.city)}</span>
-          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span lang="ja">開催報告</span> <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>}
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener">Recap <span lang="ja">(開催報告)</span> <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>}
         </li>
       ))}
     </ul>

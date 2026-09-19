@@ -24,7 +24,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
   altPaths={{ zh: `/companies/${c.id}/`, ja: `/ja/companies/${c.id}/`, en: `/en/companies/${c.id}/` }}
   description={`${d.name}（${d.categoryLabel}）的品牌介紹與台灣人任職實績${d.placements > 0 ? `：累計 ${d.placements} 人透過 Tsunagu 任職` : ''}。詳情請參加免費交流會。`}>
   <article>
-    <div class="hero">
+    <div class="page-head hero">
       <div class="wrap wrap--prose">
         <a class="back" href={`${base}/companies`}>← 回合作企業</a>
         <h1 class="d1">{d.name}</h1>
@@ -39,7 +39,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
       </div>
     </div>
 
-    <div class="wrap wrap--prose body">
+    <div class="wrap wrap--prose page-section body">
       <div class="prose"><Content /></div>
 
       {hl.length > 0 && (

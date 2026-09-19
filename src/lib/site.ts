@@ -204,9 +204,9 @@ export const totalHeld = (() => {
 export const eventsList = eventsData.events;
 
 export const CAT_LABEL: Record<Lang, Record<string, string>> = {
-  zh: { apparel: '服飾', bag: '包款', eyewear: '眼鏡', food: '餐飲', goods: '飾品雜貨', group: '複合集團', hat: '帽子', jewelry: '珠寶飾品', kimono: '和服', shoes: '鞋履包款', socks: '襪類' },
-  ja: { apparel: 'アパレル', bag: 'バッグ', eyewear: 'メガネ', food: '飲食', goods: 'アクセサリー・雑貨', group: '複合企業', hat: '帽子', jewelry: 'ジュエリー', kimono: '着物', shoes: 'シューズ・バッグ', socks: '靴下' },
-  en: { apparel: 'Fashion', bag: 'Bags', eyewear: 'Eyewear', food: 'Food', goods: 'Goods', group: 'Group', hat: 'Hats', jewelry: 'Jewelry', kimono: 'Kimono', shoes: 'Shoes & Bags', socks: 'Socks' },
+  zh: { apparel: '服飾', bag: '包款', eyewear: '眼鏡', food: '餐飲', goods: '飾品雜貨', group: '複合集團', hat: '帽子', jewelry: '珠寶飾品', kimono: '和服', shoes: '鞋履包款', socks: '襪類', other: '其他' },
+  ja: { apparel: 'アパレル', bag: 'バッグ', eyewear: 'メガネ', food: '飲食', goods: 'アクセサリー・雑貨', group: '複合企業', hat: '帽子', jewelry: 'ジュエリー', kimono: '着物', shoes: 'シューズ・バッグ', socks: '靴下', other: 'その他' },
+  en: { apparel: 'Fashion', bag: 'Bags', eyewear: 'Eyewear', food: 'Food', goods: 'Goods', group: 'Group', hat: 'Hats', jewelry: 'Jewelry', kimono: 'Kimono', shoes: 'Shoes & Bags', socks: 'Socks', other: 'Other' },
 };
 
 // 簽證標籤三語對照（stories frontmatter 的 visa 是繁中原值；ja/en 頁顯示時轉換）

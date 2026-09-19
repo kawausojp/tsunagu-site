@@ -1,9 +1,9 @@
 /* 品牌詳情頁樣式（三語共用） */
-  .hero{background:var(--paper);padding:40px 0 44px;border-bottom:1px solid var(--line)}
+  /* 頁首／內容區的節奏走全站 .page-head／.page-section（2026-09-19 前是唯一自訂 padding 的內頁） */
   .back{display:inline-flex;align-items:center;min-height:var(--control-min);font-size:var(--fs-xs);margin-bottom:8px}
   .corp{font-size:var(--fs-sm);color:var(--ink-600);margin:6px 0 12px}
   .hero .tags{margin-top:18px}
-  .body{padding-top:44px;padding-bottom:20px}
+  .body{padding-bottom:20px}
   .prose{font-size:var(--fs-xl);line-height:1.95;max-width:42em}
   .hl{margin-top:32px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 26px}
   .hl ul{margin:12px 0 0;padding-left:1.25em}
@@ -15,23 +15,24 @@
   .numbers .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:4px}
   main .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
   @media (max-width:720px){
-    .hero{background:var(--paper);padding:20px 0 24px;border-bottom-color:var(--mobile-line)}
     .back{margin-bottom:14px}
     .hero h1{font-size:clamp(25px,8vw,30px);line-height:1.4;letter-spacing:.025em;overflow-wrap:break-word}
     .corp{margin:5px 0 10px}
     .hero .lead{margin-top:8px}
     .hero .tags{margin-top:14px;gap:6px}
-    .body{padding-top:32px;padding-bottom:8px}
+    .body{padding-bottom:8px}
     .prose{font-size:var(--fs-lg);line-height:1.85}
     .hl{margin-top:26px;border-color:var(--mobile-line);border-radius:var(--r-md);padding:18px 16px}
     .hl ul{margin-top:10px}
     .hl li{font-size:var(--fs-sm);line-height:1.8}
     .numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:20px}
     .numbers>div{padding:16px 10px;background:var(--paper);border:1px solid var(--mobile-line);border-radius:var(--r-md)}
-    .numbers .n{font-size:clamp(24px,7vw,28px)}  /* 不可大於首頁 .band .n 的 31px（階層） */
+    .numbers .n{font-size:clamp(24px,7vw,28px)}  /* 要小於首頁泡泡的數字（階層） */
     main .cta{flex-direction:column;align-items:flex-start;gap:6px;margin-top:28px}
   }
   .related{margin:26px 0 6px}
+  /* 品牌名下方是登記名與 tagline，不吃 .page-head .lead 的 14px */
+  .page-head .corp+.lead{margin-top:0}
   .related .d3{margin-bottom:8px}
   .rel-link{display:flex;align-items:center;min-height:var(--control-min);padding:2px 0;color:var(--ink-900);text-decoration:underline;text-decoration-color:var(--sky-300);text-decoration-thickness:2px;text-underline-offset:4px}
   .rel-link:hover{text-decoration:underline}
