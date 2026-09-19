@@ -79,7 +79,8 @@ const ogImage = new URL(`${base}/img/${lang === 'zh' ? 'og-default' : `og-${lang
   <main id="main" tabindex="-1"><slot /></main>
   <Footer lang={lang} />
   <style>
-    .skip{position:absolute;left:-9999px;top:0;background:var(--ink-900);color:var(--paper);
+    /* 跳到主內容：全站唯一曾用深色塊的元件，改與 .notice 同語言（白底＋粉框＋灰字） */
+    .skip{position:absolute;left:-9999px;top:0;background:var(--paper);color:var(--ink-900);border:1px solid var(--pink-300);
       padding:10px 18px;border-radius:0 0 var(--r-sm) 0;z-index:100;font-weight:700}
     .skip:focus{left:0}
   </style>

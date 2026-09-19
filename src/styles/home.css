@@ -3,6 +3,7 @@
     padding:72px 0 64px;border-bottom:1px solid var(--line)}
   .hero-inner{display:grid;justify-items:center;text-align:center}
   html[lang="en"] .hero h1{letter-spacing:.01em}
+  /* hero 大標刻意比規則 2 的 .05em／1.45 收窄：62px 展示級拉開字距會散、行高 1.45 兩行會離太遠（定案，非違規） */
   .hero h1{font-size:clamp(40px,4.8vw,62px);line-height:1.25;letter-spacing:.045em;
     white-space:nowrap;text-wrap:balance}
   .hero .chars{width:200px;height:auto;margin:20px auto 18px;

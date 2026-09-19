@@ -1,9 +1,9 @@
 /* ══════════════════════════════════════════════════════════
-   Tsunagu Design Tokens v0.2 — 全粉彩・無深色
+   Tsunagu Design Tokens v0.2 — 明亮乾淨・日系・無深色（2026-09-13 白底灰字定案）
    · 字體沿用簡報：BIZ UDPGothic（日文）＋ Noto Sans TC（繁中）
      ＋ Jost（拉丁，對應簡報的 Century Gothic）
-   · 文字色取自角色輪廓的暖褐 #AF9789，加深到可讀範圍
-   · 全站不使用近黑或高彩度色塊；對比靠「褐字 × 粉彩底」達成
+   · 文字全中性灰（--ink-900 #444，取自 logo 的 bpt／R／M 字色）；~~暖褐~~ 已棄用
+   · 顏色只放在底色與線條（粉 --pink-300／藍 --sky-300）；全站不使用近黑或高彩度色塊
    ══════════════════════════════════════════════════════════ */
 :root{
   /* ── 配色（2026-09-13 第二版：只有兩個主色＋灰）──
@@ -37,7 +37,7 @@
   /* ── 字級階梯（2026-08-28 收斂 0.5px 級距後全站唯一來源） ──
      3xs=11 手機微標籤 · 2xs=12 標註 · xs=13 註記/小標 · sm=14 UI/小正文
      md=15 緊湊正文 · lg=16 正文 · xl=17 prose · 2xl=18 d3 · 3xl=20 引言/強調
-     stat=38 數字磁磚展示級（桌機唯一）。d1/d2/hero 大標用 clamp()，
+     stat=38 品牌頁數字磁磚展示級。d1/d2/hero 大標與首頁泡泡數字用 clamp()，
      手機標題階 24/22 為定案階層——皆不入此階梯 */
   --fs-3xs:11px; --fs-2xs:12px; --fs-xs:13px; --fs-sm:14px; --fs-md:15px;
   --fs-lg:16px; --fs-xl:17px; --fs-2xl:18px; --fs-3xl:20px; --fs-stat:38px;
@@ -116,7 +116,7 @@ main:focus{outline:none}
 .lead{color:var(--ink-600);max-width:36em;font-size:var(--fs-lg);line-height:2}
 .small{font-size:var(--fs-xs);color:var(--ink-600);line-height:1.9}
 
-/* ── 按鈕：粉彩底 + 褐字，全站不出現深色塊 ── */
+/* ── 按鈕：主按鈕粉底白字（使用者 2026-09-13 指定）、次按鈕白底主色框灰字，全站不出現深色塊 ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
   font-family:var(--f-body);font-weight:700;font-size:var(--fs-md);letter-spacing:.04em;
   min-height:var(--control-min);line-height:1.25;padding:10px 20px;
@@ -170,8 +170,8 @@ html[lang="en"] .prose{max-width:56ch}
   border-radius:var(--r-xs);background:var(--paper);border:1px solid var(--ink-400);color:var(--ink-600);line-height:1.6}
 .tag.area{background:var(--paper);border-color:var(--sky-300);color:var(--ink-900)}
 .tag.job{background:var(--paper);border-color:var(--pink-300);color:var(--ink-900)}
-/* .tag.jlpt 走預設中性樣式（greige-50 底＋line 框＋ink-600 字 4.82:1 ✓）——
-   黃色系 --note-* 只屬 .notice 必讀聲明，「N2 以上」是中性事實標籤 */
+/* .tag.jlpt 走 .tag 預設中性樣式（白底＋ink-400 框＋ink-600 字）——「N2 以上」是中性事實標籤，
+   不用主色框（主色框留給地區／職種） */
 .tags{display:flex;flex-wrap:wrap;gap:8px}
 
 /* ── 卡片 ── */
@@ -236,7 +236,7 @@ html[lang="en"] .prose{max-width:56ch}
 @media (max-width:720px){
   :root{
     --layout-gutter:16px;
-    --r-sm:8px;--r-md:12px;--r-lg:14px;--r-xl:18px;
+    --r-lg:14px;--r-xl:18px;   /* sm/md 與桌機相同，不重宣告 */
     --sh-1:none;--sh-2:0 1px 2px rgba(70,70,70,.08);--sh-3:0 8px 24px rgba(70,70,70,.10);
     --header-height:56px;   /* 2026-09-13：分頁列移除，手機頁首只剩一列 */
     --content-section-gap:40px;
