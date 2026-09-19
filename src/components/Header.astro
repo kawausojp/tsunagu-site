@@ -4,8 +4,8 @@ import Heart from './Heart.astro';
 // 字標：主色版（TSU #F3A0AA／NAGU #7DD0F5），header 與 footer 共用
 import wordmark from '../assets/tsunagu-wordmark.png';
 import { ui, href, switchHref, LANG_META, BASE, type Lang } from '../i18n/ui';
-interface Props { lang?: Lang }
-const { lang = 'zh', altPaths } = Astro.props as { lang?: Lang; altPaths?: Partial<Record<Lang, string>> };
+interface Props { lang?: Lang; altPaths?: Partial<Record<Lang, string>> }
+const { lang = 'zh', altPaths } = Astro.props;
 const t = ui[lang];
 const nav = t.nav.map(n => ({ href: href(lang, n.path), label: n.label, short: n.short }));
 const path = Astro.url.pathname;

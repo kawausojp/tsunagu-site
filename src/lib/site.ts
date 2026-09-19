@@ -11,15 +11,15 @@ const EventSchema = z.object({
   sessions: z.array(z.string().regex(/^\d{1,2}:\d{2}\s*[–\-−~〜]\s*\d{1,2}:\d{2}$/)).optional(),
   venue: z.string().optional(),
   address: z.string().optional(),
-  signupUrl: z.string().url().optional(),
+  signupUrl: z.url().optional(),
   ig: z.string().regex(/^[A-Za-z0-9_-]{10,12}$/).optional(),
-}).passthrough();
+}).loose();
 const eventsData = z.object({
   totalHeld: z.number().int().nonnegative(),
   cities: z.array(z.string()),
   since: z.string().regex(/^\d{4}-\d{2}$/),
   events: z.array(EventSchema),
-}).passthrough().parse(rawEvents);
+}).loose().parse(rawEvents);
 
 export const VIDEO_ID = 'UmWq6sPcrJs'; // 公視晚間新聞，內含 Tsunagu 訪談
 
