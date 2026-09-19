@@ -23,12 +23,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">我們是誰</h2>
-    <div class="grid">
-      <div class="card b">
+    <div class="grid grid-2">
+      <div class="card card-pad b">
         <h3 class="d3" lang="ja">株式会社ブレーンアンドパートナー</h3>
         <p class="small">1980 年創業於日本，商業設施顧問公司。參與營運有 1,000 家企業加盟的「日本購物中心協會」。</p>
       </div>
-      <div class="card b">
+      <div class="card card-pad b">
         <h3 class="d3">智囊和夥伴有限公司</h3>
         <p class="small">Brain &amp; Partner Taiwan Inc.，2018 年創立，連結日本與台灣。
           2019 年擔任台北微風南山 atre 開業顧問，營運與策劃超過 10 家店舖。</p>
@@ -40,9 +40,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">媒體報導</h2>
-    <ul class="media">
+    <ul class="media rows">
       {MEDIA.map(m => (
-        <li class="card m">
+        <li class="row m">
           <span class="d">{m.date}</span>
           {m.url
             ? <a class="n m-link" href={m.url} target="_blank" rel="noopener" lang={m.title ? 'ja' : undefined}>{m.title ?? m.name.zh} ↗</a>

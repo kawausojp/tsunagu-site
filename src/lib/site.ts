@@ -107,6 +107,54 @@ export function matchCompanyId(storyCompany: string, companies: { id: string; na
   return null;
 }
 
+/** 品牌頁：在這個品牌工作過的學長姐（matchCompanyId 的反向；原本三語 [slug] 各抄一份）。
+ * 前綴比對而非子字串：避免 "ete" 誤配 "agete"；另取空格前第一段處理 "MUK ムカイ" → MUKAI */
+export function relatedStoriesFor<T extends { data: { company: string; order: number } }>(companyName: string, stories: T[]): T[] {
+  const dn = normName(companyName);
+  return stories.filter(st => {
+    const sn = normName(st.data.company);
+    if (sn.length < 2) return false;
+    const snFirst = normName(st.data.company.split(/[\s/]/)[0]);
+    return sn === dn || dn.startsWith(sn) || sn.startsWith(dn) || (snFirst.length > 2 && dn.startsWith(snFirst));
+  }).sort((a, b) => a.data.order - b.data.order);
+}
+
+/** apply 頁的線上收件表單。線上收件流程目前不存在（2026-08-26 使用者確認）；
+ * 日後建立 Google 表單填入這裡，三語 apply 頁即自動切換為內嵌表單。 */
+export const FORM_URL = '';
+
+type EventRow = (typeof eventsData.events)[number];
+const JP_CITIES = new Set(['東京', '大阪']);
+/** Event 結構化資料（三語 events 頁共用；原本三份）。僅給未來場次且場地齊備者（Google Event 標記要求結構化地址）。
+ * name 固定日文表記（同一場活動三語應輸出同一個名稱）；交流會以中文進行，inLanguage 維持 zh-Hant。 */
+export function eventLd(e: EventRow) {
+  // 資料源時段用 en dash「14:00–16:00」，但也容忍連字號／波浪號，避免產生 "Tundefined:00"
+  const times = (e.sessions ?? []).map(t => t.split(/\s*[–\-−~〜]\s*/));
+  const lastTime = times.at(-1);
+  const inJapan = JP_CITIES.has(e.city);
+  const tz = inJapan ? '+09:00' : '+08:00';
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: `第 ${fmtEventNo(e.no, 'ja')} 回 台湾人と日本企業をツナグ交流会`,
+    startDate: times[0]?.[0] ? `${e.date}T${times[0][0]}:00${tz}` : e.date,
+    endDate: lastTime?.[1] ? `${e.date}T${lastTime[1]}:00${tz}` : e.date,
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    location: {
+      '@type': 'Place',
+      name: e.venue,
+      address: { '@type': 'PostalAddress', streetAddress: e.address, addressLocality: e.city, addressCountry: inJapan ? 'JP' : 'TW' },
+    },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: inJapan ? 'JPY' : 'TWD',
+      availability: 'https://schema.org/InStock', url: e.signupUrl },
+    organizer: { '@type': 'Organization', name: 'ツナグ Tsunagu',
+      url: 'https://www.instagram.com/tw.tsunagu.jp/' },
+    inLanguage: 'zh-Hant',
+    isAccessibleForFree: true,
+  };
+}
+
 /** 品牌頁：highlights 首條常與 placements 大數字磁磚重複（「累計 N 人任職/採用」）。
  * 有磁磚時把該條從列表濾掉，同一數字不在同屏出現兩次。內容不修改，只是不重複呈現。 */
 export function dedupHighlights(highlights: string[], placements: number) {

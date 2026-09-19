@@ -1,25 +1,15 @@
 /* about 頁樣式（三語共用） */
   .prose{font-size:var(--fs-xl);line-height:1.95;max-width:42em}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-  @media (max-width:720px){ .grid{grid-template-columns:1fr} }
-  .b{padding:var(--card-pad)}
+  .grid{margin-bottom:16px}
   .b p{margin:8px 0 0}
-  .media{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
-  .m{padding:14px 4px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent}
-  .m .d{font-family:var(--f-latin);font-weight:600;color:var(--ink-600);font-size:var(--fs-xs);flex:0 0 92px}
+  .m{align-items:baseline}
   .m .n{font-weight:700;font-size:var(--fs-md)}
   .note-t{color:var(--ink-600)}
   .page-section>.small{max-width:40em}
   .page-head .who{margin:6px 0 0;color:var(--ink-600)}
   @media (max-width:720px){
     .prose{font-size:var(--fs-lg);line-height:1.85}
-    .grid{gap:12px;margin-bottom:14px}
-    .b{padding:18px 16px}
-    .media{gap:0;border:1px solid var(--mobile-line);border-radius:var(--r-md);overflow:hidden}
-    .m{gap:8px;padding:12px 14px;border:0;border-bottom:1px solid var(--mobile-line);border-radius:0}
-    .m:last-child{border-bottom:0}
-    .m .d{flex-basis:82px}
+    .grid{margin-bottom:14px}
   }
-  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
-  .m-link{display:inline-flex;align-items:center;min-height:var(--control-min);color:var(--sky-700);text-decoration:none}
-  .m-link:hover{text-decoration:underline}
+  /* 報導連結走全站 a 樣式（灰字＋藍底線），只補觸控高度 */
+  .m-link{display:inline-flex;align-items:center;min-height:var(--control-min)}

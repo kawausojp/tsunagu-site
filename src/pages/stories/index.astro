@@ -52,7 +52,7 @@ const companyHref = new Map(stories.map(s => {
           </div>
         </header>
 
-        <p class="lead-q">{s.data.lead}</p>
+        <p class="lead-q quote">{s.data.lead}</p>
 
         {s.data.messages.length > 0 && (
           <ul class="msgs">{s.data.messages.map(m => <li>{m}</li>)}</ul>
@@ -73,7 +73,7 @@ const companyHref = new Map(stories.map(s => {
   </section>
 
   <section class="wrap wrap--reading cta">
-    <div class="cta-band">
+    <div class="cta-band cta-box">
       <h2 class="d2">下一個換你</h2>
       <p class="lead">他們每個人都是從一場交流會開始的。</p>
       <a class="btn btn-primary" href={`${base}/events`}>{signupCta('zh')}</a>

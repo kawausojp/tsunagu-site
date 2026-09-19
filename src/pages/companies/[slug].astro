@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { dedupHighlights, fmtSourceDeck } from '../../lib/site';
+import { dedupHighlights, fmtSourceDeck, relatedStoriesFor } from '../../lib/site';
+import { ui } from '../../i18n/ui';
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-company.css';
 
@@ -14,17 +15,9 @@ const { Content } = await render(c);
 // 在這個品牌工作過的學長姐（company 名寬鬆比對；資料本來就在庫裡，接上而已）
 const allStories = await getCollection('stories');
 const companiesCount = (await getCollection('companies')).length;
-const norm = (x: string) => x.normalize('NFKC').toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u4e00-\u9fff]/g, '');
-const dn = norm(d.name);
-const relatedStories = allStories.filter(st => {
-  const sn = norm(st.data.company);
-  if (sn.length < 2) return false;
-  // 前綴比對而非子字串：避免 "ete" 誤配 "agete"；另取空格前第一段處理 "MUK ムカイ" → MUKAI
-  const snFirst = norm(st.data.company.split(/[\s/]/)[0]);
-  return sn === dn || dn.startsWith(sn) || sn.startsWith(dn) || (snFirst.length > 2 && dn.startsWith(snFirst));
-}).sort((a, b) => a.data.order - b.data.order);
+const relatedStories = relatedStoriesFor(d.name, allStories);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡', kobe:'神戶', hokkaido:'北海道' };
+const AREA = ui['zh'].area;
 const hl = dedupHighlights(d.highlights, d.placements);
 ---
 <Base title={`${d.name} 赴日工作介紹`}

@@ -4,13 +4,13 @@ import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-companies.css';
 import CompanyCard from '../../../components/CompanyCard.astro';
 
-import { href } from '../../../i18n/ui';
+import { href, ui } from '../../../i18n/ui';
 import { CAT_LABEL, CONTRACTED_COMPANIES, signupCta } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const companies = (await getCollection('companies'))
   .sort((a, b) => b.data.placements - a.data.placements || a.data.name.localeCompare(b.data.name));
 
-const AREA: Record<string,string> = { tokyo:'Tokyo', osaka:'Osaka', kyoto:'Kyoto', fukuoka:'Fukuoka', kobe:'Kobe', hokkaido:'Hokkaido' };
+const AREA = ui['en'].area;
 const areaKeys = Object.keys(AREA).filter(k => companies.some(c => c.data.areas.includes(k as any)));
 const cats = [...new Map(companies.map(c => [c.data.category, CAT_LABEL.en[c.data.category] ?? c.data.categoryLabel])).entries()];
 const jlpts = ['N2','N3'].filter(j => companies.some(c => c.data.jlpt === j));

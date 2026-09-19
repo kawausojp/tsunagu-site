@@ -93,7 +93,7 @@ const stats = [
       <div class="voice">
         <div class="v-avatar"><SenpaiAvatar name={firstStory.data.name} size={96} /></div>
         <div>
-          <blockquote class="v-quote" lang="zh-Hant">{firstStory.data.lead}</blockquote>
+          <blockquote class="v-quote quote" lang="zh-Hant">{firstStory.data.lead}</blockquote>
           <p class="small v-meta">
             <span lang="ja">{firstStory.data.name}</span> — {VISA_LABEL.en[firstStory.data.visa] ?? firstStory.data.visa} · {firstStory.data.company} ({fmtLocation(firstStory.data.location, 'en')})
             <br/>* Stories are published in their original language (Chinese).

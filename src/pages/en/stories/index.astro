@@ -53,7 +53,7 @@ const companyHref = new Map(stories.map(s => {
           </div>
         </header>
 
-        <p class="lead-q" lang="zh-Hant">{s.data.lead}</p>
+        <p class="lead-q quote" lang="zh-Hant">{s.data.lead}</p>
 
         {s.data.messages.length > 0 && (
           <ul class="msgs" lang="zh-Hant">{s.data.messages.map(m => <li>{m}</li>)}</ul>
@@ -74,7 +74,7 @@ const companyHref = new Map(stories.map(s => {
   </section>
 
   <section class="wrap wrap--reading cta">
-    <div class="cta-band">
+    <div class="cta-band cta-box">
       <h2 class="d2">You could be next</h2>
       <p class="lead">Every one of them started with a single meetup.</p>
       <a class="btn btn-primary" href={l('/events')}>{signupCta('en')}</a>

@@ -1,10 +1,7 @@
 ---
-import { signupCta } from '../../lib/site';
+import { signupCta, FORM_URL } from '../../lib/site';
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-apply.css';
-// 線上收件流程目前不存在（2026-08-26 使用者確認）。若日後建立 Google 表單，
-// 填入網址即自動切換為內嵌表單，以下聯絡導流版面會被取代。
-const FORM_URL = '';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Base title="準備出發" altPaths={{ zh: '/apply/', ja: '/ja/apply/', en: '/en/apply/' }} description="已經確定要去日本？到交流會或 IG 私訊把資料交給我們，之後安排個別諮詢；附履歷照片與面試要點。">
@@ -25,13 +22,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       : <>
           <div class="card contact-panel">
             <article class="contact-option">
-              <span class="contact-no" aria-hidden="true">1</span>
+              <span class="no-badge" aria-hidden="true">1</span>
               <h3 class="d3">先到交流會聊聊</h3>
               <p class="small">不用先準備完整履歷，現場告訴我們你的時間、日語程度與想做的工作。</p>
               <a class="btn btn-primary" href={`${base}/events`}>查看下一場交流會</a>
             </article>
             <article class="contact-option">
-              <span class="contact-no" aria-hidden="true">2</span>
+              <span class="no-badge" aria-hidden="true">2</span>
               <h3 class="d3">直接私訊我們</h3>
               <p class="small">如果時間不方便，先從 Instagram 聯絡，我們會告訴你需要準備什麼。</p>
               <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp ↗</a>
@@ -44,8 +41,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <section id="photo" class="wrap wrap--page page-section">
     <h2 class="d2">履歷照片怎麼拍</h2>
     <p class="lead">這是交流會上最多人受用的一頁。日本的履歷照有它的規矩，但服飾業又不太一樣。</p>
-    <div class="two">
-      <div class="card box">
+    <div class="two grid-2">
+      <div class="card card-pad box">
         <h3 class="d3">一般履歷照</h3>
         <ul>
           <li><span class="ok" aria-hidden="true">○</span> 嘴巴閉著，但嘴角要往上</li>
@@ -54,7 +51,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <li><span class="ng" aria-hidden="true">✕</span> 像在留卡那種證件照</li>
         </ul>
       </div>
-      <div class="card box alt">
+      <div class="card card-pad box">
         <h3 class="d3">應徵服飾業時</h3>
         <ul>
           <li>另外準備比履歷照<strong>更自然的笑容照</strong></li>
@@ -68,8 +65,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <section id="interview" class="wrap wrap--page page-section">
     <h2 class="d2">面試要注意的幾件事</h2>
-    <div class="two">
-      <div class="card box">
+    <div class="two grid-2">
+      <div class="card card-pad box">
         <h3 class="d3">講話方式</h3>
         <ul>
           <li>明亮、清楚、有精神，音量放大一點</li>
@@ -77,7 +74,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <li><strong>「はい」只講一次。</strong>中文習慣說「對對對」，但日文連說「ハイハイハイ」會被認為在敷衍。</li>
         </ul>
       </div>
-      <div class="card box">
+      <div class="card card-pad box">
         <h3 class="d3">內容準備</h3>
         <ul>
           <li>常見問題先想好答案（我們會提供題目範例）</li>

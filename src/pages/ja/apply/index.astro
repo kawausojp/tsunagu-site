@@ -1,10 +1,7 @@
 ---
-import { signupCta } from '../../../lib/site';
+import { signupCta, FORM_URL } from '../../../lib/site';
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-apply.css';
-// 線上收件流程目前不存在（2026-08-26 使用者確認）。若日後建立 Google 表單，
-// 填入網址即自動切換為內嵌表單，以下聯絡導流版面會被取代。
-const FORM_URL = '';
 import { href } from '../../../i18n/ui';
 const l = (p: string) => href('ja', p);
 ---
@@ -26,13 +23,13 @@ const l = (p: string) => href('ja', p);
       : <>
           <div class="card contact-panel">
             <article class="contact-option">
-              <span class="contact-no" aria-hidden="true">1</span>
+              <span class="no-badge" aria-hidden="true">1</span>
               <h3 class="d3">まず交流会で話す</h3>
               <p class="small">完璧な履歴書は不要です。渡航時期・日本語レベル・希望職種を会場でお聞かせください。</p>
               <a class="btn btn-primary" href={l('/events')}>次回の交流会を見る</a>
             </article>
             <article class="contact-option">
-              <span class="contact-no" aria-hidden="true">2</span>
+              <span class="no-badge" aria-hidden="true">2</span>
               <h3 class="d3">DM で連絡する</h3>
               <p class="small">日程が合わない場合は Instagram からご連絡ください。必要な準備をご案内します。</p>
               <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp ↗</a>
@@ -45,8 +42,8 @@ const l = (p: string) => href('ja', p);
   <section id="photo" class="wrap wrap--page page-section">
     <h2 class="d2">履歴書写真の撮り方</h2>
     <p class="lead">交流会でも特に反響の大きい内容です。日本の履歴書写真には作法があり、アパレルはまた少し違います。</p>
-    <div class="two">
-      <div class="card box">
+    <div class="two grid-2">
+      <div class="card card-pad box">
         <h3 class="d3">一般的な履歴書写真</h3>
         <ul>
           <li><span class="ok" aria-hidden="true">○</span> 口は閉じ、口角は上げる</li>
@@ -55,7 +52,7 @@ const l = (p: string) => href('ja', p);
           <li><span class="ng" aria-hidden="true">✕</span> 在留カードのような証明写真</li>
         </ul>
       </div>
-      <div class="card box alt">
+      <div class="card card-pad box">
         <h3 class="d3">アパレル応募の場合</h3>
         <ul>
           <li>履歴書写真よりも<strong>自然な笑顔の写真</strong>を別途 1 枚用意</li>
@@ -69,8 +66,8 @@ const l = (p: string) => href('ja', p);
 
   <section id="interview" class="wrap wrap--page page-section">
     <h2 class="d2">面接のポイント</h2>
-    <div class="two">
-      <div class="card box">
+    <div class="two grid-2">
+      <div class="card card-pad box">
         <h3 class="d3">話し方</h3>
         <ul>
           <li>明るく・はっきり・元気に、声は大きめに</li>
@@ -78,7 +75,7 @@ const l = (p: string) => href('ja', p);
           <li><strong>「はい」は 1 回。</strong>中国語の「對對對（ドゥイドゥイドゥイ）」の感覚で「ハイハイハイ」と重ねると、いい加減な印象になります。</li>
         </ul>
       </div>
-      <div class="card box">
+      <div class="card card-pad box">
         <h3 class="d3">内容の準備</h3>
         <ul>
           <li>定番の質問への回答を用意（質問例はこちらで提供します）</li>

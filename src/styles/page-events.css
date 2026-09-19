@@ -15,22 +15,15 @@
   .map-link{display:inline-block;margin-left:10px;padding:6px 0;font-size:var(--fs-xs)}
   .hint{margin:12px 0 0;color:var(--ink-600)}
   .backtop{margin-top:16px}
-  .backtop a{display:inline-flex;align-items:center;min-height:var(--control-min);color:var(--sky-700);text-decoration:none}
-  .backtop a:hover{text-decoration:underline}
+  .backtop a{display:inline-flex;align-items:center;min-height:var(--control-min)}
+  .flow-more{margin-top:14px}
   .flow{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
   .step{display:flex;gap:16px;padding:18px 20px;align-items:flex-start}
-  .step .no{width:30px;height:30px;flex:0 0 30px;border-radius:var(--r-full);background:var(--paper);border:2px solid var(--pink-300);
-    color:var(--ink-900);font-family:var(--f-latin);font-weight:700;display:flex;
-    align-items:center;justify-content:center;font-size:var(--fs-sm)}
   .step p{margin:2px 0 0}
-  .note{margin-top:22px}
   /* 一行一筆的紀錄不做 12 個獨立卡片（灰框牆），改分隔線清單 */
-  .hist{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
-  .h{display:flex;gap:12px;align-items:center;padding:14px 4px;flex-wrap:wrap;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent}
-  .h .no{font-family:var(--f-latin);font-weight:700;font-size:var(--fs-xs);color:var(--ink-600);flex:0 0 92px;white-space:nowrap}
+  .hist{margin-top:20px}
   .h .date{font-weight:700;font-size:var(--fs-md)}
-  .h .ig{margin-left:auto;display:inline-flex;align-items:center;min-height:var(--control-min);color:var(--sky-700);text-decoration:none}
-  .h .ig:hover{text-decoration:underline}
+  .h .ig{margin-left:auto;display:inline-flex;align-items:center;min-height:var(--control-min)}
   @media (max-width:720px){
     .since{margin-top:10px}
     .upcoming-list{gap:12px}
@@ -43,10 +36,4 @@
     .next .btn-primary{width:auto;min-width:240px;margin-top:4px}
     .flow{gap:10px}
     .step{gap:12px;padding:16px}
-    .step .no{width:28px;height:28px;flex-basis:28px;font-size:var(--fs-xs)}
-    .note{margin-top:18px}
-    .hist{gap:0;border:1px solid var(--mobile-line);border-radius:var(--r-md);overflow:hidden}
-    .h{gap:8px;padding:12px 14px;border:0;border-bottom:1px solid var(--mobile-line);border-radius:0}
-    .h:last-child{border-bottom:0}
-    .h .no{flex-basis:80px}
   }

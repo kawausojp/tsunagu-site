@@ -23,12 +23,12 @@ const l = (p: string) => href('ja', p);
 
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">運営会社</h2>
-    <div class="grid">
-      <div class="card b">
+    <div class="grid grid-2">
+      <div class="card card-pad b">
         <h3 class="d3" lang="ja">株式会社ブレーンアンドパートナー</h3>
         <p class="small">1980 年創業の商業施設コンサルティング会社。1,000 社が加盟する日本ショッピングセンター協会の運営に参画。</p>
       </div>
-      <div class="card b">
+      <div class="card card-pad b">
         <h3 class="d3">智囊和夥伴有限公司</h3>
         <p class="small">Brain &amp; Partner Taiwan Inc.（2018 年設立）。2019 年に台北・微風南山 atre の開業コンサルティングを担当し、10 店舗以上を企画・運営。</p>
       </div>
@@ -38,9 +38,9 @@ const l = (p: string) => href('ja', p);
 
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">メディア掲載</h2>
-    <ul class="media">
+    <ul class="media rows">
       {MEDIA.map(m => (
-        <li class="card m">
+        <li class="row m">
           <span class="d">{m.date}</span>
           {m.url
             ? <a class="n m-link" href={m.url} target="_blank" rel="noopener" lang={m.title ? 'ja' : undefined}>{m.title ?? m.name.ja} ↗</a>

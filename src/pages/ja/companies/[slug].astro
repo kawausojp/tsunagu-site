@@ -13,22 +13,14 @@ const name = companyName(d, 'ja');
 const { Content } = await render(c);
 // 在這個品牌工作過的學長姐（company 名寬鬆比對；資料本來就在庫裡，接上而已）
 const allStories = await getCollection('stories');
-const norm = (x: string) => x.normalize('NFKC').toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u4e00-\u9fff]/g, '');
-const dn = norm(d.name);
-const relatedStories = allStories.filter(st => {
-  const sn = norm(st.data.company);
-  if (sn.length < 2) return false;
-  // 前綴比對而非子字串：避免 "ete" 誤配 "agete"；另取空格前第一段處理 "MUK ムカイ" → MUKAI
-  const snFirst = norm(st.data.company.split(/[\s/]/)[0]);
-  return sn === dn || dn.startsWith(sn) || sn.startsWith(dn) || (snFirst.length > 2 && dn.startsWith(snFirst));
-}).sort((a, b) => a.data.order - b.data.order);
-import { href } from '../../../i18n/ui';
-import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName } from '../../../lib/site';
+const relatedStories = relatedStoriesFor(d.name, allStories);
+import { href, ui } from '../../../i18n/ui';
+import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor } from '../../../lib/site';
 const l = (p: string) => href('ja', p);
 const companiesCount = (await getCollection('companies')).length;
 const catLabel = CAT_LABEL.ja[d.category] ?? d.categoryLabel;
 const tagline = d.taglineJa ?? d.tagline;
-const AREA = { tokyo:'東京', osaka:'大阪', kyoto:'京都', fukuoka:'福岡', kobe:'神戸', hokkaido:'北海道' };
+const AREA = ui['ja'].area;
 const hl = dedupHighlights(d.highlights, d.placements);
 ---
 <Base title={`${name}｜提携ブランド`} lang="ja"

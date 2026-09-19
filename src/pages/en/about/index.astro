@@ -23,12 +23,12 @@ const l = (p: string) => href('en', p);
 
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">Who we are</h2>
-    <div class="grid">
-      <div class="card b">
+    <div class="grid grid-2">
+      <div class="card card-pad b">
         <h3 class="d3" lang="ja">株式会社ブレーンアンドパートナー</h3>
         <p class="small">Founded in Japan in 1980; commercial-facility consultancy. Helps run the Japan Council of Shopping Centers (1,000 member companies).</p>
       </div>
-      <div class="card b">
+      <div class="card card-pad b">
         <h3 class="d3">智囊和夥伴有限公司</h3>
         <p class="small">Brain &amp; Partner Taiwan Inc., founded 2018. Opening consultant for Breeze Nan Shan atre in Taipei (2019); planned and operated 10+ stores.</p>
       </div>
@@ -38,9 +38,9 @@ const l = (p: string) => href('en', p);
 
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">Media coverage</h2>
-    <ul class="media">
+    <ul class="media rows">
       {MEDIA.map(m => (
-        <li class="card m">
+        <li class="row m">
           <span class="d">{m.date}</span>
           {m.url
             ? <a class="n m-link" href={m.url} target="_blank" rel="noopener" lang={m.title ? 'ja' : undefined}>{m.title ?? m.name.en} ↗</a>

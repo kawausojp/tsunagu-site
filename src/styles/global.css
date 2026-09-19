@@ -9,20 +9,14 @@
   /* ── 配色（2026-09-13 第二版：只有兩個主色＋灰）──
      使用者：「整個頁面只要這兩個主色（footer 字標的粉與藍），其他地方的粉都太深」。
      主色 #F3A0AA／#7DD0F5 對白只有 2.0／1.7:1，不能當文字 → 顏色一律放在
-     底色與線條，文字全灰。--pink-700／--sky-700 沿用名稱但值＝灰，讓原本的
-     彩色文字一次歸位；線條／底色請直接用 --pink-300／--sky-300。 */
-  /* 2026-09-13 使用者：「只要粉藍雙主色，其他深淺都不要」→ 淡階全部收掉：
-     50/100 ＝ 白、200 ＝ 主色。名稱沿用讓 35 處引用自動歸位。 */
-  --pink-50:#FFFFFF; --pink-100:#FFFFFF; --pink-200:#F3A0AA;
+     底色與線條，文字全灰（--ink-900）；線條／底色直接用 --pink-300／--sky-300。
+     2026-09-13 使用者：「只要粉藍雙主色，其他深淺都不要」。
+     2026-09-19：過渡用的 --pink/sky-700（名粉實灰）與 50/100/200 淡階已全部歸位並刪除，
+     不要再加回；舊識別色（粉 #FF6699、logo 藍 #00B0F0）只留在這行註解。 */
   --pink-300:#F3A0AA;                              /* 主色：珊瑚粉（bpt ROOM logo）*/
-  --pink-500:#FF6699;                              /* 舊品牌識別色（記錄用，0 處使用）*/
-  --pink-700:#444444;                              /* ＝灰。原「珊瑚字色」，主色不可承載文字 */
-  --sky-50:#FFFFFF; --sky-100:#FFFFFF; --sky-200:#7DD0F5;
   --sky-300:#7DD0F5;                               /* 主色：天空藍（logo #00B0F0 的 pastel）*/
-  --sky-500:#00B0F0;                               /* logo 原藍（記錄用）*/
-  --sky-700:#444444;                               /* ＝灰。原「藍字色」，主色不可承載文字 */
   /* ── 中性 ── */
-  --cream:#FFFFFF; --paper:#FFFFFF; --greige-50:#F5F5F5;   /* 交替區：純中性灰白，無藍偏 */
+  --paper:#FFFFFF; --greige-50:#F5F5F5;   /* 交替區：純中性灰白，無藍偏 */
   /* 2026-09-14 使用者定案：藍主色 12% 的淡底，只准當 /companies 列表區的底色，不得用於文字／按鈕／標籤 */
   --sky-wash:#EFF9FE;
   /* 企業卡的粉色光暈邊線（1px 半透明粉框＋粉色柔光），hover 時加深 */
@@ -35,7 +29,7 @@
   --ink-600:#6E6E6E;                               /* 次要文字 5.10:1 ✓ */
   --ink-900:#444444;                               /* 主文字 9.74:1；壓在粉主色 4.83、藍主色 5.66 ✓ */
   /* ── 必讀聲明：不用第三色，改粉主色框 ── */
-  --note-bg:var(--pink-50); --note-line:var(--pink-300); --note-ink:var(--ink-900);
+  --note-line:var(--pink-300); --note-ink:var(--ink-900);
   /* ── 字體 ── */
   --f-display:"BIZ UDPGothic","Noto Sans TC","Noto Sans JP",sans-serif;
   --f-body:"Noto Sans TC","BIZ UDPGothic","Noto Sans JP",system-ui,sans-serif;
@@ -76,7 +70,7 @@ html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-height) + 20px)
   -webkit-text-size-adjust:100%;text-size-adjust:100%;
   -webkit-tap-highlight-color:rgba(243,160,170,.32)}
 body{
-  margin:0;background:var(--cream);color:var(--ink-900);
+  margin:0;background:var(--paper);color:var(--ink-900);
   font-family:var(--f-body);font-weight:400;line-height:1.85;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
 }
@@ -132,7 +126,7 @@ main:focus{outline:none}
 .btn-primary:hover{box-shadow:var(--sh-2)}
 .btn-secondary{background:var(--paper);color:var(--ink-900);border-color:var(--sky-300)}
 .btn-secondary:hover{border-color:var(--pink-300)}
-.btn-ghost{background:transparent;color:var(--ink-600);border-color:var(--line)}
+.btn-ghost{background:transparent;color:var(--ink-600);border-color:var(--control-line)}
 .btn-ghost:hover{border-color:var(--ink-400);color:var(--ink-900)}
 .action-link{display:inline-flex;align-items:center;min-height:var(--control-min);padding:6px 0;
   color:var(--sky-300);font-weight:700;font-size:var(--fs-sm);line-height:1.5;text-decoration:none}
@@ -172,8 +166,8 @@ html[lang="en"] .prose{max-width:56ch}
 /* ── 標籤 ── */
 .tag{display:inline-block;white-space:nowrap;font-size:var(--fs-2xs);font-weight:500;padding:3px 10px;letter-spacing:.03em;
   border-radius:var(--r-xs);background:var(--paper);border:1px solid var(--ink-400);color:var(--ink-600);line-height:1.6}
-.tag.area{background:var(--sky-50);border-color:var(--sky-300);color:var(--ink-900)}
-.tag.job{background:var(--pink-50);border-color:var(--pink-300);color:var(--ink-900)}
+.tag.area{background:var(--paper);border-color:var(--sky-300);color:var(--ink-900)}
+.tag.job{background:var(--paper);border-color:var(--pink-300);color:var(--ink-900)}
 /* .tag.jlpt 走預設中性樣式（greige-50 底＋line 框＋ink-600 字 4.82:1 ✓）——
    黃色系 --note-* 只屬 .notice 必讀聲明，「N2 以上」是中性事實標籤 */
 .tags{display:flex;flex-wrap:wrap;gap:8px}
@@ -207,12 +201,32 @@ html[lang="en"] .prose{max-width:56ch}
 }
 
 /* 補充注釋：日式 ※ 起頭，無底色（一個畫面最多一個有底色的強調 = .notice） */
-.note{padding:14px 0 0;border-top:1px solid var(--line);font-size:var(--fs-xs);
+/* ── 跨頁共用的小元件（2026-09-19 審查：原本 .cta-row／號碼章／引言／CTA 盒／分隔線清單
+   在各頁各寫一份，gap 與 margin 悄悄分岔）。頁面只加修飾類，不再重新定義。 ── */
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card-pad{padding:var(--card-pad)}
+/* 圓形號碼章（events 的步驟、apply 的聯絡管道）：本來就圓的東西，不算違反形狀語言 */
+.no-badge{display:flex;width:30px;height:30px;flex:0 0 30px;border-radius:var(--r-full);background:var(--paper);
+  border:2px solid var(--pink-300);color:var(--ink-900);font-family:var(--f-latin);font-weight:700;font-size:var(--fs-sm);
+  align-items:center;justify-content:center}
+/* 學長姐引言：日式鉤括號，開引號掛出版心（光學對齊）；字級由頁面決定 */
+.quote{margin:0;font-family:var(--f-display);line-height:1.8;letter-spacing:.03em;text-indent:-.6em;color:var(--ink-900)}
+.quote::before{content:'「';color:var(--pink-300)}
+.quote::after{content:'」';color:var(--pink-300)}
+/* 白底大 CTA 盒（stories .cta-band／support .free） */
+.cta-box{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-xl);padding:40px 36px}
+/* 一行一筆的分隔線清單（舉辦紀錄、媒體報導）：不做逐筆卡片 */
+.rows{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.row{display:flex;gap:12px;align-items:center;padding:14px 4px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.row .d{font-family:var(--f-latin);font-weight:700;font-size:var(--fs-xs);color:var(--ink-600);flex:0 0 92px;white-space:nowrap}
+.closing{margin-bottom:48px}
+.note{margin-top:22px;padding:14px 0 0;border-top:1px solid var(--line);font-size:var(--fs-xs);
   color:var(--ink-600);line-height:1.9;max-width:44em}
 .note::before{content:'※';color:var(--pink-300);margin-right:.5em}
 .note strong{color:var(--ink-900)}
 /* 必讀聲明（免責、法遵、個資）：全站唯一保留底色的區塊，每頁至多一個 */
-.notice{background:var(--note-bg);border:1px solid var(--note-line);border-radius:var(--r-sm);
+.notice{background:var(--paper);border:1px solid var(--note-line);border-radius:var(--r-sm);
   margin-top:20px;padding:14px 18px;font-size:var(--fs-sm);color:var(--note-ink);line-height:1.9;max-width:46em}
 .notice strong{color:var(--ink-900)}
 
@@ -249,7 +263,18 @@ html[lang="en"] .prose{max-width:56ch}
   main .action-link{min-height:44px;padding:7px 0;font-size:var(--fs-sm)}
   main .card{border-radius:var(--r-md);border-color:var(--mobile-line);box-shadow:none}
   main .card-link:focus-visible{box-shadow:none}
-  .notice{margin-top:16px;padding:14px 16px}
+  .notice{margin-top:16px;padding:14px 16px}  .cta-row{gap:10px}
+  .grid-2{grid-template-columns:1fr;gap:12px}
+  .card-pad{padding:18px 16px}
+  .no-badge{width:28px;height:28px;flex-basis:28px;font-size:var(--fs-xs)}
+  .cta-box{border-color:var(--mobile-line);border-radius:var(--r-md);padding:24px 18px}
+  .cta-box .btn{width:auto}
+  .rows{border:1px solid var(--mobile-line);border-radius:var(--r-md);overflow:hidden}
+  .row{gap:8px;padding:12px 14px;border-bottom:1px solid var(--mobile-line)}
+  .row:last-child{border-bottom:0}
+  .row .d{flex-basis:80px}
+  .note{margin-top:18px}
+
 }
 
 @media (prefers-reduced-motion:reduce){
