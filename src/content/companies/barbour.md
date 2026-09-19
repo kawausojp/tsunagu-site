@@ -15,7 +15,6 @@ highlights:
   - "東京・大阪・京都皆有增員需求"
   - "歡迎留學生／有販售經驗、想拿工作簽者"
 sourceSlide: 68
-verified: true
 ---
 
 從港口勞工的防水防風蠟布外套起家，現在是日本人氣極高的生活風格品牌。自營店 18 間，BEAMS、UNITED ARROWS 等選品店也大量進貨。

@@ -15,7 +15,6 @@ highlights:
   - "累計 15 人採用（最多）"
   - "2 人取得工作簽轉正職"
 sourceSlide: 84
-verified: true
 ---
 
 簡約機能、優雅中帶點大人玩心。銀座三越、澀谷 Scramble Square、青山、新宿伊勢丹、六本木、心齋橋都有台灣夥伴。

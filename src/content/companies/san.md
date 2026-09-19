@@ -14,7 +14,6 @@ highlights:
   - "辦公室工作＋直播口譯"
   - "適合想做社群與行銷的人"
 sourceSlide: 90
-verified: true
 ---
 
 工作內容與一般店販不同：一週 2～3 天的辦公室工作，含社群企劃營運、Instagram／小紅書直播口譯，以及 POP-UP 販售。

@@ -16,7 +16,6 @@ highlights:
   - "會英文更佳"
   - "有意在日本正職就業者優先"
 sourceSlide: 44
-verified: true
 ---
 
 亞洲觀光客眾多的旗艦選品店。包含麻布台 Hills、六本木 Hills、心齋橋 PARCO 等店都有台灣夥伴任職。

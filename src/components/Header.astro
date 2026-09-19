@@ -26,7 +26,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     <a class="logo" href={href(lang, '/')} aria-label={t.home}>
       <Heart size={22} />
       <Image src={wordmark} alt="TSUNAGU" widths={[110, 220, 330]} sizes="110px" class="wordmark"
-        loading="eager" fetchpriority="high" decoding="sync" />
+        loading="eager" fetchpriority="high" decoding="async" />
       {lang === 'zh' && <span class="zh" lang="ja">台湾人と日本企業をツナグ</span>}
     </a>
     <!-- 2026-09-13 使用者定案：頁首太滿，改漢堡選單（放在語言鈕右邊），桌機手機統一。

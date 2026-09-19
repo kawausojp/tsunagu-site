@@ -14,7 +14,6 @@ taglineEn: "Storied Japanese select shop; first store in Ginza, 1977"
 highlights:
   - "1 人自 2024 年 9 月起任職並轉正職"
 sourceSlide: 116
-verified: true
 ---
 
 1977 年在銀座開出一號店。SHIPS 意為「船」，象徵對未知的憧憬與挑戰。SHIPS any 澀谷店海外客人特別多。

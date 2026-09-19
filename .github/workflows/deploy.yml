@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false   # 取消進行中的 Pages 部署會留下半套，GitHub 建議 deploy 設 false
 
 jobs:
   build:

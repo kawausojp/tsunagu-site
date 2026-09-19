@@ -14,7 +14,6 @@ taglineEn: "Japan’s signature sock specialist, est. 1968"
 highlights:
   - "2 人已考上正職，工作簽申請中"
 sourceSlide: 145
-verified: true
 ---
 
 268 間店（日本 229、海外 39）。東京 Tabio Japan GINZA SIX 店、京都靴下屋寺町店。

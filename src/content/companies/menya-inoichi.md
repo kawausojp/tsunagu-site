@@ -15,7 +15,6 @@ taglineEn: "Kyoto ramen shop, Michelin Bib Gourmand nine years running"
 highlights:
   - "有留學生→打工度假→正職的完整實績"
 sourceSlide: 61
-verified: true
 ---
 
 京都 3 間店。以京都出發的拉麵向世界傳遞日本飲食文化，也在評估海外展店。曾有台灣留學生一路從兼職、打工度假做到正職。

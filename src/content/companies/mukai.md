@@ -13,7 +13,6 @@ taglineJa: "Made in Japanのアクセサリー・雑貨が集まる店"
 taglineEn: "A trove of Made-in-Japan accessories and goods"
 highlights: []
 sourceSlide: 91
-verified: true
 ---
 
 銀座、台場、新宿等全日本展店，台灣客人也很喜歡。曾在微風南山 bpt ROOM 販售過。

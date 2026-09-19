@@ -14,7 +14,6 @@ taglineEn: "A 12-month wardrobe — quality basics, mixed to match the mood"
 highlights:
   - "有總公司 EC 職缺"
 sourceSlide: 139
-verified: true
 ---
 
 創業 50 年的服飾與飾品企業。除門市外，總公司電商也有職缺。

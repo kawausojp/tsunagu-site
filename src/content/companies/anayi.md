@@ -13,7 +13,6 @@ taglineEn: "Elegant womenswear for grown-up tastes, since 1998"
 highlights:
   - "累計 9 人採用"
 sourceSlide: 58
-verified: true
 ---
 
 全日本 41 間店。銀座、新宿、大阪都已有台灣夥伴任職。可線上面試。

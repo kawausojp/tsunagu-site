@@ -1,6 +1,25 @@
 // 三語頁面共用的資料邏輯：下一場場次、日期格式。頁面文案不在此（各語言頁自持）。
-import eventsData from '../data/events.json';
+import rawEvents from '../data/events.json';
+import { z } from 'astro/zod';
 import type { Lang } from '../i18n/ui';
+
+// events.json 沒有 content collection 的 schema 把關，這裡進場時驗一次：格式錯會在 build 直接擋下
+const EventSchema = z.object({
+  no: z.string().regex(/^\d+(,\d+)*$/),            // "88,89" 資料源保持逗號
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  city: z.string().min(1),
+  sessions: z.array(z.string().regex(/^\d{1,2}:\d{2}\s*[–\-−~〜]\s*\d{1,2}:\d{2}$/)).optional(),
+  venue: z.string().optional(),
+  address: z.string().optional(),
+  signupUrl: z.string().url().optional(),
+  ig: z.string().regex(/^[A-Za-z0-9_-]{10,12}$/).optional(),
+}).passthrough();
+const eventsData = z.object({
+  totalHeld: z.number().int().nonnegative(),
+  cities: z.array(z.string()),
+  since: z.string().regex(/^\d{4}-\d{2}$/),
+  events: z.array(EventSchema),
+}).passthrough().parse(rawEvents);
 
 export const VIDEO_ID = 'UmWq6sPcrJs'; // 公視晚間新聞，內含 Tsunagu 訪談
 

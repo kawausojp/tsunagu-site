@@ -14,7 +14,6 @@ taglineEn: "Hat specialist with over a century of history"
 highlights:
   - "大阪、東京共 2 人任職中"
 sourceSlide: 136
-verified: true
 ---
 
 旗下有 OVERRIDE、KANGOL、カオリノモリ、arth、Chapeau d'O 等人氣帽款品牌，全日本 45 間店。

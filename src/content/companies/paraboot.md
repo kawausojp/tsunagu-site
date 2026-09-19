@@ -14,7 +14,6 @@ highlights:
   - "第 2 位夥伴任職中"
   - "以長期任職為前提"
 sourceSlide: 134
-verified: true
 ---
 
 銀座店。希望找以正職為目標、能長期任職的人。

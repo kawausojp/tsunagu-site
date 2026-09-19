@@ -12,7 +12,6 @@ taglineJa: "特別感と希少性のある華やかなブランド"
 taglineEn: "A glamorous label with a rare, special feel"
 highlights: []
 sourceSlide: 60
-verified: true
 ---
 
 已知有 NEWoMan 新宿店。

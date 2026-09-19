@@ -16,7 +16,6 @@ highlights:
   - "Jouete 髮色自由"
   - "Jouete 需 N2 以上"
 sourceSlide: 94
-verified: true
 ---
 
 ete 全日本 65 間店，Jouete 46 間店。Jouete 主打無性別的個性單品。青山本店、東京大丸、澀谷 Scramble Square、心齋橋大丸、福岡大丸都有台灣夥伴。
