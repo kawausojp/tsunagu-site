@@ -37,6 +37,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
         <input type="search" inputmode="search" autocomplete="off" placeholder="Type a brand name"
           aria-controls="company-grid" data-search-input />
       </label>
+      <noscript><style>.filter-options .filter-groups{display:flex!important}</style></noscript>
       <details class="filter-options" data-filter-options open>
         <summary data-filter-summary>Filters</summary>
         <div class="filter-groups">
@@ -96,7 +97,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <p class="lead">The fastest way to learn what they’re hiring for is to ask at a meetup.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href={l('/events')}>{signupCta('en')}</a>
-      <a class="action-link" href={l('/stories')}>Read alumni stories →</a>
+      <a class="action-link" href={l('/stories')}>Read alumni stories</a>
     </div>
   </section>
 </Base>

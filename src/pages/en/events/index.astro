@@ -47,12 +47,12 @@ const flow = [
               </div>
               <dl class="ev-meta">
                 {e.sessions && <><dt>Sessions</dt><dd>{e.sessions.join(' / ')}</dd></>}
-                {e.venue && <><dt>Venue</dt><dd>{e.venue}{e.address && <span class="addr">({e.address})</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">Open in Google Maps ↗<span class="sr-only"> (opens in a new window)</span></a>}</dd></>}
+                {e.venue && <><dt>Venue</dt><dd>{e.venue}{e.address && <span class="addr">({e.address})</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>}</dd></>}
                 <dt>Cost</dt><dd>Free</dd>
               </dl>
               {e.signupUrl
                 ? <>
-                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Sign up via Google Form ↗<span class="sr-only"> (opens in a new window)</span></a>
+                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Sign up via Google Form <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>
                     <p class="small hint">This Google Form is for meetup {fmtEventNo(e.no, 'en')} only (external link).</p>
                   </>
                 : <p class="small">Sign-up link coming soon.</p>}
@@ -62,7 +62,7 @@ const flow = [
       : <div class="card next empty">
           <p><strong>Next date not announced yet.</strong></p>
           <p class="small">Dates are posted on Instagram 2–4 weeks ahead. The most recent meetup was #{fmtEventNo(past[0]?.no ?? '', 'en')} ({fmt(past[0]?.date)} · {city(past[0]?.city)}).</p>
-          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Follow us on Instagram ↗</a>
+          <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Follow us on Instagram <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>
         </div>}
   </section>
 
@@ -87,7 +87,7 @@ const flow = [
           <span class="d">#{fmtEventNo(e.no, 'en')}</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{city(e.city)}</span>
-          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span lang="ja">開催報告</span> ↗</a>}
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span lang="ja">開催報告</span> <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>}
         </li>
       ))}
     </ul>

@@ -43,7 +43,7 @@ const l = (p: string) => href('ja', p);
         <li class="row m">
           <span class="d">{m.date}</span>
           {m.url
-            ? <a class="n m-link" href={m.url} target="_blank" rel="noopener" lang={m.title ? 'ja' : undefined}>{m.title ?? m.name.ja} ↗</a>
+            ? <a class="n m-link" href={m.url} target="_blank" rel="noopener" lang={m.title ? 'ja' : undefined}>{m.title ?? m.name.ja} <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
             : <span class="n">{m.name.ja}</span>}
           {m.title && <span class="small note-t">{m.name.ja}</span>}
           {m.note && <span class="small note-t">{m.note.ja}</span>}
@@ -57,7 +57,7 @@ const l = (p: string) => href('ja', p);
   <section class="wrap wrap--reading page-section">
     <div class="cta-row">
       <a class="btn btn-primary" href={l('/events')}>交流会の日程を見る</a>
-      <a class="action-link" href={l('/stories')}>先輩の声を見る →</a>
+      <a class="action-link" href={l('/stories')}>先輩の声を見る</a>
     </div>
   </section>
 </Base>

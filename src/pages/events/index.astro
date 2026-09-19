@@ -42,12 +42,12 @@ const flow = [
               </div>
               <dl class="ev-meta">
                 {e.sessions && <><dt>場次</dt><dd>{e.sessions.join('　／　')}</dd></>}
-                {e.venue && <><dt>地點</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">在 Google 地圖開啟 ↗<span class="sr-only">（另開新視窗）</span></a>}</dd></>}
+                {e.venue && <><dt>地點</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">在 Google 地圖開啟 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>}</dd></>}
                 <dt>費用</dt><dd>免費</dd>
               </dl>
               {e.signupUrl
                 ? <>
-                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往 Google 表單報名 ↗<span class="sr-only">（另開新視窗）</span></a>
+                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往 Google 表單報名 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>
                     <p class="small hint">此為第 {fmtEventNo(e.no, 'zh')} 回專用的 Google 表單（外部連結）。</p>
                   </>
                 : <p class="small">報名連結待公布。</p>}
@@ -57,7 +57,7 @@ const flow = [
       : <div class="card next empty">
           <p><strong>下一場尚未公布。</strong></p>
           <p class="small">場次通常提前 2–4 週在 Instagram 公告。最近一場是第 {fmtEventNo(past[0]?.no ?? '', 'zh')} 回（{fmt(past[0]?.date)}・{past[0]?.city}）。</p>
-          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">追蹤 IG 接收場次通知 ↗</a>
+          <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">追蹤 IG 接收場次通知 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>
         </div>}
   </section>
 
@@ -82,7 +82,7 @@ const flow = [
           <span class="d">第 {fmtEventNo(e.no, 'zh')} 回</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{e.city}</span>
-          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span lang="ja">開催報告</span> ↗</a>}
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span lang="ja">開催報告</span> <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>}
         </li>
       ))}
     </ul>

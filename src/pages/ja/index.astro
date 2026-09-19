@@ -46,7 +46,7 @@ const stats = [
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href={l('/events')}>{heroCta}</a>
-        <a class="action-link" href={l('/companies')}>提携企業を見る →</a>
+        <a class="action-link" href={l('/companies')}>提携企業を見る</a>
       </div>
     </div>
   </section>
@@ -78,7 +78,7 @@ const stats = [
       <div class="co-side">
         <h2 class="d2">提携している日本企業</h2>
         <p class="lead">中国語の求人サイトには出てこない店舗と皆さまを、私たちが直接おつなぎします。以下は勤務実績の多い 6 ブランドです。</p>
-        <a class="action-link" href={l('/companies')}>{companies.length} ブランドをすべて見る →</a>
+        <a class="action-link" href={l('/companies')}>{companies.length} ブランドをすべて見る</a>
       </div>
       <div class="grid3 grid-co">
         {featured.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="ja" />)}
@@ -100,7 +100,7 @@ const stats = [
           </p>
         </div>
       </div>
-      <div class="more"><a class="action-link" href={l('/stories')}>{stories.length} 名の先輩の体験談を見る →</a></div>
+      <div class="more"><a class="action-link" href={l('/stories')}>{stories.length} 名の先輩の体験談を見る</a></div>
     </div>
   </section>
 
@@ -116,7 +116,7 @@ const stats = [
           loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
           allowfullscreen></iframe>
       </div>
-      <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">YouTube で見る ↗</a></p>
+      <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">YouTube で見る <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a></p>
     </div>
   </section>
 
@@ -128,7 +128,7 @@ const stats = [
         <p class="lead">何かを決めてから来る必要はありません。準備も不要です。日本企業がどんな人材を求めているか、まず聞きに来てください。</p>
         <div class="cta-row">
           <a class="btn btn-primary" href={l('/events')}>次回の交流会を見る</a>
-          <a class="action-link" href={l('/apply')}>日本行きを決めた方はこちら →</a>
+          <a class="action-link" href={l('/apply')}>日本行きを決めた方はこちら</a>
         </div>
       </div>
       <Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" />

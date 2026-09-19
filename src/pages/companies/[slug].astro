@@ -64,13 +64,13 @@ const hl = dedupHighlights(d.highlights, d.placements);
         <div class="related">
           <h2 class="d3">在這裡工作過的學長姐</h2>
           {relatedStories.map(st => (
-            <a class="rel-link" href={`${base}/stories#${st.id}`}><span lang="ja">{st.data.name}</span>（{st.data.visa}）的分享 →</a>
+            <a class="rel-link" href={`${base}/stories#${st.id}`}><span lang="ja">{st.data.name}</span>（{st.data.visa}）的分享</a>
           ))}
         </div>
       )}
       <div class="cta">
         <a class="btn btn-primary" href={`${base}/events`}>報名交流會，現場問清楚</a>
-        <a class="action-link" href={`${base}/companies`}>看全部 {companiesCount} 個合作品牌 →</a>
+        <a class="action-link" href={`${base}/companies`}>看全部 {companiesCount} 個合作品牌</a>
       </div>
     </div>
   </article>

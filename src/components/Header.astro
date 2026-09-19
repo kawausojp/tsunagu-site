@@ -34,7 +34,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     <a class="btn btn-primary cta" href={eventsHref}
       aria-current={isCurrent(eventsHref) ? 'page' : undefined}>{t.signup}</a>
     <details class="lang" data-lang-menu>
-      <summary aria-label={t.langMenu}>
+      <summary><span class="sr-only">{t.langMenu}：</span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/>
         </svg>
@@ -200,6 +200,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     const setOpen = (open: boolean, restoreFocus = false) => {
       d.toggleAttribute('data-open', open);
       d.hidden = !open;
+      if (!open) openedByHover = false;
       b.setAttribute('aria-expanded', String(open));
       b.setAttribute('aria-label', (open ? b.dataset.labelClose : b.dataset.labelOpen) ?? '');
       // 手機全寬抽屜：鎖住背景捲動並把其餘內容設為 inert（焦點不會跑到看不見的地方）
@@ -209,9 +210,14 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       if (open && lang) lang.open = false;
       if (!open && restoreFocus) b.focus();
     };
-    b.addEventListener('click', () => setOpen(!d.hasAttribute('data-open')));
-    // 桌機滑鼠：移到選單鈕即開，離開鈕＋面板 160ms 後關（斜向移入面板不會閃關）；觸控裝置維持點擊
+    // 桌機滑鼠：移到選單鈕即開，離開鈕＋面板 160ms 後關（斜向移入面板不會閃關）；觸控裝置維持點擊。
+    // 滑入已經開了，接著的那一下點擊不能再把它切關（實測：hover 開 → click 關，像壞掉）
     const hoverable = window.matchMedia('(hover:hover) and (pointer:fine)');
+    let openedByHover = false;
+    b.addEventListener('click', () => {
+      if (openedByHover && d.hasAttribute('data-open')) { openedByHover = false; return; }
+      setOpen(!d.hasAttribute('data-open'));
+    });
     let closeTimer = 0;
     const cancelClose = () => { window.clearTimeout(closeTimer); };
     const scheduleClose = () => {
@@ -222,7 +228,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       el.addEventListener('pointerenter', event => {
         if (event.pointerType !== 'mouse' || !hoverable.matches || compact.matches) return;
         cancelClose();
-        if (!d.hasAttribute('data-open')) setOpen(true);
+        if (!d.hasAttribute('data-open')) { setOpen(true); openedByHover = true; }
       });
       el.addEventListener('pointerleave', event => {
         if (event.pointerType !== 'mouse' || !hoverable.matches || compact.matches) return;
@@ -237,6 +243,15 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && d.hasAttribute('data-open')) setOpen(false, true);
     });
+    // 桌機：Tab 走出「鈕＋面板」就收合（同語言選單）；relatedTarget 為 null 不關，理由同上。
+    // 手機全寬抽屜有 inert 把焦點圈在裡面，不會走出去，這條只對桌機有意義
+    for (const el of [b, d]) {
+      el.addEventListener('focusout', event => {
+        const next = event.relatedTarget;
+        if (compact.matches || !d.hasAttribute('data-open')) return;
+        if (next instanceof Node && !d.contains(next) && !b.contains(next)) setOpen(false);
+      });
+    }
     // 抽屜開著時跨越斷點：桌機面板 ↔ 手機全寬的鎖定狀態不同，直接關掉最安全
     compact.addEventListener('change', () => setOpen(false));
   }

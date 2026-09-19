@@ -47,12 +47,12 @@ const flow = [
               </div>
               <dl class="ev-meta">
                 {e.sessions && <><dt>時間</dt><dd>{e.sessions.join('　／　')}</dd></>}
-                {e.venue && <><dt>会場</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">Google マップで開く ↗<span class="sr-only">（新しいウィンドウで開きます）</span></a>}</dd></>}
+                {e.venue && <><dt>会場</dt><dd>{e.venue}{e.address && <span class="addr">（{e.address}）</span>}{e.address && <a class="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener">Google マップで開く <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>}</dd></>}
                 <dt>参加費</dt><dd>無料</dd>
               </dl>
               {e.signupUrl
                 ? <>
-                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Google フォームで申し込む ↗<span class="sr-only">（新しいウィンドウで開きます）</span></a>
+                    <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Google フォームで申し込む <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
                     <p class="small hint">第 {fmtEventNo(e.no, 'ja')} 回専用の Google フォームです（外部リンク）。</p>
                   </>
                 : <p class="small">申込リンクは近日公開予定です。</p>}
@@ -62,7 +62,7 @@ const flow = [
       : <div class="card next empty">
           <p><strong>次回日程は未定です。</strong></p>
           <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。直近の開催は第 {fmtEventNo(past[0]?.no ?? '', 'ja')} 回（{fmt(past[0]?.date)}・{city(past[0]?.city)}）でした。</p>
-          <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram をフォロー ↗</a>
+          <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram をフォロー <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
         </div>}
   </section>
 
@@ -87,7 +87,7 @@ const flow = [
           <span class="d">第 {fmtEventNo(e.no, 'ja')} 回</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{city(e.city)}</span>
-          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener">開催報告 ↗</a>}
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener">開催報告 <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>}
         </li>
       ))}
     </ul>

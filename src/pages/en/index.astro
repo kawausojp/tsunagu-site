@@ -46,7 +46,7 @@ const stats = [
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href={l('/events')}>{heroCta}</a>
-        <a class="action-link" href={l('/companies')}>Browse partner brands →</a>
+        <a class="action-link" href={l('/companies')}>Browse partner brands</a>
       </div>
     </div>
   </section>
@@ -78,7 +78,7 @@ const stats = [
       <div class="co-side">
         <h2 class="d2">Japanese brands waiting for you</h2>
         <p class="lead">Shops you won’t find on Chinese-language job boards — fashion, jewelry, food and more. Here are the six with the most placements.</p>
-        <a class="action-link" href={l('/companies')}>See all {companies.length} partner brands →</a>
+        <a class="action-link" href={l('/companies')}>See all {companies.length} partner brands</a>
       </div>
       <div class="grid3 grid-co">
         {featured.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="en" />)}
@@ -100,7 +100,7 @@ const stats = [
           </p>
         </div>
       </div>
-      <div class="more"><a class="action-link" href={l('/stories')}>Read all {stories.length} alumni stories →</a></div>
+      <div class="more"><a class="action-link" href={l('/stories')}>Read all {stories.length} alumni stories</a></div>
     </div>
   </section>
 
@@ -116,7 +116,7 @@ const stats = [
           loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
           allowfullscreen></iframe>
       </div>
-      <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">Watch on YouTube ↗</a></p>
+      <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">Watch on YouTube <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a></p>
     </div>
   </section>
 
@@ -128,7 +128,7 @@ const stats = [
         <p class="lead">No preparation needed — no resume, no decisions. Just come and hear what Japanese companies are looking for.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href={l('/events')}>See the next meetup</a>
-          <a class="action-link" href={l('/apply')}>Already decided? Start here →</a>
+          <a class="action-link" href={l('/apply')}>Already decided? Start here</a>
         </div>
       </div>
       <Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" />

@@ -36,6 +36,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
         <input type="search" inputmode="search" autocomplete="off" placeholder="ブランド名を入力"
           aria-controls="company-grid" data-search-input />
       </label>
+      <noscript><style>.filter-options .filter-groups{display:flex!important}</style></noscript>
       <details class="filter-options" data-filter-options open>
         <summary data-filter-summary>絞り込み</summary>
         <div class="filter-groups">
@@ -95,7 +96,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <p class="lead">実際の募集内容は、交流会で直接ご確認いただけます。</p>
     <div class="cta-row">
       <a class="btn btn-primary" href={l('/events')}>{signupCta('ja')}</a>
-      <a class="action-link" href={l('/stories')}>先輩の体験談を見る →</a>
+      <a class="action-link" href={l('/stories')}>先輩の体験談を見る</a>
     </div>
   </section>
 </Base>

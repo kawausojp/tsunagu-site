@@ -67,13 +67,13 @@ const hl = dedupHighlights(d.highlights, d.placements);
         <div class="related">
           <h2 class="d3">Alumni who worked here</h2>
           {relatedStories.map(st => (
-            <a class="rel-link" href={l(`/stories#${st.id}`)}><span lang="ja">{st.data.name}</span> ({VISA_LABEL.en[st.data.visa] ?? st.data.visa}) — read their story →</a>
+            <a class="rel-link" href={l(`/stories#${st.id}`)}><span lang="ja">{st.data.name}</span> ({VISA_LABEL.en[st.data.visa] ?? st.data.visa}) — read their story</a>
           ))}
         </div>
       )}
       <div class="cta">
         <a class="btn btn-primary" href={l('/events')}>Ask about it at a meetup</a>
-        <a class="action-link" href={l('/companies')}>See all {companiesCount} partner brands →</a>
+        <a class="action-link" href={l('/companies')}>See all {companiesCount} partner brands</a>
       </div>
     </div>
   </article>

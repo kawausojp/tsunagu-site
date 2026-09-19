@@ -32,7 +32,7 @@ const l = (p: string) => href('en', p);
               <span class="no-badge" aria-hidden="true">2</span>
               <h3 class="d3">DM us directly</h3>
               <p class="small">Can’t make a meetup? Reach out on Instagram and we’ll tell you what to prepare.</p>
-              <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp ↗</a>
+              <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>
             </article>
           </div>
           <p class="small privacy">Contact happens via the meetup page or Instagram; this site itself never receives or stores your personal data.</p>
@@ -46,10 +46,10 @@ const l = (p: string) => href('en', p);
       <div class="card card-pad box">
         <h3 class="d3">Standard resume photo</h3>
         <ul>
-          <li><span class="ok" aria-hidden="true">○</span> Mouth closed, corners turned up</li>
-          <li><span class="ok" aria-hidden="true">○</span> A refined smile, not a grin</li>
-          <li><span class="ng" aria-hidden="true">✕</span> No smile / stiff expression</li>
-          <li><span class="ng" aria-hidden="true">✕</span> Residence-card-style ID photo</li>
+          <li><span class="ok"><span aria-hidden="true">○</span><span class="sr-only">Do: </span></span> Mouth closed, corners turned up</li>
+          <li><span class="ok"><span aria-hidden="true">○</span><span class="sr-only">Do: </span></span> A refined smile, not a grin</li>
+          <li><span class="ng"><span aria-hidden="true">✕</span><span class="sr-only">Avoid: </span></span> No smile / stiff expression</li>
+          <li><span class="ng"><span aria-hidden="true">✕</span><span class="sr-only">Avoid: </span></span> Residence-card-style ID photo</li>
         </ul>
       </div>
       <div class="card card-pad box">
@@ -91,7 +91,7 @@ const l = (p: string) => href('en', p);
     <p class="lead">Bring what you learned here to a meetup — that’s where it all starts.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href={l('/events')}>{signupCta('en')}</a>
-      <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Or DM us on Instagram ↗</a>
+      <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Or DM us on Instagram <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>
     </div>
   </section>
 </Base>

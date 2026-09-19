@@ -36,6 +36,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
         <input type="search" inputmode="search" autocomplete="off" placeholder="輸入品牌名稱"
           aria-controls="company-grid" data-search-input />
       </label>
+      <noscript><style>.filter-options .filter-groups{display:flex!important}</style></noscript>
       <details class="filter-options" data-filter-options open>
         <summary data-filter-summary>篩選條件</summary>
         <div class="filter-groups">
@@ -95,7 +96,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <p class="lead">實際在徵什麼，來交流會現場問最快。</p>
     <div class="cta-row">
       <a class="btn btn-primary" href={`${base}/events`}>{signupCta('zh')}</a>
-      <a class="action-link" href={`${base}/stories`}>看看學長姐在這些品牌的經驗 →</a>
+      <a class="action-link" href={`${base}/stories`}>看看學長姐在這些品牌的經驗</a>
     </div>
   </section>
 </Base>

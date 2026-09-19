@@ -130,6 +130,8 @@ main:focus{outline:none}
 .btn-ghost:hover{border-color:var(--ink-400);color:var(--ink-900)}
 .action-link{display:inline-flex;align-items:center;min-height:var(--control-min);padding:6px 0;
   color:var(--sky-300);font-weight:700;font-size:var(--fs-sm);line-height:1.5;text-decoration:none}
+/* 箭頭由 CSS 畫（不進 accessible name）；外連的 ↗ 是另開視窗語意，仍在 markup 裡並 aria-hidden */
+.action-link:not(.ext)::after{content:'\00a0→'}
   /* 淺藍字：使用者指定（與內文粗黑體區分），對白 1.7:1 為其決定 */
 .action-link:hover{color:var(--pink-300)}
 

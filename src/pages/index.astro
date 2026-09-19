@@ -42,7 +42,7 @@ const stats = [
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href={`${base}/events`}>{heroCta}</a>
-        <a class="action-link" href={`${base}/companies`}>先看看有哪些企業 →</a>
+        <a class="action-link" href={`${base}/companies`}>先看看有哪些企業</a>
       </div>
     </div>
   </section>
@@ -74,7 +74,7 @@ const stats = [
       <div class="co-side">
         <h2 class="d2">等你來的日本企業</h2>
         <p class="lead">這些不會在中文求職網站上出現的店，我們直接幫你牽線。以下是任職人數最多的六家。</p>
-        <a class="action-link" href={`${base}/companies`}>看全部 {companies.length} 個合作品牌 →</a>
+        <a class="action-link" href={`${base}/companies`}>看全部 {companies.length} 個合作品牌</a>
       </div>
       <div class="grid3 grid-co">
         {featured.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
@@ -95,7 +95,7 @@ const stats = [
           </p>
         </div>
       </div>
-      <div class="more"><a class="action-link" href={`${base}/stories`}>看 {stories.length} 位學長姐的第一手分享 →</a></div>
+      <div class="more"><a class="action-link" href={`${base}/stories`}>看 {stories.length} 位學長姐的第一手分享</a></div>
     </div>
   </section>
 
@@ -111,7 +111,7 @@ const stats = [
           loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
           allowfullscreen></iframe>
       </div>
-      <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">在 YouTube 上觀看 ↗</a></p>
+      <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">在 YouTube 上觀看 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a></p>
     </div>
   </section>
 
@@ -123,7 +123,7 @@ const stats = [
         <p class="lead">不用先決定什麼，也不用準備履歷。先來聽日本企業說他們在找什麼樣的人。</p>
         <div class="cta-row">
           <a class="btn btn-primary" href={`${base}/events`}>查看下一場交流會</a>
-          <a class="action-link" href={`${base}/apply`}>已經決定要去日本了 →</a>
+          <a class="action-link" href={`${base}/apply`}>已經決定要去日本了</a>
         </div>
       </div>
       <Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" />

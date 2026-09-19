@@ -32,7 +32,7 @@ const l = (p: string) => href('ja', p);
               <span class="no-badge" aria-hidden="true">2</span>
               <h3 class="d3">DM で連絡する</h3>
               <p class="small">日程が合わない場合は Instagram からご連絡ください。必要な準備をご案内します。</p>
-              <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp ↗</a>
+              <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
             </article>
           </div>
           <p class="small privacy">受付は交流会ページまたは Instagram で行います。本サイト自体は個人情報を受け取ることも保存することもありません。</p>
@@ -46,10 +46,10 @@ const l = (p: string) => href('ja', p);
       <div class="card card-pad box">
         <h3 class="d3">一般的な履歴書写真</h3>
         <ul>
-          <li><span class="ok" aria-hidden="true">○</span> 口は閉じ、口角は上げる</li>
-          <li><span class="ok" aria-hidden="true">○</span> 上品な微笑み（大笑いは NG）</li>
-          <li><span class="ng" aria-hidden="true">✕</span> 無表情・硬い表情</li>
-          <li><span class="ng" aria-hidden="true">✕</span> 在留カードのような証明写真</li>
+          <li><span class="ok"><span aria-hidden="true">○</span><span class="sr-only">OK：</span></span> 口は閉じ、口角は上げる</li>
+          <li><span class="ok"><span aria-hidden="true">○</span><span class="sr-only">OK：</span></span> 上品な微笑み（大笑いは NG）</li>
+          <li><span class="ng"><span aria-hidden="true">✕</span><span class="sr-only">NG：</span></span> 無表情・硬い表情</li>
+          <li><span class="ng"><span aria-hidden="true">✕</span><span class="sr-only">NG：</span></span> 在留カードのような証明写真</li>
         </ul>
       </div>
       <div class="card card-pad box">
@@ -91,7 +91,7 @@ const l = (p: string) => href('ja', p);
     <p class="lead">このページのポイントを持って、交流会でお会いしましょう。</p>
     <div class="cta-row">
       <a class="btn btn-primary" href={l('/events')}>{signupCta('ja')}</a>
-      <a class="action-link" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram の DM で相談 ↗</a>
+      <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram の DM で相談 <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
     </div>
   </section>
 </Base>

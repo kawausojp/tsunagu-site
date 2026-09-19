@@ -43,7 +43,7 @@ const l = (p: string) => href('en', p);
         <li class="row m">
           <span class="d">{m.date}</span>
           {m.url
-            ? <a class="n m-link" href={m.url} target="_blank" rel="noopener" lang={m.title ? 'ja' : undefined}>{m.title ?? m.name.en} ↗</a>
+            ? <a class="n m-link" href={m.url} target="_blank" rel="noopener" lang={m.title ? 'ja' : undefined}>{m.title ?? m.name.en} <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>
             : <span class="n">{m.name.en}</span>}
           {m.title && <span class="small note-t">{m.name.en}</span>}
           {m.note && <span class="small note-t">{m.note.en}</span>}
@@ -57,7 +57,7 @@ const l = (p: string) => href('en', p);
   <section class="wrap wrap--reading page-section">
     <div class="cta-row">
       <a class="btn btn-primary" href={l('/events')}>Meet us at a meetup</a>
-      <a class="action-link" href={l('/stories')}>Read alumni stories →</a>
+      <a class="action-link" href={l('/stories')}>Read alumni stories</a>
     </div>
   </section>
 </Base>
