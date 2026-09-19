@@ -61,7 +61,20 @@ export function fmtEventNo(no: string, lang: Lang) {
   return no.replace(/,/g, sep);
 }
 
-export const totalHeld = eventsData.totalHeld;
+/** 簽約企業數（簡報 p18 口徑）；品牌數以 content/companies 筆數為準，兩者不同：一家企業可有多個品牌 */
+export const CONTRACTED_COMPANIES = 39;
+
+/** 累計舉辦場數：JSON 的 totalHeld 只是下限。場次過期後每日排程重建會自動移到「舉辦紀錄」，
+ * 這裡同步以「已過期場次的最大回數」推算，不必每場手動改數字。 */
+export const totalHeld = (() => {
+  const today = todayTaipei();
+  const pastMax = eventsData.events
+    .filter(e => e.date < today)
+    .flatMap(e => e.no.split(',').map(Number))
+    .filter(n => Number.isFinite(n))
+    .reduce((m, n) => Math.max(m, n), 0);
+  return Math.max(eventsData.totalHeld, pastMax);
+})();
 export const eventsList = eventsData.events;
 
 export const CAT_LABEL: Record<Lang, Record<string, string>> = {

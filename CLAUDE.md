@@ -159,6 +159,8 @@ header 與 footer 共用。~~duo 深色版~~ 已刪（使用者認可主色版�
 **新增一場交流會**：在 `src/data/events.json` 的 `events` 陣列最前面加一筆。
 日期過了會自動從「下一場」移到「舉辦紀錄」，不用手動搬。
 ⚠️ 每一場的 Google 報名表單網址都不同，`signupUrl` 要逐場填。
+`totalHeld`（累計場數）只是下限：`site.ts` 會拿「已過期場次的最大回數」取大者，場次過了首頁泡泡自動跟上（2026-09-19）。
+簽約企業數 39 在 `site.ts` 的 `CONTRACTED_COMPANIES`，三語 /companies 共用。
 
 ---
 
@@ -325,6 +327,9 @@ Base.astro 讀到就對 127 頁輸出 `robots: noindex,follow`。
 ## 已知的小事
 
 - BIZ UDPGothic 只涵蓋日文漢字，繁中專用字（灣、臺、燈…）會 fallback 到 Noto Sans TC。視覺上接近，但不完全一致。
+- **ja 頁本文用 BIZ UDPGothic**（2026-09-19）：`--f-body` 以 Noto Sans TC 優先是為 zh 設的，ja 頁若沿用會出現台式字形；
+  ja 頁內 `lang="zh-Hant"` 的引言區塊仍回到 TC。en 頁整頁 Jost，所以 Google Fonts 要載 Jost 400/500（只載 600/700 時內文會變半粗體）。
+- 導覽的 /apply 標籤是「準備出發／出発準備／Getting Ready」（2026-09-19）：原「資料提交」承諾線上送件，但收件流程不存在（見上方 FORM_URL）。
 - **字標只有一個檔** `tsunagu-wordmark.png`（2026-09-13 重製：TSU #F3A0AA／NAGU #7DD0F5，主色版），
   header 與 footer 共用。~~duo 深色版~~ 已刪。header 曾用 Jost 文字模擬字標，已改掉——
   **不要再改回文字版**。重製方法：純 Python 讀寫 PNG、按覆蓋率換色，見同日 commit。

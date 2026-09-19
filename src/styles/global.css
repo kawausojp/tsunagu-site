@@ -154,6 +154,10 @@ html[lang="ja"]{line-break:strict}
 /* 標題以文節（意味の切れ目）斷行，避免 balance 把活用語尾劈開（提携してい/る日本企業）。
    Chrome 119+ 生效，其他瀏覽器忽略、退回現狀。本文不適用——右緣會過度參差。 */
 html[lang="ja"] :is(.d1,.d2,.d3){word-break:auto-phrase}
+/* 日文本文用日文字型：--f-body 以 Noto Sans TC 優先是為繁中頁設的，套在 ja 頁會讓
+   直／骨／令 等漢字變成台式字形。ja 頁內保留繁中原文的區塊（lang="zh-Hant"）仍回到 TC。 */
+html[lang="ja"] body{font-family:"BIZ UDPGothic","Noto Sans JP","Noto Sans TC",system-ui,sans-serif}
+html[lang="ja"] :lang(zh-Hant){font-family:var(--f-body)}
 
 /* 英文：ch 量的是「0」字寬，比實際小寫平均寬，62ch 會渲染成 68–75 字元 */
 /* 英文頁：整頁用 Jost（拉丁字型），否則 U+2019 撇號會由日文字型渲染成全形「Taiwan’ s」；

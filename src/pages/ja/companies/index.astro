@@ -5,7 +5,7 @@ import '../../../styles/page-companies.css';
 import CompanyCard from '../../../components/CompanyCard.astro';
 
 import { href } from '../../../i18n/ui';
-import { CAT_LABEL } from '../../../lib/site';
+import { CAT_LABEL, CONTRACTED_COMPANIES } from '../../../lib/site';
 const l = (p: string) => href('ja', p);
 const companies = (await getCollection('companies'))
   .sort((a, b) => b.data.placements - a.data.placements || a.data.name.localeCompare(b.data.name));
@@ -21,7 +21,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <div class="wrap">
       <h1 class="d1">提携企業</h1>
       <p class="lead">
-        公開中の {companies.length} ブランド（契約企業 39 社）。その多くは中国語の求人サイトには出てきません。だからこそ、個人で探すのは難しいのです。
+        契約企業 {CONTRACTED_COMPANIES} 社のうち、現在 {companies.length} ブランドを公開中。その多くは中国語の求人サイトには出てきません。だからこそ、個人で探すのは難しいのです。
       </p>
     </div>
   </section>

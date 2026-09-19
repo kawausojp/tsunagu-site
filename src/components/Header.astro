@@ -139,7 +139,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   .lang li a{display:flex;align-items:center;min-height:var(--control-min);padding:8px 12px;
     border-radius:var(--r-xs);text-decoration:none;font-size:var(--fs-xs);color:var(--ink-900)}
   .lang li a:hover{background:var(--greige-50)}
-  .lang li a[aria-current="true"]{color:var(--ink-900);font-weight:700;box-shadow:inset 3px 0 0 var(--pink-300)}
+  .lang li a[aria-current="true"]{color:var(--pink-300);font-weight:700} /* 當前＝粉字，同抽屜（規則 11，不用左側色條） */
   .lang-short{display:none}
   @media (max-width:720px){
     .lang summary{padding:6px 8px;font-size:var(--fs-2xs)}

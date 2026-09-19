@@ -5,7 +5,7 @@ import '../../../styles/page-companies.css';
 import CompanyCard from '../../../components/CompanyCard.astro';
 
 import { href } from '../../../i18n/ui';
-import { CAT_LABEL } from '../../../lib/site';
+import { CAT_LABEL, CONTRACTED_COMPANIES } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const companies = (await getCollection('companies'))
   .sort((a, b) => b.data.placements - a.data.placements || a.data.name.localeCompare(b.data.name));
@@ -21,14 +21,14 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <div class="wrap">
       <h1 class="d1">Partner brands</h1>
       <p class="lead">
-        {companies.length} brands across 39 contracted companies.
+        {companies.length} brands published so far, from {CONTRACTED_COMPANIES} contracted companies.
         Most never post jobs on Chinese-language job boards — which is exactly why they’re hard to find on your own.
       </p>
     </div>
   </section>
 
   <div class="wrap tools" data-filter-root
-    data-status-tpl="Showing {n} of 35 brands"
+    data-status-tpl={`Showing {n} of ${companies.length} brands`}
     data-summary-label="Filters"
     data-summary-picked="Filters ({n} selected)">
     <div class="filters">

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-companies.css';
 import CompanyCard from '../../components/CompanyCard.astro';
+import { CONTRACTED_COMPANIES } from '../../lib/site';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const companies = (await getCollection('companies'))
@@ -19,7 +20,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
     <div class="wrap">
       <h1 class="d1">合作企業</h1>
       <p class="lead">
-        目前公開的 {companies.length} 個品牌，分屬 39 家簽約企業。這些店多半不會在中文求職網站上刊登職缺——這正是為什麼自己找很難找到。
+        已簽約 {CONTRACTED_COMPANIES} 家日本企業，目前公開其中 {companies.length} 個品牌。這些店多半不會在中文求職網站上刊登職缺——這正是為什麼自己找很難找到。
       </p>
     </div>
   </section>

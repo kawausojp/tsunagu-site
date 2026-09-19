@@ -22,7 +22,7 @@ const firstStory = stories[0];
 const nextEv = nextEvent();
 const nextEvDate = nextEv ? fmtEventDate(nextEv.date, 'en') : '';
 const heroCta = nextEv
-  ? `Join the ${nextEvDate} meetup in ${CITY.en[nextEv.city] ?? nextEv.city} →`
+  ? `Join the ${nextEvDate} meetup in ${CITY.en[nextEv.city] ?? nextEv.city}`
   : 'Join the next meetup';
 const stats = [
   { icon: 'people', n: '2,874', u: '', t: 'meetup attendees' },
