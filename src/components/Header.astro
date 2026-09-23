@@ -18,7 +18,7 @@ const currentVal = (h: string) => (norm(path) === norm(h) ? 'page' : 'true');
 const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   code: l, label: LANG_META[l].label, current: l === lang,
   // 頁面有給 altPaths（如 404 導回各語首頁）就用它，否則從 pathname 換前綴
-  href: altPaths?.[l] ? `${BASE}${altPaths[l]}` : switchHref(lang, l, path),
+  href: altPaths?.[l] ? `${BASE}${altPaths[l]}` : switchHref(l, path),
 }));
 ---
 <header>
@@ -38,7 +38,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/>
         </svg>
-        <span class="lang-full">{LANG_META[lang].label}</span><span class="lang-short" aria-hidden="true">{LANG_META[lang].short}</span>
+        <span class="lang-full">{LANG_META[lang].label}</span><span class="lang-short">{LANG_META[lang].short}</span>
       </summary>
       <ul>
         {langs.map(l => (
@@ -197,7 +197,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   }
 
   if (b && d) {
-    const setOpen = (open: boolean, restoreFocus = false) => {
+    const setOpen = (open: boolean, restoreFocus = false, closeLangMenu = true) => {
       d.toggleAttribute('data-open', open);
       d.hidden = !open;
       if (!open) openedByHover = false;
@@ -207,7 +207,8 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       const lock = open && compact.matches;
       document.body.classList.toggle('menu-open', lock);
       for (const el of document.querySelectorAll('main, footer')) el.toggleAttribute('inert', lock);
-      if (open && lang) lang.open = false;
+      // hover 開抽屜不該連帶關掉已開的語言選單（使用者可能只是滑鼠掃過鈕）
+      if (open && lang && closeLangMenu) lang.open = false;
       if (!open && restoreFocus) b.focus();
     };
     // 桌機滑鼠：移到選單鈕即開，離開鈕＋面板 160ms 後關（斜向移入面板不會閃關）；觸控裝置維持點擊。
@@ -222,13 +223,16 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     const cancelClose = () => { window.clearTimeout(closeTimer); };
     const scheduleClose = () => {
       cancelClose();
-      closeTimer = window.setTimeout(() => { if (!compact.matches) setOpen(false); }, 160);
+      closeTimer = window.setTimeout(() => {
+        // 焦點還在鈕或面板內（例如滑鼠移開但鍵盤正在操作）就不關，避免把使用者踢出面板
+        if (!compact.matches && !b.contains(document.activeElement) && !d.contains(document.activeElement)) setOpen(false);
+      }, 160);
     };
     for (const el of [b, d]) {
       el.addEventListener('pointerenter', event => {
         if (event.pointerType !== 'mouse' || !hoverable.matches || compact.matches) return;
         cancelClose();
-        if (!d.hasAttribute('data-open')) { setOpen(true); openedByHover = true; }
+        if (!d.hasAttribute('data-open')) { setOpen(true, false, false); openedByHover = true; }
       });
       el.addEventListener('pointerleave', event => {
         if (event.pointerType !== 'mouse' || !hoverable.matches || compact.matches) return;

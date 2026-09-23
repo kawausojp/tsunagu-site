@@ -2,13 +2,12 @@
 // 日本語版：交流会日程。構造は zh 版と共通（page-events.css）。三言語同時更新のこと。
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
-import data from '../../../data/events.json';
 import { href } from '../../../i18n/ui';
-import { todayTaipei, fmtEventDate, fmtEventNo, fmtSince, CITY, eventLd } from '../../../lib/site';
+import { todayTaipei, fmtEventDate, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta } from '../../../lib/site';
 
 const l = (p: string) => href('ja', p);
 const today = todayTaipei();
-const sorted = [...data.events].sort((a, b) => b.date.localeCompare(a.date));
+const sorted = [...eventsMeta.events].sort((a, b) => b.date.localeCompare(a.date));
 const upcoming = sorted.filter(e => e.date >= today).reverse();
 const past = sorted.filter(e => e.date < today);
 const fmt = (d: string) => `${d.slice(0, 4)}/${fmtEventDate(d, 'ja')}`;
@@ -30,8 +29,8 @@ const flow = [
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">交流会に来てみませんか</h1>
     <p class="lead">日本企業がどんな人材を求めているか、先輩の生の声とあわせて聞ける場です。</p>
-    <p class="small since">{fmtSince(data.since, 'ja')}から累計 <strong>{data.totalHeld}</strong> 回開催。
-      {data.cities.map(c => city(c)).join('・')}で実施しています。</p>
+    <p class="small since">{fmtSince(eventsMeta.since, 'ja')}から累計 <strong>{totalHeld}</strong> 回開催。
+      {eventsMeta.cities.map(c => city(c)).join('・')}で実施しています。</p>
   </div></section>
 
   <section class="wrap wrap--reading page-section" id="signup">
@@ -53,7 +52,7 @@ const flow = [
               {e.signupUrl
                 ? <>
                     <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Google フォームで申し込む <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
-                    <p class="small hint">第 {fmtEventNo(e.no, 'ja')} 回専用の Google フォームです（外部リンク）。</p>
+                    <p class="small hint">回によって申込フォームが異なります。必ず本回専用のフォームをご利用ください。</p>
                   </>
                 : <p class="small">申込リンクは近日公開予定です。</p>}
             </div>
@@ -70,10 +69,10 @@ const flow = [
     <h2 class="d2">交流会当日の流れ</h2>
     <ol class="flow">
       {flow.map((f, i) => (
-        <li class="card step"><div class="no-badge">{i + 1}</div><div><h3 class="d3">{f.t}</h3><p class="small">{f.d}</p></div></li>
+        <li class="card step"><div class="no-badge" aria-hidden="true">{i + 1}</div><div><h3 class="d3">{f.t}</h3><p class="small">{f.d}</p></div></li>
       ))}
     </ol>
-    <p class="small flow-more"><a href={l('/companies')}>参加企業を見る</a>・<a href={l('/apply#photo')}>履歴書写真の撮り方</a>・<a href={l('/support')}>サポート内容の詳細</a></p>
+    <p class="small flow-more"><a href={l('/companies')}>提携企業を見る</a>・<a href={l('/apply#photo')}>履歴書写真の撮り方</a>・<a href={l('/support')}>サポート内容の詳細</a></p>
     <div class="note"><strong>すべて無料。</strong>参加費・紹介料は、台湾の皆さまからは一切いただきません。詳しくは「サポート内容」をご覧ください。</div>
   </section>
 
@@ -91,6 +90,6 @@ const flow = [
         </li>
       ))}
     </ul>
-    <p class="small backtop"><a href="#signup">↑ 次回の申込に戻る</a></p>
+    <p class="small backtop"><a href="#signup"><span aria-hidden="true">↑</span> 次回の申込に戻る</a></p>
   </section>
 </Base>

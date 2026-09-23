@@ -36,11 +36,11 @@
   .cta-band .lead{margin:8px auto 20px}
   @media (max-width:720px){
     /* 手機：14 顆 chip 折行會吃掉近一整屏，改單行橫向滑動（兩側邊緣淡出） */
-    /* 兩側 bleed 到螢幕邊、內距＝gutter：淡出落在 gutter 內、第一／最後一顆 chip 不被遮；
+    /* .jump 本身就是 .wrap（全寬），內距＝gutter 讓淡出落在 gutter 內、第一／最後一顆 chip 不被遮；
        上下 6px 留給 focus ring（3px outline＋3px offset），否則 overflow 容器會把框切掉 */
     .jump{margin-top:16px;gap:6px;flex-wrap:nowrap;overflow-x:auto;
       -webkit-overflow-scrolling:touch;scrollbar-width:none;
-      margin-inline:calc(-1 * var(--layout-gutter));padding:6px var(--layout-gutter);
+      padding:6px var(--layout-gutter);
       scroll-padding-inline:var(--layout-gutter);scroll-snap-type:x proximity;
       mask-image:linear-gradient(90deg,transparent,#000 var(--layout-gutter),#000 calc(100% - var(--layout-gutter)),transparent)}
     .jump::-webkit-scrollbar{display:none}

@@ -261,7 +261,7 @@ html[lang="en"] .prose{max-width:56ch}
   .small{font-size:var(--fs-2xs);line-height:1.75}
   main .btn{min-height:var(--mobile-control-height);padding:11px 18px;font-size:var(--fs-sm)}
   main .btn-secondary{border-color:var(--control-line);color:var(--ink-900)}
-  main .btn-ghost{border-color:var(--mobile-line);color:var(--ink-900)}
+  main .btn-ghost{color:var(--ink-900)}   /* 邊框沿用 --control-line（1.4.11） */
   main .action-link{min-height:44px;padding:7px 0;font-size:var(--fs-sm)}
   main .card{border-radius:var(--r-md);border-color:var(--mobile-line);box-shadow:none}
   main .card-link:focus-visible{box-shadow:none}

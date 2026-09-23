@@ -2,13 +2,12 @@
 // English: meetup schedule. Structure shared with zh version (page-events.css). Update all three languages together.
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
-import data from '../../../data/events.json';
 import { href } from '../../../i18n/ui';
-import { todayTaipei, fmtEventDate, fmtEventNo, fmtSince, CITY, eventLd } from '../../../lib/site';
+import { todayTaipei, fmtEventDate, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta } from '../../../lib/site';
 
 const l = (p: string) => href('en', p);
 const today = todayTaipei();
-const sorted = [...data.events].sort((a, b) => b.date.localeCompare(a.date));
+const sorted = [...eventsMeta.events].sort((a, b) => b.date.localeCompare(a.date));
 const upcoming = sorted.filter(e => e.date >= today).reverse();
 const past = sorted.filter(e => e.date < today);
 const fmt = (d: string) => `${d.slice(0, 4)}/${fmtEventDate(d, 'en')}`;
@@ -30,8 +29,8 @@ const flow = [
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">Come to a meetup</h1>
     <p class="lead">Hear directly from Japanese companies about who they’re hiring — and from alumni about what the work is really like.</p>
-    <p class="small since"><strong>{data.totalHeld}</strong> meetups held since {fmtSince(data.since, 'en')},
-      across {data.cities.map(c => city(c)).map((c, i, a) => i === a.length - 1 && a.length > 1 ? `and ${c}` : c).join(', ').replace(', and ', ' and ')}.</p>
+    <p class="small since"><strong>{totalHeld}</strong> meetups held since {fmtSince(eventsMeta.since, 'en')},
+      across {eventsMeta.cities.map(c => city(c)).map((c, i, a) => i === a.length - 1 && a.length > 1 ? `and ${c}` : c).join(', ').replace(', and ', ' and ')}.</p>
   </div></section>
 
   <section class="wrap wrap--reading page-section" id="signup">
@@ -53,7 +52,7 @@ const flow = [
               {e.signupUrl
                 ? <>
                     <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Sign up via Google Form <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>
-                    <p class="small hint">This Google Form is for meetup {fmtEventNo(e.no, 'en')} only (external link).</p>
+                    <p class="small hint">Each meetup has its own form — please use this one.</p>
                   </>
                 : <p class="small">Sign-up link coming soon.</p>}
             </div>
@@ -70,10 +69,10 @@ const flow = [
     <h2 class="d2">What happens at a meetup</h2>
     <ol class="flow">
       {flow.map((f, i) => (
-        <li class="card step"><div class="no-badge">{i + 1}</div><div><h3 class="d3">{f.t}</h3><p class="small">{f.d}</p></div></li>
+        <li class="card step"><div class="no-badge" aria-hidden="true">{i + 1}</div><div><h3 class="d3">{f.t}</h3><p class="small">{f.d}</p></div></li>
       ))}
     </ol>
-    <p class="small flow-more"><a href={l('/companies')}>See which companies come</a> · <a href={l('/apply#photo')}>Resume photo tips</a> · <a href={l('/support')}>Full support details</a></p>
+    <p class="small flow-more"><a href={l('/companies')}>See our partner brands</a> · <a href={l('/apply#photo')}>Resume photo tips</a> · <a href={l('/support')}>Full support details</a></p>
     <div class="note"><strong>Everything is free.</strong> No participation or placement fees, ever, for participants from Taiwan.</div>
   </section>
 
@@ -91,6 +90,6 @@ const flow = [
         </li>
       ))}
     </ul>
-    <p class="small backtop"><a href="#signup">↑ Back to sign-up</a></p>
+    <p class="small backtop"><a href="#signup"><span aria-hidden="true">↑</span> Back to sign-up</a></p>
   </section>
 </Base>

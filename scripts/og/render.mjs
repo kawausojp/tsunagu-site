@@ -1,5 +1,5 @@
 // 產生 OG 縮圖：node scripts/og/render.mjs → public/img/og-default.png（zh）、og-ja.png、og-en.png（各 2400×1260）
-import { chromium } from 'playwright-core';
+import { chromium } from 'playwright';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 const here=path.dirname(fileURLToPath(import.meta.url));

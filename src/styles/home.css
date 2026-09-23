@@ -25,7 +25,7 @@
   .hero-inner>*:nth-child(4){animation-delay:210ms}
   .hero-inner>*:nth-child(5){animation-delay:280ms}
   @keyframes hero-rise{from{opacity:0;transform:translateY(14px)}}
-  .cta-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px;margin-top:26px}
+  .hero .cta-row{justify-content:center;gap:18px;margin-top:26px}   /* 只做修飾，基底在 global */
   /* お知らせ：一行字＋底部細線，不做框 */
   .news{display:flex;align-items:baseline;gap:14px;margin-top:26px;padding:0 0 14px;
     border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink-900)}
@@ -54,7 +54,7 @@
   .band .n{font-family:var(--f-latin);font-weight:700;font-variant-numeric:tabular-nums;line-height:1.05;color:var(--pink-300)}
   .band .n small{font-size:var(--fs-xl);margin-left:3px;color:var(--ink-600)}  /* 單位小字用灰，數字才是粉 */
   /* 口徑註記：全站最顯眼的數字原本是唯一沒有來源說明的地方（events／companies 頁都有） */
-  .band-note{margin:4px 0 0;text-align:center;color:var(--ink-600);font-size:var(--fs-xs)}
+  .band-note{margin:4px 0 0;text-align:center;color:var(--ink-600)}   /* 字級交給 .small（手機 12px） */
 
   /* 首頁四個同級標題原本各有各的下間距（14/28/0/12px），其中影片區是 0 貼著行框 */
   .section .d2 + *{margin-top:14px}
@@ -107,11 +107,12 @@
     html[lang="en"] .headline-comma{display:inline}
     .hero .chars{width:152px;margin:16px auto 14px}
     .hero .lead{max-width:32em;text-align:center}
-    .cta-row{gap:10px;margin-top:20px}
+    .hero .cta-row{gap:10px;margin-top:20px}
     .hero .cta-row .btn-primary{width:auto;min-width:240px}
     .hero .cta-row .action-link{margin-inline:auto}
     /* 手機 2×2 泡泡 */
-    .band{grid-template-columns:repeat(2,1fr);gap:14px;padding:20px 8px 8px;margin:0 0 8px}
+    .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:20px 8px 8px;margin:0 0 8px}   /* minmax(0,…)：1.4.12 字距放大時欄不被數字撐破 */
+    .bubble{min-width:0}
     .bubble{max-width:176px;gap:4px;padding:12px}
     .bubble .t{font-size:var(--fs-xs);gap:5px}
     .bubble .t svg{width:18px;height:18px}

@@ -16,7 +16,7 @@ const allStories = await getCollection('stories');
 const companiesCount = (await getCollection('companies')).length;
 const relatedStories = relatedStoriesFor(d.name, allStories);
 import { href, ui } from '../../../i18n/ui';
-import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor } from '../../../lib/site';
+import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor, signupCta } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const catLabel = CAT_LABEL.en[d.category] ?? d.categoryLabel;
 const tagline = d.taglineEn ?? d.tagline;
@@ -29,7 +29,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
   <article>
     <div class="page-head hero">
       <div class="wrap wrap--prose">
-        <a class="back" href={l('/companies')}>← All partner brands</a>
+        <a class="back" href={l('/companies')}><span aria-hidden="true">←</span> All partner brands</a>
         <h1 class="d1">{name}</h1>
         {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
         <p class="lead">{tagline}</p>
@@ -46,7 +46,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
       <div class="prose" lang="zh-Hant"><Content /></div>
 
       {hl.length > 0 && (
-        <div class="hl">
+        <div class="card hl">
           <h2 class="d3">Highlights (original text)</h2>
           <ul lang="zh-Hant">{hl.map((h:string) => <li>{h}</li>)}</ul>
         </div>
@@ -54,8 +54,8 @@ const hl = dedupHighlights(d.highlights, d.placements);
 
       {(d.placements > 0 || d.fullTimeConverted > 0) && (
         <div class="numbers">
-          {d.placements > 0 && <div><div class="n">{d.placements}</div><div class="t">Taiwanese staff placed</div></div>}
-          {d.fullTimeConverted > 0 && <div><div class="n">{d.fullTimeConverted}</div><div class="t">became full-time</div></div>}
+          {d.placements > 0 && <div class="card"><div class="n">{d.placements}</div><div class="t">Taiwanese staff placed</div></div>}
+          {d.fullTimeConverted > 0 && <div class="card"><div class="n">{d.fullTimeConverted}</div><div class="t">became full-time</div></div>}
         </div>
       )}
 
@@ -71,8 +71,8 @@ const hl = dedupHighlights(d.highlights, d.placements);
           ))}
         </div>
       )}
-      <div class="cta">
-        <a class="btn btn-primary" href={l('/events')}>Ask about it at a meetup</a>
+      <div class="cta-row cta">
+        <a class="btn btn-primary" href={l('/events')}>{signupCta('en')}</a>
         <a class="action-link" href={l('/companies')}>See all {companiesCount} partner brands</a>
       </div>
     </div>

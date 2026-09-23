@@ -15,7 +15,7 @@ const { Content } = await render(c);
 const allStories = await getCollection('stories');
 const relatedStories = relatedStoriesFor(d.name, allStories);
 import { href, ui } from '../../../i18n/ui';
-import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor } from '../../../lib/site';
+import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor, signupCta } from '../../../lib/site';
 const l = (p: string) => href('ja', p);
 const companiesCount = (await getCollection('companies')).length;
 const catLabel = CAT_LABEL.ja[d.category] ?? d.categoryLabel;
@@ -29,7 +29,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
   <article>
     <div class="page-head hero">
       <div class="wrap wrap--prose">
-        <a class="back" href={l('/companies')}>← 提携企業一覧へ</a>
+        <a class="back" href={l('/companies')}><span aria-hidden="true">←</span> 提携企業一覧へ</a>
         <h1 class="d1">{name}</h1>
         {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
         <p class="lead">{tagline}</p>
@@ -46,7 +46,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
       <div class="prose" lang="zh-Hant"><Content /></div>
 
       {hl.length > 0 && (
-        <div class="hl">
+        <div class="card hl">
           <h2 class="d3">ポイント（原文）</h2>
           <ul lang="zh-Hant">{hl.map((h:string) => <li>{h}</li>)}</ul>
         </div>
@@ -54,8 +54,8 @@ const hl = dedupHighlights(d.highlights, d.placements);
 
       {(d.placements > 0 || d.fullTimeConverted > 0) && (
         <div class="numbers">
-          {d.placements > 0 && <div><div class="n">{d.placements}</div><div class="t">台湾人スタッフ勤務実績（名）</div></div>}
-          {d.fullTimeConverted > 0 && <div><div class="n">{d.fullTimeConverted}</div><div class="t">うち正社員登用（名）</div></div>}
+          {d.placements > 0 && <div class="card"><div class="n">{d.placements}</div><div class="t">台湾人スタッフ勤務実績（名）</div></div>}
+          {d.fullTimeConverted > 0 && <div class="card"><div class="n">{d.fullTimeConverted}</div><div class="t">うち正社員登用（名）</div></div>}
         </div>
       )}
 
@@ -71,8 +71,8 @@ const hl = dedupHighlights(d.highlights, d.placements);
           ))}
         </div>
       )}
-      <div class="cta">
-        <a class="btn btn-primary" href={l('/events')}>交流会で詳しく聞く</a>
+      <div class="cta-row cta">
+        <a class="btn btn-primary" href={l('/events')}>{signupCta('ja')}</a>
         <a class="action-link" href={l('/companies')}>{companiesCount} ブランドをすべて見る</a>
       </div>
     </div>

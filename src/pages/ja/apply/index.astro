@@ -8,7 +8,7 @@ const l = (p: string) => href('ja', p);
 <Base title="出発準備" lang="ja" altPaths={{ zh: '/apply/', ja: '/ja/apply/', en: '/en/apply/' }} description="日本行きを決めた方へ。交流会または Instagram の DM でプロフィールをお預かりし、個別相談へ。履歴書写真・面接のポイントも。">
   <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">日本行きを決めた方へ</h1>
-    <p class="lead">まずはプロフィールをお送りください。個別相談を手配します。履歴書は後からで構いません。</p>
+    <p class="lead">交流会または DM でお聞かせください。個別相談を手配します。履歴書は後からで構いません。</p>
   </div></section>
 
   <section class="wrap wrap--page page-section">
@@ -26,7 +26,7 @@ const l = (p: string) => href('ja', p);
               <span class="no-badge" aria-hidden="true">1</span>
               <h3 class="d3">まず交流会で話す</h3>
               <p class="small">完璧な履歴書は不要です。渡航時期・日本語レベル・希望職種を会場でお聞かせください。</p>
-              <a class="btn btn-primary" href={l('/events')}>次回の交流会を見る</a>
+              <a class="btn btn-primary" href={l('/events')}>{signupCta('ja')}</a>
             </article>
             <article class="contact-option">
               <span class="no-badge" aria-hidden="true">2</span>

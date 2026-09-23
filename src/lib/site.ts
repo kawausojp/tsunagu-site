@@ -202,6 +202,8 @@ export const totalHeld = (() => {
   return Math.max(eventsData.totalHeld, pastMax);
 })();
 export const eventsList = eventsData.events;
+/** events 頁用的其餘欄位（since／cities／events）；totalHeld 請用上面推導後的值，不要讀 JSON 原值 */
+export const eventsMeta = eventsData;
 
 export const CAT_LABEL: Record<Lang, Record<string, string>> = {
   zh: { apparel: '服飾', bag: '包款', eyewear: '眼鏡', food: '餐飲', goods: '飾品雜貨', group: '複合集團', hat: '帽子', jewelry: '珠寶飾品', kimono: '和服', shoes: '鞋履包款', socks: '襪類', other: '其他' },

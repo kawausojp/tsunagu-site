@@ -67,7 +67,7 @@ const companyHref = new Map(stories.map(s => {
         )}
 
         <a class="src small" href={`https://www.instagram.com/p/${s.data.igCode}/`} target="_blank" rel="noopener">
-          讀 Instagram 原文<span class="nowrap">（{s.data.igPosted}）↗</span>
+          讀 Instagram 原文<span class="nowrap">（{s.data.igPosted}）<span aria-hidden="true">↗</span></span><span class="sr-only">（另開新視窗）</span>
         </a>
       </article>
     ))}

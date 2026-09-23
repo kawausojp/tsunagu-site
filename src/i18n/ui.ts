@@ -134,7 +134,7 @@ export function langFromPath(pathname: string): Lang {
 }
 
 /** 目前頁面在另一語言的對應網址（頁面不存在時退回該語言首頁由呼叫端保證） */
-export function switchHref(lang: Lang, target: Lang, pathname: string) {
+export function switchHref(target: Lang, pathname: string) {
   const p = pathname.slice(BASE.length).replace(/^\/(ja|en)(?=\/|$)/, '') || '/';
   return `${BASE}${LANG_META[target].prefix}${p}`;
 }

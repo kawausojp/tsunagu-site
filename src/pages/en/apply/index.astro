@@ -8,7 +8,7 @@ const l = (p: string) => href('en', p);
 <Base title="Getting Ready" lang="en" altPaths={{ zh: '/apply/', ja: '/ja/apply/', en: '/en/apply/' }} description="Decided on Japan? Share your profile at a meetup or via Instagram DM and we'll set up a one-on-one, plus resume-photo and interview tips.">
   <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">Already decided on Japan?</h1>
-    <p class="lead">Send us your details and we’ll set up a one-on-one consultation. The full resume can come later.</p>
+    <p class="lead">Tell us at a meetup or by DM, and we’ll set up a one-on-one. The full resume can come later.</p>
   </div></section>
 
   <section class="wrap wrap--page page-section">
@@ -26,7 +26,7 @@ const l = (p: string) => href('en', p);
               <span class="no-badge" aria-hidden="true">1</span>
               <h3 class="d3">Talk to us at a meetup</h3>
               <p class="small">No resume needed — just tell us your timeline, Japanese level and what you’d like to do.</p>
-              <a class="btn btn-primary" href={l('/events')}>See the next meetup</a>
+              <a class="btn btn-primary" href={l('/events')}>{signupCta('en')}</a>
             </article>
             <article class="contact-option">
               <span class="no-badge" aria-hidden="true">2</span>
