@@ -5,14 +5,14 @@ category: "goods"
 categoryLabel: "飾品雜貨"
 areas: ["tokyo", "osaka"]
 jlpt: null
-placements: 4
+placements: 5
 fullTimeConverted: 1
 onlineInterview: false
 tagline: "匯集大量 Made in Japan 飾品與雜貨的店"
 taglineJa: "Made in Japanのアクセサリー・雑貨が集まる店"
 taglineEn: "A trove of Made-in-Japan accessories and goods"
 highlights: []
-sourceSlide: 91
+sourceSlide: 103
 ---
 
 銀座、台場、新宿等全日本展店，台灣客人也很喜歡。曾在微風南山 bpt ROOM 販售過。

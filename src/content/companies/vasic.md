@@ -5,16 +5,16 @@ category: "bag"
 categoryLabel: "包款"
 areas: ["tokyo", "osaka"]
 jlpt: null
-placements: 15
+placements: 16
 fullTimeConverted: 2
 onlineInterview: true
 tagline: "2015 年於紐約發表的「My Standard Bag」包款品牌"
 taglineJa: "2015年ニューヨーク発、「My Standard Bag」を掲げるバッグブランド"
 taglineEn: "NYC bag brand behind the 2015 “My Standard Bag”"
 highlights:
-  - "累計 15 人採用（最多）"
+  - "全店最多人任職的品牌"
   - "2 人取得工作簽轉正職"
-sourceSlide: 84
+sourceSlide: 96
 ---
 
 簡約機能、優雅中帶點大人玩心。銀座三越、澀谷 Scramble Square、青山、新宿伊勢丹、六本木、心齋橋都有台灣夥伴。

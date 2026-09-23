@@ -188,7 +188,7 @@ export function fmtEventNo(no: string, lang: Lang) {
 }
 
 /** 簽約企業數（簡報 p18 口徑）；品牌數以 content/companies 筆數為準，兩者不同：一家企業可有多個品牌 */
-export const CONTRACTED_COMPANIES = 39;
+export const CONTRACTED_COMPANIES = 41;
 
 /** 累計舉辦場數：JSON 的 totalHeld 只是下限。場次過期後每日排程重建會自動移到「舉辦紀錄」，
  * 這裡同步以「已過期場次的最大回數」推算，不必每場手動改數字。 */
@@ -242,7 +242,7 @@ export function fmtSince(since: string, lang: Lang) {
 
 /** 品牌資料的出處：主辦方簡報。標題頁自載「交流会 -第76,77回- 2026年4月18日」。
  *  三語原本各寫一套（逗號／中黑、補零與否），改由此處統一渲染。 */
-export const SOURCE_DECK = { no: '76,77', date: '2026.4.18' };
+export const SOURCE_DECK = { no: '88,89', date: '2026.9.20' };
 export function fmtSourceDeck(lang: Lang, page?: number) {
   const no = fmtEventNo(SOURCE_DECK.no, lang);
   const p = page ? (lang === 'zh' ? `第 ${page} 頁` : `p.${page}`) : '';
