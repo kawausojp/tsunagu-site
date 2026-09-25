@@ -1,6 +1,6 @@
 /* 首頁樣式（三語共用）：/、/ja/、/en/ 三頁 import 同一份，改這裡三語同步生效 */
   .hero{background:var(--paper);
-    padding:72px 0 64px;border-bottom:1px solid var(--line)}
+    padding:72px 0 64px}   /* 無底線（使用者 2026-09-25：分區不用橫線，改用留白與淺藍底色帶） */
   .hero-inner{display:grid;justify-items:center;text-align:center}
   html[lang="en"] .hero h1{letter-spacing:.01em}
   /* hero 大標刻意比規則 2 的 .05em／1.45 收窄：62px 展示級拉開字距會散、行高 1.45 兩行會離太遠（定案，非違規） */
@@ -18,13 +18,7 @@
   }
   .ja-sub{font-size:var(--fs-xs);letter-spacing:.22em;color:var(--ink-600);margin:0 0 12px}
   .hero .lead{max-width:640px;margin:0 auto}
-  /* 進場：依內容順序短暫錯開，不改變版面位置。 */
-  .hero-inner>*{animation:hero-rise .28s var(--ease) backwards}
-  .hero-inner>*:nth-child(2){animation-delay:70ms}
-  .hero-inner>*:nth-child(3){animation-delay:140ms}
-  .hero-inner>*:nth-child(4){animation-delay:210ms}
-  .hero-inner>*:nth-child(5){animation-delay:280ms}
-  @keyframes hero-rise{from{opacity:0;transform:translateY(14px)}}
+  /* 進場動效統一由 reveal.js（global.css 的 data-rv）負責，捲回來也會重播 */
   .hero .cta-row{justify-content:center;gap:18px;margin-top:26px}   /* 只做修飾，基底在 global */
   /* お知らせ：一行字＋底部細線，不做框 */
   .news{display:flex;align-items:baseline;gap:14px;margin-top:26px;padding:0 0 14px;
@@ -72,7 +66,8 @@
     .co-side{position:static}
   }
   .more{margin-top:28px}
-  .alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  /* 企業區＝淺藍底色帶（使用者 2026-09-25 選 C）：同 /companies 列表，白卡浮在淡藍上，用底色換段落而不是橫線 */
+  .alt{background:var(--sky-wash)}
 
   .voice{display:flex;gap:28px;align-items:flex-start;margin-top:28px;max-width:760px}
   .v-avatar{width:96px;height:96px;flex:0 0 96px;border-radius:var(--r-full);overflow:hidden}
@@ -88,7 +83,7 @@
   .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .vid-more{margin:0}
 
-  .final{background:var(--paper);border-top:1px solid var(--line)}
+  .final{background:var(--paper)}
   .final-split{display:grid;grid-template-columns:1fr 200px;gap:40px;align-items:end}
   .final .lead{margin:12px 0 0}
   .final .cta-row{justify-content:flex-start}
@@ -99,7 +94,7 @@
   }
 
   @media (max-width:720px){
-    .hero{background:var(--paper);padding:28px 0 30px;border-bottom:1px solid var(--mobile-line)}
+    .hero{background:var(--paper);padding:28px 0 30px}
     .hero h1{font-size:clamp(30px,8.6vw,36px);white-space:normal;line-height:1.32;
       letter-spacing:.025em}
     /* 手機標題斷行：中日文兩半都短，強制各佔一行不折字最好看。
@@ -134,12 +129,11 @@
 
     .more{margin-top:20px}
     .more .action-link{margin-left:2px}
-    .alt{background:var(--paper);border-color:var(--mobile-line)}
     .voice{gap:16px;margin-top:20px}
     .v-avatar{width:64px;height:64px;flex-basis:64px}
     .v-quote{font-size:var(--fs-lg)}
     .video{border:1px solid var(--mobile-line);border-radius:var(--r-md);box-shadow:none}
-    .final{background:var(--paper);border-top:1px solid var(--mobile-line)}
+    .final{background:var(--paper)}
     .final .cta-row{flex-direction:column;align-items:center}
   }
 

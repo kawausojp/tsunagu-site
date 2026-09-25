@@ -1,7 +1,7 @@
 // 首頁動效。全部走漸進增強：JS 沒跑或使用者要求減少動態時，畫面與現況完全一樣。
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 
-/* 統計數字跳動：捲到才跑、只跑一次。
+/* 統計數字跳動：捲到就跑，離開畫面後重置、捲回來再跑一次（使用者 2026-09-25，同 reveal.js）。
    HTML 裡本來就是最終數字，這裡只是在進場時倒帶重播。 */
 function countUp() {
   const cells = document.querySelectorAll<HTMLElement>('[data-count]');
@@ -28,13 +28,15 @@ function countUp() {
     requestAnimationFrame(tick);
   };
 
+  const done = new WeakSet<Element>();
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
-      if (!e.isIntersecting) continue;
-      io.unobserve(e.target);
+      if (!e.isIntersecting) { done.delete(e.target); continue; }   // 完全離開 → 下次再播
+      if (e.intersectionRatio < 0.6 || done.has(e.target)) continue;
+      done.add(e.target);
       run(e.target as HTMLElement);
     }
-  }, { threshold: 0.6 });
+  }, { threshold: [0, 0.6] });
   cells.forEach((c) => io.observe(c));
 }
 

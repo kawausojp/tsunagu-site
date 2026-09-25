@@ -100,7 +100,7 @@ main:focus{outline:none}
 
 /* ── 全站版面節奏：內頁共用，不再由每頁各自猜 margin ── */
 .page-head{background:var(--paper);
-  padding:60px 0 48px;border-bottom:1px solid var(--line)}
+  padding:60px 0 48px}   /* 標題下無橫線（使用者 2026-09-25）：分區靠留白 */
 .page-head .lead{margin:14px 0 0}
 .page-section{margin-top:var(--content-section-gap)}
 .page-section>.d2:first-child{margin-bottom:18px}
@@ -257,7 +257,7 @@ html[lang="en"] .prose{max-width:56ch}
   html{scroll-padding-top:calc(var(--header-height) + 16px)}
   body{background:var(--paper);line-height:1.75}
   .section{padding:44px 0}
-  .page-head{background:var(--paper);padding:26px 0 24px;border-bottom-color:var(--mobile-line)}
+  .page-head{background:var(--paper);padding:26px 0 24px}
   /* 24/22 是手機標題階（定案階層），不入 --fs 階梯 */
   .page-head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
   .page-head .lead{margin-top:12px}
@@ -285,6 +285,40 @@ html[lang="en"] .prose{max-width:56ch}
   .row .d{flex-basis:80px}
   .note{margin-top:18px}
 
+}
+
+/* ── 捲動進場動效（使用者 2026-09-25：每個區塊捲到都播、捲回來再播）──────────────────
+   標記與觸發在 src/scripts/reveal.js。規則 4 的 200–280ms 是「互動回饋」的節奏；這裡是進場演出，
+   使用者要的是「絢麗」，所以放寬到 .7–.9s。只動 opacity／transform／filter，不影響版面。
+   animation 用 backwards（不用 both）：播完就回到元素本來的樣式，卡片 hover 的上浮才不會被鎖死。 */
+@media (prefers-reduced-motion:no-preference){
+  html.rv [data-rv]:not(.is-in){opacity:0}
+  html.rv [data-rv].is-in{animation-duration:.8s;animation-timing-function:cubic-bezier(.22,1,.36,1);
+    animation-fill-mode:backwards;animation-delay:var(--rv-d,0ms)}
+  html.rv [data-rv="rise"].is-in{animation-name:rv-rise}
+  html.rv [data-rv="card"].is-in{animation-name:rv-card;animation-duration:.9s}
+  html.rv [data-rv="slide"].is-in{animation-name:rv-slide}
+  html.rv [data-rv="zoom"].is-in{animation-name:rv-zoom;animation-duration:1s}
+  html.rv [data-rv="pop"].is-in{animation-name:rv-pop;animation-duration:.9s;animation-timing-function:cubic-bezier(.34,1.56,.64,1)}
+  html.rv [data-rv="bounce"].is-in{animation-name:rv-bounce;animation-duration:1s}
+  /* 標題：從模糊浮現，底下一道粉藍光帶掃過後消失（logo 屋頂的左粉右藍） */
+  html.rv [data-rv="title"]{position:relative}
+  html.rv [data-rv="title"].is-in{animation-name:rv-title;animation-duration:.9s}
+  html.rv [data-rv="title"].is-in::after{content:'';position:absolute;left:0;bottom:-6px;width:64px;height:3px;
+    border-radius:3px;background:linear-gradient(90deg,var(--pink-300) 50%,var(--sky-300) 50%);
+    transform-origin:left;pointer-events:none;
+    animation:rv-sweep 1.4s cubic-bezier(.22,1,.36,1) var(--rv-d,0ms) both}
+  html.rv .hero-inner [data-rv="title"].is-in::after,html.rv .page-head [data-rv="title"].is-in::after{display:none}
+
+  @keyframes rv-rise{from{opacity:0;transform:translateY(32px)}}
+  @keyframes rv-card{from{opacity:0;transform:translateY(48px) scale(.94);filter:blur(4px)}}
+  @keyframes rv-slide{from{opacity:0;transform:translateX(-40px)}}
+  @keyframes rv-zoom{from{opacity:0;transform:scale(.88);filter:blur(6px)}}
+  @keyframes rv-pop{0%{opacity:0;transform:scale(.3) rotate(-14deg)}60%{opacity:1}100%{transform:none}}
+  @keyframes rv-bounce{0%{opacity:0;transform:translateY(60px) scale(.8)}55%{opacity:1;transform:translateY(-12px) scale(1.04)}
+    78%{transform:translateY(4px)}100%{transform:none}}
+  @keyframes rv-title{from{opacity:0;transform:translateY(18px);filter:blur(10px)}}
+  @keyframes rv-sweep{0%{transform:scaleX(0);opacity:1}55%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
 }
 
 @media (prefers-reduced-motion:reduce){

@@ -35,7 +35,7 @@ const t = ui[lang];
 </footer>
 
 <style>
-  footer{background:var(--paper);border-top:1px solid var(--line);padding:56px 0 40px;margin-top:40px}
+  footer{background:var(--paper);padding:56px 0 40px;margin-top:40px}   /* 無頂線（2026-09-25 分區不用橫線） */
   .grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px}
   footer :global(.wm){width:170px;height:auto;margin-bottom:14px}
   h2{font-size:var(--fs-xs);letter-spacing:.06em;color:var(--ink-600);margin-bottom:10px;font-weight:700}
@@ -47,7 +47,7 @@ const t = ui[lang];
      320px 需 ~9px 才塞得下最長的繁中字串（實測），下限取 9px。 */
   .legal p{white-space:nowrap;font-size:clamp(9px,2.75vw,var(--fs-xs))}
   @media (max-width:720px){
-    footer{padding:32px 0 24px;margin-top:32px;border-top-color:var(--mobile-line)}
+    footer{padding:32px 0 24px;margin-top:32px}
     .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 16px}
     .grid>div:first-child{grid-column:1/-1}
     footer :global(.wm){width:140px;margin-bottom:12px}
