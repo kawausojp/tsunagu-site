@@ -83,14 +83,15 @@
   .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .vid-more{margin:0}
 
+  /* 結尾 CTA（2026-09-26 使用者：原本標題靠左、按鈕與角色置中，角色吊在最下面，看起來很怪）。
+     改成與 hero 首尾呼應的置中直排：角色在上 → 標題 → 說明 → 按鈕。角色用 order 提到最前，三語 markup 不用動 */
   .final{background:var(--paper)}
-  .final-split{display:grid;grid-template-columns:1fr 200px;gap:40px;align-items:end}
-  .final .lead{margin:12px 0 0}
-  .final .cta-row{justify-content:flex-start}
-  .final-chars{width:200px;height:auto}
+  .final-split{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .final-chars{order:-1;width:168px;height:auto;margin:0 0 20px}
+  .final .lead{margin:12px auto 0;max-width:34em}
+  .final .cta-row{justify-content:center;gap:18px;margin-top:26px}   /* 同 hero 的按鈕列 */
   @media (max-width:720px){
-    .final-split{grid-template-columns:1fr}
-    .final-chars{width:150px;margin:0 auto}
+    .final-chars{width:128px;margin-bottom:14px}
   }
 
   @media (max-width:720px){
@@ -133,8 +134,7 @@
     .v-avatar{width:64px;height:64px;flex-basis:64px}
     .v-quote{font-size:var(--fs-lg)}
     .video{border:1px solid var(--mobile-line);border-radius:var(--r-md);box-shadow:none}
-    .final{background:var(--paper)}
-    .final .cta-row{flex-direction:column;align-items:center}
+    .final .cta-row{flex-direction:column;align-items:center;gap:10px;margin-top:20px}
   }
 
 /* 320–360px：欄寬只剩約 67px。標籤縮一階並讓左右各借 3px 格線間距，「找到日本工作」「參加過交流會」
