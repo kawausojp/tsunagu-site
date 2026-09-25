@@ -37,24 +37,25 @@
   /* 不加上下框：上緣與 hero 底線平行、下緣正好和下一區的頂線疊在一起，都是重複的線 */
   /* 統計＝四個泡泡（2026-09-13 使用者定案）：白底圓、主色細環粉藍交替（同頭像語言），
      圖標＋數字＋標籤置中。--r-full 用在「本來就圓」的泡泡上，不違反形狀語言 */
-  .band{padding:28px 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;justify-items:center;margin-top:24px}
-  /* 900px 以下四顆會擠成 <170px 的小圓（英文標籤還會撐破），改 2×2 */
-  @media (max-width:900px){ .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px} }
+  .band{padding:20px 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;justify-items:center;margin-top:16px}
+  /* 721–900px 也一列四顆（泡泡上限縮到 184px 後放得下；原本 244px 時才需要改 2×2） */
+  @media (max-width:900px){ .band{gap:16px} .bubble .t{font-size:var(--fs-md)} }
   /* .stat＝一格（圓＋手機用的圓外標籤）；.bubble＝圓本身 */
-  .stat{width:100%;max-width:244px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+  /* 桌機上限 184px（使用者 2026-09-25：244px 時佔比太大，四顆幾乎吃掉一整屏） */
+  .stat{width:100%;max-width:184px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px}
   .lbl-out{display:none}   /* 桌機標籤在圓內（.lbl）；手機移到圓外，兩者同時只顯示一個 */
   .bubble{width:100%;aspect-ratio:1;border-radius:var(--r-full);background:var(--paper);
     border:2px solid var(--pink-300);display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:10px;text-align:center;padding:16px}
+    gap:6px;text-align:center;padding:14px}
   .stat:nth-child(even) .bubble{border-color:var(--sky-300)}
   /* 上排：圖標＋標籤一列；下排：人數 */
   /* nowrap：圖標永遠在標籤左邊（規則 12）；標籤太長時在自己的 span 裡折行，不把圖標擠到上一行 */
-  .bubble .t{display:inline-flex;flex-wrap:nowrap;justify-content:center;align-items:center;gap:8px;margin:0;font-size:var(--fs-2xl);font-weight:500;color:var(--ink-600);max-width:100%}
+  .bubble .t{display:inline-flex;flex-wrap:nowrap;justify-content:center;align-items:center;gap:6px;margin:0;font-size:var(--fs-lg);font-weight:500;color:var(--ink-600);max-width:100%}
   .bubble .t span{min-width:0;text-wrap:balance;line-height:1.35}   /* 折兩行時不要沿用內文 1.85 的行高 */
-  .bubble .t svg{flex:0 0 auto;width:24px;height:24px}
+  .bubble .t svg{flex:0 0 auto;width:20px;height:20px}
   /* 數字是主角：放大到泡泡寬度的 1/4 左右 */
-  .bubble .n{font-size:clamp(46px,4.3vw,62px);white-space:nowrap}   /* 數字與單位不分行 */
-  .bubble .n small{font-size:var(--fs-2xl);margin-left:4px}
+  .bubble .n{font-size:clamp(34px,3.2vw,44px);white-space:nowrap}   /* 數字與單位不分行 */
+  .bubble .n small{font-size:var(--fs-md);margin-left:3px}
   /* tabular-nums：數字跳動時每位數等寬，版面不會抖 */
   .band .n{font-family:var(--f-latin);font-weight:700;font-variant-numeric:tabular-nums;line-height:1.05;color:var(--pink-300)}
   .band .n small{font-size:var(--fs-xl);margin-left:3px;color:var(--ink-600)}  /* 單位小字用灰，數字才是粉 */
