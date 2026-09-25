@@ -37,7 +37,6 @@
   /* .stat＝一格（圓＋手機用的圓外標籤）；.bubble＝圓本身 */
   /* 桌機上限 184px（使用者 2026-09-25：244px 時佔比太大，四顆幾乎吃掉一整屏） */
   .stat{width:100%;max-width:184px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px}
-  .lbl-out{display:none}   /* 桌機標籤在圓內（.lbl）；手機移到圓外，兩者同時只顯示一個 */
   .bubble{width:100%;aspect-ratio:1;border-radius:var(--r-full);background:var(--paper);
     border:2px solid var(--pink-300);display:flex;flex-direction:column;align-items:center;justify-content:center;
     gap:6px;text-align:center;padding:14px}
@@ -110,17 +109,20 @@
     .hero .cta-row{gap:10px;margin-top:20px}
     .hero .cta-row .btn-primary{width:auto;min-width:240px}
     .hero .cta-row .action-link{margin-inline:auto}
-    /* 手機一列四顆（使用者 2026-09-25：2×2 太佔空間）。圓裡只放圖標＋數字，標籤移到圓下方——
-       77px 的圓塞不下「圖標＋標籤」一列，硬塞會折成三行 */
-    .band{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:16px 0 4px;margin:0 0 8px}   /* minmax(0,…)：1.4.12 字距放大時欄不被數字撐破 */
+    /* 手機一列四顆（使用者 2026-09-25：2×2 太佔空間）。圓裡第一行標籤、第二行數字（使用者 2026-09-26：
+       原本標籤在圓外）；約 80px 的圓放不下「圖標＋標籤」，手機不顯示圖標，標籤折兩行也在圓內 */
+    /* 圓要盡量大：格線間距收到 4px，左右各借 6px gutter（手機 gutter 16px，圓不會貼到螢幕邊） */
+    .band{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:16px 0 4px;margin:0 -6px 8px}   /* minmax(0,…)：1.4.12 字距放大時欄不被數字撐破 */
     .stat{gap:6px}
-    .bubble{gap:2px;padding:6px}
-    .bubble .t .lbl{display:none}
-    .bubble .t svg{width:24px;height:24px}
-    .bubble .n{font-size:clamp(15px,5vw,26px)}
+    .bubble{gap:2px;padding:3px}
+    /* 字級隨螢幕寬縮放（例外於 token 階，同 footer 版權行）：使用者偏好「字小一點也不要拆成兩段」，
+       390px 時七字的「已舉辦的交流會」也能一行 */
+    .bubble .t{font-size:clamp(9px,2.65vw,12px);font-weight:500}
+    .bubble .t svg{display:none}
+    .bubble .t .lbl{line-height:1.3;letter-spacing:0}
+    .bubble .n{font-size:clamp(15px,5vw,24px)}
     .band .n small{font-size:var(--fs-3xs);margin-left:1px}
-    .lbl-out{display:block;font-size:var(--fs-2xs);font-weight:500;color:var(--ink-600);text-align:center;line-height:1.35;text-wrap:balance}
-    .lbl-out:lang(ja){word-break:auto-phrase}   /* 「交流会開／催実績」→「交流会／開催実績」 */
+    .bubble .t .lbl:lang(ja){word-break:auto-phrase}   /* 「交流会開／催実績」→「交流会／開催実績」 */
     .grid3{gap:12px;margin-top:20px}
     .news{margin-top:18px;padding:10px 14px}
     .news-txt{font-size:var(--fs-xs);white-space:normal;overflow:visible;text-overflow:clip}
@@ -137,10 +139,7 @@
     .final .cta-row{flex-direction:column;align-items:center;gap:10px;margin-top:20px}
   }
 
-/* 320–360px：欄寬只剩約 67px。標籤縮一階並讓左右各借 3px 格線間距，「找到日本工作」「參加過交流會」
-   才能一行放下（原本折成「找到日／本工作」）；七字的「已舉辦的交流會」在「的」後自然折兩行 */
+/* 320–360px：圓只剩約 67px，標籤與數字各縮一階 */
 @media (max-width:360px){
-  .band{gap:6px}
-  .lbl-out{font-size:var(--fs-3xs);letter-spacing:0;margin-inline:-3px}
   .bubble .n{font-size:15px}   /* 「3,253人」原本貼到圓環 */
 }
