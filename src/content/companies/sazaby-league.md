@@ -14,7 +14,7 @@ taglineEn: "The group that brought Starbucks to Japan — about 40 brands"
 highlights:
   - "旗下約 40 個品牌"
   - "可跨品牌媒合"
-sourceSlide: 49
+sourceSlide: 46
 ---
 
 服飾、服飾雜貨、生活雜貨、餐飲、美妝橫跨多領域。底下的 agete、ANAYI、LOULOU WILLOUGHBY、麵屋豬一都在合作名單中。

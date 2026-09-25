@@ -13,7 +13,7 @@ taglineEn: "Japanese cuisine and Edomae sushi in a Nishi-Azabu hideaway"
 highlights:
   - "打工度假、留學生共 4 人採用"
   - "家庭式職場氛圍"
-sourceSlide: 154
+sourceSlide: 169
 ---
 
 歡迎想學日本料理與壽司的人。家庭式的工作環境，合適的話有轉正職的機會。

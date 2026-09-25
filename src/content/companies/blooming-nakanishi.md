@@ -14,7 +14,7 @@ taglineEn: "Traditional Japanese company founded in 1879"
 highlights:
   - "辦公室／總合職，不是門市"
   - "1 人已於 2025 年 4 月以正職入職"
-sourceSlide: 125
+sourceSlide: 126
 ---
 
 以手帕為核心的小物企劃、製造與販售。這裡徵的是辦公室職缺而非門市：生產管理／貿易、海外業務、商品企劃開發、IT 人才、線上行銷等。

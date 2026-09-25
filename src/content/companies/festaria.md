@@ -13,7 +13,7 @@ taglineEn: "Century-old Japanese jeweler, est. 1920"
 highlights:
   - "希望能待滿 6 個月以上"
   - "有轉正職的可能"
-sourceSlide: 97
+sourceSlide: 107
 ---
 
 日本 75 間店、台灣 9 間（LaLaport 南港、新光三越等）。品牌名取自義大利文 festa（特別）＋ aria（空間、氛圍）。

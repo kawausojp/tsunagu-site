@@ -12,7 +12,7 @@ tagline: "集結 BAYCREW'S 人氣品牌的選品店"
 taglineJa: "BAYCREW'Sの人気ブランドを集めたセレクトショップ"
 taglineEn: "Select shop featuring BAYCREW’S popular labels"
 highlights: []
-sourceSlide: 152
+sourceSlide: 167
 ---
 
 LaLaport 福岡店，已有台灣夥伴在此工作。

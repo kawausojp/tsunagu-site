@@ -14,7 +14,7 @@ taglineEn: "Japanese eyewear company since 1930"
 highlights:
   - "累計 9 人採用，3 人轉正職"
   - "服裝與髮色自由"
-sourceSlide: 142
+sourceSlide: 159
 ---
 
 全日本 600 間以上店舖。服裝自由、髮色自由，上班要不要戴眼鏡都可以。

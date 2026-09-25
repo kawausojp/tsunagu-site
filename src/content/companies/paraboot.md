@@ -13,7 +13,7 @@ taglineEn: "French shoemaker since 1908"
 highlights:
   - "第 2 位夥伴任職中"
   - "以長期任職為前提"
-sourceSlide: 134
+sourceSlide: 149
 ---
 
 銀座店。希望找以正職為目標、能長期任職的人。

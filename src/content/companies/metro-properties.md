@@ -16,7 +16,7 @@ taglineEn: "Soba shops and C&C curry inside Tokyo Metro stations"
 highlights:
   - "日語門檻較低，適合剛抵日"
   - "接受 3 個月左右的短期銜接"
-sourceSlide: 156
+sourceSlide: 171
 ---
 
 大手町、錦糸町、後樂園、新木場、西船橋等站。適合剛到日本、日語還在適應期，想先工作 2～4 個月熟悉環境的人。

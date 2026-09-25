@@ -14,7 +14,7 @@ taglineEn: "Import specialist for fine shoes from around the world"
 highlights:
   - "銀座三越 1 人為正職"
   - "以長期任職為前提"
-sourceSlide: 132
+sourceSlide: 147
 ---
 
 新宿伊勢丹女鞋賣場、銀座三越都有台灣夥伴。希望找想長期發展、以正職為目標的人。

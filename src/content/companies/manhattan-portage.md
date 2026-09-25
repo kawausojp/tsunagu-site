@@ -12,7 +12,7 @@ tagline: "來自紐約的包款品牌，日本限定款眾多"
 taglineJa: "ニューヨーク発のバッグブランド、日本限定モデル多数"
 taglineEn: "NYC bag brand with many Japan-exclusive models"
 highlights:
-  - "4 人是線上面試錄取"
+  - "5 人是線上面試錄取"
 sourceSlide: 92
 ---
 

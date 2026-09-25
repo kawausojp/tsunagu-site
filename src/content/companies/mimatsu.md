@@ -14,7 +14,7 @@ taglineEn: "94-year-old fashion house for kimono and dresses"
 highlights:
   - "門市口譯兼販售"
   - "未來有機會進總公司做正職（SNS 營運等）"
-sourceSlide: 104
+sourceSlide: 117
 ---
 
 復古摩登的和服品牌「ふりふ」在海外客人間人氣很高，曾與《咒術迴戰》聯名推出浴衣。也把和服織品升級再造成室內裝飾與藝術作品。

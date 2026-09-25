@@ -13,7 +13,7 @@ taglineJa: "トレンド感度の高い女性のためのアパレルブラン�
 taglineEn: "For trend-conscious women"
 highlights:
   - "希望具備中日文與接客經驗"
-sourceSlide: 87
+sourceSlide: 99
 ---
 
 全日本約 60 間店，LUMINE EST 新宿、晴空塔、銀座 INZ、大阪 Diamor、札幌 APIA 等。
