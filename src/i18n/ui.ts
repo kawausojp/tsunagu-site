@@ -26,7 +26,7 @@ export const ui = {
     footerContact: '聯絡',
     newWindow: '（另開新視窗）',
     footerLinks: [
-      { path: '/events', label: '交流會場次與報名' },
+      { path: '/events', label: '報名交流會' },
       { path: '/companies', label: '合作企業' },
       { path: '/stories', label: '學長姐經驗' },
       { path: '/support', label: '我們怎麼幫你' },
@@ -61,7 +61,7 @@ export const ui = {
     footerContact: 'お問い合わせ',
     newWindow: '（新しいウィンドウで開きます）',
     footerLinks: [
-      { path: '/events', label: '交流会日程・申込' },
+      { path: '/events', label: '交流会に申し込む' },
       { path: '/companies', label: '提携企業' },
       { path: '/stories', label: '先輩の声' },
       { path: '/support', label: 'サポート内容' },
@@ -96,7 +96,7 @@ export const ui = {
     footerContact: 'Contact',
     newWindow: ' (opens in a new window)',
     footerLinks: [
-      { path: '/events', label: 'Meetup Schedule & Sign-up' },
+      { path: '/events', label: 'Join a meetup' },
       { path: '/companies', label: 'Partner Brands' },
       { path: '/stories', label: 'Alumni Stories' },
       { path: '/support', label: 'How We Help' },

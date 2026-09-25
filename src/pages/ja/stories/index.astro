@@ -5,7 +5,7 @@ import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-stories.css';
 const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
 import { href } from '../../../i18n/ui';
-import { VISA_LABEL, matchCompanyId, signupCta, fmtLocation } from '../../../lib/site';
+import { VISA_LABEL, matchCompanyId, signupCta, fmtLocation, fmtDate } from '../../../lib/site';
 const l = (p: string) => href('ja', p);
 const brands = [...new Set(stories.map(s=>s.data.company))];
 const companiesAll = (await getCollection('companies')).map(c => ({ id: c.id, name: c.data.name }));
@@ -30,7 +30,7 @@ const companyHref = new Map(stories.map(s => {
     {stories.map(s => (
       <a class="jump-chip" href={`#${s.id}`}>
         <span class="jump-ava"><SenpaiAvatar name={s.data.name} size={26} /></span>
-        <span lang="ja">{s.data.name}</span>
+        <span class="jump-txt"><span lang="ja">{s.data.name}</span><span class="jump-sub">{s.data.company}</span></span>
       </a>
     ))}
   </nav>
@@ -69,7 +69,7 @@ const companyHref = new Map(stories.map(s => {
 
         <div class="item-foot">
           <a class="src small" href={`https://www.instagram.com/p/${s.data.igCode}/`} target="_blank" rel="noopener">
-            <span>Instagram の原文を読む<span class="nowrap">（{s.data.igPosted}）<span aria-hidden="true">↗</span></span><span class="sr-only">（新しいウィンドウで開きます）</span></span>
+            <span>Instagram の原文を読む<span class="nowrap">（{fmtDate(s.data.igPosted)}）<span aria-hidden="true">↗</span></span><span class="sr-only">（新しいウィンドウで開きます）</span></span>
           </a>
           <a class="backlist small" href="#stories-jump"><span aria-hidden="true">↑</span> ほかの先輩を見る</a>
         </div>

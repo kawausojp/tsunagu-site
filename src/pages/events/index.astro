@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-events.css';
-import { todayTaipei, fmtEventDate, fmtEventNo, fmtSince, eventLd, totalHeld, eventsMeta } from '../../lib/site';
+import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, eventLd, totalHeld, eventsMeta } from '../../lib/site';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const today = todayTaipei();
@@ -11,7 +11,7 @@ const past = sorted.filter(e => e.date < today);
 
 // Event 結構化資料：site.ts eventLd()（三語共用）
 const eventsLd = upcoming.filter(e => e.venue && e.address).map(eventLd);
-const fmt = (d: string) => `${d.slice(0, 4)}/${fmtEventDate(d, 'zh')}`;
+const fmt = (d: string) => fmtEventDateFull(d, 'zh');
 
 const flow = [
   { t:'當天現場', d:'日本企業介紹他們在找什麼樣的人，學長姐分享在日本工作的實際情況。' },
@@ -19,10 +19,10 @@ const flow = [
   { t:'之後的每一步', d:'履歷、面試練習、簽證、抵日後追蹤——我們陪你走到底。' },
 ];
 ---
-<Base title="交流會場次與報名" altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }} description="Tsunagu 交流會，台北・台中・高雄・東京・大阪輪流舉辦，參加免費。">
+<Base title="報名交流會" altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }} description="Tsunagu 交流會，台北・台中・高雄・東京・大阪輪流舉辦，參加免費。">
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   <section class="page-head"><div class="wrap wrap--reading">
-    <h1 class="d1">來交流會看看</h1>
+    <h1 class="d1">報名交流會</h1>
     <p class="lead">聽日本企業說他們在找什麼樣的人，也聽已經在日本的學長姐分享第一手經驗。</p>
     <p class="small since">自 {fmtSince(eventsMeta.since, 'zh')}起累計舉辦 <strong>{totalHeld}</strong> 場，
       地點涵蓋{eventsMeta.cities.map((c: string, i: number) => (<span>{c}{i < eventsMeta.cities.length - 1 ? '、' : ''}</span>))}。</p>

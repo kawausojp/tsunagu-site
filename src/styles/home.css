@@ -40,10 +40,13 @@
   .band{padding:28px 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;justify-items:center;margin-top:24px}
   /* 900px 以下四顆會擠成 <170px 的小圓（英文標籤還會撐破），改 2×2 */
   @media (max-width:900px){ .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px} }
-  .bubble{width:100%;max-width:244px;aspect-ratio:1;border-radius:var(--r-full);background:var(--paper);
+  /* .stat＝一格（圓＋手機用的圓外標籤）；.bubble＝圓本身 */
+  .stat{width:100%;max-width:244px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .lbl-out{display:none}   /* 桌機標籤在圓內（.lbl）；手機移到圓外，兩者同時只顯示一個 */
+  .bubble{width:100%;aspect-ratio:1;border-radius:var(--r-full);background:var(--paper);
     border:2px solid var(--pink-300);display:flex;flex-direction:column;align-items:center;justify-content:center;
     gap:10px;text-align:center;padding:16px}
-  .bubble:nth-child(even){border-color:var(--sky-300)}
+  .stat:nth-child(even) .bubble{border-color:var(--sky-300)}
   /* 上排：圖標＋標籤一列；下排：人數 */
   /* nowrap：圖標永遠在標籤左邊（規則 12）；標籤太長時在自己的 span 裡折行，不把圖標擠到上一行 */
   .bubble .t{display:inline-flex;flex-wrap:nowrap;justify-content:center;align-items:center;gap:8px;margin:0;font-size:var(--fs-2xl);font-weight:500;color:var(--ink-600);max-width:100%}
@@ -112,15 +115,17 @@
     .hero .cta-row{gap:10px;margin-top:20px}
     .hero .cta-row .btn-primary{width:auto;min-width:240px}
     .hero .cta-row .action-link{margin-inline:auto}
-    /* 手機 2×2 泡泡 */
-    .band{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:20px 8px 8px;margin:0 0 8px}   /* minmax(0,…)：1.4.12 字距放大時欄不被數字撐破 */
-    .bubble{min-width:0}
-    .bubble{max-width:176px;gap:4px;padding:12px}
-    .bubble .t{font-size:var(--fs-xs);gap:5px}
-    .bubble .t svg{width:18px;height:18px}
-    .bubble .n{font-size:clamp(32px,9.6vw,40px)}
-    .bubble .n small{font-size:var(--fs-sm)}
-    .band .n small{font-size:var(--fs-sm)}
+    /* 手機一列四顆（使用者 2026-09-25：2×2 太佔空間）。圓裡只放圖標＋數字，標籤移到圓下方——
+       77px 的圓塞不下「圖標＋標籤」一列，硬塞會折成三行 */
+    .band{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:16px 0 4px;margin:0 0 8px}   /* minmax(0,…)：1.4.12 字距放大時欄不被數字撐破 */
+    .stat{gap:6px}
+    .bubble{gap:2px;padding:6px}
+    .bubble .t .lbl{display:none}
+    .bubble .t svg{width:16px;height:16px}
+    .bubble .n{font-size:clamp(15px,5vw,26px)}
+    .band .n small{font-size:var(--fs-3xs);margin-left:1px}
+    .lbl-out{display:block;font-size:var(--fs-2xs);font-weight:500;color:var(--ink-600);text-align:center;line-height:1.35;text-wrap:balance}
+    .lbl-out:lang(ja){word-break:auto-phrase}   /* 「交流会開／催実績」→「交流会／開催実績」 */
     .grid3{gap:12px;margin-top:20px}
     .news{margin-top:18px;padding:10px 14px}
     .news-txt{font-size:var(--fs-xs);white-space:normal;overflow:visible;text-overflow:clip}
@@ -139,9 +144,10 @@
     .final .cta-row{flex-direction:column;align-items:center}
   }
 
-/* 320–360px：泡泡內寬只剩約 110px，「3,253人」放不下會把單位擠到下一行 */
+/* 320–360px：欄寬只剩約 67px。標籤縮一階並讓左右各借 3px 格線間距，「找到日本工作」「參加過交流會」
+   才能一行放下（原本折成「找到日／本工作」）；七字的「已舉辦的交流會」在「的」後自然折兩行 */
 @media (max-width:360px){
-  .bubble{padding:10px}
-  .bubble .n{font-size:28px}
-  .bubble .n small{font-size:var(--fs-xs)}
+  .band{gap:6px}
+  .lbl-out{font-size:var(--fs-3xs);letter-spacing:0;margin-inline:-3px}
+  .bubble .n{font-size:15px}   /* 「3,253人」原本貼到圓環 */
 }

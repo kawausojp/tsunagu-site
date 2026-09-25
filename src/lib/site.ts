@@ -53,6 +53,19 @@ export function fmtEventDate(date: string, lang: Lang) {
   return lang === 'en' ? `${m}/${d} (${wd})` : `${m}/${d}（${wd}）`;
 }
 
+/** 完整日期一律「2026.01.28」：點分、月日補零（使用者 2026-09-25 定案，三語共用）。
+ * 原本混用 2026.9.20／2026/10/18／2026-05-31 三種。月日短式（CTA 的「10/18（日）」）不在此列 */
+export function fmtDate(date: string) {
+  const [y, m, d] = date.split('-');
+  return [y, m.padStart(2, '0'), d?.padStart(2, '0')].filter(Boolean).join('.');
+}
+/** 場次表用：「2026.10.18（日）」／en「2026.10.18 (Sun)」 */
+export function fmtEventDateFull(date: string, lang: Lang) {
+  const [y, m, d] = date.split('-').map(Number);
+  const wd = WD[lang][new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+  return lang === 'en' ? `${fmtDate(date)} (${wd})` : `${fmtDate(date)}（${wd}）`;
+}
+
 /** 主 CTA 文字：有下一場就帶日期地點（首頁 hero 與各頁收尾 CTA 三語共用），
  * 沒有就退回一般字串。審查發現「下一場是哪一天」原本只在首頁 hero 出現一次。 */
 export function signupCta(lang: Lang) {
@@ -261,7 +274,7 @@ export function fmtSince(since: string, lang: Lang) {
 /** 品牌資料的出處：主辦方簡報《第88,89回 台北交流会スライド2026.9.20》（229 頁）。
  *  各品牌 md 的 sourceSlide 是這一版的頁碼（2026-09-24 逐頁核對；圖片頁無文字層者取該品牌段落首頁）。
  *  三語原本各寫一套（逗號／中黑、補零與否），改由此處統一渲染。 */
-export const SOURCE_DECK = { no: '88,89', date: '2026.9.20' };
+export const SOURCE_DECK = { no: '88,89', date: '2026.09.20' };
 export function fmtSourceDeck(lang: Lang, page?: number) {
   const no = fmtEventNo(SOURCE_DECK.no, lang);
   const p = page ? (lang === 'zh' ? `第 ${page} 頁` : `p.${page}`) : '';

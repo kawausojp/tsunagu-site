@@ -53,6 +53,8 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       <span></span><span></span>
     </button>
   </div>
+  <!-- 手機抽屜開啟時的遮罩（使用者 2026-09-25）：下方頁面已 inert，沒有遮罩會看起來還能點；點遮罩即關閉 -->
+  <div class="scrim" data-scrim hidden></div>
   <nav class="drawer" id="site-menu" aria-label={t.mainMenu} data-drawer hidden>
     {nav.map(n => (
       <a href={n.href} class:list={{ on: isCurrent(n.href) }}
@@ -84,13 +86,20 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   .zh{font-size:var(--fs-2xs);color:var(--ink-600);border-left:1px solid var(--line);padding-left:10px;
     white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
   .cta{min-height:var(--control-min);padding:10px 20px;font-size:var(--fs-sm);white-space:nowrap}
+  /* 已在報名頁（/events）：換成次按鈕，標示「你在這裡」，也不再催促點同一頁（使用者 2026-09-25） */
+  .cta[aria-current="page"]{background:var(--paper);color:var(--ink-900);border-color:var(--sky-300)}
+  .cta[aria-current="page"]:hover{border-color:var(--pink-300)}
   /* 900px 以下收掉標語：logo＋報名鈕＋語言＋選單鈕已無餘裕 */
   @media (max-width:900px){ .zh{display:none} }
 
-  /* 選單鈕：粉藍兩條圓頭短線（logo 屋頂的左粉右藍），開啟時交叉成 X。不用三條灰線 */
+  /* 選單鈕：粉藍兩條圓頭短線（logo 屋頂的左粉右藍），開啟時交叉成 X。不用三條灰線。
+     外框（使用者 2026-09-25）：粉藍線對白只有 2.0／1.7:1，靠 3:1 的 --control-line 框讓按鈕本身辨識得出來
+     （WCAG 1.4.11）；語言鈕同一套框，兩顆並排才一致 */
   .burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;
     width:var(--control-min);height:var(--control-min);flex:0 0 var(--control-min);
-    background:none;border:0;border-radius:var(--r-xs);padding:0;cursor:pointer}
+    background:var(--paper);border:1px solid var(--control-line);border-radius:var(--r-xs);padding:0;cursor:pointer;
+    transition:border-color .2s var(--ease)}
+  .burger:hover{border-color:var(--ink-900)}
   .burger:hover span{opacity:.75}
   .burger span{display:block;width:20px;height:3px;border-radius:3px;
     transition:transform .26s var(--ease)}
@@ -128,6 +137,9 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     .drawer a{padding:10px 4px;border-radius:0;border-bottom:1px solid var(--line)}
     .drawer a.on{border-bottom-color:var(--line)}
     .drawer a.drawer-cta{display:flex}
+    /* 遮罩：在 header 的堆疊層裡墊在底色（::before，z -1）之下、頁面之上 */
+    .scrim{position:fixed;inset:0;z-index:-2;background:rgba(68,68,68,.32);animation:scrim-in .2s ease-out}
+    @keyframes scrim-in{from{opacity:0}}
     :global(body.menu-open){overflow:hidden}
   }
 
@@ -135,10 +147,10 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   .lang summary{display:inline-flex;align-items:center;gap:6px;list-style:none;cursor:pointer;
     min-height:var(--control-min);font-size:var(--fs-xs);font-weight:500;color:var(--ink-600);
     padding:7px 10px;border-radius:var(--r-xs);white-space:nowrap;
-    border:1px solid var(--line);transition:.2s var(--ease)}
+    border:1px solid var(--control-line);transition:.2s var(--ease)}
   .lang summary::-webkit-details-marker{display:none}
-  .lang summary:hover{color:var(--ink-900);border-color:var(--ink-400)}
-  .lang[open] summary{color:var(--ink-900);border-color:var(--ink-400)}
+  .lang summary:hover{color:var(--ink-900);border-color:var(--ink-900)}
+  .lang[open] summary{color:var(--ink-900);border-color:var(--ink-900)}
   .lang ul{position:absolute;right:0;top:calc(100% + 6px);margin:0;padding:6px;list-style:none;
     background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);
     box-shadow:var(--sh-2);min-width:128px;z-index:60}
@@ -156,6 +168,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
 
 <script>
   const b = document.querySelector<HTMLButtonElement>('[data-burger]');
+  const scrim = document.querySelector<HTMLElement>('[data-scrim]');
   const d = document.querySelector<HTMLElement>('[data-drawer]');
   const compact = window.matchMedia('(max-width: 720px)');
   const headerEl = document.querySelector<HTMLElement>('header');
@@ -210,6 +223,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       // 手機全寬抽屜：鎖住背景捲動並把其餘內容設為 inert（焦點不會跑到看不見的地方）
       const lock = open && compact.matches;
       document.body.classList.toggle('menu-open', lock);
+      if (scrim) scrim.hidden = !lock;
       // .skip 也要：不然從抽屜最後一項 Tab 出去會落到「跳到主要內容」，而它指向已 inert 的 main
       for (const el of document.querySelectorAll('main, footer, .skip')) el.toggleAttribute('inert', lock);
       // hover 開抽屜不該連帶關掉已開的語言選單（使用者可能只是滑鼠掃過鈕）

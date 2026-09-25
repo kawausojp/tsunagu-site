@@ -5,6 +5,9 @@
     background:var(--paper);text-decoration:none;color:var(--ink-600);font-size:var(--fs-xs);
     transition:.2s var(--ease)}
   .jump-chip:hover{border-color:var(--pink-300)}
+  /* 名字下加品牌副標（使用者 2026-09-25）：只看暱稱不知道誰在哪個品牌 */
+  .jump-txt{display:flex;flex-direction:column;line-height:1.3;text-align:left}
+  .jump-sub{font-size:var(--fs-3xs);color:var(--ink-600);white-space:nowrap}
   .jump-ava{width:26px;height:26px;border-radius:var(--r-full);overflow:hidden;display:block}
   .jump-ava :global(svg),.jump-ava svg{width:100%;height:100%;display:block}
   .list{margin-top:28px;display:flex;flex-direction:column;gap:18px}

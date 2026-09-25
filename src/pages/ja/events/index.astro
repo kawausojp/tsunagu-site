@@ -3,14 +3,14 @@
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
 import { href } from '../../../i18n/ui';
-import { todayTaipei, fmtEventDate, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta } from '../../../lib/site';
+import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta } from '../../../lib/site';
 
 const l = (p: string) => href('ja', p);
 const today = todayTaipei();
 const sorted = [...eventsMeta.events].sort((a, b) => b.date.localeCompare(a.date));
 const upcoming = sorted.filter(e => e.date >= today).reverse();
 const past = sorted.filter(e => e.date < today);
-const fmt = (d: string) => `${d.slice(0, 4)}/${fmtEventDate(d, 'ja')}`;
+const fmt = (d: string) => fmtEventDateFull(d, 'ja');
 const city = (c: string) => CITY.ja[c] ?? c;
 
 // Event 結構化資料：site.ts eventLd()（三語共用）
@@ -22,12 +22,12 @@ const flow = [
   { t: 'その後のステップ', d: '履歴書の作成から面接練習、在留資格の手続き、来日後のフォローまで、最後まで伴走します。' },
 ];
 ---
-<Base title="交流会日程・申込" lang="ja"
+<Base title="交流会に申し込む" lang="ja"
   altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }}
   description="台北・台中・高雄・東京・大阪で開催する台湾人と日本企業のマッチング交流会。参加無料。">
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   <section class="page-head"><div class="wrap wrap--reading">
-    <h1 class="d1">交流会に来てみませんか</h1>
+    <h1 class="d1">交流会に申し込む</h1>
     <p class="lead">日本企業がどんな人材を求めているか、先輩の生の声とあわせて聞ける場です。</p>
     <p class="small since">{fmtSince(eventsMeta.since, 'ja')}から累計 <strong>{totalHeld}</strong> 回開催。
       {eventsMeta.cities.map(c => city(c)).join('・')}で実施しています。</p>

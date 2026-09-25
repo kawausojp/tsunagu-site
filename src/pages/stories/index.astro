@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import SenpaiAvatar from '../../components/SenpaiAvatar.astro';
-import { matchCompanyId, signupCta } from '../../lib/site';
+import { matchCompanyId, signupCta, fmtDate } from '../../lib/site';
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-stories.css';
 const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
@@ -29,7 +29,7 @@ const companyHref = new Map(stories.map(s => {
     {stories.map(s => (
       <a class="jump-chip" href={`#${s.id}`}>
         <span class="jump-ava"><SenpaiAvatar name={s.data.name} size={26} /></span>
-        <span lang="ja">{s.data.name}</span>
+        <span class="jump-txt"><span lang="ja">{s.data.name}</span><span class="jump-sub">{s.data.company}</span></span>
       </a>
     ))}
   </nav>
@@ -68,7 +68,7 @@ const companyHref = new Map(stories.map(s => {
 
         <div class="item-foot">
           <a class="src small" href={`https://www.instagram.com/p/${s.data.igCode}/`} target="_blank" rel="noopener">
-            <span>讀 Instagram 原文<span class="nowrap">（{s.data.igPosted}）<span aria-hidden="true">↗</span></span><span class="sr-only">（另開新視窗）</span></span>
+            <span>讀 Instagram 原文<span class="nowrap">（{fmtDate(s.data.igPosted)}）<span aria-hidden="true">↗</span></span><span class="sr-only">（另開新視窗）</span></span>
           </a>
           <a class="backlist small" href="#stories-jump"><span aria-hidden="true">↑</span> 看其他學長姐</a>
         </div>

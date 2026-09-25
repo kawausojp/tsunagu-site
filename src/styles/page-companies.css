@@ -19,8 +19,10 @@
     padding:6px 12px;transition:color .2s var(--ease),background .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease)}
   /* 選中：粗體＋2px 自己色系的主色框（area 藍／job 粉／其餘藍） */
   /* 選中＝主色實底＋灰粗字（比未選中重，層級才對）；area 藍／job 粉／其餘藍 */
-  button.f[aria-pressed="true"]{background:var(--sky-300);border-color:var(--sky-300);color:var(--ink-900);font-weight:700}
-  button.f.job[aria-pressed="true"]{background:var(--pink-300);border-color:var(--pink-300)}
+  /* 選中＝主色實底＋保留灰框（使用者 2026-09-25）：主色底對白只有 1.7／2.0:1，換成主色框後
+     選中與未選中只剩字重差；灰框（3.45:1）留著，底色變化才是可辨認的狀態 */
+  button.f[aria-pressed="true"]{background:var(--sky-300);border-color:var(--control-line);color:var(--ink-900);font-weight:700}
+  button.f.job[aria-pressed="true"]{background:var(--pink-300);border-color:var(--control-line)}
   .reset{align-self:flex-start;background:none;border:0;color:var(--ink-900);font-weight:700;
     min-height:var(--control-min);font-size:var(--fs-xs);cursor:pointer;padding:8px 0;text-decoration:underline;text-decoration-color:var(--sky-300);text-decoration-thickness:2px;text-underline-offset:3px;font-family:inherit}
   .count{margin:16px 0 0;color:var(--ink-600)}
@@ -49,9 +51,9 @@
     .filter-options button.tag.f{min-height:44px;background:var(--paper);border:1px solid var(--control-line);
       color:var(--ink-600);padding:8px 13px}
     /* 選中態不能只靠顏色（色弱可辨）：加粗字重與邊框，與桌機版一致 */
-    .filter-options button.f[aria-pressed="true"]{background:var(--sky-300);border-color:var(--sky-300);
+    .filter-options button.f[aria-pressed="true"]{background:var(--sky-300);border-color:var(--control-line);
       font-weight:700;color:var(--ink-900);box-shadow:none}
-    .filter-options button.f.job[aria-pressed="true"]{background:var(--pink-300);border-color:var(--pink-300)}
+    .filter-options button.f.job[aria-pressed="true"]{background:var(--pink-300);border-color:var(--control-line)}
     .count{margin-top:12px}
     .list{margin-top:16px;padding:20px 0 28px}
     .grid{grid-template-columns:repeat(2,1fr);gap:10px}
