@@ -7,11 +7,11 @@ import SenpaiAvatar from '../components/SenpaiAvatar.astro';
 import StatIcon from '../components/StatIcon.astro';
 import { Image } from 'astro:assets';
 import characters from '../assets/tsunagu-characters.png';
-import { VIDEO_ID, VIDEO_START, nextEvent, totalHeld, signupCta } from '../lib/site';
+import { VIDEO_ID, VIDEO_START, nextEvent, totalHeld, signupCta, HOME_STATS, byPlacements } from '../lib/site';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const companies = (await getCollection('companies'))
-  .sort((a, b) => b.data.placements - a.data.placements);
+  .sort(byPlacements);
 const featured = companies.slice(0, 6);
 const stories = (await getCollection('stories')).sort((a,b)=>a.data.order-b.data.order);
 const firstStory = stories[0];
@@ -19,8 +19,8 @@ const firstStory = stories[0];
 const nextEv = nextEvent();
 const heroCta = signupCta('zh');
 const stats = [
-  { icon: 'people', n: '3,253', u: '人', t: '參加過交流會' },
-  { icon: 'job', n: '168',   u: '人', t: '找到日本工作' },
+  { icon: 'people', n: HOME_STATS.attendees, u: '人', t: '參加過交流會' },
+  { icon: 'job', n: HOME_STATS.placed,   u: '人', t: '找到日本工作' },
   { icon: 'event', n: String(totalHeld), u: '場', t: '已舉辦的交流會' },
   { icon: 'brand', n: String(companies.length), u: '個', t: '合作品牌' },
 ];
@@ -61,7 +61,7 @@ const stats = [
   <!-- 統計：四個泡泡（使用者 2026-09-13 定案） -->
   <div class="wrap"><div class="band">
     {stats.map(s => (
-      <div class="bubble"><div class="t"><StatIcon k={s.icon} size={20} />{s.t}</div><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div></div>
+      <div class="bubble"><div class="t"><StatIcon k={s.icon} size={20} /><span>{s.t}</span></div><div class="n" data-count={s.n} aria-hidden="true">{s.n}<small>{s.u}</small></div><span class="sr-only">{s.n}{s.u}</span></div>
     ))}
   </div>
   <p class="small band-note">自 2023 年 6 月起累計；合作品牌為目前已公開者。</p>
@@ -112,6 +112,7 @@ const stats = [
           allowfullscreen></iframe>
       </div>
       <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">在 YouTube 上觀看 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a></p>
+      <a class="action-link" href={`${base}/about#media`}>更多媒體報導</a>
     </div>
   </section>
 

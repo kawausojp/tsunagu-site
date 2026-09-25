@@ -15,7 +15,7 @@
   .map-link{display:inline-block;margin-left:10px;padding:6px 0;font-size:var(--fs-xs)}
   .hint{margin:12px 0 0;color:var(--ink-600)}
   .backtop{margin-top:16px}
-  .backtop a{display:inline-flex;align-items:center;min-height:var(--control-min)}
+  .backtop a{display:inline-flex;align-items:center;gap:.3em;min-height:var(--control-min)}   /* gap：inline-flex 會吃掉箭頭後的空格 */
   .flow-more{margin-top:14px}
   .flow{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
   .step{display:flex;gap:16px;padding:18px 20px;align-items:flex-start}

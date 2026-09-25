@@ -8,7 +8,7 @@
   .jump-ava{width:26px;height:26px;border-radius:var(--r-full);overflow:hidden;display:block}
   .jump-ava :global(svg),.jump-ava svg{width:100%;height:100%;display:block}
   .list{margin-top:28px;display:flex;flex-direction:column;gap:18px}
-  .item{padding:26px 28px;scroll-margin-top:calc(var(--header-height) + 24px)}
+  .item{padding:var(--card-pad);scroll-margin-top:calc(var(--header-height) + 24px)}
   .item:target{border-color:var(--pink-300);box-shadow:var(--sh-3)}
   .top{display:flex;gap:16px;align-items:center;margin-bottom:16px}
   .avatar{width:64px;height:64px;flex:0 0 64px;border-radius:var(--r-full);overflow:hidden}
@@ -21,7 +21,7 @@
   .msgs{list-style:none;padding:0;margin:0 0 4px}
   .msgs li{position:relative;padding-left:20px;margin-bottom:9px;font-size:var(--fs-md);line-height:1.9;color:var(--ink-600);max-width:40em}
   .msgs li::before{content:'';position:absolute;left:4px;top:12px;width:6px;height:6px;
-    border-radius:50%;background:var(--sky-300)}
+    border-radius:var(--r-full);background:var(--sky-300)}
   .advice{margin-top:22px}
   .advice::before{content:'';display:block;width:40px;height:2px;background:var(--pink-300);margin-bottom:12px}
   .advice h3{font-size:var(--fs-md);letter-spacing:.08em;color:var(--ink-900);margin-bottom:10px}
@@ -30,7 +30,11 @@
   .advice li::before{content:counter(a,decimal-leading-zero);position:absolute;left:0;top:1px;
     font-family:var(--f-latin);font-weight:700;color:var(--ink-900);font-size:var(--fs-sm)}
   .advice li{font-size:var(--fs-md);line-height:1.85;margin-bottom:6px;color:var(--ink-900);max-width:40em}
-  .src{display:inline-flex;align-items:center;min-height:var(--control-min);margin-top:8px;font-weight:500}
+  /* 內文包成單一 span：inline-flex 會吃掉文字與括號之間的空格（en「Instagram(2026-05-31)」） */
+  .item-foot{display:flex;flex-wrap:wrap;align-items:center;gap:0 24px;margin-top:8px}
+  .src,.backlist{display:inline-flex;align-items:center;gap:.3em;min-height:var(--control-min);font-weight:500}
+  /* 14 則排成長頁：每則結尾都能回到頁首的學長姐列表（2026-09-24 稽核） */
+  .jump{scroll-margin-top:calc(var(--header-height) + 16px)}
   main .cta{max-width:868px;margin-top:36px}
   .cta-band{text-align:center}
   .cta-band .lead{margin:8px auto 20px}
@@ -45,13 +49,15 @@
       mask-image:linear-gradient(90deg,transparent,#000 var(--layout-gutter),#000 calc(100% - var(--layout-gutter)),transparent)}
     .jump::-webkit-scrollbar{display:none}
     .jump-chip{font-size:var(--fs-2xs);flex:0 0 auto;scroll-snap-align:start}
+    /* 鍵盤 Tab 進來時關掉吸附與淡出：吸附會把剛聚焦的 chip 拉回畫面外、淡出會蓋掉焦點框 */
+    .jump:focus-within{scroll-snap-type:none;mask-image:none}
     .list{margin-top:20px;gap:12px}
     .item{padding:18px 16px;scroll-margin-top:calc(var(--header-height) + 16px)}
     /* 手機 meta 會換行，分隔點會掛在行首；隱藏改靠 gap 分隔 */
     .meta .sep{display:none}
     .item:target{border-color:var(--pink-300);box-shadow:none;outline:2px solid var(--pink-300);outline-offset:2px}
     .top{gap:12px;align-items:flex-start}
-    .avatar{width:48px;height:48px;flex-basis:48px;font-size:var(--fs-3xl)}
+    .avatar{width:48px;height:48px;flex-basis:48px}
     .lead-q{font-size:var(--fs-lg);padding-left:12px;margin-bottom:14px}
     .msgs li{font-size:var(--fs-sm);line-height:1.8;margin-bottom:8px}
     .advice{margin-top:16px}

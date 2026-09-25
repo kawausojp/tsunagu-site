@@ -16,7 +16,7 @@ const allStories = await getCollection('stories');
 const companiesCount = (await getCollection('companies')).length;
 const relatedStories = relatedStoriesFor(d.name, allStories);
 import { href, ui } from '../../../i18n/ui';
-import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor, signupCta } from '../../../lib/site';
+import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor, signupCta, nameLang } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const catLabel = CAT_LABEL.en[d.category] ?? d.categoryLabel;
 const tagline = d.taglineEn ?? d.tagline;
@@ -29,8 +29,8 @@ const hl = dedupHighlights(d.highlights, d.placements);
   <article>
     <div class="page-head hero">
       <div class="wrap wrap--prose">
-        <a class="back" href={l('/companies')}><span aria-hidden="true">←</span> All partner brands</a>
-        <h1 class="d1">{name}</h1>
+        <a class="back" data-back-list href={l('/companies')}><span aria-hidden="true">←</span> All partner brands</a>
+        <h1 class="d1" lang={nameLang(name, 'en')}>{name}</h1>
         {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
         <p class="lead">{tagline}</p>
         <div class="tags">
@@ -78,4 +78,4 @@ const hl = dedupHighlights(d.highlights, d.placements);
     </div>
   </article>
 </Base>
-
+<script>import '../../../scripts/back-to-list.ts';</script>

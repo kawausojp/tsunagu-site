@@ -79,14 +79,14 @@ const flow = [
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">開催実績</h2>
     <p class="lead">直近 {past.length} 回の開催記録です。それ以前は
-      <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram</a> をご覧ください。</p>
+      <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a> をご覧ください。</p>
     <ul class="hist rows">
       {past.map(e => (
         <li class="row h">
           <span class="d">第 {fmtEventNo(e.no, 'ja')} 回</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{city(e.city)}</span>
-          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener">開催報告 <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>}
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span class="sr-only">第 {fmtEventNo(e.no, 'ja')} 回の</span>開催報告 <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>}
         </li>
       ))}
     </ul>

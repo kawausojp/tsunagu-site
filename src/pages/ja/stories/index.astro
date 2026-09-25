@@ -26,7 +26,7 @@ const companyHref = new Map(stories.map(s => {
     </div>
   </div></section>
 
-  <nav class="wrap wrap--reading jump" aria-label="先輩の記事へジャンプ">
+  <nav class="wrap wrap--reading jump" id="stories-jump" aria-label="先輩の記事へジャンプ">
     {stories.map(s => (
       <a class="jump-chip" href={`#${s.id}`}>
         <span class="jump-ava"><SenpaiAvatar name={s.data.name} size={26} /></span>
@@ -67,9 +67,12 @@ const companyHref = new Map(stories.map(s => {
           </div>
         )}
 
-        <a class="src small" href={`https://www.instagram.com/p/${s.data.igCode}/`} target="_blank" rel="noopener">
-          Instagram の原文を読む<span class="nowrap">（{s.data.igPosted}）<span aria-hidden="true">↗</span></span><span class="sr-only">（新しいウィンドウで開きます）</span>
-        </a>
+        <div class="item-foot">
+          <a class="src small" href={`https://www.instagram.com/p/${s.data.igCode}/`} target="_blank" rel="noopener">
+            <span>Instagram の原文を読む<span class="nowrap">（{s.data.igPosted}）<span aria-hidden="true">↗</span></span><span class="sr-only">（新しいウィンドウで開きます）</span></span>
+          </a>
+          <a class="backlist small" href="#stories-jump"><span aria-hidden="true">↑</span> ほかの先輩を見る</a>
+        </div>
       </article>
     ))}
   </section>
@@ -100,3 +103,5 @@ const companyHref = new Map(stories.map(s => {
   focusStoryTarget();
   window.addEventListener('hashchange', focusStoryTarget);
 </script>
+
+<script>import '../../../scripts/jump-focus.ts';</script>

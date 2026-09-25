@@ -47,8 +47,9 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
         ))}
       </ul>
     </details>
-    <button class="burger" type="button" aria-label={t.openMenu} aria-expanded="false"
-      aria-controls="site-menu" data-burger data-label-open={t.openMenu} data-label-close={t.closeMenu}>
+    <!-- 名稱固定，開關狀態只由 aria-expanded 表達（原本兩者都切，會唸成「關閉主選單，已展開」） -->
+    <button class="burger" type="button" aria-label={t.mainMenu} aria-expanded="false"
+      aria-controls="site-menu" data-burger>
       <span></span><span></span>
     </button>
   </div>
@@ -63,15 +64,18 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
 </header>
 
 <style>
-  header{position:sticky;top:0;z-index:50;background:var(--header-bg);
-    backdrop-filter:saturate(1.4) blur(10px);   /* 無底線（使用者 2026-09-14）；捲動後靠 data-stuck 的淡陰影分隔 */
+  header{position:sticky;top:0;z-index:50;   /* 無底線（使用者 2026-09-14）；捲動後靠 data-stuck 的淡陰影分隔 */
     /* 不能用全站的 --ease（y2=1.4 會過衝）：header 滑回來會先跑過頭再彈回，頂端露出一條縫看到底下文字
        （使用者 2026-09-14 iPhone 實測）。貼著螢幕頂的東西一律用不過衝的 ease-out */
     transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s cubic-bezier(.22,.61,.36,1)}
   /* 收合：往下捲滑走、往上捲回來（同 kawausojapanese 的 Kadence reveal-on-scroll-up）；捲動後縮高＋淡陰影 */
+  /* 毛玻璃底畫在 ::before：header 本身若帶 backdrop-filter 會成為「backdrop root」，
+     裡面抽屜面板的模糊就只取樣得到 header 自己，頁面文字直接透上來（2026-09-24 稽核） */
+  header::before{content:'';position:absolute;inset:0;z-index:-1;background:var(--header-bg);
+    backdrop-filter:saturate(1.4) blur(10px)}
   header[data-hidden]{transform:translate3d(0,-100%,0);pointer-events:none}
   header[data-stuck]{box-shadow:0 4px 18px rgba(70,70,70,.06)}
-  .bar{display:flex;align-items:center;gap:12px;height:68px;transition:height .28s var(--ease)}
+  .bar{display:flex;align-items:center;gap:12px;height:68px;transition:height .28s cubic-bezier(.22,.61,.36,1)}   /* 同上，不過衝 */
   @media (min-width:721px){ header[data-stuck] .bar{height:60px} }   /* 手機本來就 56px，不再縮 */
   .logo :global(svg){flex:0 0 22px}
   .logo{display:flex;align-items:center;gap:10px;min-height:var(--control-min);text-decoration:none;
@@ -99,21 +103,22 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   /* 抽屜：桌機是漢堡下方的右對齊面板；手機全寬 */
   .drawer{display:none;flex-direction:column;gap:2px;position:absolute;right:var(--layout-gutter);
     top:calc(100% + 8px);width:300px;padding:10px;
-    background:rgba(255,255,255,.78);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);
+    /* 只寫無前綴版，前綴交給 lightningcss 補；兩個都寫時 build 會把無前綴那條丟掉，Chrome 就沒有模糊 */
+    background:rgba(255,255,255,.78);backdrop-filter:blur(16px) saturate(1.2);
     border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--sh-2);z-index:60}
   /* 滑鼠移到選單鈕就開（桌機）：鈕與面板之間 8px 空隙用 ::before 補滿，游標移下去不會中途關掉 */
   .drawer::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:10px}
   .drawer[data-open]{display:flex}
   .drawer a{display:flex;align-items:center;min-height:var(--control-min);padding:10px 12px;
     border-radius:var(--r-xs);text-decoration:none;color:var(--ink-900);font-weight:500;font-size:var(--fs-md)}
-  .drawer a:hover{background:rgba(245,245,245,.85)}
+  .drawer a:hover{background:var(--greige-50)}
   /* 當前頁＝粉字（使用者 2026-09-14：不要左側色條），2.0:1 與 action-link 同為其決定 */
   .drawer a.on{font-weight:700;color:var(--pink-300)}
   /* 報名：與其他列同樣式，只用粗體區分（做成粉按鈕會突兀）；桌機面板已有頁首報名鈕故隱藏 */
   .drawer a.drawer-cta{display:none;font-weight:700}   /* 權重要壓過 .drawer a{display:flex} */
 
   @media (max-width:720px){
-    header{background:var(--paper);backdrop-filter:none}
+    header::before{background:var(--paper);backdrop-filter:none}
     .bar{height:56px;gap:8px;padding:0 16px}
     .wordmark{width:clamp(88px,26vw,112px)}
     .cta{display:none}                      /* 手機頁首只留 logo／語言／漢堡；報名鈕在抽屜與 hero */
@@ -202,11 +207,11 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       d.hidden = !open;
       if (!open) openedByHover = false;
       b.setAttribute('aria-expanded', String(open));
-      b.setAttribute('aria-label', (open ? b.dataset.labelClose : b.dataset.labelOpen) ?? '');
       // 手機全寬抽屜：鎖住背景捲動並把其餘內容設為 inert（焦點不會跑到看不見的地方）
       const lock = open && compact.matches;
       document.body.classList.toggle('menu-open', lock);
-      for (const el of document.querySelectorAll('main, footer')) el.toggleAttribute('inert', lock);
+      // .skip 也要：不然從抽屜最後一項 Tab 出去會落到「跳到主要內容」，而它指向已 inert 的 main
+      for (const el of document.querySelectorAll('main, footer, .skip')) el.toggleAttribute('inert', lock);
       // hover 開抽屜不該連帶關掉已開的語言選單（使用者可能只是滑鼠掃過鈕）
       if (open && lang && closeLangMenu) lang.open = false;
       if (!open && restoreFocus) b.focus();
@@ -215,8 +220,9 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     // 滑入已經開了，接著的那一下點擊不能再把它切關（實測：hover 開 → click 關，像壞掉）
     const hoverable = window.matchMedia('(hover:hover) and (pointer:fine)');
     let openedByHover = false;
-    b.addEventListener('click', () => {
-      if (openedByHover && d.hasAttribute('data-open')) { openedByHover = false; return; }
+    b.addEventListener('click', event => {
+      // detail===0＝鍵盤觸發（Enter／Space）：照常切換，不吃掉第一下
+      if (openedByHover && d.hasAttribute('data-open') && event.detail !== 0) { openedByHover = false; return; }
       setOpen(!d.hasAttribute('data-open'));
     });
     let closeTimer = 0;

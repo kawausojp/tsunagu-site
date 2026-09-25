@@ -112,6 +112,15 @@ export function companyName(d: { name: string; nameJa?: string; nameEn?: string 
   return (lang === 'ja' && d.nameJa) || (lang === 'en' && d.nameEn) || d.name;
 }
 
+/** 品牌名的 lang 屬性：名稱語言與頁面不同時才回傳（en 頁的「鮨 きのした」「BLOOMING 中西」、
+ * 任何頁面含假名的名稱）。讓語音引擎換日文發音、瀏覽器用日文斷詞（auto-phrase 不再把「きものやまと」拆開） */
+export function nameLang(name: string, lang: Lang): 'ja' | undefined {
+  if (lang === 'ja') return undefined;
+  if (/[\u3040-\u30ff]/.test(name)) return 'ja';
+  if (lang === 'en' && /[\u4e00-\u9fff]/.test(name)) return 'ja';
+  return undefined;
+}
+
 /** stories 的 company 名 → 對應品牌頁 id（與 [slug].astro 的 relatedStories 同一套寬鬆前綴比對，方向相反）。
  * 找不到回傳 null（該品牌未揭露時 company 維持純文字）。 */
 const normName = (x: string) => x.normalize('NFKC').toLowerCase().replace(/[^a-z0-9぀-ヿ一-鿿]/g, '');
@@ -190,6 +199,15 @@ export function fmtEventNo(no: string, lang: Lang) {
 /** 簽約企業數（簡報 p18 口徑）；品牌數以 content/companies 筆數為準，兩者不同：一家企業可有多個品牌 */
 export const CONTRACTED_COMPANIES = 41;
 
+/** 首頁統計泡泡的兩個外部數字（主辦方口徑，2026-09-20 正式簡報）。原本三語各寫死一份，
+ * 更新一次要改三個檔；場次（totalHeld）與品牌數（companies.length）另行自動推導 */
+export const HOME_STATS = { attendees: '3,253', placed: '168' };
+
+/** 企業排序：任職人數多者先；同分依轉正人數、再依 id（原本同分時靠檔名順序，首頁第 6 名不穩定） */
+export const byPlacements = (a: { id: string; data: { placements: number; fullTimeConverted: number } },
+                             b: { id: string; data: { placements: number; fullTimeConverted: number } }) =>
+  b.data.placements - a.data.placements || b.data.fullTimeConverted - a.data.fullTimeConverted || a.id.localeCompare(b.id);
+
 /** 累計舉辦場數：JSON 的 totalHeld 只是下限。場次過期後每日排程重建會自動移到「舉辦紀錄」，
  * 這裡同步以「已過期場次的最大回數」推算，不必每場手動改數字。 */
 export const totalHeld = (() => {
@@ -240,7 +258,8 @@ export function fmtSince(since: string, lang: Lang) {
   return `${y} 年 ${m} 月`;
 }
 
-/** 品牌資料的出處：主辦方簡報。標題頁自載「交流会 -第76,77回- 2026年4月18日」。
+/** 品牌資料的出處：主辦方簡報《第88,89回 台北交流会スライド2026.9.20》（229 頁）。
+ *  各品牌 md 的 sourceSlide 是這一版的頁碼（2026-09-24 逐頁核對；圖片頁無文字層者取該品牌段落首頁）。
  *  三語原本各寫一套（逗號／中黑、補零與否），改由此處統一渲染。 */
 export const SOURCE_DECK = { no: '88,89', date: '2026.9.20' };
 export function fmtSourceDeck(lang: Lang, page?: number) {

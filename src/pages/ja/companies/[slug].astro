@@ -29,7 +29,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
   <article>
     <div class="page-head hero">
       <div class="wrap wrap--prose">
-        <a class="back" href={l('/companies')}><span aria-hidden="true">←</span> 提携企業一覧へ</a>
+        <a class="back" data-back-list href={l('/companies')}><span aria-hidden="true">←</span> 提携企業一覧へ</a>
         <h1 class="d1">{name}</h1>
         {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
         <p class="lead">{tagline}</p>
@@ -78,4 +78,4 @@ const hl = dedupHighlights(d.highlights, d.placements);
     </div>
   </article>
 </Base>
-
+<script>import '../../../scripts/back-to-list.ts';</script>

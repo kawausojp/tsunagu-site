@@ -39,12 +39,18 @@ export function initCompanyFilter() {
     return true;
   }
 
+  // 記住目前的篩選網址，品牌詳情頁的「← 回合作企業」用它回到同樣的結果（back-to-list.ts）
+  function rememberList() {
+    try { sessionStorage.setItem('tsunagu:co-list', location.pathname + location.search); } catch { /* 私密模式等 */ }
+  }
+
   function syncUrl() {
     const params = new URLSearchParams();
     if (searchEl!.value.trim()) params.set('q', searchEl!.value.trim());
     for (const k of KEYS) if (active[k].size) params.set(k, [...active[k]].join(','));
     const qs = params.toString();
     history.replaceState(null, '', (qs ? `?${qs}` : location.pathname) + location.hash);
+    rememberList();
   }
 
   function apply(updateUrl = true) {
@@ -120,4 +126,5 @@ export function initCompanyFilter() {
   });
 
   apply(false);
+  rememberList();   // 帶著分享來的篩選網址直接進頁、沒動過條件，也要記住
 }

@@ -44,4 +44,9 @@ const CLS = ['btn btn-primary', 'btn btn-secondary', 'btn btn-secondary', 'btn b
   .nf :global(.nf-chars){width:min(260px,70vw);height:auto;margin:0 auto 28px;display:block}
   .nf .lead{margin:0 auto 24px}
   .nf-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  /* 手機：與其他內頁的 page-head 同節奏（原本 120px 上下留白＋35px 標題照搬桌機） */
+  @media (max-width:720px){
+    .nf{padding:40px 0 48px}
+    .nf .d1{font-size:24px;line-height:1.4}
+  }
 </style>

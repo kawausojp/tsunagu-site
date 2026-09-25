@@ -1,16 +1,16 @@
 /* 品牌詳情頁樣式（三語共用） */
   /* 頁首／內容區的節奏走全站 .page-head／.page-section（2026-09-19 前是唯一自訂 padding 的內頁） */
-  .back{display:inline-flex;align-items:center;min-height:var(--control-min);font-size:var(--fs-xs);margin-bottom:8px}
+  .back{display:inline-flex;align-items:center;gap:.3em;min-height:var(--control-min);font-size:var(--fs-xs);margin-bottom:8px}
   .corp{font-size:var(--fs-sm);color:var(--ink-600);margin:6px 0 12px}
   .hero .tags{margin-top:18px}
   .body{padding-bottom:20px}
   .prose{font-size:var(--fs-xl);line-height:1.95;max-width:42em}
-  .hl{margin-top:32px;padding:22px 26px}   /* 底與框走 .card */
+  .hl{margin-top:32px;padding:var(--card-pad)}   /* 底與框走 .card；內距走全站卡片階（桌機 24） */
   .hl ul{margin:12px 0 0;padding-left:1.25em}
   .hl li{margin-bottom:6px;font-size:var(--fs-md)}
   .numbers{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
   .numbers > div{flex:1 1 180px;
-    border-radius:var(--r-lg);padding:22px;text-align:center}
+    padding:var(--card-pad);text-align:center}   /* 圓角交給 .card（原本這條晚載入，把手機的 12px 蓋成 14px） */
   .numbers .n{font-family:var(--f-latin);font-weight:700;font-size:var(--fs-stat);color:var(--pink-300);line-height:1.1}
   .numbers .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:4px}
   main .cta{margin-top:36px}   /* 排版走 .cta-row */

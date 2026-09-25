@@ -73,14 +73,14 @@ const flow = [
 
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">舉辦紀錄</h2>
-    <p class="lead">最近 {past.length} 場的舉辦紀錄。更早的在 <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram</a>。</p>
+    <p class="lead">最近 {past.length} 場的舉辦紀錄。更早的在 <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>。</p>
     <ul class="hist rows">
       {past.map(e => (
         <li class="row h">
           <span class="d">第 {fmtEventNo(e.no, 'zh')} 回</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{e.city}</span>
-          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span lang="ja">開催報告</span> <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>}
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span class="sr-only">第 {fmtEventNo(e.no, 'zh')} 回</span><span lang="ja">開催報告</span> <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>}
         </li>
       ))}
     </ul>

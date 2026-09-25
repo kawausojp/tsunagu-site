@@ -81,7 +81,9 @@ a:hover{text-decoration-color:var(--pink-300)}
 img{max-width:100%;height:auto;display:block}
 strong{font-weight:700;color:var(--ink-900)}
 :focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px;border-radius:var(--r-xs);
-  transition-property:none}  /* 不讓元素的 transition:all 把焦點框做成動畫 */
+  transition-property:none!important}
+/* 不讓元素的 transition:all 把焦點框做成動畫。!important：.btn 的 transition 寫在後面、權重相同，
+   原本主按鈕的焦點框會 240ms 從白色淡入（2026-09-24 稽核） */
 main:focus{outline:none}
 
 .nowrap{white-space:nowrap}
@@ -120,6 +122,7 @@ main:focus{outline:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
   font-family:var(--f-body);font-weight:700;font-size:var(--fs-md);letter-spacing:.04em;
   min-height:var(--control-min);line-height:1.25;padding:10px 20px;
+  text-align:center;text-wrap:balance;   /* 窄螢幕折行時置中且兩行均分，不留「む」「Taipei」孤字 */
   border-radius:var(--r-md);border:1.5px solid transparent;
   cursor:pointer;text-decoration:none;transition:.24s var(--ease)}
 .btn-primary{background:var(--pink-300);color:var(--paper)}  /* 白字：使用者指定（2026-09-13），對比 2.0:1 為其決定 */
@@ -149,7 +152,9 @@ h1,h2,h3{text-wrap:balance}
 html[lang="ja"]{line-break:strict}
 /* 標題以文節（意味の切れ目）斷行，避免 balance 把活用語尾劈開（提携してい/る日本企業）。
    Chrome 119+ 生效，其他瀏覽器忽略、退回現狀。本文不適用——右緣會過度參差。 */
-html[lang="ja"] :is(.d1,.d2,.d3){word-break:auto-phrase}
+/* :lang(ja) 而非 html[lang=ja]：en／zh 頁裡標了 lang="ja" 的品牌名（nameLang）也要用日文斷詞，
+   否則「きものやまと」會被拆成「きものやま／と」。導言也一起（768 ja hero：「日本企／業」） */
+:is(.d1,.d2,.d3,.lead):lang(ja){word-break:auto-phrase}
 /* 日文本文用日文字型：--f-body 以 Noto Sans TC 優先是為繁中頁設的，套在 ja 頁會讓
    直／骨／令 等漢字變成台式字形。ja 頁內保留繁中原文的區塊（lang="zh-Hant"）仍回到 TC。 */
 html[lang="ja"] body{font-family:"BIZ UDPGothic","Noto Sans JP","Noto Sans TC",system-ui,sans-serif}
@@ -216,6 +221,9 @@ html[lang="en"] .prose{max-width:56ch}
 .quote{margin:0;font-family:var(--f-display);line-height:1.8;letter-spacing:.03em;text-indent:-.6em;color:var(--ink-900)}
 .quote::before{content:'「';color:var(--pink-300)}
 .quote::after{content:'」';color:var(--pink-300)}
+/* 繁中引言改走本文字（Noto Sans TC）：BIZ UDPGothic 缺台灣用字，一句引言裡兩種字形混排，
+   stories 頁還因此多抓 73 個字型分片（2.36MB）。ja 頁裡標 lang="zh-Hant" 的引言同理 */
+.quote:lang(zh-Hant){font-family:var(--f-body)}
 /* 白底大 CTA 盒（stories .cta-band／support .free） */
 .cta-box{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-xl);padding:40px 36px}
 /* 一行一筆的分隔線清單（舉辦紀錄、媒體報導）：不做逐筆卡片 */

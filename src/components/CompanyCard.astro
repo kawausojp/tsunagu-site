@@ -1,7 +1,7 @@
 ---
 import CategoryIcon from './CategoryIcon.astro';
 import { ui, type Lang } from '../i18n/ui';
-import { CAT_LABEL, SKY_CATEGORIES, companyName } from '../lib/site';
+import { CAT_LABEL, SKY_CATEGORIES, companyName, nameLang } from '../lib/site';
 interface Props { c: any; href: string; lang?: Lang }
 const { c, href, lang = 'zh' } = Astro.props;
 const t = ui[lang];
@@ -21,7 +21,7 @@ const searchText = [d.name, name, d.corporateName, d.tagline, d.categoryLabel, t
   <div class="head">
     <span class="ico" data-tone={SKY_CATEGORIES.has(d.category) ? 'sky' : 'pink'}><CategoryIcon cat={d.category} size={30} /></span>
     <div class="ttl">
-      <h3 class="d3">{name}</h3>
+      <h3 class="d3" lang={nameLang(name, lang)}>{name}</h3>
       {d.corporateName && <div class="corp" lang="ja">{d.corporateName}</div>}
     </div>
   </div>
@@ -43,47 +43,54 @@ const searchText = [d.name, name, d.corporateName, d.tagline, d.categoryLabel, t
 </a>
 
 <style>
-  .co{display:flex;flex-direction:column;min-width:0;padding:18px 18px 16px;gap:12px;text-decoration:none;color:inherit}
-  /* 第一列：品類圖標（小方塊）＋品牌名＋登記名。名稱區固定「名稱＋登記名」的高度（52px），
-     內容垂直置中：無登記名的卡，品牌名就對齊圖標中線（使用者 2026-09-14），下一列高度仍一致 */
+  /* 同列各卡逐行對齊（規則 9）：卡片吃父格線的 subgrid，名稱／tagline／標籤／實績四列的高度
+     由同一列最高的那張卡決定。原本用固定高度（52px 名稱區、兩行 tagline），品牌名一折兩行
+     就把整張卡往下推（2026-09-24 稽核：Metro、きものやまと 同列錯位 15–23px） */
+  /* minmax(0,1fr)：單欄 auto 軌會被登記名（nowrap）的 min-content 撐寬，Lindt 卡在 1024 溢出 4px */
+  .co{display:grid;grid-row:span 4;grid-template-rows:subgrid;grid-template-columns:minmax(0,1fr);row-gap:12px;min-width:0;
+    padding:18px 18px 16px;text-decoration:none;color:inherit}
+  /* 第一列：品類圖標（小方塊）＋品牌名＋登記名。名稱區最少 52px（＝名稱＋登記名），
+     內容垂直置中：無登記名的卡，品牌名就對齊圖標中線（使用者 2026-09-14） */
   .head{display:flex;gap:12px;align-items:center}
   /* 淺藍底上：髮絲框換成粉色光暈邊線（使用者 2026-09-14：高級感），hover 光暈加深 */
   .co.card{border-color:transparent;box-shadow:var(--glow-pink)}
   .co.card:hover,.co.card:focus-visible{box-shadow:var(--glow-pink-hover)}
-  /* 圖標方塊框＝品類主色（與 CategoryIcon 的 COLOR 表同步），卡片之間才有色彩差異 */
+  /* 圖標方塊框＝品類主色（與 CategoryIcon 共用 SKY_CATEGORIES），卡片之間才有色彩差異 */
   .ico{flex:0 0 44px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
     border:1.5px solid var(--pink-300);border-radius:var(--r-sm);background:var(--paper)}
   .ico[data-tone="sky"]{border-color:var(--sky-300)}
-  .ttl{min-width:0;flex:1;min-height:52px;display:flex;flex-direction:column;justify-content:center}
-  .co h3{overflow-wrap:break-word;line-height:1.5}
+  .ttl{min-width:0;flex:1;min-height:52px;display:flex;flex-direction:column;justify-content:center;align-items:stretch}
+  .co h3{overflow-wrap:anywhere;line-height:1.5}
   .corp{font-size:var(--fs-2xs);color:var(--ink-600);line-height:1.6;margin-top:2px;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  /* tagline 固定兩行高（超出截斷），底下的標籤列才會對齊 */
+  /* tagline 最多兩行（超出截斷）；列高由 subgrid 對齊，不必再撐 min-height */
   .tag-line{font-size:var(--fs-sm);color:var(--ink-600);line-height:1.7;margin:0;
-    min-height:calc(1.7em * 2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  /* 標籤列緊接固定兩行高的 tagline → 同列各卡標籤列等高；實績列貼底（可折行，不影響上方） */
-  .tags{margin:0}
-  .stats-line{margin:auto 0 0;font-size:var(--fs-xs);color:var(--ink-600);letter-spacing:.02em;line-height:1.6}
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .tags{margin:0;align-self:start}
+  /* 實績列貼底 */
+  .stats-line{margin:0;align-self:end;font-size:var(--fs-xs);color:var(--ink-600);letter-spacing:.02em;line-height:1.6}
   .stats-line .seg{white-space:nowrap}
-  /* 英文段落有空格可自然折行；nowrap 會讓 "1 became full-time" 在半寬卡上被切掉（實測 320–1024 皆有） */
+  /* 英文段落有空格可自然折行；nowrap 會讓 "1 became full-time" 在半寬卡上被切掉（實測 320–1024 皆有）。
+     數字與名詞之間用 nbsp（ui.ts），不會拆成「2 / became」 */
   :global(html[lang="en"]) .stats-line .seg{white-space:normal}
   @media (max-width:720px){
-    /* 兩格一列的半寬卡：只留圖標＋品牌名、標籤、實績。登記名與 tagline 進詳情頁看 */
-    .co{padding:12px 12px 12px;gap:8px}
-    .head{gap:8px;align-items:center}
+    /* 兩格一列的半寬卡：只留圖標＋品牌名、標籤、實績（三列）。登記名與 tagline 進詳情頁看 */
+    .co{grid-row:span 3;row-gap:8px;padding:12px}
+    .head{gap:8px}
     .ico{flex-basis:32px;width:32px;height:32px}
     .ico :global(svg){width:22px;height:22px}
     .co h3{font-size:var(--fs-md)}
     .corp,.tag-line{display:none}
-    /* 半寬卡的品牌名可能折兩行：預留兩行高，標籤列才不會被推下去 */
-    .ttl{min-height:calc(1.5em * 2);display:flex;align-items:center}
+    .ttl{min-height:0}
     .tags{gap:4px}
     .tags :global(.tag){font-size:var(--fs-3xs);padding:3px 8px}
     .stats-line{font-size:var(--fs-2xs)}
   }
-  /* 320–400px："WILLOUGHBY" 差 3px 就被切成 "WILLOUGHB / Y"；keep-all 同時防「BLOOMING 中西」被拆 */
+  /* 320–400px 拉丁品牌名："WILLOUGHBY" 差 3px 就被切成 "WILLOUGHB / Y"；keep-all 同時防「BLOOMING 中西」被拆。
+     日文名（lang=ja）不能 keep-all：整串變成不可斷，「メトロプロパティーズ系列の飲食店」會衝出卡片蓋住圖標 */
   @media (max-width:400px){
-    .co h3{font-size:var(--fs-sm);word-break:keep-all}
+    .co h3{font-size:var(--fs-sm)}
+    .co h3:not(:lang(ja)){word-break:keep-all}
   }
   /* 320px 機種：圖標旁只剩約 75px，"WILLOUGHBY" 仍超出 6px → 再降一階並收字距 */
   @media (max-width:360px){

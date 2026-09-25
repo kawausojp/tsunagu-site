@@ -10,11 +10,11 @@ import StatIcon from '../../components/StatIcon.astro';
 import { Image } from 'astro:assets';
 import characters from '../../assets/tsunagu-characters.png';
 import { href } from '../../i18n/ui';
-import { VIDEO_ID, VIDEO_START, nextEvent, totalHeld, VISA_LABEL, signupCta, fmtLocation } from '../../lib/site';
+import { VIDEO_ID, VIDEO_START, nextEvent, totalHeld, VISA_LABEL, signupCta, fmtLocation, HOME_STATS, byPlacements } from '../../lib/site';
 
 const l = (p: string) => href('ja', p);
 const companies = (await getCollection('companies'))
-  .sort((a, b) => b.data.placements - a.data.placements);
+  .sort(byPlacements);
 const featured = companies.slice(0, 6);
 const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order);
 const firstStory = stories[0];
@@ -22,8 +22,8 @@ const firstStory = stories[0];
 const nextEv = nextEvent();
 const heroCta = signupCta('ja');
 const stats = [
-  { icon: 'people', n: '3,253', u: '名', t: '交流会参加者' },
-  { icon: 'job', n: '168', u: '名', t: '日本での就業を実現' },
+  { icon: 'people', n: HOME_STATS.attendees, u: '名', t: '交流会参加者' },
+  { icon: 'job', n: HOME_STATS.placed, u: '名', t: '日本での就業を実現' },
   { icon: 'event', n: String(totalHeld), u: '回', t: '交流会開催実績' },
   { icon: 'brand', n: String(companies.length), u: '', t: '提携ブランド' },
 ];
@@ -65,7 +65,7 @@ const stats = [
   <!-- 統計：四個泡泡（使用者 2026-09-13 定案） -->
   <div class="wrap"><div class="band">
     {stats.map(s => (
-      <div class="bubble"><div class="t"><StatIcon k={s.icon} size={20} />{s.t}</div><div class="n" data-count={s.n}>{s.n}<small>{s.u}</small></div></div>
+      <div class="bubble"><div class="t"><StatIcon k={s.icon} size={20} /><span>{s.t}</span></div><div class="n" data-count={s.n} aria-hidden="true">{s.n}<small>{s.u}</small></div><span class="sr-only">{s.n}{s.u}</span></div>
     ))}
   </div>
   <p class="small band-note">2023 年 6 月からの累計。提携ブランド数は公開中のもののみ。</p>
@@ -117,6 +117,7 @@ const stats = [
           allowfullscreen></iframe>
       </div>
       <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">YouTube で見る <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a></p>
+      <a class="action-link" href={l('/about') + '#media'}>そのほかのメディア掲載</a>
     </div>
   </section>
 

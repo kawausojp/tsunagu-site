@@ -2,7 +2,7 @@
   .b ul{margin:12px 0 0;padding-left:1.2em}
   .b li{margin-bottom:8px;font-size:var(--fs-md);line-height:1.85}
   .reasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-  .r{padding:22px 24px}
+  .r{padding:var(--card-pad)}
   .r::before{content:'';display:block;width:40px;height:2px;background:var(--pink-300);margin-bottom:12px}
   .r p{margin:0;font-size:var(--fs-md);line-height:1.85}
   .free{max-width:900px;margin-bottom:20px}
