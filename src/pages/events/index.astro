@@ -23,9 +23,8 @@ const flow = [
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">報名交流會</h1>
-    <p class="lead">聽日本企業說他們在找什麼樣的人，也聽已經在日本的學長姐分享第一手經驗。</p>
-    <p class="small since">自 {fmtSince(eventsMeta.since, 'zh')}起累計舉辦 <strong>{totalHeld}</strong> 場，
-      地點涵蓋{eventsMeta.cities.map((c: string, i: number) => (<span>{c}{i < eventsMeta.cities.length - 1 ? '、' : ''}</span>))}。</p>
+    <p class="lead"><span class="sent">聽日本企業說他們在找什麼樣的人，也聽已經在日本的學長姐分享第一手經驗。</span></p>
+    <p class="small since">自 {fmtSince(eventsMeta.since, 'zh')}起累計舉辦 <strong>{totalHeld}</strong> 場，地點涵蓋{eventsMeta.cities.map((c: string, i: number) => (<span class="nowrap">{c}{i < eventsMeta.cities.length - 1 ? '、' : ''}</span>))}。</p>
   </div></section>
 
   <section class="wrap wrap--reading page-section" id="signup">
@@ -68,7 +67,7 @@ const flow = [
       ))}
     </ol>
     <p class="small flow-more"><a href={`${base}/companies`}>先看看有哪些合作企業</a>・<a href={`${base}/apply#photo`}>履歷照片怎麼拍</a>・<a href={`${base}/support`}>完整的支援內容</a></p>
-    <div class="note"><strong>全部免費。</strong>參加與媒合都不收費，細節見「我們怎麼幫你」。</div>
+    <div class="note"><span class="sent"><strong>全部免費。</strong>參加與媒合都不收費，細節見<span class="nowrap">「我們怎麼幫你」</span>。</span></div>
   </section>
 
   <section class="wrap wrap--reading page-section">

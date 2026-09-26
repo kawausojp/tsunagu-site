@@ -25,7 +25,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
 ---
 <Base title={`${name}｜提携ブランド`} lang="ja"
   altPaths={{ zh: `/companies/${c.id}/`, ja: `/ja/companies/${c.id}/`, en: `/en/companies/${c.id}/` }}
-  description={`${name}（${catLabel}）のブランド紹介と台湾人スタッフの勤務実績${d.placements > 0 ? `：累計 ${d.placements} 名がツナグ経由で就業` : ''}。詳しくは無料の交流会で。`}>
+  description={`${name}（${catLabel}）のブランド紹介と台湾人スタッフの勤務実績${d.placements > 0 ? `：累計 ${d.placements} 名がツナグ経由で就業` : ''}。詳しくは無料の交流会で。`}>
   <article>
     <div class="page-head hero">
       <div class="wrap wrap--prose">
@@ -60,7 +60,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
       )}
 
       <div class="note">
-        <strong>出典：</strong>{fmtSourceDeck('ja', d.sourceSlide)}。募集条件・状況は変動します。最新情報は交流会または個別相談でご確認ください。※ 本文は原文（中国語）のまま掲載しています。
+        <span class="sent"><strong>出典：</strong>{fmtSourceDeck('ja', d.sourceSlide)}。</span><span class="sent">募集条件・状況は変動します。最新情報は交流会または個別相談でご確認ください。</span><span class="sent">※ 本文は原文（中国語）のまま掲載しています。</span>
       </div>
 
       {relatedStories.length > 0 && (
@@ -73,7 +73,7 @@ const hl = dedupHighlights(d.highlights, d.placements);
       )}
       <div class="cta-row cta">
         <a class="btn btn-primary" href={l('/events')}>{signupCta('ja')}</a>
-        <a class="action-link" href={l('/companies')}>{companiesCount} ブランドをすべて見る</a>
+        <a class="action-link" href={l('/companies')}>{companiesCount} ブランドをすべて見る</a>
       </div>
     </div>
   </article>

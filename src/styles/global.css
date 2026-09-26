@@ -145,8 +145,19 @@ main:focus{outline:none}
 /* ── 斷行 ──
    text-wrap:pretty 目前只有 Chromium 支援（主流量的 iOS WebKit 吃不到），
    所以它只是漸進增強；真正不能斷的地方一律用 .nowrap 從結構上綁住。 */
-p,li,dd,blockquote,figcaption{text-wrap:pretty}
+p,li,dd,blockquote,figcaption,.note,.notice{text-wrap:pretty}
 h1,h2,h3{text-wrap:balance}
+/* pretty 對中文無效（Chrome 把每個漢字當一個「字」，「／店。」這種兩字尾行照樣出現；2026-09-26 稽核實測）。
+   短文字塊改用 balance：卡片說明、清單、引言、結尾導言、頁尾小字。長篇 .prose 不套（balance 超過 6 行會失效）。 */
+:is(.small,.card p,.box li,.b li,.v-quote,.closing .lead){text-wrap:balance}
+/* 一句一行（使用者 2026-09-26：「一句結束再斷到下一行」「不要隨便斷行」）：
+   多句的導言／注釋把每句包 <span class="sent">，句子只在句號處換行；單句的導言也包一個 .sent。
+   含 .sent 的區塊取消行寬上限，讓一句能放進一行；放不下的長句由 balance 均分成兩行，不留短尾。
+   html[lang] 是為了壓過下方 en 的 58ch／60ch（權重 0,2,1）。 */
+.sent{display:block;text-wrap:balance}
+html[lang] :is(.lead,.note,.notice,.small):has(> .sent){max-width:none}
+/* .note 的「※」是 ::before，遇到區塊級的 .sent 會自成一行；浮動讓它留在第一句行首 */
+.note:has(> .sent)::before{float:left}
 
 /* 日文：Chrome 的預設 line-break 不套長音符「ー」與拗促音的行頭禁則，
    實測 16 處「マ/ッチング」「ワ/ーキングホリデー」這類斷法。strict 可全數解決。 */
@@ -156,6 +167,13 @@ html[lang="ja"]{line-break:strict}
 /* :lang(ja) 而非 html[lang=ja]：en／zh 頁裡標了 lang="ja" 的品牌名（nameLang）也要用日文斷詞，
    否則「きものやまと」會被拆成「きものやま／と」。導言也一起（768 ja hero：「日本企／業」） */
 :is(.d1,.d2,.d3,.lead):lang(ja){word-break:auto-phrase}
+/* 2026-09-26 擴大到短文字塊：卡片說明、清單、注釋、媒體標題（實測「セレク／トショップ」「提供し／ます」「すべて無／料で」）。
+   :lang(ja) 不會套到 ja 頁內 lang="zh-Hant" 的學長姐原文。長篇 .prose 仍不套。 */
+:is(.small,.note,.notice,.tag-line,.card p,main li,.rows a,.sent):lang(ja){word-break:auto-phrase}
+/* 繁中卡片 tagline 只在標點／空格處斷（「…服飾品牌，／木村拓哉為全球代言人」），35 張實測仍在兩行內；
+   anywhere 是保險，極端長詞還是能斷不溢出 */
+.tag-line:lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
+.tag-line:lang(en){text-wrap:balance}   /* 英文：「Nishi- ／ Azabu」「109 years ／ of history」→ 均分兩行（line-clamp 下實測有效） */
 /* 日文本文用日文字型：--f-body 以 Noto Sans TC 優先是為繁中頁設的，套在 ja 頁會讓
    直／骨／令 等漢字變成台式字形。ja 頁內保留繁中原文的區塊（lang="zh-Hant"）仍回到 TC。 */
 html[lang="ja"] body{font-family:"BIZ UDPGothic","Noto Sans JP","Noto Sans TC",system-ui,sans-serif}

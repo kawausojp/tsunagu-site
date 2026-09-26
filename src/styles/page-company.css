@@ -12,7 +12,7 @@
   .numbers > div{flex:1 1 180px;
     padding:var(--card-pad);text-align:center}   /* 圓角交給 .card（原本這條晚載入，把手機的 12px 蓋成 14px） */
   .numbers .n{font-family:var(--f-latin);font-weight:700;font-size:var(--fs-stat);color:var(--pink-300);line-height:1.1}
-  .numbers .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:4px}
+  .numbers .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:4px;text-wrap:balance}
   main .cta{margin-top:36px}   /* 排版走 .cta-row */
   @media (max-width:720px){
     .back{margin-bottom:14px}

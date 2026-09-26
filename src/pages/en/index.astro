@@ -41,8 +41,9 @@ const stats = [
         alt="Tsunagu’s two characters: a dog in a blue JP shirt and a cat in a pink TW shirt, sitting hand in hand"
         widths={[240, 480]} sizes="(max-width: 720px) 152px, 200px" loading="eager" fetchpriority="high" class="chars" />
       <p class="lead">
-        Planning a working holiday or study abroad in Japan, but not sure what jobs are out there?
-        We introduce you to Japanese companies that genuinely want to work with Taiwanese staff. <strong>From resume to interview to life after arrival — completely free.</strong>
+        <span class="sent">Planning a working holiday or study abroad in Japan, but not sure what jobs are out there?</span>
+        <span class="sent">We introduce you to Japanese companies that genuinely want to work with Taiwanese staff.</span>
+        <strong class="sent">From resume to interview to life after arrival — completely free.</strong>
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href={l('/events')}>{heroCta}</a>
@@ -76,7 +77,7 @@ const stats = [
     <div class="wrap co-split">
       <div class="co-side">
         <h2 class="d2">Japanese brands waiting for you</h2>
-        <p class="lead">Shops you won’t find on Chinese-language job boards — fashion, jewelry, food and more. Here are the six with the most placements.</p>
+        <p class="lead"><span class="sent">Shops you won’t find on Chinese-language job boards — fashion, jewelry, food and more.</span><span class="sent">Here are the six with the most placements.</span></p>
         <a class="action-link" href={l('/companies')}>See all {companies.length} partner brands</a>
       </div>
       <div class="grid3 grid-co">
@@ -125,7 +126,7 @@ const stats = [
     <div class="wrap final-split">
       <div>
         <h2 class="d2">Start with a meetup</h2>
-        <p class="lead">No preparation needed — no resume, no decisions. Just come and hear what Japanese companies are looking for.</p>
+        <p class="lead"><span class="sent">No preparation needed — no resume, no decisions.</span><span class="sent">Just come and hear what Japanese companies are looking for.</span></p>
         <div class="cta-row">
           <a class="btn btn-primary" href={l('/events')}>See the next meetup</a>
           <a class="action-link" href={l('/apply')}>Already decided? Start here</a>

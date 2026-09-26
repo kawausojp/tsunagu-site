@@ -378,6 +378,15 @@ Base.astro 讀到就對 127 頁輸出 `robots: noindex,follow`。
 - **ja 頁本文用 BIZ UDPGothic**（2026-09-19）：`--f-body` 以 Noto Sans TC 優先是為 zh 設的，ja 頁若沿用會出現台式字形；
   ja 頁內 `lang="zh-Hant"` 的引言區塊仍回到 TC。en 頁整頁 Jost，所以 Google Fonts 要載 Jost 400/500（只載 600/700 時內文會變半粗體）。
 - 導覽的 /apply 標籤是「準備出發／出発準備／Getting Ready」（2026-09-19）：原「資料提交」承諾線上送件，但收件流程不存在（見上方 FORM_URL）。
+- **斷行**（2026-09-26 使用者：「一句結束再斷到下一行」「可以的話都放到同一行，不要隨便斷行」；三語斷行稽核後定案，規則在 global.css 的斷行區塊）：
+  - **導言／注釋一句一行**：多句的 `.lead`／`.note`／`.notice` 每句包 `<span class="sent">`，單句也包一個。含 `.sent` 的區塊自動取消
+    行寬上限（36em／44em／46em、en 的 58ch／60ch），句子只在句號處換行，放不下的長句由 balance 均分兩行。新增導言照做。
+    `.note` 的「※」在 `.sent` 前會浮動在第一句行首。長篇 `.prose` 不做（逐句斷行會變成條列）。
+  - `text-wrap:pretty` **對中文無效**（Chrome 把每個漢字當一個字，兩字尾行照樣出現），短文字塊（`.small`、卡片說明、清單、引言）改用 balance。
+  - ja 短文字塊（卡片、清單、注釋、tagline）也用 `auto-phrase` 文節斷行；zh 卡片 tagline 用 `keep-all`（只在標點處斷）；en tagline 用 balance。
+  - **ja 頁數字與單位之間用不斷行空格**（`41&nbsp;社`，原始碼裡可能是 U+00A0 字元）——視覺同半形空格，但「10／ブランド」不會再被拆開。
+  - 專有名詞、數字範圍、頁名包 `.nowrap`（`MAISON DE REEFUR`、`2–4 個月`、「我們怎麼幫你」）；en 連字號複合詞用 `.nowrap` 或 U+2060。
+  - 原始碼裡**中文句子不要在句中換行**：markup 換行會在畫面上變成多餘的半形空格（「台灣。 2019」）。
 - **日期表記**（2026-09-25 使用者定案）：完整日期一律 `2026.01.28`（點分、月日補零），用 `site.ts` 的
   `fmtDate()`／`fmtEventDateFull()`；CTA 裡的月日短式「10/18（日）」不在此列。
 - **字標只有一個檔** `tsunagu-wordmark.png`（2026-09-13 重製：TSU #F3A0AA／NAGU #7DD0F5，主色版），

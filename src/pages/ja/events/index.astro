@@ -28,7 +28,7 @@ const flow = [
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">交流会に申し込む</h1>
-    <p class="lead">日本企業がどんな人材を求めているか、先輩の生の声とあわせて聞ける場です。</p>
+    <p class="lead"><span class="sent">日本企業がどんな人材を求めているか、先輩の<span class="nowrap">生の声</span>とあわせて聞ける場です。</span></p>
     <p class="small since">{fmtSince(eventsMeta.since, 'ja')}から累計 <strong>{totalHeld}</strong> 回開催。
       {eventsMeta.cities.map(c => city(c)).join('・')}で実施しています。</p>
   </div></section>
@@ -40,7 +40,7 @@ const flow = [
           {upcoming.map(e => (
             <div class="card next">
               <div class="when">
-                <span class="no">第 {fmtEventNo(e.no, 'ja')} 回</span>
+                <span class="no">第 {fmtEventNo(e.no, 'ja')} 回</span>
                 <span class="date">{fmt(e.date)}</span>
                 <span class="tag area">{city(e.city)}</span>
               </div>
@@ -60,7 +60,7 @@ const flow = [
         </div>
       : <div class="card next empty">
           <p><strong>次回日程は未定です。</strong></p>
-          <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。直近の開催は第 {fmtEventNo(past[0]?.no ?? '', 'ja')} 回（{fmt(past[0]?.date)}・{city(past[0]?.city)}）でした。</p>
+          <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。直近の開催は第 {fmtEventNo(past[0]?.no ?? '', 'ja')} 回（{fmt(past[0]?.date)}・{city(past[0]?.city)}）でした。</p>
           <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram をフォロー <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
         </div>}
   </section>
@@ -73,20 +73,20 @@ const flow = [
       ))}
     </ol>
     <p class="small flow-more"><a href={l('/companies')}>提携企業を見る</a>・<a href={l('/apply#photo')}>履歴書写真の撮り方</a>・<a href={l('/support')}>サポート内容の詳細</a></p>
-    <div class="note"><strong>すべて無料。</strong>参加費・紹介料は、台湾の皆さまからは一切いただきません。詳しくは「サポート内容」をご覧ください。</div>
+    <div class="note"><span class="sent"><strong>すべて無料。</strong>参加費・紹介料は、台湾の皆さまからは一切いただきません。詳しくは「サポート内容」をご覧ください。</span></div>
   </section>
 
   <section class="wrap wrap--reading page-section">
     <h2 class="d2">開催実績</h2>
-    <p class="lead">直近 {past.length} 回の開催記録です。それ以前は
-      <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a> をご覧ください。</p>
+    <p class="lead">直近 {past.length} 回の開催記録です。それ以前は
+      <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram&nbsp;<span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a> をご覧ください。</p>
     <ul class="hist rows">
       {past.map(e => (
         <li class="row h">
-          <span class="d">第 {fmtEventNo(e.no, 'ja')} 回</span>
+          <span class="d">第 {fmtEventNo(e.no, 'ja')} 回</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{city(e.city)}</span>
-          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span class="sr-only">第 {fmtEventNo(e.no, 'ja')} 回の</span>開催報告 <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>}
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span class="sr-only">第 {fmtEventNo(e.no, 'ja')} 回の</span>開催報告 <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>}
         </li>
       ))}
     </ul>

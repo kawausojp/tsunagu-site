@@ -20,9 +20,9 @@
   .meta .sep{color:var(--ink-400)}
   .meta .pair{display:inline-flex;flex-wrap:nowrap;gap:6px 9px;align-items:center;white-space:nowrap}
   .co-link{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:24px;text-align:center;color:inherit}   /* 底線走全站 a（text-decoration），不再用 border-bottom 另畫一條 */
-  .lead-q{font-size:var(--fs-xl);font-weight:700;margin-bottom:16px;max-width:40em}
+  .lead-q{font-size:var(--fs-xl);font-weight:700;margin-bottom:16px;text-wrap:balance}
   .msgs{list-style:none;padding:0;margin:0 0 4px}
-  .msgs li{position:relative;padding-left:20px;margin-bottom:9px;font-size:var(--fs-md);line-height:1.9;color:var(--ink-600);max-width:40em}
+  .msgs li{position:relative;padding-left:20px;margin-bottom:9px;font-size:var(--fs-md);line-height:1.9;color:var(--ink-600);text-wrap:balance}
   .msgs li::before{content:'';position:absolute;left:4px;top:12px;width:6px;height:6px;
     border-radius:var(--r-full);background:var(--sky-300)}
   .advice{margin-top:22px}
@@ -32,7 +32,7 @@
   .advice li{position:relative;padding-left:34px;counter-increment:a}
   .advice li::before{content:counter(a,decimal-leading-zero);position:absolute;left:0;top:1px;
     font-family:var(--f-latin);font-weight:700;color:var(--ink-900);font-size:var(--fs-sm)}
-  .advice li{font-size:var(--fs-md);line-height:1.85;margin-bottom:6px;color:var(--ink-900);max-width:40em}
+  .advice li{font-size:var(--fs-md);line-height:1.85;margin-bottom:6px;color:var(--ink-900);text-wrap:balance}
   /* 內文包成單一 span：inline-flex 會吃掉文字與括號之間的空格（en「Instagram(2026-05-31)」） */
   .item-foot{display:flex;flex-wrap:wrap;align-items:center;gap:0 24px;margin-top:8px}
   .src,.backlist{display:inline-flex;align-items:center;gap:.3em;min-height:var(--control-min);font-weight:500}

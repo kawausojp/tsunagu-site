@@ -20,10 +20,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
   <section class="page-head">
     <div class="wrap">
       <h1 class="d1">Partner brands</h1>
-      <p class="lead">
-        {companies.length} brands published so far, from {CONTRACTED_COMPANIES} contracted companies.
-        Most never post jobs on Chinese-language job boards — which is exactly why they’re hard to find on your own.
-      </p>
+      <p class="lead"><span class="sent">{companies.length} brands published so far, from {CONTRACTED_COMPANIES} contracted companies.</span><span class="sent">Most never post jobs on Chinese-language job boards — which is exactly why they’re hard to find on your own.</span></p>
     </div>
   </section>
 
@@ -75,7 +72,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
 
   <div class="wrap">
     <div class="notice">
-      <strong>About openings:</strong> these are brand profiles and past placement records, not live job listings. For current openings and conditions, ask at a <a href={l('/events')}>meetup</a> or in an individual consultation.
+      <span class="sent"><strong>About openings:</strong> these are brand profiles and past placement records, not live job listings.</span><span class="sent">For current openings and conditions, ask at a <a href={l('/events')}>meetup</a> or in an individual consultation.</span>
     </div>
   </div>
 

@@ -11,7 +11,7 @@ placements: 0
 fullTimeConverted: 0
 onlineInterview: false
 tagline: "東京地鐵站內的蕎麥麵店與咖哩店 C&C"
-taglineJa: "東京メトロ駅構内でそば店とカレーショップ「C&C」を展開"
+taglineJa: "東京メトロ駅構内でそば店とカレーショップ「C&C」⁠を展開"
 taglineEn: "Soba shops and C&C curry inside Tokyo Metro stations"
 highlights:
   - "日語門檻較低，適合剛抵日"
@@ -19,4 +19,4 @@ highlights:
 sourceSlide: 171
 ---
 
-大手町、錦糸町、後樂園、新木場、西船橋等站。適合剛到日本、日語還在適應期，想先工作 2～4 個月熟悉環境的人。
+大手町、錦糸町、後樂園、新木場、西船橋等站。適合剛到日本、日語還在適應期，想先工作 <span class="nowrap">2～4 個月</span>熟悉環境的人。

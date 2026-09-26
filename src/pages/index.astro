@@ -36,9 +36,11 @@ const stats = [
       <Image src={characters}
         alt="Tsunagu 的兩隻角色：穿著 JP 藍色上衣的狗，和穿著 TW 粉色上衣的貓，牽著手坐在一起"
         widths={[240, 480]} sizes="(max-width: 720px) 152px, 200px" loading="eager" fetchpriority="high" class="chars" />
+      <!-- 一句一行（使用者 2026-09-26）：句子在標點處斷行，不在句中被版寬切斷 -->
       <p class="lead">
-        想去日本留學或打工度假，卻不知道能找到什麼樣的工作？我們介紹的是真心想跟台灣人一起工作的日本企業。
-        <strong>從履歷、面試到抵達日本之後，全程免費。</strong>
+        <span class="sent">想去日本留學或打工度假，卻不知道能找到什麼樣的工作？</span>
+        <span class="sent">我們介紹的是真心想跟台灣人一起工作的日本企業。</span>
+        <strong class="sent">從履歷、面試到抵達日本之後，全程免費。</strong>
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href={`${base}/events`}>{heroCta}</a>
@@ -72,7 +74,7 @@ const stats = [
     <div class="wrap co-split">
       <div class="co-side">
         <h2 class="d2">等你來的日本企業</h2>
-        <p class="lead">這些不會在中文求職網站上出現的店，我們直接幫你牽線。以下是任職人數最多的六家。</p>
+        <p class="lead"><span class="sent">這些不會在中文求職網站上<span class="nowrap">出現的店，</span>我們直接幫你牽線。</span><span class="sent">以下是任職人數最多的六家。</span></p>
         <a class="action-link" href={`${base}/companies`}>看全部 {companies.length} 個合作品牌</a>
       </div>
       <div class="grid3 grid-co">
@@ -120,7 +122,7 @@ const stats = [
     <div class="wrap final-split">
       <div>
         <h2 class="d2">下一步，先來交流會看看</h2>
-        <p class="lead">不用先決定什麼，也不用準備履歷。先來聽日本企業說他們在找什麼樣的人。</p>
+        <p class="lead"><span class="sent">不用先決定什麼，也不用準備履歷。</span><span class="sent">先來聽日本企業說他們在找什麼樣的人。</span></p>
         <div class="cta-row">
           <a class="btn btn-primary" href={`${base}/events`}>查看下一場交流會</a>
           <a class="action-link" href={`${base}/apply`}>已經決定要去日本了</a>

@@ -19,7 +19,7 @@ const eventsLd = upcoming.filter(e => e.venue && e.address).map(eventLd);
 const flow = [
   { t: 'On the day', d: 'Japanese companies present who they’re looking for; alumni share what working in Japan is really like.' },
   { t: 'One-on-one chat', d: 'Tell us your Japanese level, what you want to do, and when you plan to go.' },
-  { t: 'Every step after', d: 'Resume, interview practice, visa paperwork, and follow-up after you arrive — we stay with you.' },
+  { t: 'Every step after', d: 'Resume, interview practice, visa paperwork, and follow-⁠up after you arrive — we stay with you.' },
 ];
 ---
 <Base title="Join a meetup" lang="en"
@@ -28,7 +28,7 @@ const flow = [
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   <section class="page-head"><div class="wrap wrap--reading">
     <h1 class="d1">Join a meetup</h1>
-    <p class="lead">Hear directly from Japanese companies about who they’re hiring — and from alumni about what the work is really like.</p>
+    <p class="lead"><span class="sent">Hear directly from Japanese companies about who they’re hiring — and from alumni about what the work is really like.</span></p>
     <p class="small since"><strong>{totalHeld}</strong> meetups held since {fmtSince(eventsMeta.since, 'en')},
       across {eventsMeta.cities.map(c => city(c)).map((c, i, a) => i === a.length - 1 && a.length > 1 ? `and ${c}` : c).join(', ').replace(', and ', ' and ')}.</p>
   </div></section>
@@ -73,7 +73,7 @@ const flow = [
       ))}
     </ol>
     <p class="small flow-more"><a href={l('/companies')}>See our partner brands</a> · <a href={l('/apply#photo')}>Resume photo tips</a> · <a href={l('/support')}>Full support details</a></p>
-    <div class="note"><strong>Everything is free.</strong> No participation or placement fees, ever, for participants from Taiwan.</div>
+    <div class="note"><span class="sent"><strong>Everything is free.</strong> No participation or placement fees, ever, for participants from Taiwan.</span></div>
   </section>
 
   <section class="wrap wrap--reading page-section">

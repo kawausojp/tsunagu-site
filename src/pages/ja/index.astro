@@ -41,8 +41,8 @@ const stats = [
         alt="ツナグのキャラクター：JPと書かれた青い服の犬と、TWと書かれたピンクの服の猫が手をつないで座っている"
         widths={[240, 480]} sizes="(max-width: 720px) 152px, 200px" loading="eager" fetchpriority="high" class="chars" />
       <p class="lead">
-        留学やワーキングホリデーで来日する台湾の若者と、台湾出身のスタッフを迎えたい日本企業をマッチングしています。
-        <strong>履歴書の作成から面接、来日後のフォローまで、台湾の皆さまは、すべて無料。</strong>
+        <span class="sent">留学やワーキングホリデーで来日する台湾の若者と、台湾出身のスタッフを迎えたい日本企業をマッチングしています。</span>
+        <strong class="sent">履歴書の作成から面接、来日後のフォローまで、台湾の皆さまは、すべて無料。</strong>
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href={l('/events')}>{heroCta}</a>
@@ -76,8 +76,8 @@ const stats = [
     <div class="wrap co-split">
       <div class="co-side">
         <h2 class="d2">提携している日本企業</h2>
-        <p class="lead">中国語の求人サイトには出てこない店舗と皆さまを、私たちが直接おつなぎします。以下は勤務実績の多い 6 ブランドです。</p>
-        <a class="action-link" href={l('/companies')}>{companies.length} ブランドをすべて見る</a>
+        <p class="lead"><span class="sent">中国語の求人サイトには出てこない店舗と皆さまを、私たちが直接おつなぎします。</span><span class="sent">以下は勤務実績の多い 6&nbsp;ブランドです。</span></p>
+        <a class="action-link" href={l('/companies')}>{companies.length} ブランドをすべて見る</a>
       </div>
       <div class="grid3 grid-co">
         {featured.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="ja" />)}
@@ -99,7 +99,7 @@ const stats = [
           </p>
         </div>
       </div>
-      <div class="more"><a class="action-link" href={l('/stories')}>{stories.length} 名の先輩の体験談を見る</a></div>
+      <div class="more"><a class="action-link" href={l('/stories')}>{stories.length} 名の先輩の体験談を見る</a></div>
     </div>
   </section>
 
@@ -111,7 +111,7 @@ const stats = [
       <!-- 直接嵌入（2026-08-28 使用者指定：不做點擊門面，從 VIDEO_START 秒開始）。 -->
       <div class="video">
         <iframe src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?start=${VIDEO_START}`}
-          title="台湾の公共放送・公視：台湾向けワーキングホリデー枠・年間 1 万人のニュース（ツナグへのインタビューを含む）"
+          title="台湾の公共放送・公視：台湾向けワーキングホリデー枠・年間 1 万人のニュース（ツナグへのインタビューを含む）"
           loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
           allowfullscreen></iframe>
       </div>
@@ -125,7 +125,7 @@ const stats = [
     <div class="wrap final-split">
       <div>
         <h2 class="d2">まずは交流会へ</h2>
-        <p class="lead">何かを決めてから来る必要はありません。準備も不要です。日本企業がどんな人材を求めているか、まず聞きに来てください。</p>
+        <p class="lead"><span class="sent">何かを決めてから来る必要はありません。</span><span class="sent">準備も不要です。</span><span class="sent">日本企業がどんな人材を求めているか、まず聞きに来てください。</span></p>
         <div class="cta-row">
           <a class="btn btn-primary" href={l('/events')}>次回の交流会を見る</a>
           <a class="action-link" href={l('/apply')}>日本行きを決めた方はこちら</a>
