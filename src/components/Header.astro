@@ -93,13 +93,12 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   @media (max-width:900px){ .zh{display:none} }
 
   /* 選單鈕：粉藍兩條圓頭短線（logo 屋頂的左粉右藍），開啟時交叉成 X。不用三條灰線。
-     外框（使用者 2026-09-25）：粉藍線對白只有 2.0／1.7:1，靠 3:1 的 --control-line 框讓按鈕本身辨識得出來
-     （WCAG 1.4.11）；語言鈕同一套框，兩顆並排才一致 */
+     無外框（使用者 2026-09-26：9/25 加的灰框拿掉，語言鈕同）；hover／開啟時淡灰底，讓它看得出是按鈕 */
   .burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;
     width:var(--control-min);height:var(--control-min);flex:0 0 var(--control-min);
-    background:var(--paper);border:1px solid var(--control-line);border-radius:var(--r-xs);padding:0;cursor:pointer;
-    transition:border-color .2s var(--ease)}
-  .burger:hover{border-color:var(--ink-900)}
+    background:transparent;border:1px solid transparent;border-radius:var(--r-xs);padding:0;cursor:pointer;
+    transition:background-color .2s var(--ease)}
+  .burger:hover,.burger[aria-expanded="true"]{background:var(--greige-50)}
   .burger:hover span{opacity:.75}
   .burger span{display:block;width:20px;height:3px;border-radius:3px;
     transition:transform .26s var(--ease)}
@@ -147,10 +146,10 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   .lang summary{display:inline-flex;align-items:center;gap:6px;list-style:none;cursor:pointer;
     min-height:var(--control-min);font-size:var(--fs-xs);font-weight:500;color:var(--ink-600);
     padding:7px 10px;border-radius:var(--r-xs);white-space:nowrap;
-    border:1px solid var(--control-line);transition:.2s var(--ease)}
+    border:1px solid transparent;transition:.2s var(--ease)}
   .lang summary::-webkit-details-marker{display:none}
-  .lang summary:hover{color:var(--ink-900);border-color:var(--ink-900)}
-  .lang[open] summary{color:var(--ink-900);border-color:var(--ink-900)}
+  .lang summary:hover{color:var(--ink-900);background:var(--greige-50)}
+  .lang[open] summary{color:var(--ink-900);background:var(--greige-50)}
   .lang ul{position:absolute;right:0;top:calc(100% + 6px);margin:0;padding:6px;list-style:none;
     background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);
     box-shadow:var(--sh-2);min-width:128px;z-index:60}
