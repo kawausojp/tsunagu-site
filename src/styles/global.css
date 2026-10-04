@@ -185,6 +185,8 @@ html[lang="ja"]{line-break:strict}
    手機不套：子句常比欄寬長，只能靠 anywhere 硬切，還會把「。」單獨擠到下一行（2026-10-04 實測）。長文 .prose 不套 */
 @media (min-width:721px){
   :is(.small,.card p,.box li,.b li,.closing .lead,.msgs li,.advice li,.lead-q):lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
+  /* 品牌頁的介紹文（多半一到三句）與重點清單：同上，不要「品／牌」這種斷法 */
+  :is(.body .prose p,.hl li):lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
 }
 .tag-line:lang(en){text-wrap:balance}   /* 英文：「Nishi- ／ Azabu」「109 years ／ of history」→ 均分兩行（line-clamp 下實測有效） */
 /* 日文本文用日文字型：--f-body 以 Noto Sans TC 優先是為繁中頁設的，套在 ja 頁會讓
