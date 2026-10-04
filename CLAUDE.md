@@ -171,6 +171,7 @@ header 與 footer 共用。~~duo 深色版~~ 已刪（使用者認可主色版�
      **同一頁的 view-transition-name 不可重複**；帶 `data-vt` 的元素不做捲動進場；轉場進來時第一屏元素直接就位
      （reveal.js 監聽 `pagereveal` 加 `.rv-now`）。減少動態時整個關掉。
    - 瀏覽器表面：選取反白＝粉主色 40%；連結底線換色 .2s 轉場；箭頭連結 hover 時箭頭前推 3px。
+   - hover 的小回應：企業卡 hover 時品類圖標歪頭（-8°）、頁首 logo 愛心跳一下。減少動態時全部關掉。
    - 頁首捲動縮高（68→60px）的 height transition 是刻意保留的例外（impeccable 偵測器會報 layout-transition）。
 ---
 
@@ -404,6 +405,8 @@ Base.astro 讀到就對 127 頁輸出 `robots: noindex,follow`。
   - 原始碼裡**中文句子不要在句中換行**：markup 換行會在畫面上變成多餘的半形空格（「台灣。 2019」）。
   - **繁中的 `.sent` 與焦點引言用 `word-break:keep-all`**（2026-10-04）：瀏覽器不替中文斷詞，balance 會把「喜歡」「萌芽」拆開；
     keep-all 只在標點與空格處換行，手機上一個子句一行。子句比欄寬長時在好的位置放 `<wbr />`（首頁 hero 第二句）。
+    桌機／平板（≥721px）再擴到卡片說明、清單、學長姐分享、小字（balance 會把兩行段落從字中間對半切、只剩半寬）；
+    手機不擴——子句常比欄寬長，keep-all 只能硬切，還會把「。」單獨擠到下一行。
 - **日期表記**（2026-09-25 使用者定案）：完整日期一律 `2026.01.28`（點分、月日補零），用 `site.ts` 的
   `fmtDate()`／`fmtEventDateFull()`；CTA 裡的月日短式「10/18（日）」不在此列。
 - **字標只有一個檔** `tsunagu-wordmark.png`（2026-09-13 重製：TSU #F3A0AA／NAGU #7DD0F5，主色版），

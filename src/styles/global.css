@@ -180,6 +180,12 @@ html[lang="ja"]{line-break:strict}
    「喜歡」「萌芽」從字中間拆開；keep-all 讓手機上也是一個子句一行（「想去日本留學或打工度假，／卻不知道…」）。
    子句比欄寬還長時 anywhere 兜底照常折行，不會溢出 */
 :is(.sent,.v-quote):lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
+/* 桌機／平板再擴到所有套 balance 的繁中短文字塊（卡片說明、清單、學長姐分享、小字）：balance 在中文是逐字找斷點，
+   兩行的段落會被從字中間對半切（「找到／什麼」），而且兩行都只剩半寬。keep-all 讓它改在逗號處分行。
+   手機不套：子句常比欄寬長，只能靠 anywhere 硬切，還會把「。」單獨擠到下一行（2026-10-04 實測）。長文 .prose 不套 */
+@media (min-width:721px){
+  :is(.small,.card p,.box li,.b li,.closing .lead,.msgs li,.advice li,.lead-q):lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
+}
 .tag-line:lang(en){text-wrap:balance}   /* 英文：「Nishi- ／ Azabu」「109 years ／ of history」→ 均分兩行（line-clamp 下實測有效） */
 /* 日文本文用日文字型：--f-body 以 Noto Sans TC 優先是為繁中頁設的，套在 ja 頁會讓
    直／骨／令 等漢字變成台式字形。ja 頁內保留繁中原文的區塊（lang="zh-Hant"）仍回到 TC。 */
@@ -368,6 +374,6 @@ html[lang="en"] .prose{max-width:56ch}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;
     transition-delay:0ms!important;scroll-behavior:auto!important}
-  .card-link:hover,.card-link:active,.btn:hover,.btn:active,button.f:hover,.tag.f:active,
+  .card-link:hover,.card-link:active,.btn:hover,.btn:active,button.f:hover,.tag.f:active,.co:hover .ico,.action-link:hover::after,
   .hero-inner:hover .chars,.hero .chars.is-wiggling{transform:none!important}
 }

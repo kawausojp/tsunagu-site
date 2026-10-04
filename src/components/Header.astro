@@ -81,6 +81,11 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   .bar{display:flex;align-items:center;gap:12px;height:68px;transition:height .28s cubic-bezier(.22,.61,.36,1)}   /* 同上，不過衝 */
   @media (min-width:721px){ header[data-stuck] .bar{height:60px} }   /* 手機本來就 56px，不再縮 */
   .logo :global(svg){flex:0 0 22px}
+  /* 滑鼠移到 logo：愛心跳一下（品牌的「ツナグ」心跳；只在有 hover 的裝置，減少動態時 global 的規則會關掉） */
+  @media (hover:hover) and (pointer:fine){
+    .logo:hover :global(svg){animation:logo-beat .7s cubic-bezier(.34,1.4,.64,1)}
+  }
+  @keyframes logo-beat{0%{transform:scale(1)}22%{transform:scale(1.18)}40%{transform:scale(.96)}58%{transform:scale(1.08)}100%{transform:scale(1)}}
   .logo{display:flex;align-items:center;gap:10px;min-height:var(--control-min);text-decoration:none;
     color:var(--ink-900);flex:0 1 auto;min-width:0;margin-right:auto}
   .wordmark{width:clamp(88px,28vw,110px);height:auto;display:block}

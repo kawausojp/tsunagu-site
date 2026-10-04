@@ -63,6 +63,9 @@ const searchText = [d.name, name, d.corporateName, d.tagline, d.categoryLabel, t
   .ico{flex:0 0 44px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
     border:1.5px solid var(--pink-300);border-radius:var(--r-sm);background:var(--paper)}
   .ico[data-tone="sky"]{border-color:var(--sky-300)}
+  /* hover 時品類圖標歪頭一下（同 hero 角色的 hover 傾斜）：卡片整張上浮之外，多一個「它聽到你了」的小回應 */
+  .ico{transition:transform .32s var(--ease)}
+  @media (hover:hover) and (pointer:fine){ .co:hover .ico{transform:rotate(-8deg) scale(1.06)} }
   .ttl{min-width:0;flex:1;min-height:52px;display:flex;flex-direction:column;justify-content:center;align-items:stretch}
   .co h3{overflow-wrap:anywhere;line-height:1.5}
   .corp{font-size:var(--fs-2xs);color:var(--ink-600);line-height:1.6;margin-top:2px;
