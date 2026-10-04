@@ -23,6 +23,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 // ja/en 各有自己標語的縮圖（scripts/og/render.mjs 一次產三張）
 const ogImage = new URL(`${base}/img/${lang === 'zh' ? 'og-default' : `og-${lang}`}.png`, Astro.site);
 import revealJs from '../scripts/reveal.js?raw';
+import vtJs from '../scripts/vt.js?raw';
 ---
 <!DOCTYPE html>
 <html lang={LANG_META[lang].htmlLang}>
@@ -81,6 +82,8 @@ import revealJs from '../scripts/reveal.js?raw';
   <Footer lang={lang} />
   <!-- 捲動進場動效：body 最後同步執行，首次繪製前就把未進場的元素藏好（不閃） -->
   <script is:inline set:html={revealJs}></script>
+  <!-- 跨頁轉場：只替被點／剛離開的那張企業卡命名（品牌頁頁首是固定名字） -->
+  <script is:inline set:html={vtJs}></script>
   <style>
     /* 跳到主內容：全站唯一曾用深色塊的元件，改與 .notice 同語言（白底＋粉框＋灰字） */
     .skip{position:absolute;left:-9999px;top:0;background:var(--paper);color:var(--ink-900);border:1px solid var(--pink-300);

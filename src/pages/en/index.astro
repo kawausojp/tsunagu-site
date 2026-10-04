@@ -44,6 +44,7 @@ const stats = [
         <Image src={characters} alt="" widths={[240, 480]} sizes="(max-width: 720px) 168px, 240px" loading="eager" fetchpriority="high" class="chars-half chars-l" />
         <Image src={characters} alt="" widths={[240, 480]} sizes="(max-width: 720px) 168px, 240px" loading="eager" class="chars-half chars-r" />
         <Heart size={20} class="chars-heart" />
+        <Heart size={20} class="chars-heart chars-heart--cta" />
       </div>
       <p class="lead">
         <span class="sent">Planning a working holiday or study abroad in Japan, but not sure what jobs are out there?</span>
@@ -137,7 +138,7 @@ const stats = [
           <a class="action-link" href={l('/apply')}>Already decided? Start here</a>
         </div>
       </div>
-      <Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" />
+      <div class="final-chars-wrap"><Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" /></div>
     </div>
   </section>
 

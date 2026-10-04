@@ -19,10 +19,10 @@ const searchText = [d.name, name, d.corporateName, d.tagline, d.categoryLabel, t
   <!-- 2026-09-13 使用者參考 Cake／Yourator 重排：圖標在名稱左側同一列、順序固定、標籤與實績貼底，
        同列各卡每一行對齊（有無登記名、tagline 長短都不影響） -->
   <div class="head">
-    <!-- 圖標與品牌名跟品牌頁頁首同名（view-transition-name）：點進去時從卡片連續變形到頁首（global.css 跨頁轉場） -->
-    <span class="ico" data-tone={SKY_CATEGORIES.has(d.category) ? 'sky' : 'pink'} style={`view-transition-name:ico-${c.id}`}><CategoryIcon cat={d.category} size={30} /></span>
+    <!-- 圖標與品牌名：點進品牌頁時從卡片連續變形到頁首。名字由 src/scripts/vt.js 只在被點的那張卡上臨時加 -->
+    <span class="ico" data-tone={SKY_CATEGORIES.has(d.category) ? 'sky' : 'pink'}><CategoryIcon cat={d.category} size={30} /></span>
     <div class="ttl">
-      <h3 class="d3" lang={nameLang(name, lang)} style={`view-transition-name:nm-${c.id}`}>{name}</h3>
+      <h3 class="d3" lang={nameLang(name, lang)}>{name}</h3>
       {d.corporateName && <div class="corp" lang="ja">{d.corporateName}</div>}
     </div>
   </div>

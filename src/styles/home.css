@@ -20,6 +20,15 @@
   /* 按一下角色會輕輕晃一下——手機沒有 hover，這是牠們唯一的回應方式。
      [data-rv] 提高權重：reveal 的 .is-in 規則（0,3,1）會蓋掉這裡的 duration／delay */
   .hero .chars.is-wiggling[data-rv],.hero .chars.is-wiggling{animation:chars-wiggle .5s var(--ease) 0s}
+  /* 主 CTA 的回應（2026-10-04）：游標或鍵盤焦點停在「報名」上 → 兩隻中間再彈出一顆愛心；結尾的「查看下一場」→ 角色跳一下。
+     用獨立的元素（第二顆愛心、包角色的 wrap）做，不碰進場動畫的 animation，離開時才不會讓進場重播 */
+  @media (prefers-reduced-motion:no-preference){
+    html .hero:has(.cta-row .btn-primary:is(:hover,:focus-visible)) .chars .chars-heart--cta{animation:heart-pop 1.2s cubic-bezier(.22,1,.36,1) both}
+    html .final:has(.cta-row .btn-primary:is(:hover,:focus-visible)) .final-chars-wrap{animation:chars-hop .7s cubic-bezier(.34,1.56,.64,1)}
+    @keyframes heart-pop{0%{opacity:0;transform:translateY(8px) scale(.3)}30%{opacity:1;transform:translateY(-4px) scale(1.2)}
+      45%{transform:translateY(-2px) scale(.96)}75%{opacity:1}100%{opacity:0;transform:translateY(-28px) scale(1)}}
+    @keyframes chars-hop{0%,100%{transform:none}35%{transform:translateY(-12px) rotate(-2deg)}62%{transform:translateY(0) rotate(1deg)}}
+  }
   @media (prefers-reduced-motion:no-preference){
     html.rv .hero .chars.is-in .chars-l{animation:meet-l 1.05s cubic-bezier(.22,1,.36,1) .12s backwards}
     html.rv .hero .chars.is-in .chars-r{animation:meet-r 1.05s cubic-bezier(.22,1,.36,1) .12s backwards}
@@ -111,11 +120,13 @@
      改成與 hero 首尾呼應的置中直排：角色在上 → 標題 → 說明 → 按鈕。角色用 order 提到最前，三語 markup 不用動 */
   .final{background:var(--paper)}
   .final-split{display:flex;flex-direction:column;align-items:center;text-align:center}
-  .final-chars{order:-1;width:168px;height:auto;margin:0 0 20px}
+  .final-chars-wrap{order:-1;margin:0 0 20px}
+  .final-chars{width:168px;height:auto}
   .final .lead{margin:12px auto 0;max-width:34em}
   .final .cta-row{justify-content:center;gap:18px;margin-top:26px}   /* 同 hero 的按鈕列 */
   @media (max-width:720px){
-    .final-chars{width:128px;margin-bottom:14px}
+    .final-chars-wrap{margin-bottom:14px}
+    .final-chars{width:128px}
   }
 
   @media (max-width:720px){

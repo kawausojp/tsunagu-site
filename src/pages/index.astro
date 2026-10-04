@@ -40,6 +40,7 @@ const stats = [
         <Image src={characters} alt="" widths={[240, 480]} sizes="(max-width: 720px) 168px, 240px" loading="eager" fetchpriority="high" class="chars-half chars-l" />
         <Image src={characters} alt="" widths={[240, 480]} sizes="(max-width: 720px) 168px, 240px" loading="eager" class="chars-half chars-r" />
         <Heart size={20} class="chars-heart" />
+        <Heart size={20} class="chars-heart chars-heart--cta" />
       </div>
       <!-- 一句一行（使用者 2026-09-26）：句子在標點處斷行，不在句中被版寬切斷 -->
       <p class="lead">
@@ -133,7 +134,7 @@ const stats = [
           <a class="action-link" href={`${base}/apply`}>已經決定要去日本了</a>
         </div>
       </div>
-      <Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" />
+      <div class="final-chars-wrap"><Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" /></div>
     </div>
   </section>
 

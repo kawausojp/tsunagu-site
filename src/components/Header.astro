@@ -115,7 +115,9 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   .burger[aria-expanded="true"] span:nth-child(2){transform:translateY(-4.5px) rotate(-45deg)}
 
   /* 抽屜：桌機是漢堡下方的右對齊面板；手機全寬 */
-  .drawer{display:none;flex-direction:column;gap:2px;position:absolute;right:var(--layout-gutter);
+  /* right：對齊版心右緣（＝選單鈕的右緣），不是視窗右緣。原本寬螢幕上面板會凸出版心 160px（2026-10-04） */
+  .drawer{display:none;flex-direction:column;gap:2px;position:absolute;
+    right:max(var(--layout-gutter),calc((100% - var(--wrap)) / 2 + var(--layout-gutter)));
     top:calc(100% + 8px);width:300px;padding:10px;
     /* 只寫無前綴版，前綴交給 lightningcss 補；兩個都寫時 build 會把無前綴那條丟掉，Chrome 就沒有模糊 */
     background:rgba(255,255,255,.78);backdrop-filter:blur(16px) saturate(1.2);

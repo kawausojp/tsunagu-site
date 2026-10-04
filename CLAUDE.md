@@ -167,11 +167,15 @@ header 與 footer 共用。~~duo 深色版~~ 已刪（使用者認可主色版�
      右＝實績數字（粉主色，原本是內文最下方的磁磚）。桌機內文與「重點」卡並排。仍不做統一資訊表（規則 13）。
    - **內頁版心只有一種（948px）**：`.wrap--reading`／`.wrap--prose` 已刪，所有內頁標題對齊同一條線；長文行長由 `.prose` 自己限。
    - **跨頁轉場（View Transitions）**：同站換頁舊頁淡出、新頁淡入上浮；頁首 `view-transition-name:site-header` 不動。
-     企業卡的圖標／品牌名與品牌頁頁首同名（`ico-<slug>`／`nm-<slug>`），點進去會從卡片連續變形到頁首。
+     品牌頁頁首的圖標／品牌名是固定名字（`ico-<slug>`／`nm-<slug>`）；列表與首頁的企業卡**不掛名字**，由 `src/scripts/vt.js`
+     在 `pageswap`／`pagereveal` 時只替被點（或剛離開）的那一張臨時命名——35 張全掛會每張各截一層，手機換頁會頓。
      **同一頁的 view-transition-name 不可重複**；帶 `data-vt` 的元素不做捲動進場；轉場進來時第一屏元素直接就位
      （reveal.js 監聽 `pagereveal` 加 `.rv-now`）。減少動態時整個關掉。
    - 瀏覽器表面：選取反白＝粉主色 40%；連結底線換色 .2s 轉場；箭頭連結 hover 時箭頭前推 3px。
    - hover 的小回應：企業卡 hover 時品類圖標歪頭（-8°）、頁首 logo 愛心跳一下。減少動態時全部關掉。
+   - 主 CTA 的回應：游標／鍵盤焦點停在 hero 的報名鈕 → 兩隻中間再彈一顆愛心（第二顆 `.chars-heart--cta`）；結尾的主鈕 → 角色跳一下
+     （`.final-chars-wrap`）。用獨立元素做，不碰進場動畫，離開時進場才不會重播。
+   - 漢堡抽屜（桌機面板）右緣對齊版心右緣＝選單鈕右緣，不是視窗右緣。
    - 頁首捲動縮高（68→60px）的 height transition 是刻意保留的例外（impeccable 偵測器會報 layout-transition）。
 ---
 
