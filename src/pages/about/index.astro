@@ -6,13 +6,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // 連結原則（CLAUDE.md 紅線 #3）：只外連報社原文，不貼報紙掃描圖。
 ---
 <Base title="關於 Tsunagu" altPaths={{ zh: '/about/', ja: '/ja/about/', en: '/en/about/' }} description="Tsunagu 是誰、為什麼做這件事。">
-  <section class="page-head"><div class="wrap wrap--reading">
+  <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">為什麼做這件事</h1>
     <p class="small who">主辦：智囊和夥伴有限公司（Brain &amp; Partner Taiwan Inc.）</p>
     <p class="lead"><span class="sent">我們做「把日本的好商品、品牌與文化帶給台灣客人」這件事，做了 8 年。</span></p>
   </div></section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <div class="prose">
       <p>過程中發現，台灣有非常多人喜歡日本，想去日本學習、想在日本工作。光是觀光，每個月就有 66–76 萬台灣人去日本，2025 年一整年是 676 萬人次。</p>
       <p>另一邊，日本正處在嚴重的人才不足。疫情結束加上日圓貶值，外國觀光客大量湧入，卻沒有足夠能接待他們的人。服飾業與餐飲業尤其嚴重。</p>
@@ -21,7 +21,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">我們是誰</h2>
     <div class="grid grid-2">
       <div class="card card-pad b">
@@ -36,7 +36,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <p class="small">曾操盤：BLUE BOTTLE COFFEE、JAPAN RAIL CAFE、<span class="nowrap">MAISON DE REEFUR</span>、<span lang="ja">ささら屋</span>、<span lang="ja">きものやまと</span>、世界最濃抹茶冰淇淋「<span lang="ja" class="nowrap">ななや</span>」等。自營店舖 <span class="nowrap">bpt ROOM</span>（<span class="nowrap">台北微風南山 2F</span>，<span class="nowrap">2019–2025.09</span>）、紫苑花屋（桃園馬祖新村眷村文創園區）。</p>
   </section>
 
-  <section class="wrap wrap--reading page-section" id="media">
+  <section class="wrap wrap--page page-section" id="media">
     <h2 class="d2">媒體報導</h2>
     <ul class="media rows">
       {MEDIA.map(m => (
@@ -54,7 +54,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     {/* 內部待辦（勿放回畫面）：各則報導的原文連結（標題＋日期＋外連，不貼截圖），見 CLAUDE.md */}
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <div class="cta-row">
       <a class="btn btn-primary" href={`${base}/events`}>來交流會見見我們</a>
       <a class="action-link" href={`${base}/stories`}>看學長姐的經驗</a>

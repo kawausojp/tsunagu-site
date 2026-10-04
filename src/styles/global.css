@@ -50,9 +50,9 @@
   --sh-3:0 16px 44px rgba(70,70,70,.10);
   --ease:cubic-bezier(.34,1.4,.64,1);
   --container-wide:1120px;
+  /* 內頁版心只有一種（2026-10-04）：原本 948／868／808 三種寬度置中，標題在各頁的左緣跳動
+     （1440 寬時 270／310／340px）。統一後所有內頁標題對齊同一條線；長文行長由 .prose 自己的 max-width 管 */
   --container-page:948px;
-  --container-reading:868px;
-  --container-prose:808px;
   --wrap:var(--container-wide);
   --layout-gutter:24px;
   --control-min:44px;
@@ -77,8 +77,11 @@ body{
 }
 h1,h2,h3,h4{font-family:var(--f-display);line-height:1.45;margin:0;font-weight:700;letter-spacing:.02em}
 p{margin:0 0 1em}
-a{color:var(--ink-900);text-decoration-color:var(--sky-300);text-decoration-thickness:2px;text-underline-offset:3px}
+a{color:var(--ink-900);text-decoration-color:var(--sky-300);text-decoration-thickness:2px;text-underline-offset:3px;
+  transition:text-decoration-color .2s ease,color .2s ease}
 a:hover{text-decoration-color:var(--pink-300)}
+/* 瀏覽器自己畫的表面也要有設計（2026-10-04）：選取反白用粉主色的淡色，字維持主文字灰 */
+::selection{background:color-mix(in srgb,var(--pink-300) 40%,transparent);color:var(--ink-900)}
 img{max-width:100%;height:auto;display:block}
 strong{font-weight:700;color:var(--ink-900)}
 :focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px;border-radius:var(--r-xs);
@@ -95,8 +98,6 @@ main:focus{outline:none}
 
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--layout-gutter)}
 .wrap--page{max-width:var(--container-page)}
-.wrap--reading{max-width:var(--container-reading)}
-.wrap--prose{max-width:var(--container-prose)}
 .section{padding:72px 0}
 
 /* ── 全站版面節奏：內頁共用，不再由每頁各自猜 margin ── */
@@ -135,7 +136,9 @@ main:focus{outline:none}
 .action-link{display:inline-flex;align-items:center;min-height:var(--control-min);padding:6px 0;
   color:var(--sky-300);font-weight:700;font-size:var(--fs-sm);line-height:1.5;text-decoration:none}
 /* 箭頭由 CSS 畫（不進 accessible name）；外連的 ↗ 是另開視窗語意，仍在 markup 裡並 aria-hidden */
-.action-link:not(.ext)::after{content:'\00a0→'}
+.action-link:not(.ext)::after{content:'\00a0→';display:inline-block;transition:transform .24s var(--ease)}
+/* hover 時箭頭往前推一點：「這是往下一頁走的連結」的動作暗示 */
+.action-link:hover::after{transform:translateX(3px)}
   /* 淺藍字：使用者指定（與內文粗黑體區分），對白 1.7:1 為其決定 */
 .action-link:hover{color:var(--pink-300)}
 
@@ -173,6 +176,10 @@ html[lang="ja"]{line-break:strict}
 /* 繁中卡片 tagline 只在標點／空格處斷（「…服飾品牌，／木村拓哉為全球代言人」），35 張實測仍在兩行內；
    anywhere 是保險，極端長詞還是能斷不溢出 */
 .tag-line:lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
+/* 繁中的「一句一行」句子、焦點引言：只在標點與空格處換行（2026-10-04）。瀏覽器不會替中文斷詞，balance 會把
+   「喜歡」「萌芽」從字中間拆開；keep-all 讓手機上也是一個子句一行（「想去日本留學或打工度假，／卻不知道…」）。
+   子句比欄寬還長時 anywhere 兜底照常折行，不會溢出 */
+:is(.sent,.v-quote):lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
 .tag-line:lang(en){text-wrap:balance}   /* 英文：「Nishi- ／ Azabu」「109 years ／ of history」→ 均分兩行（line-clamp 下實測有效） */
 /* 日文本文用日文字型：--f-body 以 Noto Sans TC 優先是為繁中頁設的，套在 ja 頁會讓
    直／骨／令 等漢字變成台式字形。ja 頁內保留繁中原文的區塊（lang="zh-Hant"）仍回到 TC。 */
@@ -310,8 +317,24 @@ html[lang="en"] .prose{max-width:56ch}
    標記與觸發在 src/scripts/reveal.js。規則 4 的 200–280ms 是「互動回饋」的節奏；這裡是進場演出，
    使用者要的是「絢麗」，所以放寬到 .7–.9s。只動 opacity／transform／filter，不影響版面。
    animation 用 backwards（不用 both）：播完就回到元素本來的樣式，卡片 hover 的上浮才不會被鎖死。 */
+/* ── 跨頁轉場（2026-10-04）：同站換頁時舊頁淡出、新頁淡入上浮，頁首不動（Header 設 view-transition-name）。
+   企業卡的品類圖標與品牌名，跟品牌頁頁首同名（ico-／nm-＋slug），換頁時會從卡片位置連續變形到頁首。
+   瀏覽器不支援就是一般換頁；減少動態時不開。 ── */
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  ::view-transition-old(root){animation:vt-out .2s cubic-bezier(.4,0,1,1) both}
+  ::view-transition-new(root){animation:vt-in .42s cubic-bezier(.22,1,.36,1) both}
+  ::view-transition-group(*){animation-duration:.42s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+  @keyframes vt-out{to{opacity:0}}
+  @keyframes vt-in{from{opacity:0;transform:translateY(12px)}}
+}
+
 @media (prefers-reduced-motion:no-preference){
   html.rv [data-rv]:not(.is-in){opacity:0}
+  /* 跨頁轉場進來的第一屏：直接就位（reveal.js 的 pagereveal）。權重要高過下面各效果的 animation-name；
+     標題的光帶是 ::after，不播時連同光帶一起不畫（否則會停在完整顯示的那一格） */
+  html.rv [data-rv].is-in.rv-now{animation:none}
+  html.rv [data-rv].is-in.rv-now::after{display:none}
   html.rv [data-rv].is-in{animation-duration:.8s;animation-timing-function:cubic-bezier(.22,1,.36,1);
     animation-fill-mode:backwards;animation-delay:var(--rv-d,0ms)}
   html.rv [data-rv="rise"].is-in{animation-name:rv-rise}
@@ -328,6 +351,8 @@ html[lang="en"] .prose{max-width:56ch}
     transform-origin:left;pointer-events:none;
     animation:rv-sweep 1.4s cubic-bezier(.22,1,.36,1) var(--rv-d,0ms) both}
   html.rv .hero-inner [data-rv="title"].is-in::after,html.rv .page-head [data-rv="title"].is-in::after{display:none}
+  /* 置中的區塊（首頁學長姐／影片／結尾）：光帶從標題正下方的中點展開 */
+  html.rv .t-center [data-rv="title"].is-in::after{left:50%;margin-left:-32px;transform-origin:center}
 
   @keyframes rv-rise{from{opacity:0;transform:translateY(32px)}}
   @keyframes rv-card{from{opacity:0;transform:translateY(48px) scale(.94);filter:blur(4px)}}

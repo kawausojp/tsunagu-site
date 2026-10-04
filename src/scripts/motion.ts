@@ -48,7 +48,8 @@ function charactersReact() {
     if (chars.classList.contains('is-wiggling')) return;
     chars.classList.add('is-wiggling');
   });
-  chars.addEventListener('animationend', () => chars.classList.remove('is-wiggling'));
+  // 只認自己的晃動動畫：兩半的進場動畫（meet-l／meet-r）結束時也會冒泡上來
+  chars.addEventListener('animationend', (e) => { if (e.target === chars) chars.classList.remove('is-wiggling'); });
 }
 
 countUp();

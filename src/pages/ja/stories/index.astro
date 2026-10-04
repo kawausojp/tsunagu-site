@@ -15,7 +15,7 @@ const companyHref = new Map(stories.map(s => {
 }));
 ---
 <Base title="先輩の声" lang="ja" altPaths={{ zh: '/stories/', ja: '/ja/stories/', en: '/en/stories/' }} description="ツナグを通じて日本で働く台湾人の先輩たち。どこで、何をして、何を学んだか。">
-  <section class="page-head"><div class="wrap wrap--reading">
+  <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">先輩たちは、いま日本に</h1>
     <p class="lead"><span class="sent">先輩たちも、はじめは「日本に行ってみたい」という気持ちだけでした。</span><span class="sent">{brands.length}&nbsp;ブランド、{stories.length}&nbsp;名の体験談を掲載しています。</span><span class="sent">ワーキングホリデー・留学・交換留学など、在留資格もさまざまです。</span></p>
     <div class="note"><span class="sent">体験談はツナグの Instagram の投稿原文（中国語）のまま掲載し、各記事に原文リンクを付けています。</span>
@@ -23,7 +23,7 @@ const companyHref = new Map(stories.map(s => {
     </div>
   </div></section>
 
-  <nav class="wrap wrap--reading jump" id="stories-jump" aria-label="先輩の記事へジャンプ">
+  <nav class="wrap wrap--page jump" id="stories-jump" aria-label="先輩の記事へジャンプ">
     {stories.map(s => (
       <a class="jump-chip" href={`#${s.id}`}>
         <span class="jump-ava"><SenpaiAvatar name={s.data.name} size={26} /></span>
@@ -32,7 +32,7 @@ const companyHref = new Map(stories.map(s => {
     ))}
   </nav>
 
-  <section class="wrap wrap--reading list">
+  <section class="wrap wrap--page list">
     {stories.map(s => (
       <article class="card item" id={s.id} tabindex="-1" aria-labelledby={`${s.id}-title`}>
         <header class="top">
@@ -74,7 +74,7 @@ const companyHref = new Map(stories.map(s => {
     ))}
   </section>
 
-  <section class="wrap wrap--reading cta">
+  <section class="wrap wrap--page cta">
     <div class="cta-band cta-box">
       <h2 class="d2">次はあなたの番</h2>
       <p class="lead">誰もが、一度の交流会から始まりました。</p>

@@ -1,8 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { dedupHighlights, fmtSourceDeck, relatedStoriesFor, signupCta, nameLang } from '../../lib/site';
+import { dedupHighlights, fmtSourceDeck, relatedStoriesFor, signupCta, nameLang, SKY_CATEGORIES } from '../../lib/site';
 import { ui } from '../../i18n/ui';
 import Base from '../../layouts/Base.astro';
+import CategoryIcon from '../../components/CategoryIcon.astro';
 import '../../styles/page-company.css';
 
 export async function getStaticPaths() {
@@ -25,34 +26,44 @@ const hl = dedupHighlights(d.highlights, d.placements);
   description={`${d.name}（${d.categoryLabel}）的品牌介紹與台灣人任職實績${d.placements > 0 ? `：累計 ${d.placements} 人透過 Tsunagu 任職` : ''}。詳情請參加免費交流會。`}>
   <article>
     <div class="page-head hero">
-      <div class="wrap wrap--prose">
+      <div class="wrap wrap--page">
         <a class="back" data-back-list href={`${base}/companies`}><span aria-hidden="true">←</span> 回合作企業</a>
-        <h1 class="d1" lang={nameLang(d.name, 'zh')}>{d.name}</h1>
-        {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
-        <p class="lead">{d.tagline}</p>
-        <div class="tags">
-          {d.areas.map((a:string) => <span class="tag area">{AREA[a as keyof typeof AREA]}</span>)}
-          <span class="tag job">{d.categoryLabel}</span>
-          {d.jlpt && <span class="tag jlpt">{d.jlpt} 以上</span>}
-          {d.onlineInterview && <span class="tag">可線上面試</span>}
+        <!-- 頁首兩欄（2026-10-04）：左＝品類圖標＋品牌名＋登記名、tagline、標籤；右＝實績數字（原本在內文最下方的磁磚）。
+             圖標與品牌名跟企業卡同名（view-transition-name），從列表點進來會連續變形到這裡 -->
+        <div class="b-head">
+          <div class="b-id">
+            <div class="b-name">
+              <span class="b-ico" data-tone={SKY_CATEGORIES.has(d.category) ? 'sky' : 'pink'} style={`view-transition-name:ico-${c.id}`}><CategoryIcon cat={d.category} size={36} /></span>
+              <div class="b-ttl">
+                <h1 class="d1" data-vt style={`view-transition-name:nm-${c.id}`} lang={nameLang(d.name, 'zh')}>{d.name}</h1>
+                {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
+              </div>
+            </div>
+            <p class="lead">{d.tagline}</p>
+            <div class="tags">
+              {d.areas.map((a:string) => <span class="tag area">{AREA[a as keyof typeof AREA]}</span>)}
+              <span class="tag job">{d.categoryLabel}</span>
+              {d.jlpt && <span class="tag jlpt">{d.jlpt} 以上</span>}
+              {d.onlineInterview && <span class="tag">可線上面試</span>}
+            </div>
+          </div>
+          {(d.placements > 0 || d.fullTimeConverted > 0) && (
+            <dl class="b-figs">
+              {d.placements > 0 && <div><dt>累計台灣夥伴任職</dt><dd class="n">{d.placements}<small>人</small></dd></div>}
+              {d.fullTimeConverted > 0 && <div><dt>其中轉為正職</dt><dd class="n">{d.fullTimeConverted}<small>人</small></dd></div>}
+            </dl>
+          )}
         </div>
       </div>
     </div>
 
-    <div class="wrap wrap--prose page-section body">
+    <div class="wrap wrap--page page-section body">
       <div class="prose"><Content /></div>
 
       {hl.length > 0 && (
         <div class="card hl">
           <h2 class="d3">重點</h2>
           <ul>{hl.map((h:string) => <li>{h}</li>)}</ul>
-        </div>
-      )}
-
-      {(d.placements > 0 || d.fullTimeConverted > 0) && (
-        <div class="numbers">
-          {d.placements > 0 && <div class="card"><div class="n">{d.placements}</div><div class="t">累計台灣夥伴任職</div></div>}
-          {d.fullTimeConverted > 0 && <div class="card"><div class="n">{d.fullTimeConverted}</div><div class="t">其中轉為正職</div></div>}
         </div>
       )}
 

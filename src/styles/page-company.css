@@ -8,12 +8,37 @@
   .hl{margin-top:32px;padding:var(--card-pad)}   /* 底與框走 .card；內距走全站卡片階（桌機 24） */
   .hl ul{margin:12px 0 0;padding-left:1.25em}
   .hl li{margin-bottom:6px;font-size:var(--fs-md)}
-  .numbers{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
-  .numbers > div{flex:1 1 180px;
-    padding:var(--card-pad);text-align:center}   /* 圓角交給 .card（原本這條晚載入，把手機的 12px 蓋成 14px） */
-  .numbers .n{font-family:var(--f-latin);font-weight:700;font-size:var(--fs-stat);color:var(--pink-300);line-height:1.1}
-  .numbers .t{font-size:var(--fs-xs);color:var(--ink-600);margin-top:4px;text-wrap:balance}
+  /* 頁首兩欄（2026-10-04）：左＝身分（品類圖標＋品牌名＋登記名、tagline、標籤）、右＝實績數字。
+     原本數字是內文最下方的單獨磁磚，頁首與內文之間空一大塊；數字是這頁最重要的事實，提到頁首 */
+  .b-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px 64px;align-items:end;margin-top:6px}
+  .b-name{display:flex;align-items:center;gap:20px}
+  /* 品類圖標方塊：企業卡 .ico 的放大版（同框色規則：藍品類藍框、其餘粉框） */
+  .b-ico{flex:0 0 68px;width:68px;height:68px;display:flex;align-items:center;justify-content:center;
+    border:1.5px solid var(--pink-300);border-radius:var(--r-md);background:var(--paper)}
+  .b-ico[data-tone="sky"]{border-color:var(--sky-300)}
+  .b-ttl{min-width:0}
+  .b-ttl .d1{overflow-wrap:anywhere}
+  .b-ttl .corp{margin:4px 0 0}
+  .b-name+.lead{margin-top:18px}
+  /* 實績數字：粉主色（統計數字的唯一例外，同首頁泡泡），單位與標籤灰。dl 讀屏順序＝標籤→數字，畫面上數字在上 */
+  .b-figs{display:flex;gap:44px;margin:0 0 4px}
+  .b-figs>div{display:flex;flex-direction:column-reverse;gap:6px}
+  .b-figs dt{font-size:var(--fs-xs);color:var(--ink-600);line-height:1.5}
+  .b-figs dd{margin:0}
+  .b-figs .n{font-family:var(--f-latin);font-weight:700;font-size:clamp(44px,4.6vw,60px);line-height:1;
+    color:var(--pink-300);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .b-figs .n small{font-family:var(--f-body);font-size:var(--fs-lg);font-weight:500;color:var(--ink-600);margin-left:4px;letter-spacing:0}
   main .cta{margin-top:36px}   /* 排版走 .cta-row */
+  /* 頁首到內文：數字移上去之後不需要原本兩段留白相加（48＋56px） */
+  .page-head.hero{padding-bottom:28px}
+  .body.page-section{margin-top:28px}
+  /* 桌機：介紹文（多半一兩句）與「重點」卡並排，卡片當側欄；其餘（出處、學長姐、CTA）跨兩欄 */
+  @media (min-width:901px){
+    .body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);column-gap:56px;align-items:start}
+    .body>*{grid-column:1/-1}
+    .body>.prose{grid-column:1;grid-row:1}
+    .body>.hl{grid-column:2;grid-row:1;margin-top:4px}
+  }
   @media (max-width:720px){
     .back{margin-bottom:14px}
     .page-head.hero .d1{overflow-wrap:break-word}   /* 字級交給 .page-head .d1（24px） */
@@ -25,9 +50,12 @@
     .hl{margin-top:26px;padding:18px 16px}
     .hl ul{margin-top:10px}
     .hl li{font-size:var(--fs-sm);line-height:1.8}
-    .numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:20px}
-    .numbers>div{padding:16px 10px}
-    .numbers .n{font-size:clamp(24px,7vw,28px)}  /* 要小於首頁泡泡的數字（階層） */
+    .b-head{grid-template-columns:minmax(0,1fr);gap:22px}
+    .b-name{gap:14px}
+    .b-ico{flex-basis:52px;width:52px;height:52px}
+    .b-ico svg{width:30px;height:30px}
+    .b-figs{gap:32px}
+    .b-figs .n{font-size:40px}
     main .cta{flex-direction:column;align-items:flex-start;gap:6px;margin-top:28px}
   }
   .related{margin:26px 0 6px}

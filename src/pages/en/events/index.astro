@@ -26,14 +26,14 @@ const flow = [
   altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }}
   description="Free matching meetups in Taipei, Taichung, Kaohsiung, Tokyo and Osaka, connecting Taiwanese talent with Japanese companies.">
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
-  <section class="page-head"><div class="wrap wrap--reading">
+  <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">Join a meetup</h1>
     <p class="lead"><span class="sent">Hear directly from Japanese companies about who they’re hiring — and from alumni about what the work is really like.</span></p>
     <p class="small since"><strong>{totalHeld}</strong> meetups held since {fmtSince(eventsMeta.since, 'en')},
       across {eventsMeta.cities.map(c => city(c)).map((c, i, a) => i === a.length - 1 && a.length > 1 ? `and ${c}` : c).join(', ').replace(', and ', ' and ')}.</p>
   </div></section>
 
-  <section class="wrap wrap--reading page-section" id="signup">
+  <section class="wrap wrap--page page-section" id="signup">
     <h2 class="d2">Next meetup</h2>
     {upcoming.length > 0
       ? <div class="upcoming-list">
@@ -65,7 +65,7 @@ const flow = [
         </div>}
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">What happens at a meetup</h2>
     <ol class="flow">
       {flow.map((f, i) => (
@@ -76,7 +76,7 @@ const flow = [
     <div class="note"><span class="sent"><strong>Everything is free.</strong> No participation or placement fees, ever, for participants from Taiwan.</span></div>
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">Past meetups</h2>
     <p class="lead">The {past.length} most recent. Earlier ones are on <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>.</p>
     <ul class="hist rows">

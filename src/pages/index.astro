@@ -5,9 +5,10 @@ import '../styles/home.css';
 import CompanyCard from '../components/CompanyCard.astro';
 import SenpaiAvatar from '../components/SenpaiAvatar.astro';
 import StatIcon from '../components/StatIcon.astro';
+import Heart from '../components/Heart.astro';
 import { Image } from 'astro:assets';
 import characters from '../assets/tsunagu-characters.png';
-import { VIDEO_ID, VIDEO_START, nextEvent, totalHeld, signupCta, HOME_STATS, byPlacements } from '../lib/site';
+import { VIDEO_ID, VIDEO_START, nextEvent, totalHeld, signupCta, HOME_STATS, byPlacements, sentences } from '../lib/site';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const companies = (await getCollection('companies'))
@@ -33,13 +34,17 @@ const stats = [
     <div class="wrap hero-inner">
       <p class="ja-sub" lang="ja">台湾人と日本企業をツナグ</p>
       <h1 class="d1"><span class="headline-part">把台灣的好人才</span><span class="headline-comma">，</span><span class="headline-part">牽到日本</span></h1>
-      <Image src={characters}
-        alt="Tsunagu 的兩隻角色：穿著 JP 藍色上衣的狗，和穿著 TW 粉色上衣的貓，牽著手坐在一起"
-        widths={[240, 480]} sizes="(max-width: 720px) 152px, 200px" loading="eager" fetchpriority="high" class="chars" />
+      <!-- 招牌時刻「ツナグ」（2026-10-04）：同一張圖切成左右兩半（狗／貓），進場時從兩側靠近、碰拳，愛心彈出。
+           兩個 <Image> 的 srcset 相同，瀏覽器只下載一次；整組以 role="img" 對讀屏報讀一次 -->
+      <div class="chars" role="img" aria-label="Tsunagu 的兩隻角色：穿著 JP 藍色上衣的狗，和穿著 TW 粉色上衣的貓，牽著手坐在一起">
+        <Image src={characters} alt="" widths={[240, 480]} sizes="(max-width: 720px) 168px, 240px" loading="eager" fetchpriority="high" class="chars-half chars-l" />
+        <Image src={characters} alt="" widths={[240, 480]} sizes="(max-width: 720px) 168px, 240px" loading="eager" class="chars-half chars-r" />
+        <Heart size={20} class="chars-heart" />
+      </div>
       <!-- 一句一行（使用者 2026-09-26）：句子在標點處斷行，不在句中被版寬切斷 -->
       <p class="lead">
         <span class="sent">想去日本留學或打工度假，卻不知道能找到什麼樣的工作？</span>
-        <span class="sent">我們介紹的是真心想跟台灣人一起工作的日本企業。</span>
+        <span class="sent">我們介紹的是真心想跟台灣人<wbr />一起工作的日本企業。</span>
         <strong class="sent">從履歷、面試到抵達日本之後，全程免費。</strong>
       </p>
       <div class="cta-row">
@@ -84,13 +89,13 @@ const stats = [
   </section>
 
   <!-- STORIES -->
-  <section class="section">
+  <section class="section voice-sec t-center">
     <div class="wrap">
       <h2 class="d2">學長姐現在在日本做什麼</h2>
       <div class="voice">
         <div class="v-avatar"><SenpaiAvatar name={firstStory.data.name} size={96} /></div>
         <div>
-          <blockquote class="v-quote quote" lang="zh-Hant">{firstStory.data.lead}</blockquote>
+          <blockquote class="v-quote quote" lang="zh-Hant">{sentences(firstStory.data.lead).map((t, i) => <>{i > 0 && <br />}{t}</>)}</blockquote>
           <p class="small v-meta">
             <span lang="ja">{firstStory.data.name}</span>　{firstStory.data.visa}・{firstStory.data.company}（{firstStory.data.location}）
           </p>
@@ -101,7 +106,7 @@ const stats = [
   </section>
 
   <!-- VIDEO -->
-  <section class="section vid-sec">
+  <section class="section vid-sec t-center">
     <div class="wrap">
       <h2 class="d2">新聞裡的 Tsunagu</h2>
       <p class="lead">公視晚間新聞：透過 Tsunagu 到日本打工度假的經驗分享（從 Tsunagu 的段落開始播放）。</p>
@@ -118,7 +123,7 @@ const stats = [
   </section>
 
   <!-- FINAL CTA -->
-  <section class="section final">
+  <section class="section final t-center">
     <div class="wrap final-split">
       <div>
         <h2 class="d2">下一步，先來交流會看看</h2>

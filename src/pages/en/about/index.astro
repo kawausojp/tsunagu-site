@@ -7,13 +7,13 @@ const l = (p: string) => href('en', p);
 // 連結原則（CLAUDE.md 紅線 #3）：只外連報社原文，不貼報紙掃描圖。
 ---
 <Base title="About Tsunagu" lang="en" altPaths={{ zh: '/about/', ja: '/ja/about/', en: '/en/about/' }} description="Who runs Tsunagu, and why we started connecting Taiwanese talent with Japanese companies.">
-  <section class="page-head"><div class="wrap wrap--reading">
+  <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">Why we do this</h1>
     <p class="small who">Organizer: Brain &amp; Partner Taiwan Inc. (<span lang="zh-Hant">智囊和夥伴有限公司</span>)</p>
     <p class="lead"><span class="sent">For eight years, our work has been bringing Japan’s best products, brands and culture to customers in Taiwan.</span></p>
   </div></section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <div class="prose">
       <p>Along the way we saw how many Taiwanese people love Japan and want to study or work there. Tourism alone brings 660,000–760,000 Taiwanese visitors to Japan every month — 6.76 million visits in 2025.</p>
       <p>Japan, meanwhile, faces a serious labor shortage. Post-pandemic tourism and a weak yen brought a flood of visitors — and not enough staff to serve them, especially in fashion and food service.</p>
@@ -21,7 +21,7 @@ const l = (p: string) => href('en', p);
     </div>
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">Who we are</h2>
     <div class="grid grid-2">
       <div class="card card-pad b">
@@ -36,7 +36,7 @@ const l = (p: string) => href('en', p);
     <p class="small">Past projects: <span class="nowrap">BLUE BOTTLE COFFEE</span>, JAPAN RAIL CAFE, <span class="nowrap">MAISON DE REEFUR</span>, Sasaraya, Kimono Yamato, and Nanaya (the world’s richest matcha gelato). Own stores: <span class="nowrap">bpt ROOM</span> (Breeze Nan Shan 2F, Taipei, 2019–2025.09) and Shion Flowers (Taoyuan).</p>
   </section>
 
-  <section class="wrap wrap--reading page-section" id="media">
+  <section class="wrap wrap--page page-section" id="media">
     <h2 class="d2">Media coverage</h2>
     <ul class="media rows">
       {MEDIA.map(m => (
@@ -54,7 +54,7 @@ const l = (p: string) => href('en', p);
     {/* 內部待辦（勿放回畫面）：各則報導的原文連結（標題＋日期＋外連，不貼截圖），見 CLAUDE.md */}
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <div class="cta-row">
       <a class="btn btn-primary" href={l('/events')}>Meet us at a meetup</a>
       <a class="action-link" href={l('/stories')}>Read alumni stories</a>

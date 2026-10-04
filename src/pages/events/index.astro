@@ -21,13 +21,13 @@ const flow = [
 ---
 <Base title="報名交流會" altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }} description="Tsunagu 交流會，台北・台中・高雄・東京・大阪輪流舉辦，參加免費。">
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
-  <section class="page-head"><div class="wrap wrap--reading">
+  <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">報名交流會</h1>
     <p class="lead"><span class="sent">聽日本企業說他們在找什麼樣的人，也聽已經在日本的學長姐分享第一手經驗。</span></p>
     <p class="small since">自 {fmtSince(eventsMeta.since, 'zh')}起累計舉辦 <strong>{totalHeld}</strong> 場，地點涵蓋{eventsMeta.cities.map((c: string, i: number) => (<span class="nowrap">{c}{i < eventsMeta.cities.length - 1 ? '、' : ''}</span>))}。</p>
   </div></section>
 
-  <section class="wrap wrap--reading page-section" id="signup">
+  <section class="wrap wrap--page page-section" id="signup">
     <h2 class="d2">下一場</h2>
     {upcoming.length > 0
       ? <div class="upcoming-list">
@@ -59,7 +59,7 @@ const flow = [
         </div>}
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">交流會當天會發生什麼</h2>
     <ol class="flow">
       {flow.map((f,i) => (
@@ -70,7 +70,7 @@ const flow = [
     <div class="note"><span class="sent"><strong>全部免費。</strong>參加與媒合都不收費，細節見<span class="nowrap">「我們怎麼幫你」</span>。</span></div>
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">舉辦紀錄</h2>
     <p class="lead">最近 {past.length} 場的舉辦紀錄。更早的在 <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>。</p>
     <ul class="hist rows">

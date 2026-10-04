@@ -26,14 +26,14 @@ const flow = [
   altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }}
   description="台北・台中・高雄・東京・大阪で開催する台湾人と日本企業のマッチング交流会。参加無料。">
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
-  <section class="page-head"><div class="wrap wrap--reading">
+  <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">交流会に申し込む</h1>
     <p class="lead"><span class="sent">日本企業がどんな人材を求めているか、先輩の<span class="nowrap">生の声</span>とあわせて聞ける場です。</span></p>
     <p class="small since">{fmtSince(eventsMeta.since, 'ja')}から累計 <strong>{totalHeld}</strong> 回開催。
       {eventsMeta.cities.map(c => city(c)).join('・')}で実施しています。</p>
   </div></section>
 
-  <section class="wrap wrap--reading page-section" id="signup">
+  <section class="wrap wrap--page page-section" id="signup">
     <h2 class="d2">次回開催</h2>
     {upcoming.length > 0
       ? <div class="upcoming-list">
@@ -65,7 +65,7 @@ const flow = [
         </div>}
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">交流会当日の流れ</h2>
     <ol class="flow">
       {flow.map((f, i) => (
@@ -76,7 +76,7 @@ const flow = [
     <div class="note"><span class="sent"><strong>すべて無料。</strong>参加費・紹介料は、台湾の皆さまからは一切いただきません。詳しくは「サポート内容」をご覧ください。</span></div>
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">開催実績</h2>
     <p class="lead">直近 {past.length} 回の開催記録です。それ以前は
       <a href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram&nbsp;<span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a> をご覧ください。</p>

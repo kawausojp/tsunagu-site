@@ -15,7 +15,7 @@ const companyHref = new Map(stories.map(s => {
 }));
 ---
 <Base title="Alumni Stories" lang="en" altPaths={{ zh: '/stories/', ja: '/ja/stories/', en: '/en/stories/' }} description="Taiwanese alumni working in Japan through Tsunagu — where they are, what they do, what they learned.">
-  <section class="page-head"><div class="wrap wrap--reading">
+  <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">Our alumni, now in Japan</h1>
     <p class="lead"><span class="sent">They all started with just “I’d like to try Japan.”</span><span class="sent">Here are stories from {stories.length} alumni across {brands.length} brands — working holidays, study abroad and exchange.</span></p>
     <div class="note"><span class="sent">Stories are published in their original language (Chinese), excerpted from Tsunagu’s Instagram, with a link to each original post.</span>
@@ -23,7 +23,7 @@ const companyHref = new Map(stories.map(s => {
     </div>
   </div></section>
 
-  <nav class="wrap wrap--reading jump" id="stories-jump" aria-label="Jump to an alumni story">
+  <nav class="wrap wrap--page jump" id="stories-jump" aria-label="Jump to an alumni story">
     {stories.map(s => (
       <a class="jump-chip" href={`#${s.id}`}>
         <span class="jump-ava"><SenpaiAvatar name={s.data.name} size={26} /></span>
@@ -32,7 +32,7 @@ const companyHref = new Map(stories.map(s => {
     ))}
   </nav>
 
-  <section class="wrap wrap--reading list">
+  <section class="wrap wrap--page list">
     {stories.map(s => (
       <article class="card item" id={s.id} tabindex="-1" aria-labelledby={`${s.id}-title`}>
         <header class="top">
@@ -74,7 +74,7 @@ const companyHref = new Map(stories.map(s => {
     ))}
   </section>
 
-  <section class="wrap wrap--reading cta">
+  <section class="wrap wrap--page cta">
     <div class="cta-band cta-box">
       <h2 class="d2">You could be next</h2>
       <p class="lead">Every one of them started with a single meetup.</p>

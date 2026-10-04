@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
+import CategoryIcon from '../../../components/CategoryIcon.astro';
 import '../../../styles/page-company.css';
 
 export async function getStaticPaths() {
@@ -16,7 +17,7 @@ const allStories = await getCollection('stories');
 const companiesCount = (await getCollection('companies')).length;
 const relatedStories = relatedStoriesFor(d.name, allStories);
 import { href, ui } from '../../../i18n/ui';
-import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor, signupCta, nameLang } from '../../../lib/site';
+import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor, signupCta, nameLang, SKY_CATEGORIES } from '../../../lib/site';
 const l = (p: string) => href('en', p);
 const catLabel = CAT_LABEL.en[d.category] ?? d.categoryLabel;
 const tagline = d.taglineEn ?? d.tagline;
@@ -28,34 +29,44 @@ const hl = dedupHighlights(d.highlights, d.placements);
   description={`${name} (${catLabel}) brand profile and Taiwanese staff placement record${d.placements > 0 ? `: ${d.placements} placed via Tsunagu` : ''}.`}>
   <article>
     <div class="page-head hero">
-      <div class="wrap wrap--prose">
+      <div class="wrap wrap--page">
         <a class="back" data-back-list href={l('/companies')}><span aria-hidden="true">←</span> All partner brands</a>
-        <h1 class="d1" lang={nameLang(name, 'en')}>{name}</h1>
-        {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
-        <p class="lead">{tagline}</p>
-        <div class="tags">
-          {d.areas.map((a:string) => <span class="tag area">{AREA[a]}</span>)}
-          <span class="tag job">{catLabel}</span>
-          {d.jlpt && <span class="tag jlpt">{d.jlpt}+</span>}
-          {d.onlineInterview && <span class="tag">Online interview OK</span>}
+        <!-- 頁首兩欄（2026-10-04）：左＝品類圖標＋品牌名＋登記名、tagline、標籤；右＝實績數字（原本在內文最下方的磁磚）。
+             圖標與品牌名跟企業卡同名（view-transition-name），從列表點進來會連續變形到這裡 -->
+        <div class="b-head">
+          <div class="b-id">
+            <div class="b-name">
+              <span class="b-ico" data-tone={SKY_CATEGORIES.has(d.category) ? 'sky' : 'pink'} style={`view-transition-name:ico-${c.id}`}><CategoryIcon cat={d.category} size={36} /></span>
+              <div class="b-ttl">
+                <h1 class="d1" data-vt style={`view-transition-name:nm-${c.id}`} lang={nameLang(name, 'en')}>{name}</h1>
+                {d.corporateName && <p class="corp" lang="ja">{d.corporateName}</p>}
+              </div>
+            </div>
+            <p class="lead">{tagline}</p>
+            <div class="tags">
+              {d.areas.map((a:string) => <span class="tag area">{AREA[a]}</span>)}
+              <span class="tag job">{catLabel}</span>
+              {d.jlpt && <span class="tag jlpt">{d.jlpt}+</span>}
+              {d.onlineInterview && <span class="tag">Online interview OK</span>}
+            </div>
+          </div>
+          {(d.placements > 0 || d.fullTimeConverted > 0) && (
+            <dl class="b-figs">
+              {d.placements > 0 && <div><dt>Taiwanese staff placed</dt><dd class="n">{d.placements}</dd></div>}
+              {d.fullTimeConverted > 0 && <div><dt>became full-time</dt><dd class="n">{d.fullTimeConverted}</dd></div>}
+            </dl>
+          )}
         </div>
       </div>
     </div>
 
-    <div class="wrap wrap--prose page-section body">
+    <div class="wrap wrap--page page-section body">
       <div class="prose" lang="zh-Hant"><Content /></div>
 
       {hl.length > 0 && (
         <div class="card hl">
           <h2 class="d3">Highlights (original text)</h2>
           <ul lang="zh-Hant">{hl.map((h:string) => <li>{h}</li>)}</ul>
-        </div>
-      )}
-
-      {(d.placements > 0 || d.fullTimeConverted > 0) && (
-        <div class="numbers">
-          {d.placements > 0 && <div class="card"><div class="n">{d.placements}</div><div class="t">Taiwanese staff placed</div></div>}
-          {d.fullTimeConverted > 0 && <div class="card"><div class="n">{d.fullTimeConverted}</div><div class="t">became full-time</div></div>}
         </div>
       )}
 

@@ -7,13 +7,13 @@ const l = (p: string) => href('ja', p);
 // 連結原則（CLAUDE.md 紅線 #3）：只外連報社原文，不貼報紙掃描圖。
 ---
 <Base title="ツナグについて" lang="ja" altPaths={{ zh: '/about/', ja: '/ja/about/', en: '/en/about/' }} description="ツナグの運営会社と、この事業を始めた理由。">
-  <section class="page-head"><div class="wrap wrap--reading">
+  <section class="page-head"><div class="wrap wrap--page">
     <h1 class="d1">なぜこの事業を始めたのか</h1>
     <p class="small who">主催：智囊和夥伴有限公司（Brain &amp; Partner Taiwan Inc.）</p>
     <p class="lead"><span class="sent">私たちは「日本の良い商品・ブランド・文化を台湾のお客様へ届ける」仕事を 8&nbsp;年続けてきました。</span></p>
   </div></section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <div class="prose">
       <p>その中で、日本で学びたい・働きたい台湾人が非常に多いことを実感しました。観光だけでも毎月 66〜76 万人、2025 年は延べ 676 万人の台湾人が日本を訪れています。</p>
       <p>一方、日本は深刻な人手不足です。インバウンドの回復と円安で訪日客が急増する一方、接客できる人が足りていません。アパレルと飲食は特に深刻です。</p>
@@ -21,7 +21,7 @@ const l = (p: string) => href('ja', p);
     </div>
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <h2 class="d2">運営会社</h2>
     <div class="grid grid-2">
       <div class="card card-pad b">
@@ -36,7 +36,7 @@ const l = (p: string) => href('ja', p);
     <p class="small">手がけた案件：<span class="nowrap">BLUE BOTTLE COFFEE</span>、JAPAN RAIL CAFE、<span class="nowrap">MAISON DE REEFUR</span>、ささら屋、きものやまと、「世界一濃い抹茶ジェラート」で知られる「ななや」など。直営店 <span class="nowrap">bpt ROOM</span>（台北・微風南山 2F、2019〜2025.09）、紫苑花屋（桃園・<span class="nowrap">馬祖新村眷村文創園区</span>）。</p>
   </section>
 
-  <section class="wrap wrap--reading page-section" id="media">
+  <section class="wrap wrap--page page-section" id="media">
     <h2 class="d2">メディア掲載</h2>
     <ul class="media rows">
       {MEDIA.map(m => (
@@ -54,7 +54,7 @@ const l = (p: string) => href('ja', p);
     {/* 內部待辦（勿放回畫面）：各則報導的原文連結（標題＋日期＋外連，不貼截圖），見 CLAUDE.md */}
   </section>
 
-  <section class="wrap wrap--reading page-section">
+  <section class="wrap wrap--page page-section">
     <div class="cta-row">
       <a class="btn btn-primary" href={l('/events')}>交流会でお会いしましょう</a>
       <a class="action-link" href={l('/stories')}>先輩の声を見る</a>

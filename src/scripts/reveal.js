@@ -10,7 +10,7 @@
   // [選擇器, 效果]。效果的 keyframes 在 global.css（搜 data-rv）。
   // 會交錯（stagger）的是「一起進畫面的兄弟元素」，所以列表／格線要標到子元素，不要標容器。
   const RULES = [
-    ['.hero-inner > :not(.chars)', 'rise'],          // 角色另有點擊晃動動畫，兩個 animation 會互搶，不加
+    ['.hero-inner > :not(.chars)', 'rise'],          // 角色走自己的 meet（動畫掛在兩半上，不跟點擊晃動搶 animation）
     ['.page-head .d1, .section .d2, .page-section > .d2, .page-section > h2', 'title'],
     ['.band .stat', 'pop'],
     ['.grid3 > *, #company-grid > *, .upcoming-list > *, .reasons > *, .numbers > *, .grid-2 > *, ' +
@@ -18,6 +18,7 @@
     ['.rows > *', 'slide'],
     ['.video', 'zoom'],
     ['.final-chars', 'bounce'],
+    ['.hero .chars', 'meet'],                       // 招牌時刻：兩半從兩側靠近碰拳（動畫在 home.css，掛在子元素上）
     ['.page-head .lead, .page-head .small, .section .lead, .co-side > .action-link, .voice, .more, ' +
      '.final .cta-row, .cta-box, .hl, .prose, .notice, .tools', 'rise'],
   ];
@@ -26,6 +27,7 @@
   for (const [sel, fx] of RULES) {
     for (const el of document.querySelectorAll(sel)) {
       if (el.hasAttribute('data-rv')) continue;       // 先配到的規則優先
+      if (el.hasAttribute('data-vt')) continue;       // 跨頁轉場的變形目標（品牌頁標題）：交給 View Transition，不另做進場
       el.setAttribute('data-rv', fx);
       els.push(el);
     }
@@ -46,8 +48,21 @@
   // 離場：完全離開畫面才重置，下次捲回來會再播一次。
   // 用另一個不縮邊的 observer：否則往上捲時，元素還露在畫面底部那 12% 就先被藏掉
   const leave = new IntersectionObserver((entries) => {
-    for (const e of entries) if (!e.isIntersecting) e.target.classList.remove('is-in');
+    for (const e of entries) if (!e.isIntersecting) e.target.classList.remove('is-in', 'rv-now');
   });
 
   for (const el of els) { enter.observe(el); leave.observe(el); }
+
+  // 從站內另一頁以跨頁轉場（View Transitions，global.css）進來時：第一屏的元素直接就位（rv-now 不播動畫），
+  // 頁面進場交給轉場本身——否則轉場拍到的新頁是一片空白，企業卡圖標也會變形到看不見的位置。
+  // 畫面外的照常捲到才播；角色的 meet 例外（hero 的招牌時刻，換頁進首頁時也要看得到）。
+  addEventListener('pagereveal', (ev) => {
+    if (!ev.viewTransition) return;
+    const vh = innerHeight;
+    for (const el of els) {
+      if (el.dataset.rv === 'meet') continue;
+      const r = el.getBoundingClientRect();
+      if (r.top < vh && r.bottom > 0) el.classList.add('is-in', 'rv-now');
+    }
+  });
 })();

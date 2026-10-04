@@ -6,11 +6,32 @@
   /* hero 大標刻意比規則 2 的 .05em／1.45 收窄：62px 展示級拉開字距會散、行高 1.45 兩行會離太遠（定案，非違規） */
   .hero h1{font-size:clamp(40px,4.8vw,62px);line-height:1.25;letter-spacing:.045em;
     white-space:nowrap;text-wrap:balance}
-  .hero .chars{width:200px;height:auto;margin:20px auto 18px;
+  /* 招牌時刻「ツナグ」（2026-10-04）：角色圖切成左右兩半——狗在左、貓在右，兩隻的拳頭在 x=48.7% 相碰
+     （原圖 699px 的第 340px，兩邊的輪廓線在那裡分開，直切不會切到任何一隻）。
+     進場時兩半從左右靠近、碰一下拳、愛心彈出後飄走；動畫在下方（只在 no-preference 時）。
+     沒有動畫時兩半疊回去就是原圖，看不出切過 */
+  .hero .chars{position:relative;display:grid;width:240px;margin:20px auto 18px;
     transition:transform .28s var(--ease);transform-origin:50% 90%}
+  .chars-half{grid-area:1/1;width:100%;height:auto}
+  .chars-l{clip-path:inset(0 51.3% 0 0);transform-origin:25% 92%}
+  .chars-r{clip-path:inset(0 0 0 48.7%);transform-origin:75% 92%}
+  .chars-heart{position:absolute;left:calc(48.7% - 10px);top:6%;opacity:0;pointer-events:none}
   @media (hover:hover) and (pointer:fine){ .hero-inner:hover .chars{transform:rotate(-2deg)} }
-  /* 按一下角色會輕輕晃一下——手機沒有 hover，這是牠們唯一的回應方式 */
-  .hero .chars.is-wiggling{animation:chars-wiggle .5s var(--ease)}
+  /* 按一下角色會輕輕晃一下——手機沒有 hover，這是牠們唯一的回應方式。
+     [data-rv] 提高權重：reveal 的 .is-in 規則（0,3,1）會蓋掉這裡的 duration／delay */
+  .hero .chars.is-wiggling[data-rv],.hero .chars.is-wiggling{animation:chars-wiggle .5s var(--ease) 0s}
+  @media (prefers-reduced-motion:no-preference){
+    html.rv .hero .chars.is-in .chars-l{animation:meet-l 1.05s cubic-bezier(.22,1,.36,1) .12s backwards}
+    html.rv .hero .chars.is-in .chars-r{animation:meet-r 1.05s cubic-bezier(.22,1,.36,1) .12s backwards}
+    html.rv .hero .chars.is-in .chars-heart{animation:meet-heart 1.7s cubic-bezier(.22,1,.36,1) .84s both}
+    /* 78% 時各自多走 1.2%（兩邊合計約 6px）：拳頭碰在一起「擠」一下再彈回原位 */
+    @keyframes meet-l{0%{opacity:0;transform:translateX(-26%) rotate(-7deg)}45%{opacity:1}
+      78%{transform:translateX(1.2%) rotate(1.5deg)}100%{transform:none}}
+    @keyframes meet-r{0%{opacity:0;transform:translateX(26%) rotate(7deg)}45%{opacity:1}
+      78%{transform:translateX(-1.2%) rotate(-1.5deg)}100%{transform:none}}
+    @keyframes meet-heart{0%{opacity:0;transform:translateY(10px) scale(.2)}24%{opacity:1;transform:translateY(-4px) scale(1.25)}
+      38%{transform:translateY(-2px) scale(.94)}68%{opacity:1}100%{opacity:0;transform:translateY(-34px) scale(1)}}
+  }
   @keyframes chars-wiggle{
     30%{transform:rotate(-3.5deg) scale(1.03)}
     62%{transform:rotate(2.5deg) scale(1.01)}
@@ -69,16 +90,19 @@
   /* 企業區＝淺藍底色帶（使用者 2026-09-25 選 C）：同 /companies 列表，白卡浮在淡藍上，用底色換段落而不是橫線 */
   .alt{background:var(--sky-wash)}
 
-  .voice{display:flex;gap:28px;align-items:flex-start;margin-top:28px;max-width:760px}
+  /* 學長姐、影片、結尾三區走同一條中軸（2026-10-04）：原本學長姐與影片靠左、右半邊整片空白，
+     首頁的節奏變成「置中 hero → 企業區 → 兩區靠左 → 置中結尾」，中間塌一塊。改成除了企業區（目錄型）以外全部置中 */
+  .t-center>.wrap{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .voice{display:flex;flex-direction:column;align-items:center;gap:22px;margin-top:30px}
   .v-avatar{width:96px;height:96px;flex:0 0 96px;border-radius:var(--r-full);overflow:hidden}
   .v-avatar svg{width:100%;height:100%;display:block}
-  /* 引文用日式鉤括號，開引號掛出版心（光學對齊） */
-  .v-quote{font-size:var(--fs-3xl);line-height:1.9}
-  .v-meta{margin:14px 0 0;color:var(--ink-600)}
+  /* 焦點引言：放大、逐句換行（sentences()，原文不改）。置中時不需要開引號的懸掛縮排 */
+  .v-quote{font-size:clamp(20px,2.1vw,25px);line-height:1.85;text-indent:0;text-wrap:balance}
+  .v-meta{margin:16px 0 0;color:var(--ink-600)}
 
   .vid-sec .lead,html[lang="en"] .vid-sec .lead{margin-bottom:22px;max-width:none}   /* 一行放完，不被 36em 的預設行寬切斷（使用者 2026-09-26） */
   /* 影片是佐證素材不是主角：限寬，避免單一第三方畫面吃掉整個視窗 */
-  .video{position:relative;aspect-ratio:16/9;max-width:760px;border-radius:var(--r-lg);overflow:hidden;
+  .video{position:relative;width:100%;aspect-ratio:16/9;max-width:760px;border-radius:var(--r-lg);overflow:hidden;
     background:var(--greige-50);box-shadow:var(--sh-3);margin-bottom:12px}
   .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .vid-more{margin:0}
@@ -105,7 +129,7 @@
     .headline-comma{display:none}
     html[lang="en"] .headline-part{display:inline;white-space:normal}
     html[lang="en"] .headline-comma{display:inline}
-    .hero .chars{width:152px;margin:16px auto 14px}
+    .hero .chars{width:168px;margin:16px auto 14px}
     .hero .lead{max-width:none;text-align:center}
     .hero .cta-row{gap:10px;margin-top:20px}
     .hero .cta-row .btn-primary{width:auto;min-width:240px}
@@ -133,9 +157,9 @@
 
     .more{margin-top:20px}
     .more .action-link{margin-left:2px}
-    .voice{gap:16px;margin-top:20px}
-    .v-avatar{width:64px;height:64px;flex-basis:64px}
-    .v-quote{font-size:var(--fs-lg)}
+    .voice{gap:14px;margin-top:22px}
+    .v-avatar{width:72px;height:72px;flex-basis:72px}
+    .v-quote{font-size:var(--fs-xl);line-height:1.8}
     .video{border:1px solid var(--mobile-line);border-radius:var(--r-md);box-shadow:none}
     .final .cta-row{flex-direction:column;align-items:center;gap:10px;margin-top:20px}
   }

@@ -290,3 +290,9 @@ export const VIDEO_START = 47;
 
 /** 品類的主色調：藍＝鞋／襪／眼鏡，其餘粉。CategoryIcon 線條色與企業卡圖標框共用 */
 export const SKY_CATEGORIES = new Set(['shoes', 'socks', 'eyewear']);
+
+// 引言逐句換行用：在句末標點（。！？）後切開，標點與後面的收尾括號留在前一句。
+// 只切顯示用的行，原文一字不改（紅線 #1：學長姐引言不改寫）。
+export function sentences(text: string): string[] {
+  return text.match(/[^。！？]+[。！？]+[」』）]*|[^。！？]+$/g)?.map(s => s.trim()).filter(Boolean) ?? [text];
+}
