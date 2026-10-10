@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-import { LANG_META, ui, type Lang } from '../i18n/ui';
+import { LANG_META, ui, href, type Lang } from '../i18n/ui';
 interface Props { title: string; description?: string; noindex?: boolean; lang?: Lang; altPaths?: Partial<Record<Lang, string>>; }
 const { title, description = '把台灣的好人才牽到日本。免費的日本留學・打工度假就職媒合交流會，台北、台中、高雄、東京、大阪舉辦。', noindex = false, lang = 'zh', altPaths } = Astro.props;
 const OG_LOCALE: Record<Lang, string> = { zh: 'zh_TW', ja: 'ja_JP', en: 'en_US' };
@@ -24,6 +24,10 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(`${base}/img/${lang === 'zh' ? 'og-default' : `og-${lang}`}.png`, Astro.site);
 import revealJs from '../scripts/reveal.js?raw';
 import vtJs from '../scripts/vt.js?raw';
+import fabJs from '../scripts/fab.js?raw';
+import fitNamesJs from '../scripts/fit-names.js?raw';
+// 浮動報名鈕：報名頁本身不需要
+const onEvents = /\/events\/?$/.test(Astro.url.pathname);
 ---
 <!DOCTYPE html>
 <html lang={LANG_META[lang].htmlLang}>
@@ -80,10 +84,13 @@ import vtJs from '../scripts/vt.js?raw';
   <Header lang={lang} altPaths={altPaths} />
   <main id="main" tabindex="-1"><slot /></main>
   <Footer lang={lang} />
+  {!onEvents && <a class="fab" href={href(lang, '/events')}>{ui[lang].signup}</a>}
   <!-- 捲動進場動效：body 最後同步執行，首次繪製前就把未進場的元素藏好（不閃） -->
   <script is:inline set:html={revealJs}></script>
   <!-- 跨頁轉場：只替被點／剛離開的那張企業卡命名（品牌頁頁首是固定名字） -->
   <script is:inline set:html={vtJs}></script>
+  <script is:inline set:html={fabJs}></script>
+  <script is:inline set:html={fitNamesJs}></script>
   <style>
     /* 跳到主內容：全站唯一曾用深色塊的元件，改與 .notice 同語言（白底＋粉框＋灰字） */
     .skip{position:absolute;left:-9999px;top:0;background:var(--paper);color:var(--ink-900);border:1px solid var(--pink-300);

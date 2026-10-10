@@ -274,6 +274,25 @@ html[lang="en"] .prose{max-width:56ch}
   margin-top:20px;padding:14px 18px;font-size:var(--fs-sm);color:var(--note-ink);line-height:1.9;max-width:46em}
 .notice strong{color:var(--ink-900)}
 
+/* 手機右下角的浮動報名鈕（使用者 2026-10-11）。桌機頁首本來就有報名鈕，不出現。
+   顯示時機由 src/scripts/fab.js 控制（畫面上沒有其他主按鈕、沒捲到 footer 才出現）。
+   隱藏時用 visibility 讓它離開 Tab 順序；抽屜開著時 Header 會把它設成 inert，遮罩也蓋在它上面（z-index 低於頁首） */
+.fab{display:none}
+@media (max-width:720px){
+  .fab{display:inline-flex;align-items:center;position:fixed;z-index:45;
+    right:16px;bottom:calc(16px + env(safe-area-inset-bottom));
+    min-height:var(--control-min);padding:10px 18px;border-radius:var(--r-md);
+    background:var(--pink-300);color:var(--paper);font-weight:700;font-size:var(--fs-sm);letter-spacing:.04em;
+    text-decoration:none;box-shadow:0 6px 20px rgba(70,70,70,.18);
+    opacity:0;transform:translateY(14px);visibility:hidden;
+    transition:opacity .24s ease,transform .28s cubic-bezier(.22,.61,.36,1),visibility 0s linear .28s}
+  .fab[data-show]{opacity:1;transform:none;visibility:visible;
+    transition:opacity .24s ease,transform .28s cubic-bezier(.22,.61,.36,1),visibility 0s}
+  .fab:active{transform:scale(.97)}
+  /* 抽屜開著（遮罩出現）時整顆收起，不只是 inert */
+  html:has(.scrim:not([hidden])) .fab{opacity:0;visibility:hidden}
+}
+
 /* 手機版採用安靜、任務優先的單層介面；桌面版保留原有品牌表現。 */
 @media (max-width:720px){
   :root{

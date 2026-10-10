@@ -232,7 +232,7 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
       document.body.classList.toggle('menu-open', lock);
       if (scrim) scrim.hidden = !lock;
       // .skip 也要：不然從抽屜最後一項 Tab 出去會落到「跳到主要內容」，而它指向已 inert 的 main
-      for (const el of document.querySelectorAll('main, footer, .skip')) el.toggleAttribute('inert', lock);
+      for (const el of document.querySelectorAll('main, footer, .skip, .fab')) el.toggleAttribute('inert', lock);
       // hover 開抽屜不該連帶關掉已開的語言選單（使用者可能只是滑鼠掃過鈕）
       if (open && lang && closeLangMenu) lang.open = false;
       if (!open && restoreFocus) b.focus();
