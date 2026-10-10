@@ -42,6 +42,8 @@ export const ui = {
       online: '可線上面試',
       jlpt: (lv: string) => `${lv} 以上`,
     },
+    // 收藏與分享（2026-10-11）：收藏只存在訪客自己的瀏覽器（localStorage），不上傳
+    save: { save: (n: string) => `收藏 ${n}`, label: '收藏', saved: '已收藏', share: '分享', copied: '已複製連結', only: '只看收藏', count: (n: number) => `（${n}）`, empty: '還沒有收藏的品牌。在品牌卡右上角按愛心，就會出現在這裡。' },
     area: { tokyo: '東京', osaka: '大阪', kyoto: '京都', fukuoka: '福岡', kobe: '神戶', hokkaido: '北海道' } as Record<string, string>,
   },
   ja: {
@@ -77,6 +79,7 @@ export const ui = {
       online: 'オンライン面接可',
       jlpt: (lv: string) => `${lv} 以上`,
     },
+    save: { save: (n: string) => `${n} をお気に入りに追加`, label: 'お気に入り', saved: 'お気に入り済み', share: 'シェア', copied: 'リンクをコピーしました', only: 'お気に入りのみ', count: (n: number) => `（${n}）`, empty: 'お気に入りのブランドはまだありません。ブランドカード右上のハートを押すと、ここに表示されます。' },
     area: { tokyo: '東京', osaka: '大阪', kyoto: '京都', fukuoka: '福岡', kobe: '神戸', hokkaido: '北海道' } as Record<string, string>,
   },
   en: {
@@ -112,6 +115,7 @@ export const ui = {
       online: 'Online interview OK',
       jlpt: (lv: string) => `${lv}+`,
     },
+    save: { save: (n: string) => `Save ${n}`, label: 'Save', saved: 'Saved', share: 'Share', copied: 'Link copied', only: 'Saved only', count: (n: number) => ` (${n})`, empty: 'No saved brands yet. Tap the heart on a brand card to save it here.' },
     area: { tokyo: 'Tokyo', osaka: 'Osaka', kyoto: 'Kyoto', fukuoka: 'Fukuoka', kobe: 'Kobe', hokkaido: 'Hokkaido' } as Record<string, string>,
   },
 } as const;

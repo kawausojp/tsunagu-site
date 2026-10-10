@@ -26,6 +26,7 @@ import revealJs from '../scripts/reveal.js?raw';
 import vtJs from '../scripts/vt.js?raw';
 import fabJs from '../scripts/fab.js?raw';
 import fitNamesJs from '../scripts/fit-names.js?raw';
+import saveJs from '../scripts/save.js?raw';
 // 浮動報名鈕：報名頁本身不需要
 const onEvents = /\/events\/?$/.test(Astro.url.pathname);
 ---
@@ -91,6 +92,7 @@ const onEvents = /\/events\/?$/.test(Astro.url.pathname);
   <script is:inline set:html={vtJs}></script>
   <script is:inline set:html={fabJs}></script>
   <script is:inline set:html={fitNamesJs}></script>
+  <script is:inline set:html={saveJs}></script>
   <style>
     /* 跳到主內容：全站唯一曾用深色塊的元件，改與 .notice 同語言（白底＋粉框＋灰字） */
     .skip{position:absolute;left:-9999px;top:0;background:var(--paper);color:var(--ink-900);border:1px solid var(--pink-300);

@@ -1,9 +1,10 @@
 ---
 // English: meetup schedule. Structure shared with zh version (page-events.css). Update all three languages together.
+import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
 import { href } from '../../../i18n/ui';
-import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta } from '../../../lib/site';
+import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta, JOIN_STEPS, gcalUrl, companyName } from '../../../lib/site';
 
 const l = (p: string) => href('en', p);
 const today = todayTaipei();
@@ -16,11 +17,10 @@ const city = (c: string) => CITY.en[c] ?? c;
 // Event 結構化資料：site.ts eventLd()（三語共用）
 const eventsLd = upcoming.filter(e => e.venue && e.address).map(eventLd);
 
-const flow = [
-  { t: 'On the day', d: 'Japanese companies present who they’re looking for; alumni share what working in Japan is really like.' },
-  { t: 'One-on-one chat', d: 'Tell us your Japanese level, what you want to do, and when you plan to go.' },
-  { t: 'Every step after', d: 'Resume, interview practice, visa paperwork, and follow-⁠up after you arrive — we stay with you.' },
-];
+const flow = JOIN_STEPS.en;   // 三語共用，文字在 site.ts（品牌頁的「想在這裡工作？」也用同一份）
+// 「你收藏的品牌」提示框要的品牌名與網址（收藏本身在訪客瀏覽器，save.js 依這份清單畫出來）
+const savedNames = Object.fromEntries((await getCollection('companies')).map(c => [c.id, { name: companyName(c.data, 'en'), href: l(`/companies/${c.id}`) }]));
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 <Base title="Join a meetup" lang="en"
   altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }}
@@ -53,6 +53,12 @@ const flow = [
                 ? <>
                     <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Sign up via Google Form <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>
                     <p class="small hint">Each meetup has its own form — please use this one.</p>
+                    {e.sessions && e.sessions.length > 0 && (
+                      <p class="small cal"><span>Add to Google Calendar:</span>{e.sessions.map(s => {
+                        const u = gcalUrl(e, s, 'en', pageUrl);
+                        return u && <a href={u} target="_blank" rel="noopener">{s.split(/[–-]/)[0].trim()} session <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>;
+                      })}</p>
+                    )}
                   </>
                 : <p class="small">Sign-up link coming soon.</p>}
             </div>
@@ -63,6 +69,12 @@ const flow = [
           <p class="small">Dates are posted on Instagram 2–4 weeks ahead. The most recent meetup was #{fmtEventNo(past[0]?.no ?? '', 'en')} ({fmt(past[0]?.date)} · {city(past[0]?.city)}).</p>
           <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Follow us on Instagram <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>
         </div>}
+    <!-- 收藏的品牌（2026-10-11）：逛企業時按的愛心，在這裡提醒「交流會現場可以直接問」。沒有收藏就不出現 -->
+    <div class="saved-box" data-saved-box data-saved-names={JSON.stringify(savedNames)} hidden>
+      <p class="saved-ttl"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/></svg>Your saved brands — ask about them at the meetup</p>
+      <ul class="saved-list" data-saved-list></ul>
+      <a class="action-link" href={l('/companies') + '?saved=1'}>View saved brands</a>
+    </div>
   </section>
 
   <section class="wrap wrap--page page-section">

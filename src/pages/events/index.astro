@@ -1,7 +1,8 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import '../../styles/page-events.css';
-import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, eventLd, totalHeld, eventsMeta } from '../../lib/site';
+import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, eventLd, totalHeld, eventsMeta, JOIN_STEPS, gcalUrl, companyName } from '../../lib/site';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const today = todayTaipei();
@@ -13,11 +14,10 @@ const past = sorted.filter(e => e.date < today);
 const eventsLd = upcoming.filter(e => e.venue && e.address).map(eventLd);
 const fmt = (d: string) => fmtEventDateFull(d, 'zh');
 
-const flow = [
-  { t:'當天現場', d:'日本企業介紹他們在找什麼樣的人，學長姐分享在日本工作的實際情況。' },
-  { t:'個別面談', d:'聊聊你的日語程度、想做什麼、什麼時候去。' },
-  { t:'之後的每一步', d:'履歷、面試練習、簽證、抵日後追蹤——我們陪你走到底。' },
-];
+const flow = JOIN_STEPS.zh;   // 三語共用，文字在 site.ts（品牌頁的「想在這裡工作？」也用同一份）
+// 「你收藏的品牌」提示框要的品牌名與網址（收藏本身在訪客瀏覽器，save.js 依這份清單畫出來）
+const savedNames = Object.fromEntries((await getCollection('companies')).map(c => [c.id, { name: companyName(c.data, 'zh'), href: `${base}/companies/${c.id}` }]));
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 <Base title="報名交流會" altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }} description="Tsunagu 交流會，台北・台中・高雄・東京・大阪輪流舉辦，參加免費。">
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
@@ -47,6 +47,12 @@ const flow = [
                 ? <>
                     <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">前往 Google 表單報名 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>
                     <p class="small hint">每場表單不同，請用本場專用表單。</p>
+                    {e.sessions && e.sessions.length > 0 && (
+                      <p class="small cal"><span>加入 Google 行事曆：</span>{e.sessions.map(s => {
+                        const u = gcalUrl(e, s, 'zh', pageUrl);
+                        return u && <a href={u} target="_blank" rel="noopener">{s.split(/[–-]/)[0].trim()} 場 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>;
+                      })}</p>
+                    )}
                   </>
                 : <p class="small">報名連結待公布。</p>}
             </div>
@@ -57,6 +63,12 @@ const flow = [
           <p class="small">場次通常提前 2–4 週在 Instagram 公告。最近一場是第 {fmtEventNo(past[0]?.no ?? '', 'zh')} 回（{fmt(past[0]?.date)}・{past[0]?.city}）。</p>
           <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">追蹤 IG 接收場次通知 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>
         </div>}
+    <!-- 收藏的品牌（2026-10-11）：逛企業時按的愛心，在這裡提醒「交流會現場可以直接問」。沒有收藏就不出現 -->
+    <div class="saved-box" data-saved-box data-saved-names={JSON.stringify(savedNames)} hidden>
+      <p class="saved-ttl"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/></svg>你收藏的品牌——交流會現場可以直接問</p>
+      <ul class="saved-list" data-saved-list></ul>
+      <a class="action-link" href={`${base}/companies?saved=1`}>看收藏的品牌</a>
+    </div>
   </section>
 
   <section class="wrap wrap--page page-section">

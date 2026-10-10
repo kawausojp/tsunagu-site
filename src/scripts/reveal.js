@@ -14,7 +14,7 @@
     ['.page-head .d1, .section .d2, .page-section > .d2, .page-section > h2', 'title'],
     ['.band .stat', 'pop'],
     ['.grid3 > *, #company-grid > *, .upcoming-list > *, .reasons > *, .numbers > *, .grid-2 > *, ' +
-     '.contact-panel > *, .list > .item, .flow > *', 'card'],
+     '.contact-panel > *, .list > .item, .flow > *, .voice-cards > *, .join-steps > li, .more-grid > *', 'card'],
     ['.rows > *', 'slide'],
     ['.video', 'zoom'],
     ['.final-chars', 'bounce'],

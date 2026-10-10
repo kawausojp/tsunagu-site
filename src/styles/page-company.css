@@ -58,8 +58,62 @@
     .b-figs .n{font-size:40px}
     main .cta{flex-direction:column;align-items:flex-start;gap:6px;margin-top:28px}
   }
-  .related{margin:26px 0 6px}
   /* 品牌名下方是登記名與 tagline，不吃 .page-head .lead 的 14px */
   .page-head .corp+.lead{margin-top:0}
-  .related .d3{margin-bottom:8px}
-  .rel-link{display:flex;align-items:center;min-height:var(--control-min);padding:2px 0}   /* 底線走全站 a */
+
+  /* ── 2026-10-11 參考求職平台加的四塊：收藏／分享、學長姐卡片、想在這裡工作？、也看看這些品牌 ── */
+  .b-actions{display:flex;gap:8px;margin-top:16px}
+  .b-act{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 14px;border:1px solid var(--control-line);
+    border-radius:var(--r-md);background:var(--paper);color:var(--ink-900);font:inherit;font-size:var(--fs-sm);font-weight:700;cursor:pointer;
+    transition:border-color .2s ease,background .2s ease,transform .24s var(--ease)}
+  .b-act svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .b-act:hover{background:var(--greige-50)}
+  .b-act:active{transform:scale(.96)}
+  .b-act[data-save] svg{stroke:var(--pink-300)}
+  .b-act[aria-pressed="true"]{border-color:var(--pink-300)}
+  .b-act[aria-pressed="true"] svg{fill:var(--pink-300)}
+  .b-act .on,.b-act[aria-pressed="true"] .off{display:none}
+  .b-act[aria-pressed="true"] .on{display:inline}
+  .b-act.pop svg{animation:b-pop .42s var(--ease)}
+  @keyframes b-pop{40%{transform:scale(1.3)}}
+
+  /* 學長姐卡片：頭像＋名字＋IG 原文引言（逐句換行）＋看完整分享 */
+  .voices{margin-top:34px}
+  .voices .d3{margin-bottom:14px}
+  .voice-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:14px}
+  .v-card{display:flex;gap:16px;align-items:flex-start;padding:20px 22px;text-decoration:none;color:inherit}
+  .v-ava{flex:0 0 56px;width:56px;height:56px;border-radius:var(--r-full);overflow:hidden}
+  .v-ava svg{display:block;width:100%;height:100%}
+  .v-body{display:flex;flex-direction:column;gap:8px;min-width:0}
+  .v-who{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+  .v-name{font-weight:700;color:var(--ink-900)}
+  .v-meta{color:var(--ink-600)}
+  .v-lead{font-size:var(--fs-md);line-height:1.85}
+  .v-card .action-link{min-height:0;padding:0}
+  .v-card:hover .action-link{color:var(--pink-300)}
+  .v-card:hover .action-link::after{transform:translateX(3px)}
+
+  /* 想在這裡工作？三步驟＋報名鈕 */
+  .join{margin-top:44px}
+  .join .d2{margin-bottom:18px}
+  .join-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .join-steps li{display:flex;gap:12px;align-items:flex-start}
+  .join-steps li>span:last-child{display:flex;flex-direction:column;gap:4px}
+  .j-t{font-weight:700;color:var(--ink-900);line-height:1.5;padding-top:3px}
+  .join .cta{margin-top:26px}
+
+  /* 也看看這些品牌：淺藍底的企業卡區（--sky-wash 只准用在企業卡區，見 CLAUDE.md） */
+  .more-brands{margin-top:56px;padding:40px 0 48px;background:var(--sky-wash)}
+  .more-brands .d3{margin-bottom:16px}
+  .more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+
+  @media (max-width:720px){
+    .b-actions{margin-top:14px}
+    .voices{margin-top:28px}
+    .v-card{padding:16px;gap:12px}
+    .v-ava{flex-basis:48px;width:48px;height:48px}
+    .join{margin-top:34px}
+    .join-steps{grid-template-columns:minmax(0,1fr);gap:12px}
+    .more-brands{margin-top:40px;padding:28px 0 32px}
+    .more-grid{gap:10px}
+  }

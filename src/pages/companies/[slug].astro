@@ -1,9 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { dedupHighlights, fmtSourceDeck, relatedStoriesFor, signupCta, nameLang, SKY_CATEGORIES } from '../../lib/site';
+import { dedupHighlights, fmtSourceDeck, relatedStoriesFor, signupCta, nameLang, SKY_CATEGORIES, JOIN_STEPS, sentences, relatedBrands } from '../../lib/site';
 import { ui } from '../../i18n/ui';
 import Base from '../../layouts/Base.astro';
 import CategoryIcon from '../../components/CategoryIcon.astro';
+import CompanyCard from '../../components/CompanyCard.astro';
+import SenpaiAvatar from '../../components/SenpaiAvatar.astro';
 import '../../styles/page-company.css';
 
 export async function getStaticPaths() {
@@ -15,7 +17,9 @@ const d = c.data;
 const { Content } = await render(c);
 // 在這個品牌工作過的學長姐（company 名寬鬆比對；資料本來就在庫裡，接上而已）
 const allStories = await getCollection('stories');
-const companiesCount = (await getCollection('companies')).length;
+const allCompanies = await getCollection('companies');
+const companiesCount = allCompanies.length;
+const moreBrands = relatedBrands(c, allCompanies);
 const relatedStories = relatedStoriesFor(d.name, allStories);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const AREA = ui['zh'].area;
@@ -46,6 +50,11 @@ const hl = dedupHighlights(d.highlights, d.placements);
               {d.jlpt && <span class="tag jlpt">{d.jlpt} 以上</span>}
               {d.onlineInterview && <span class="tag">可線上面試</span>}
             </div>
+            <!-- 收藏與分享（2026-10-11）：收藏存在訪客瀏覽器（save.js）；分享在手機叫出系統分享，桌機複製連結 -->
+            <div class="b-actions">
+              <button type="button" class="b-act" data-save={c.id} aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/></svg><span class="off">收藏</span><span class="on">已收藏</span></button>
+              <button type="button" class="b-act" data-share data-copied="已複製連結"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 13.5V19h14v-5.5"/></svg><span data-share-label>分享</span></button>
+            </div>
           </div>
           {(d.placements > 0 || d.fullTimeConverted > 0) && (
             <dl class="b-figs">
@@ -71,19 +80,49 @@ const hl = dedupHighlights(d.highlights, d.placements);
         <span class="sent"><strong>資料來源：</strong>{fmtSourceDeck('zh', d.sourceSlide)}。</span><span class="sent">招募條件與職缺狀態會變動，請以交流會現場或個別諮詢的說明為準。</span>
       </div>
 
+      <!-- 學長姐卡片（2026-10-11，參考 Wantedly 成員、WTTJ「Meet ○○」）：頭像＋IG 原文引言，原文不改 -->
       {relatedStories.length > 0 && (
-        <div class="related">
+        <section class="voices">
           <h2 class="d3">在這裡工作過的學長姐</h2>
-          {relatedStories.map(st => (
-            <a class="rel-link" href={`${base}/stories#${st.id}`}><span lang="ja">{st.data.name}</span>（{st.data.visa}）的分享</a>
-          ))}
-        </div>
+          <div class="voice-cards">
+            {relatedStories.map(st => (
+              <a class="card v-card" href={`${base}/stories#${st.id}`}>
+                <span class="v-ava"><SenpaiAvatar name={st.data.name} size={56} /></span>
+                <span class="v-body">
+                  <span class="v-who"><span class="v-name" lang="ja">{st.data.name}</span><span class="v-meta small">{st.data.visa}・{st.data.location}</span></span>
+                  <span class="quote v-lead" lang="zh-Hant">{sentences(st.data.lead).map((t, i) => <>{i > 0 && <br />}{t}</>)}</span>
+                  <span class="action-link">看完整分享</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
       )}
+      <!-- 想在這裡工作？（2026-10-11，參考 Cake 的 Step 1→3）：文字與 /events 同一份（site.ts JOIN_STEPS） -->
+      <section class="join">
+        <h2 class="d2">想在 {d.name} 工作？</h2>
+        <ol class="join-steps">
+          {JOIN_STEPS.zh.map((st, i) => (
+            <li><span class="no-badge" aria-hidden="true">{i + 1}</span><span><span class="j-t">{st.t}</span><span class="small">{st.d}</span></span></li>
+          ))}
+        </ol>
       <div class="cta-row cta">
         <a class="btn btn-primary" href={`${base}/events`}>{signupCta('zh')}，現場問清楚</a>
         <a class="action-link" href={`${base}/companies`}>看全部 {companiesCount} 個合作品牌</a>
       </div>
+      </section>
     </div>
   </article>
+  <!-- 也看看這些品牌（2026-10-11，參考 104「這些工作也很適合你」）：淺藍底＝企業卡區（同 /companies） -->
+  {moreBrands.length > 0 && (
+    <section class="more-brands">
+      <div class="wrap wrap--page">
+        <h2 class="d3">也看看這些品牌</h2>
+        <div class="more-grid">
+          {moreBrands.map(r => <CompanyCard c={r} href={`${base}/companies/${r.id}`} lang="zh" />)}
+        </div>
+      </div>
+    </section>
+  )}
 </Base>
 <script>import '../../scripts/back-to-list.ts';</script>

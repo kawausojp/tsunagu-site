@@ -2,6 +2,8 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import CategoryIcon from '../../../components/CategoryIcon.astro';
+import CompanyCard from '../../../components/CompanyCard.astro';
+import SenpaiAvatar from '../../../components/SenpaiAvatar.astro';
 import '../../../styles/page-company.css';
 
 export async function getStaticPaths() {
@@ -16,9 +18,11 @@ const { Content } = await render(c);
 const allStories = await getCollection('stories');
 const relatedStories = relatedStoriesFor(d.name, allStories);
 import { href, ui } from '../../../i18n/ui';
-import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor, signupCta, SKY_CATEGORIES } from '../../../lib/site';
+import { CAT_LABEL, VISA_LABEL, dedupHighlights, fmtSourceDeck, companyName, relatedStoriesFor, signupCta, SKY_CATEGORIES, JOIN_STEPS, sentences, relatedBrands, fmtLocation } from '../../../lib/site';
 const l = (p: string) => href('ja', p);
-const companiesCount = (await getCollection('companies')).length;
+const allCompanies = await getCollection('companies');
+const companiesCount = allCompanies.length;
+const moreBrands = relatedBrands(c, allCompanies);
 const catLabel = CAT_LABEL.ja[d.category] ?? d.categoryLabel;
 const tagline = d.taglineJa ?? d.tagline;
 const AREA = ui['ja'].area;
@@ -49,6 +53,11 @@ const hl = dedupHighlights(d.highlights, d.placements);
               {d.jlpt && <span class="tag jlpt">{d.jlpt} 以上</span>}
               {d.onlineInterview && <span class="tag">オンライン面接可</span>}
             </div>
+            <!-- 收藏與分享（2026-10-11）：收藏存在訪客瀏覽器（save.js）；分享在手機叫出系統分享，桌機複製連結 -->
+            <div class="b-actions">
+              <button type="button" class="b-act" data-save={c.id} aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/></svg><span class="off">お気に入り</span><span class="on">お気に入り済み</span></button>
+              <button type="button" class="b-act" data-share data-copied="リンクをコピーしました"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 13.5V19h14v-5.5"/></svg><span data-share-label>シェア</span></button>
+            </div>
           </div>
           {(d.placements > 0 || d.fullTimeConverted > 0) && (
             <dl class="b-figs">
@@ -74,19 +83,49 @@ const hl = dedupHighlights(d.highlights, d.placements);
         <span class="sent"><strong>出典：</strong>{fmtSourceDeck('ja', d.sourceSlide)}。</span><span class="sent">募集条件・状況は変動します。最新情報は交流会または個別相談でご確認ください。</span><span class="sent">※ 本文は原文（中国語）のまま掲載しています。</span>
       </div>
 
+      <!-- 學長姐卡片（2026-10-11，參考 Wantedly 成員、WTTJ「Meet ○○」）：頭像＋IG 原文引言，原文不改 -->
       {relatedStories.length > 0 && (
-        <div class="related">
+        <section class="voices">
           <h2 class="d3">このブランドで働いていた先輩</h2>
-          {relatedStories.map(st => (
-            <a class="rel-link" href={l(`/stories#${st.id}`)}><span lang="ja">{st.data.name}</span> さん（{VISA_LABEL.ja[st.data.visa] ?? st.data.visa}）の体験談</a>
-          ))}
-        </div>
+          <div class="voice-cards">
+            {relatedStories.map(st => (
+              <a class="card v-card" href={l(`/stories#${st.id}`)}>
+                <span class="v-ava"><SenpaiAvatar name={st.data.name} size={56} /></span>
+                <span class="v-body">
+                  <span class="v-who"><span class="v-name" lang="ja">{st.data.name}</span><span class="v-meta small">{VISA_LABEL.ja[st.data.visa] ?? st.data.visa}・{fmtLocation(st.data.location, 'ja')}</span></span>
+                  <span class="quote v-lead" lang="zh-Hant">{sentences(st.data.lead).map((t, i) => <>{i > 0 && <br />}{t}</>)}</span>
+                  <span class="action-link">体験談を読む</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
       )}
+      <!-- 想在這裡工作？（2026-10-11，參考 Cake 的 Step 1→3）：文字與 /events 同一份（site.ts JOIN_STEPS） -->
+      <section class="join">
+        <h2 class="d2">{name}で働くには</h2>
+        <ol class="join-steps">
+          {JOIN_STEPS.ja.map((st, i) => (
+            <li><span class="no-badge" aria-hidden="true">{i + 1}</span><span><span class="j-t">{st.t}</span><span class="small">{st.d}</span></span></li>
+          ))}
+        </ol>
       <div class="cta-row cta">
         <a class="btn btn-primary" href={l('/events')}>{signupCta('ja')}</a>
         <a class="action-link" href={l('/companies')}>{companiesCount} ブランドをすべて見る</a>
       </div>
+      </section>
     </div>
   </article>
+  <!-- 也看看這些品牌（2026-10-11，參考 104「這些工作也很適合你」）：淺藍底＝企業卡區（同 /companies） -->
+  {moreBrands.length > 0 && (
+    <section class="more-brands">
+      <div class="wrap wrap--page">
+        <h2 class="d3">ほかのブランドも見る</h2>
+        <div class="more-grid">
+          {moreBrands.map(r => <CompanyCard c={r} href={l(`/companies/${r.id}`)} lang="ja" />)}
+        </div>
+      </div>
+    </section>
+  )}
 </Base>
 <script>import '../../../scripts/back-to-list.ts';</script>

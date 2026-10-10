@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import characters from '../../../assets/tsunagu-characters.png';
 import '../../../styles/page-companies.css';
 import CompanyCard from '../../../components/CompanyCard.astro';
 
@@ -61,6 +63,9 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
               aria-pressed="false" aria-controls="company-grid">Online interview OK</button>
             <button type="button" class="tag f" data-f="flag" data-v="fulltime"
               aria-pressed="false" aria-controls="company-grid">Full-time conversions</button>
+            <!-- 只看收藏（2026-10-11）：收藏存在訪客的瀏覽器，見 src/scripts/save.js -->
+            <button type="button" class="tag f saved-only" data-saved-only
+              aria-pressed="false" aria-controls="company-grid"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/></svg>{ui.en.save.only}<span data-saved-count data-tpl=" ({n})"></span></button>
           </div>
         </div>
       </details>
@@ -83,7 +88,8 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
         {companies.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="en" />)}
       </div>
       <div class="empty" data-empty hidden>
-        <p class="small">No brands match these filters.</p>
+        <Image src={characters} alt="" aria-hidden="true" widths={[160, 320]} sizes="160px" loading="lazy" class="empty-chars" />
+        <p class="small" data-empty-msg data-msg-saved={ui.en.save.empty}>No brands match these filters.</p>
         <button type="button" class="btn btn-secondary" data-reset>Clear all filters and see every brand</button>
       </div>
     </div>

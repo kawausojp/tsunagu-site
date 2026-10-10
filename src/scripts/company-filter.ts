@@ -15,7 +15,14 @@ export function initCompanyFilter() {
   const resetEls = Array.from(document.querySelectorAll<HTMLElement>('[data-reset]'));
   const filterOptions = document.querySelector<HTMLDetailsElement>('[data-filter-options]');
   const summaryEl = document.querySelector<HTMLElement>('[data-filter-summary]');
-  const buttons = Array.from(document.querySelectorAll<HTMLElement>('button.f'));
+  const buttons = Array.from(document.querySelectorAll<HTMLElement>('button.f:not([data-saved-only])'));
+  // 只看收藏（2026-10-11）：收藏清單由 src/scripts/save.js 管（localStorage），這裡只讀
+  const savedBtn = document.querySelector<HTMLElement>('[data-saved-only]');
+  const savedCount = document.querySelector<HTMLElement>('[data-saved-count]');
+  const emptyMsg = document.querySelector<HTMLElement>('[data-empty-msg]');
+  const emptyDefault = emptyMsg?.textContent ?? '';
+  let savedOnly = false;
+  const savedSet = (): Set<string> => (window as any).tsunaguSaved?.() ?? new Set();
 
   const statusTpl = root.dataset.statusTpl ?? '{n}';
   const summaryLabel = root.dataset.summaryLabel ?? '';
@@ -36,6 +43,7 @@ export function initCompanyFilter() {
     if (active.jlpt.size && !active.jlpt.has(c.dataset.jlpt || 'none')) return false;
     // 布林條件是「而且」：勾了兩個就要兩個都符合
     for (const flag of active.flag) if (c.dataset[flag] !== '1') return false;
+    if (savedOnly && !savedSet().has(c.dataset.slug || '')) return false;
     return true;
   }
 
@@ -48,6 +56,7 @@ export function initCompanyFilter() {
     const params = new URLSearchParams();
     if (searchEl!.value.trim()) params.set('q', searchEl!.value.trim());
     for (const k of KEYS) if (active[k].size) params.set(k, [...active[k]].join(','));
+    if (savedOnly) params.set('saved', '1');
     const qs = params.toString();
     history.replaceState(null, '', (qs ? `?${qs}` : location.pathname) + location.hash);
     rememberList();
@@ -62,7 +71,10 @@ export function initCompanyFilter() {
     }
     statusEl!.textContent = fill(statusTpl, n);
     if (emptyEl) emptyEl.hidden = n > 0;
-    const picked = KEYS.reduce((sum, k) => sum + active[k].size, 0);
+    // 只看收藏但一個都還沒收藏：空狀態改成教他怎麼收藏
+    if (emptyMsg) emptyMsg.textContent = savedOnly && savedSet().size === 0 ? (emptyMsg.dataset.msgSaved ?? emptyDefault) : emptyDefault;
+    if (savedCount) savedCount.textContent = savedSet().size ? (savedCount.dataset.tpl ?? '（{n}）').replace('{n}', String(savedSet().size)) : '';
+    const picked = KEYS.reduce((sum, k) => sum + active[k].size, 0) + (savedOnly ? 1 : 0);
     const any = searchEl!.value.length > 0 || picked > 0;
     for (const el of resetEls) if (el.hasAttribute('data-reset-toggle')) el.hidden = !any;
     if (summaryEl) summaryEl.textContent = picked ? fill(summaryPicked, picked) : summaryLabel;
@@ -73,6 +85,8 @@ export function initCompanyFilter() {
     searchEl!.value = '';
     for (const k of KEYS) active[k].clear();
     for (const b of buttons) b.setAttribute('aria-pressed', 'false');
+    savedOnly = false;
+    savedBtn?.setAttribute('aria-pressed', 'false');
     // 桌面把焦點還給搜尋框；行動版搶焦會彈出鍵盤蓋住結果，改交給結果列
     // （這顆按鈕 apply() 後會 hidden，不轉移焦點就會掉到 <body>）
     if (!mobile.matches) searchEl!.focus();
@@ -105,6 +119,7 @@ export function initCompanyFilter() {
     if (f && v && active[f]?.has(v)) b.setAttribute('aria-pressed', 'true');
   }
 
+  if (params.get('saved') === '1' && savedBtn) { savedOnly = true; savedBtn.setAttribute('aria-pressed', 'true'); }
   if (dropped) syncUrl();   // 把垃圾參數清出網址
 
   searchEl.addEventListener('input', () => apply());
@@ -118,6 +133,13 @@ export function initCompanyFilter() {
     });
   }
   for (const el of resetEls) el.addEventListener('click', reset);
+  savedBtn?.addEventListener('click', () => {
+    savedOnly = !savedOnly;
+    savedBtn.setAttribute('aria-pressed', String(savedOnly));
+    apply();
+  });
+  // 在列表上按愛心／其他分頁改了收藏：重算（不動網址）
+  document.addEventListener('tsunagu:saved', () => apply(false));
 
   if (filterOptions && mobile.matches) filterOptions.open = false;
   if (filterOptions) filterOptions.dataset.ready = '';

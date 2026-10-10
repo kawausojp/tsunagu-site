@@ -37,3 +37,13 @@
     .flow{gap:10px}
     .step{gap:12px;padding:16px}
   }
+  /* 加入 Google 行事曆（2026-10-11）：一個場次一條連結，接在報名提示下面 */
+  .cal{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin:8px 0 0}
+  .cal span:first-child{color:var(--ink-600)}
+  /* 收藏的品牌：不做框也不做底色（規則 6：強調區塊只有 .note／.notice 兩種），只是一段內容 */
+  .saved-box{margin-top:26px}
+  .saved-box[hidden]{display:none}
+  .saved-ttl{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-weight:700;color:var(--ink-900)}
+  .saved-ttl svg{flex:0 0 auto;fill:var(--pink-300)}
+  .saved-list{list-style:none;margin:0 0 4px;padding:0;display:flex;flex-wrap:wrap;gap:6px 18px}
+  .saved-list a{display:inline-flex;align-items:center;min-height:32px}

@@ -8,7 +8,7 @@
     try { return new URL(url).pathname.match(/\/companies\/([^/]+)\/?$/)?.[1] ?? null; } catch { return null; }
   };
   const cardParts = (slug) => {
-    const card = document.querySelector(`a.co[href$="/companies/${slug}"], a.co[href$="/companies/${slug}/"]`);
+    const card = document.querySelector(`.co[data-slug="${slug}"]`);
     return card ? [[card.querySelector('.ico'), `ico-${slug}`], [card.querySelector('h3'), `nm-${slug}`]] : [];
   };
   const setNames = (parts, on) => { for (const [el, n] of parts) if (el) el.style.viewTransitionName = on ? n : ''; };
@@ -31,6 +31,6 @@
   });
   // 從 bfcache 回來：清掉離開前加上的名字（同一頁不可有兩個相同的名字）
   addEventListener('pageshow', (e) => {
-    if (e.persisted) for (const el of document.querySelectorAll('a.co .ico, a.co h3')) el.style.viewTransitionName = '';
+    if (e.persisted) for (const el of document.querySelectorAll('.co .ico, .co h3')) el.style.viewTransitionName = '';
   });
 })();

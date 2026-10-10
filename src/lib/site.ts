@@ -296,3 +296,56 @@ export const SKY_CATEGORIES = new Set(['shoes', 'socks', 'eyewear']);
 export function sentences(text: string): string[] {
   return text.match(/[^。！？]+[。！？]+[」』）]*|[^。！？]+$/g)?.map(s => s.trim()).filter(Boolean) ?? [text];
 }
+
+/** 交流會之後的三步驟（三語共用）：/events「交流會當天會發生什麼」與品牌頁「想在這裡工作？」同一份文字。
+ *  2026-10-11 從三語 events 頁抽出來；改文案改這裡。 */
+export const JOIN_STEPS: Record<Lang, { t: string; d: string }[]> = {
+  zh: [
+    { t: '當天現場', d: '日本企業介紹他們在找什麼樣的人，學長姐分享在日本工作的實際情況。' },
+    { t: '個別面談', d: '聊聊你的日語程度、想做什麼、什麼時候去。' },
+    { t: '之後的每一步', d: '履歷、面試練習、簽證、抵日後追蹤——我們陪你走到底。' },
+  ],
+  ja: [
+    { t: '当日のプログラム', d: '日本企業が求める人材像を紹介し、先輩が、日本で働く実際の姿を語ります。' },
+    { t: '個別相談', d: '日本語レベル・希望職種・渡航時期についてお聞かせください。' },
+    { t: 'その後のステップ', d: '履歴書の作成から面接練習、在留資格の手続き、来日後のフォローまで、最後まで伴走します。' },
+  ],
+  en: [
+    { t: 'On the day', d: 'Japanese companies present who they’re looking for; alumni share what working in Japan is really like.' },
+    { t: 'One-on-one chat', d: 'Tell us your Japanese level, what you want to do, and when you plan to go.' },
+    { t: 'Every step after', d: 'Resume, interview practice, visa paperwork, and follow-⁠up after you arrive — we stay with you.' },
+  ],
+};
+
+/** 加入 Google 行事曆的連結（2026-10-11 使用者：只要 Google 行事曆，不要 .ics 下載）。
+ *  一個場次一條連結（兩場時段不同，報名時才選）。城市在日本用東京時區，其餘台北。 */
+export function gcalUrl(e: EventRow, session: string, lang: Lang, pageUrl: string) {
+  const m = session.match(/(\d{1,2}):(\d{2})\s*[–-]\s*(\d{1,2}):(\d{2})/);
+  if (!m) return null;
+  const d = e.date.replace(/-/g, '');
+  const t = (h: string, mi: string) => `${h.padStart(2, '0')}${mi}00`;
+  const city = CITY[lang]?.[e.city] ?? e.city;
+  const no = fmtEventNo(e.no, lang);
+  const title = lang === 'ja' ? `ツナグ交流会（第${no}回・${city}）`
+    : lang === 'en' ? `Tsunagu meetup #${no} (${city})`
+    : `Tsunagu 交流會（第 ${no} 回・${city}）`;
+  const details = [pageUrl, e.signupUrl ? (lang === 'ja' ? `申込フォーム：${e.signupUrl}` : lang === 'en' ? `Sign-up form: ${e.signupUrl}` : `報名表單：${e.signupUrl}`) : '']
+    .filter(Boolean).join('\n');
+  const tz = ['東京', '大阪'].includes(e.city) ? 'Asia/Tokyo' : 'Asia/Taipei';
+  const q = new URLSearchParams({
+    action: 'TEMPLATE', text: title,
+    dates: `${d}T${t(m[1], m[2])}/${d}T${t(m[3], m[4])}`,
+    ctz: tz, details,
+    location: [e.venue, e.address].filter(Boolean).join(' '),
+  });
+  return `https://calendar.google.com/calendar/render?${q.toString()}`;
+}
+
+/** 品牌頁頁尾「也看看這些品牌」：同品類優先，其次地區重疊多的，再依任職人數（2026-10-11，參考 104「這些工作也很適合你」） */
+export function relatedBrands<T extends { id: string; data: { category: string; areas: string[]; placements: number; fullTimeConverted: number } }>(cur: T, all: T[], n = 4): T[] {
+  const score = (c: T) => (c.data.category === cur.data.category ? 100 : 0)
+    + c.data.areas.filter(a => cur.data.areas.includes(a)).length * 10;
+  return all.filter(c => c.id !== cur.id)
+    .sort((a, b) => score(b) - score(a) || b.data.placements - a.data.placements || b.data.fullTimeConverted - a.data.fullTimeConverted)
+    .slice(0, n);
+}

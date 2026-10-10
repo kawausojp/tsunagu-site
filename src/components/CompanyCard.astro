@@ -13,7 +13,8 @@ const catLabel = (lang === 'ja' && (d.categoryLabelJa ?? CAT_LABEL.ja[d.category
 const searchText = [d.name, name, d.corporateName, d.tagline, d.categoryLabel, tagline, catLabel]
   .filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
 ---
-<a class="card card-link co" href={href} data-search={searchText}
+<!-- 整張卡可點（品牌名的連結用 ::after 撐滿整張），右上角的愛心是獨立按鈕——<a> 裡不能放 <button>（2026-10-11 加收藏） -->
+<article class="card card-link co" data-slug={c.id} data-search={searchText}
    data-areas={d.areas.join(' ')} data-cat={d.category} data-jlpt={d.jlpt ?? 'none'}
    data-online={d.onlineInterview ? '1' : '0'} data-fulltime={d.fullTimeConverted > 0 ? '1' : '0'}>
   <!-- 2026-09-13 使用者參考 Cake／Yourator 重排：圖標在名稱左側同一列、順序固定、標籤與實績貼底，
@@ -22,7 +23,7 @@ const searchText = [d.name, name, d.corporateName, d.tagline, d.categoryLabel, t
     <!-- 圖標與品牌名：點進品牌頁時從卡片連續變形到頁首。名字由 src/scripts/vt.js 只在被點的那張卡上臨時加 -->
     <span class="ico" data-tone={SKY_CATEGORIES.has(d.category) ? 'sky' : 'pink'}><CategoryIcon cat={d.category} size={30} /></span>
     <div class="ttl">
-      <h3 class="d3" lang={nameLang(name, lang)}>{name}</h3>
+      <h3 class="d3" lang={nameLang(name, lang)}><a class="co-link" href={href}>{name}</a></h3>
       {d.corporateName && <div class="corp" lang="ja">{d.corporateName}</div>}
     </div>
   </div>
@@ -41,15 +42,35 @@ const searchText = [d.name, name, d.corporateName, d.tagline, d.categoryLabel, t
         <span class="seg">{seg}{i < arr.length - 1 ? (lang === 'en' ? ' · ' : '・') : ''}</span>
       )) : '\u00A0'}
   </p>
-</a>
+  <button type="button" class="save" data-save={c.id} aria-pressed="false" aria-label={t.save.save(name)}>
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/></svg>
+  </button>
+</article>
 
 <style>
   /* 同列各卡逐行對齊（規則 9）：卡片吃父格線的 subgrid，名稱／tagline／標籤／實績四列的高度
      由同一列最高的那張卡決定。原本用固定高度（52px 名稱區、兩行 tagline），品牌名一折兩行
      就把整張卡往下推（2026-09-24 稽核：Metro、きものやまと 同列錯位 15–23px） */
   /* minmax(0,1fr)：單欄 auto 軌會被登記名（nowrap）的 min-content 撐寬，Lindt 卡在 1024 溢出 4px */
-  .co{display:grid;grid-row:span 4;grid-template-rows:subgrid;grid-template-columns:minmax(0,1fr);row-gap:12px;min-width:0;
+  .co{position:relative;display:grid;grid-row:span 4;grid-template-rows:subgrid;grid-template-columns:minmax(0,1fr);row-gap:12px;min-width:0;
     padding:18px 18px 16px;text-decoration:none;color:inherit}
+  /* 品牌名的連結撐滿整張卡；焦點框畫在整張卡上，不畫在品牌名那一小塊 */
+  .co-link{color:inherit;text-decoration:none}
+  .co-link::after{content:'';position:absolute;inset:0;z-index:1;border-radius:inherit}
+  .co-link:focus-visible{outline:none}
+  .co:has(.co-link:focus-visible){outline:3px solid var(--focus-ring);outline-offset:3px}
+  /* 收藏鈕：卡片右上角，疊在撐滿的連結之上。空心灰框心／收藏後粉色實心 */
+  .save{position:absolute;top:10px;right:10px;z-index:2;width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+    border:0;border-radius:var(--r-full);background:transparent;color:var(--ink-600);cursor:pointer;padding:0;
+    transition:background .2s ease,transform .24s var(--ease)}
+  .save svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}
+  .save[aria-pressed="true"]{color:var(--pink-300)}
+  .save[aria-pressed="true"] svg{fill:var(--pink-300);stroke:var(--pink-300)}
+  .save:hover{background:var(--greige-50)}
+  .save:active{transform:scale(.88)}
+  .save.pop svg{animation:save-pop .42s var(--ease)}
+  @keyframes save-pop{40%{transform:scale(1.3)}}
+  .ttl{padding-right:26px}
   /* 第一列：品類圖標（小方塊）＋品牌名＋登記名。名稱區最少 52px（＝名稱＋登記名），
      內容垂直置中：無登記名的卡，品牌名就對齊圖標中線（使用者 2026-09-14） */
   .head{display:flex;gap:12px;align-items:center}
@@ -92,6 +113,9 @@ const searchText = [d.name, name, d.corporateName, d.tagline, d.categoryLabel, t
     .tags{gap:4px}
     .tags :global(.tag){font-size:var(--fs-3xs);padding:3px 8px}
     .stats-line{font-size:var(--fs-2xs)}
+    .save{top:4px;right:4px;width:32px;height:32px}
+    .save svg{width:16px;height:16px}
+    .ttl{padding-right:18px}
   }
   /* 320–400px 拉丁品牌名："WILLOUGHBY" 差 3px 就被切成 "WILLOUGHB / Y"；keep-all 同時防「BLOOMING 中西」被拆。
      日文名（lang=ja）不能 keep-all：整串變成不可斷，「メトロプロパティーズ系列の飲食店」會衝出卡片蓋住圖標 */

@@ -58,3 +58,11 @@
     .list{margin-top:16px;padding:20px 0 28px}
     .grid{grid-template-columns:repeat(2,1fr);gap:10px}
   }
+  /* 只看收藏（2026-10-11）：愛心＋文字；選中時心變實心 */
+  button.f.saved-only{display:inline-flex;align-items:center;gap:5px}
+  button.f.saved-only svg{fill:none;stroke:var(--pink-300);stroke-width:2;stroke-linejoin:round}
+  button.f.saved-only[aria-pressed="true"]{background:var(--pink-300)}
+  button.f.saved-only[aria-pressed="true"] svg{fill:var(--paper);stroke:var(--paper)}
+  /* 空狀態：兩隻角色陪著說「沒有符合的品牌」（參考 104 的吉祥物空狀態） */
+  .empty-chars{width:150px;height:auto;opacity:.95}
+  .empty p{max-width:30em}

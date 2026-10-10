@@ -1,9 +1,10 @@
 ---
 // 日本語版：交流会日程。構造は zh 版と共通（page-events.css）。三言語同時更新のこと。
+import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
 import { href } from '../../../i18n/ui';
-import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta } from '../../../lib/site';
+import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta, JOIN_STEPS, gcalUrl, companyName } from '../../../lib/site';
 
 const l = (p: string) => href('ja', p);
 const today = todayTaipei();
@@ -16,11 +17,10 @@ const city = (c: string) => CITY.ja[c] ?? c;
 // Event 結構化資料：site.ts eventLd()（三語共用）
 const eventsLd = upcoming.filter(e => e.venue && e.address).map(eventLd);
 
-const flow = [
-  { t: '当日のプログラム', d: '日本企業が求める人材像を紹介し、先輩が、日本で働く実際の姿を語ります。' },
-  { t: '個別相談', d: '日本語レベル・希望職種・渡航時期についてお聞かせください。' },
-  { t: 'その後のステップ', d: '履歴書の作成から面接練習、在留資格の手続き、来日後のフォローまで、最後まで伴走します。' },
-];
+const flow = JOIN_STEPS.ja;   // 三語共用，文字在 site.ts（品牌頁的「想在這裡工作？」也用同一份）
+// 「你收藏的品牌」提示框要的品牌名與網址（收藏本身在訪客瀏覽器，save.js 依這份清單畫出來）
+const savedNames = Object.fromEntries((await getCollection('companies')).map(c => [c.id, { name: companyName(c.data, 'ja'), href: l(`/companies/${c.id}`) }]));
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 <Base title="交流会に申し込む" lang="ja"
   altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }}
@@ -53,6 +53,12 @@ const flow = [
                 ? <>
                     <a class="btn btn-primary" href={e.signupUrl} target="_blank" rel="noopener">Google フォームで申し込む <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
                     <p class="small hint">回によって申込フォームが異なります。必ず本回専用のフォームをご利用ください。</p>
+                    {e.sessions && e.sessions.length > 0 && (
+                      <p class="small cal"><span>Google カレンダーに追加：</span>{e.sessions.map(s => {
+                        const u = gcalUrl(e, s, 'ja', pageUrl);
+                        return u && <a href={u} target="_blank" rel="noopener">{s.split(/[–-]/)[0].trim()}の回 <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>;
+                      })}</p>
+                    )}
                   </>
                 : <p class="small">申込リンクは近日公開予定です。</p>}
             </div>
@@ -63,6 +69,12 @@ const flow = [
           <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。直近の開催は第 {fmtEventNo(past[0]?.no ?? '', 'ja')} 回（{fmt(past[0]?.date)}・{city(past[0]?.city)}）でした。</p>
           <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram をフォロー <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
         </div>}
+    <!-- 收藏的品牌（2026-10-11）：逛企業時按的愛心，在這裡提醒「交流會現場可以直接問」。沒有收藏就不出現 -->
+    <div class="saved-box" data-saved-box data-saved-names={JSON.stringify(savedNames)} hidden>
+      <p class="saved-ttl"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/></svg>お気に入りのブランド——交流会で直接聞いてみましょう</p>
+      <ul class="saved-list" data-saved-list></ul>
+      <a class="action-link" href={l('/companies') + '?saved=1'}>お気に入りを見る</a>
+    </div>
   </section>
 
   <section class="wrap wrap--page page-section">
