@@ -132,7 +132,7 @@
   }
 
   @media (max-width:720px){
-    .hero{background:var(--paper);padding:28px 0 30px}
+    .hero{background:var(--paper);padding:28px 0 16px}   /* 底部 30→16（2026-10-11）：「先看看有哪些企業」到泡泡原本空 60px */
     .hero h1{font-size:clamp(30px,8.6vw,36px);white-space:normal;line-height:1.32;
       letter-spacing:.025em}
     /* 手機標題斷行：中日文兩半都短，強制各佔一行不折字最好看。
@@ -175,6 +175,7 @@
     .v-quote{font-size:var(--fs-xl);line-height:1.8}
     .video{border:1px solid var(--mobile-line);border-radius:var(--r-md);box-shadow:none}
     .final .cta-row{flex-direction:column;align-items:center;gap:10px;margin-top:20px}
+    .t-center{padding-bottom:36px}   /* 手機：首頁置中區塊之間與內頁段落間距（約 50px）一致 */
   }
 
 /* 320–360px：圓只剩約 67px，標籤與數字各縮一階 */

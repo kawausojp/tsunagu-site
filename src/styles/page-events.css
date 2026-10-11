@@ -37,6 +37,15 @@
     .flow{gap:10px}
     .step{gap:12px;padding:16px}
   }
+  /* 舉辦紀錄（2026-10-11）：手機寬時「開催報告／Event report」擠不下、獨佔第二行，每列 104px 一半是空白。
+     改兩行緊湊排：左上回數＋城市、左下日期，連結靠右佔兩行高（en 在 430px 仍擠不下，所以斷點 460） */
+  @media (max-width:460px){
+    .h{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:8px;row-gap:2px}
+    .h .d{grid-area:1/1;flex:none}
+    .h .tag{grid-area:1/2;justify-self:start}
+    .h .date{grid-area:2/1/3/3}
+    .h .ig{grid-area:1/3/3/4;margin-left:0}
+  }
   /* 加入 Google 行事曆（2026-10-11）：一個場次一條連結，接在報名提示下面 */
   .cal{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin:8px 0 0}
   .cal span:first-child{color:var(--ink-600)}

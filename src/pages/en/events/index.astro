@@ -97,7 +97,7 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
           <span class="d">#{fmtEventNo(e.no, 'en')}</span>
           <span class="date">{fmt(e.date)}</span>
           <span class="tag area">{city(e.city)}</span>
-          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span class="sr-only">#{fmtEventNo(e.no, 'en')} </span>Recap <span lang="ja">(開催報告)</span> <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>}
+          {e.ig && <a class="small ig" href={`https://www.instagram.com/p/${e.ig}/`} target="_blank" rel="noopener"><span class="sr-only">#{fmtEventNo(e.no, 'en')} </span><span>Recap <span lang="ja">(開催報告)</span></span>&nbsp;<span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new window)</span></a>}
         </li>
       ))}
     </ul>
