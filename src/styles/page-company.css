@@ -51,6 +51,7 @@
     .hl ul{margin-top:10px}
     .hl li{font-size:var(--fs-sm);line-height:1.8}
     .b-head{grid-template-columns:minmax(0,1fr);gap:22px}
+    .page-head.hero{padding-bottom:12px}   /* 手機：實績數字到介紹文原本空 65px */
     .b-name{gap:14px}
     .b-ico{flex-basis:52px;width:52px;height:52px}
     .b-ico svg{width:30px;height:30px}

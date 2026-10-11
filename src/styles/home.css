@@ -1,6 +1,6 @@
 /* 首頁樣式（三語共用）：/、/ja/、/en/ 三頁 import 同一份，改這裡三語同步生效 */
   .hero{background:var(--paper);
-    padding:72px 0 64px}   /* 無底線（使用者 2026-09-25：分區不用橫線，改用留白與淺藍底色帶） */
+    padding:72px 0 36px}   /* 底部 64→36（2026-10-11）：主鈕到統計泡泡原本空 100px */   /* 無底線（使用者 2026-09-25：分區不用橫線，改用留白與淺藍底色帶） */
   .hero-inner{display:grid;justify-items:center;text-align:center}
   html[lang="en"] .hero h1{letter-spacing:.01em}
   /* hero 大標刻意比規則 2 的 .05em／1.45 收窄：62px 展示級拉開字距會散、行高 1.45 兩行會離太遠（定案，非違規） */
@@ -102,6 +102,8 @@
   /* 學長姐、影片、結尾三區走同一條中軸（2026-10-04）：原本學長姐與影片靠左、右半邊整片空白，
      首頁的節奏變成「置中 hero → 企業區 → 兩區靠左 → 置中結尾」，中間塌一塊。改成除了企業區（目錄型）以外全部置中 */
   .t-center>.wrap{display:flex;flex-direction:column;align-items:center;text-align:center}
+  /* 相鄰的白底置中區塊（學長姐→影片→結尾）上下邊距會疊成 150px+ 的空洞：後一塊不再留上邊距（2026-10-11） */
+  .t-center+.t-center{padding-top:0}
   .voice{display:flex;flex-direction:column;align-items:center;gap:22px;margin-top:30px}
   .v-avatar{width:96px;height:96px;flex:0 0 96px;border-radius:var(--r-full);overflow:hidden}
   .v-avatar svg{width:100%;height:100%;display:block}

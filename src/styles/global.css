@@ -102,7 +102,9 @@ main:focus{outline:none}
 
 /* ── 全站版面節奏：內頁共用，不再由每頁各自猜 margin ── */
 .page-head{background:var(--paper);
-  padding:60px 0 48px}   /* 標題下無橫線（使用者 2026-09-25）：分區靠留白 */
+  padding:60px 0 0}   /* 標題下無橫線（使用者 2026-09-25）：分區靠留白。
+     底部不再留 48px（2026-10-11 使用者：「很多不明所以的空格」）——原本 48＋下一段的 56 疊成 110px 的空洞，
+     標題區與第一段之間只留 .page-section 的 56px */
 .page-head .lead{margin:14px 0 0}
 .page-section{margin-top:var(--content-section-gap)}
 .page-section>.d2:first-child{margin-bottom:18px}
@@ -311,7 +313,7 @@ html[lang="en"] .prose{max-width:56ch}
   html{scroll-padding-top:calc(var(--header-height) + 16px)}
   body{background:var(--paper);line-height:1.75}
   .section{padding:44px 0}
-  .page-head{background:var(--paper);padding:26px 0 24px}
+  .page-head{background:var(--paper);padding:26px 0 0}
   /* 24/22 是手機標題階（定案階層），不入 --fs 階梯 */
   .page-head .d1{font-size:24px;line-height:1.4;letter-spacing:.035em}
   .page-head .lead{margin-top:12px}
