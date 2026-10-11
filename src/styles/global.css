@@ -179,7 +179,8 @@ html[lang="ja"]{line-break:strict}
 /* 繁中的「一句一行」句子、焦點引言：只在標點與空格處換行（2026-10-04）。瀏覽器不會替中文斷詞，balance 會把
    「喜歡」「萌芽」從字中間拆開；keep-all 讓手機上也是一個子句一行（「想去日本留學或打工度假，／卻不知道…」）。
    子句比欄寬還長時 anywhere 兜底照常折行，不會溢出 */
-:is(.sent,.v-quote):lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
+:is(.sent,.v-quote,.v-lead):lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
+.v-lead{text-wrap:balance}   /* 品牌頁學長姐卡片的引言（2026-10-11）：同首頁焦點引言 */
 /* 桌機／平板再擴到所有套 balance 的繁中短文字塊（卡片說明、清單、學長姐分享、小字）：balance 在中文是逐字找斷點，
    兩行的段落會被從字中間對半切（「找到／什麼」），而且兩行都只剩半寬。keep-all 讓它改在逗號處分行。
    手機不套：子句常比欄寬長，只能靠 anywhere 硬切，還會把「。」單獨擠到下一行（2026-10-04 實測）。長文 .prose 不套 */

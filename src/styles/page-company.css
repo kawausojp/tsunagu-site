@@ -112,6 +112,8 @@
     .voices{margin-top:28px}
     .v-card{padding:16px;gap:12px}
     .v-ava{flex-basis:48px;width:48px;height:48px}
+    /* 手機卡片窄，引言的子句常比欄寬長：只在標點斷會被硬切、留一字尾（「文／化。」），改回逐字斷＋平均行長 */
+    .v-lead:lang(zh-Hant){word-break:normal;overflow-wrap:normal}
     .join{margin-top:34px}
     .join-steps{grid-template-columns:minmax(0,1fr);gap:12px}
     .more-brands{margin-top:40px;padding:28px 0 32px}

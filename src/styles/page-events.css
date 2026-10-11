@@ -43,7 +43,7 @@
   /* 收藏的品牌：不做框也不做底色（規則 6：強調區塊只有 .note／.notice 兩種），只是一段內容 */
   .saved-box{margin-top:26px}
   .saved-box[hidden]{display:none}
-  .saved-ttl{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-weight:700;color:var(--ink-900)}
-  .saved-ttl svg{flex:0 0 auto;fill:var(--pink-300)}
+  .saved-ttl{display:flex;align-items:flex-start;gap:8px;margin:0 0 8px;font-weight:700;color:var(--ink-900);text-wrap:balance}
+  .saved-ttl svg{flex:0 0 auto;fill:var(--pink-300);margin-top:.35em}   /* 標題折兩行時愛心對齊第一行 */
   .saved-list{list-style:none;margin:0 0 4px;padding:0;display:flex;flex-wrap:wrap;gap:6px 18px}
   .saved-list a{display:inline-flex;align-items:center;min-height:32px}
