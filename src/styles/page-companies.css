@@ -1,6 +1,7 @@
 /* companies 頁樣式（三語共用） */
   .tools{margin:32px auto 0}
   .filters{display:flex;flex-direction:column;gap:16px}
+  .filter-actions{display:none}   /* 桌機篩選常駐展開，不需要「看結果／清除」列（手機版在下方 media 內打開） */
   .search{display:flex;flex-direction:column;gap:6px;max-width:380px;font-size:var(--fs-2xs);font-weight:700;color:var(--ink-600)}
   .search input{width:100%;min-height:var(--control-min);border:1.5px solid var(--control-line);border-radius:var(--r-md);
     background:var(--paper);color:var(--ink-900);font:inherit;font-size:var(--fs-md);font-weight:400;padding:9px 18px}
@@ -46,7 +47,20 @@
     .filter-options:not([data-ready]) .filter-groups{display:none}
     .filter-options summary{display:flex;min-height:var(--mobile-control-height)}
     .filter-options[open] summary{border-bottom:1px solid var(--mobile-line)}
-    .filter-groups{gap:14px;padding:14px 0 16px}
+    /* 展開的篩選面板疊在頁面上（2026-10-13 使用者：點開不應把內容往下擠，同手機選單）：
+       貼在「篩選條件」列下緣，底下的說明與企業卡不動；條件多時面板內捲動，按「看 N 個品牌」或點外面收起 */
+    .filter-options{position:relative}
+    .filter-groups{gap:14px;padding:14px 14px 16px;position:absolute;left:-1px;right:-1px;top:100%;z-index:30;
+      background:var(--paper);border:1px solid var(--mobile-line);border-top:0;border-radius:0 0 var(--r-md) var(--r-md);
+      box-shadow:0 14px 28px rgba(70,70,70,.14);max-height:min(62vh,520px);overflow-y:auto;overscroll-behavior:contain}
+    .filter-options[open]{border-radius:var(--r-md) var(--r-md) 0 0}
+    /* 底部動作列黏在面板底：條件再多也不用捲到最下面才按得到 */
+    .filter-actions{display:flex;gap:10px;position:sticky;bottom:-16px;margin:4px -14px -16px;padding:12px 14px 14px;
+      background:var(--paper);border-top:1px solid var(--mobile-line)}
+    .filter-actions .btn{flex:1}
+    .filter-done{flex:2!important}
+    /* 面板外那顆「清除搜尋與篩選」在手機不顯示：選了條件才出現，會把企業卡往下擠 56px；清除改在面板裡 */
+    .reset{display:none!important}
     .lbl{width:100%;flex-basis:100%}
     .filter-options button.tag.f{min-height:44px;background:var(--paper);border:1px solid var(--control-line);
       color:var(--ink-600);padding:8px 13px}

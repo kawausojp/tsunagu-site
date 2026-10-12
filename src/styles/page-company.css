@@ -73,8 +73,11 @@
   .b-act[data-save] svg{stroke:var(--pink-300)}
   .b-act[aria-pressed="true"]{border-color:var(--pink-300)}
   .b-act[aria-pressed="true"] svg{fill:var(--pink-300)}
-  .b-act .on,.b-act[aria-pressed="true"] .off{display:none}
-  .b-act[aria-pressed="true"] .on{display:inline}
+  /* 「收藏／已收藏」疊在同一格，按鈕寬度固定在較長那個，切換時不會把「分享」擠開（2026-10-13） */
+  .b-act .lbl{display:inline-grid}
+  .b-act .lbl>span{grid-area:1/1}
+  .b-act .on,.b-act[aria-pressed="true"] .off{visibility:hidden}
+  .b-act[aria-pressed="true"] .on{visibility:visible}
   .b-act.pop svg{animation:b-pop .42s var(--ease)}
   @keyframes b-pop{40%{transform:scale(1.3)}}
 

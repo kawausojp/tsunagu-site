@@ -67,6 +67,11 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
             <button type="button" class="tag f saved-only" data-saved-only
               aria-pressed="false" aria-controls="company-grid"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/></svg>{ui.en.save.only}<span data-saved-count data-tpl=" ({n})"></span></button>
           </div>
+          <!-- 手機：篩選面板疊在頁面上（2026-10-13 使用者：展開不應把內容往下擠），選完按這顆收起看結果 -->
+          <div class="filter-actions">
+            <button type="button" class="btn btn-ghost" data-reset>Clear</button>
+            <button type="button" class="btn btn-primary filter-done" data-filter-done data-tpl="Show {n} brands">Show {companies.length} brands</button>
+          </div>
         </div>
       </details>
       <button type="button" class="reset" data-reset data-reset-toggle hidden>Clear search & filters</button>

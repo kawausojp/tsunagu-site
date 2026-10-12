@@ -70,6 +70,8 @@ export function initCompanyFilter() {
       if (show) n++;
     }
     statusEl!.textContent = fill(statusTpl, n);
+    const done = document.querySelector<HTMLElement>('[data-filter-done]');
+    if (done?.dataset.tpl) done.textContent = fill(done.dataset.tpl, n);
     if (emptyEl) emptyEl.hidden = n > 0;
     // 只看收藏但一個都還沒收藏：空狀態改成教他怎麼收藏
     if (emptyMsg) emptyMsg.textContent = savedOnly && savedSet().size === 0 ? (emptyMsg.dataset.msgSaved ?? emptyDefault) : emptyDefault;
@@ -140,6 +142,19 @@ export function initCompanyFilter() {
   });
   // 在列表上按愛心／其他分頁改了收藏：重算（不動網址）
   document.addEventListener('tsunagu:saved', () => apply(false));
+
+  // 手機的篩選面板疊在頁面上：「看 N 個品牌」或點面板外面就收起（2026-10-13）
+  const doneBtn = document.querySelector<HTMLElement>('[data-filter-done]');
+  doneBtn?.addEventListener('click', () => {
+    if (filterOptions) filterOptions.open = false;
+    filterOptions?.querySelector('summary')?.focus();
+  });
+  document.addEventListener('click', (e) => {
+    if (filterOptions?.open && mobile.matches && !filterOptions.contains(e.target as Node)) filterOptions.open = false;
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && filterOptions?.open && mobile.matches) { filterOptions.open = false; filterOptions.querySelector('summary')?.focus(); }
+  });
 
   if (filterOptions && mobile.matches) filterOptions.open = false;
   if (filterOptions) filterOptions.dataset.ready = '';
