@@ -139,8 +139,11 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
     .bar{height:56px;gap:8px;padding:0 16px}
     .wordmark{width:clamp(88px,26vw,112px)}
     .cta{display:none}                      /* 手機頁首只留 logo／語言／漢堡；報名鈕在抽屜與 hero */
-    .drawer{position:static;width:auto;border:0;border-top:1px solid var(--mobile-line);border-radius:0;
-      box-shadow:none;padding:8px var(--layout-gutter) 18px;max-height:calc(100dvh - 56px);overflow-y:auto;
+    /* 疊在頁面上，不佔文件流（2026-10-13 使用者：點開選單不應該把 hero 往下擠）。
+       header 是 sticky＝定位元素，抽屜以它為基準貼在頁首下緣、左右撐滿；底下的頁面不動，只被遮罩蓋住 */
+    .drawer{position:absolute;top:100%;left:0;right:0;width:auto;border:0;border-top:1px solid var(--mobile-line);border-radius:0;
+      background:var(--paper);backdrop-filter:none;
+      box-shadow:0 12px 24px rgba(70,70,70,.10);padding:8px var(--layout-gutter) 18px;max-height:calc(100dvh - 56px);overflow-y:auto;
       overscroll-behavior:contain}
     .drawer a{padding:10px 4px;border-radius:0;border-bottom:1px solid var(--line)}
     .drawer a.on{border-bottom-color:var(--line)}
