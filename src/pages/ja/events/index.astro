@@ -3,6 +3,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
+import savedBoxJs from '../../../scripts/saved-box.js?raw';
 import { href } from '../../../i18n/ui';
 import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta, JOIN_STEPS, gcalUrl, companyName } from '../../../lib/site';
 
@@ -75,6 +76,7 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
       <ul class="saved-list" data-saved-list></ul>
       <a class="action-link" href={l('/companies') + '?saved=1'}>お気に入りを見る</a>
     </div>
+    <script is:inline set:html={savedBoxJs}></script>
   </section>
 
   <section class="wrap wrap--page page-section">

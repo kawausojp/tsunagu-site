@@ -79,7 +79,17 @@ const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
   header[data-hidden]{transform:translate3d(0,-100%,0);pointer-events:none}
   header[data-stuck]{box-shadow:0 4px 18px rgba(70,70,70,.06)}
   .bar{display:flex;align-items:center;gap:12px;height:68px;transition:height .28s cubic-bezier(.22,.61,.36,1)}   /* 同上，不過衝 */
-  @media (min-width:721px){ header[data-stuck] .bar{height:60px} }   /* 手機本來就 56px，不再縮 */
+  @media (min-width:721px){   /* 手機本來就 56px，不再縮 */
+    header[data-stuck] .bar{height:60px}
+    /* 縮高不推動頁面（2026-10-18 平板稽核）：header 是 sticky、佔版面，原本整個縮 8px 時下方內容跟著往上跳。
+       改成 header 本身固定 68px，只有看得見的毛玻璃底、陰影與內容列縮到 60px；底下 8px 透明且點得穿 */
+    header{height:68px}
+    header::before{bottom:auto;height:100%;transition:height .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s cubic-bezier(.22,.61,.36,1)}
+    header[data-stuck]{box-shadow:none;pointer-events:none}
+    header[data-stuck]::before{height:60px;box-shadow:0 4px 18px rgba(70,70,70,.06)}
+    header[data-stuck]:not([data-hidden])>*{pointer-events:auto}
+    header[data-stuck] .drawer{top:68px}   /* 面板仍在可見頁首下方 8px */
+  }
   .logo :global(svg){flex:0 0 22px}
   /* 滑鼠移到 logo：愛心跳一下（品牌的「ツナグ」心跳；只在有 hover 的裝置，減少動態時 global 的規則會關掉） */
   @media (hover:hover) and (pointer:fine){

@@ -13,24 +13,8 @@
     document.dispatchEvent(new CustomEvent('tsunagu:saved', { detail: saved }));
   };
 
-  // /events 的「你收藏的品牌」：品牌名與網址由頁面以 JSON 提供（data-saved-names）
-  function renderSavedBox() {
-    const box = document.querySelector('[data-saved-box]');
-    if (!box) return;
-    let names = {};
-    try { names = JSON.parse(box.dataset.savedNames || '{}'); } catch { /* 頁面資料壞掉就不顯示 */ }
-    const list = box.querySelector('[data-saved-list]');
-    const ids = [...saved].filter((id) => names[id]);
-    box.hidden = ids.length === 0;
-    if (!list) return;
-    list.replaceChildren(...ids.map((id) => {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = names[id].href; a.textContent = names[id].name;
-      li.append(a);
-      return li;
-    }));
-  }
+  // /events 的「你收藏的品牌」：畫法在 saved-box.js（緊接區塊同步執行，首次繪製前就畫好）
+  const renderSavedBox = () => window.tsunaguSavedBox?.(saved);
 
   document.addEventListener('click', async (e) => {
     const save = e.target.closest('[data-save]');
