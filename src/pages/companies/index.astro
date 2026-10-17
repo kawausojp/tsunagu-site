@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import { Image } from 'astro:assets';
 import characters from '../../assets/tsunagu-characters.png';
 import '../../styles/page-companies.css';
+import prefilterJs from '../../scripts/co-prefilter.js?raw';
 import CompanyCard from '../../components/CompanyCard.astro';
 import { CONTRACTED_COMPANIES, signupCta } from '../../lib/site';
 
@@ -74,10 +75,9 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
           </div>
         </div>
       </details>
-      <button type="button" class="reset" data-reset data-reset-toggle hidden>清除搜尋與篩選</button>
     </div>
     <p class="count small"><span role="status" aria-live="polite" aria-atomic="true"
-      data-status>顯示 {companies.length} 個品牌</span><span>／本頁 {companies.length} 個品牌合計 {totalPlacements} 人次任職</span></p>
+      data-status>顯示 {companies.length} 個品牌</span><span>／本頁 {companies.length} 個品牌合計 {totalPlacements} 人次任職</span><!-- 桌機：「清除」放在計數列右側（2026-10-17：原本另佔一列，選了條件才出現，把企業卡往下擠 60px） --><button type="button" class="reset" data-reset data-reset-toggle hidden>清除搜尋與篩選</button></p>
   </div>
 
   <div class="wrap">
@@ -92,6 +92,7 @@ const totalPlacements = companies.reduce((s,c)=>s+c.data.placements,0);
       <div class="grid" id="company-grid" data-grid>
         {companies.map(c => <CompanyCard c={c} href={`${base}/companies/${c.id}`} />)}
       </div>
+      <script is:inline set:html={prefilterJs}></script>
       <div class="empty" data-empty hidden>
         <Image src={characters} alt="" aria-hidden="true" widths={[160, 320]} sizes="160px" loading="lazy" class="empty-chars" />
         <p class="small" data-empty-msg data-msg-saved={ui.zh.save.empty}>沒有符合條件的品牌。</p>

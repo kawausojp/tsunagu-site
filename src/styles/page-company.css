@@ -74,6 +74,13 @@
   .b-act[aria-pressed="true"]{border-color:var(--pink-300)}
   .b-act[aria-pressed="true"] svg{fill:var(--pink-300)}
   /* 「收藏／已收藏」疊在同一格，按鈕寬度固定在較長那個，切換時不會把「分享」擠開（2026-10-13） */
+  /* 分享後的「已複製連結」：浮在按鈕下方，不換按鈕字、不推動版面 */
+  .share-wrap{position:relative;display:inline-flex}
+  .share-tip{position:absolute;left:50%;top:calc(100% + 8px);transform:translate(-50%,-4px);white-space:nowrap;z-index:5;
+    padding:6px 12px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--paper);color:var(--ink-900);
+    font-size:var(--fs-xs);box-shadow:0 6px 16px rgba(70,70,70,.10);opacity:0;pointer-events:none;
+    transition:opacity .2s var(--ease),transform .24s var(--ease)}
+  .share-tip.on{opacity:1;transform:translate(-50%,0)}
   .b-act .lbl{display:inline-grid}
   .b-act .lbl>span{grid-area:1/1}
   .b-act .on,.b-act[aria-pressed="true"] .off{visibility:hidden}

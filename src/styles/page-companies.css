@@ -22,11 +22,20 @@
   /* 選中＝主色實底＋灰粗字（比未選中重，層級才對）；area 藍／job 粉／其餘藍 */
   /* 選中＝主色實底＋保留灰框（使用者 2026-09-25）：主色底對白只有 1.7／2.0:1，換成主色框後
      選中與未選中只剩字重差；灰框（3.45:1）留著，底色變化才是可辨認的狀態 */
+  /* 選中變粗體不改變寬度（2026-10-17）：隱形的第二列放粗體版文字撐出欄寬（data-label 由 co-prefilter.js 在首次繪製前寫入） */
+  button.tag.f[data-label]{display:inline-grid;justify-items:center;align-content:center}
+  button.tag.f[data-label]::after{content:attr(data-label);font-weight:700;visibility:hidden;height:0;overflow:hidden;grid-area:2/1}
   button.f[aria-pressed="true"]{background:var(--sky-300);border-color:var(--control-line);color:var(--ink-900);font-weight:700}
   button.f.job[aria-pressed="true"]{background:var(--pink-300);border-color:var(--control-line)}
   .reset{align-self:flex-start;background:none;border:0;color:var(--ink-900);font-weight:700;
     min-height:var(--control-min);font-size:var(--fs-xs);cursor:pointer;padding:8px 0;text-decoration:underline;text-decoration-color:var(--sky-300);text-decoration-thickness:2px;text-underline-offset:3px;font-family:inherit}
   .count{margin:16px 0 0;color:var(--ink-600)}
+  /* 「清除搜尋與篩選」貼在計數列右端（2026-10-17：原本另佔一列、選了條件才出現，把企業卡往下擠 60px）。
+     絕對定位＋右側預留空間：出現或消失都不改變列高；觸控高度 44px 由按鈕自己撐，不影響行高 */
+  .count{position:relative}
+  .count .reset{position:absolute;right:0;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;padding:0}
+  .count .reset[hidden]{display:none}
+  @media (min-width:721px){.count{padding-right:12em}}
   /* 列表區用淺藍全寬底（2026-09-14 使用者：卡片全白＋頁面全白，35 張看了眼花；灰底→改淺藍）——
      全站唯一用主色淡階當底的區塊，讓白卡從底色浮出來 */
   .list{margin:24px 0 0;padding:32px 0 44px;background:var(--sky-wash)}

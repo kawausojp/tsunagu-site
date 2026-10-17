@@ -54,12 +54,14 @@
       }
       try {
         await navigator.clipboard.writeText(url);
-        const label = share.querySelector('[data-share-label]');
+        // 「已複製連結」用按鈕下方的小提示，不換按鈕字（2026-10-17：換字會讓按鈕變寬，ja 從 91 撐到 197px）
+        const tip = share.parentElement?.querySelector('[data-share-tip]');
         const done = share.dataset.copied;
-        if (label && done) {
-          const orig = label.textContent;
-          label.textContent = done;
-          setTimeout(() => { label.textContent = orig; }, 2000);
+        if (tip && done) {
+          tip.textContent = done;
+          tip.classList.add('on');
+          clearTimeout(tip._t);
+          tip._t = setTimeout(() => { tip.classList.remove('on'); }, 2000);
         }
       } catch { /* 無法複製：不做任何事 */ }
     }
