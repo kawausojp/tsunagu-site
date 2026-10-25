@@ -1,0 +1,15 @@
+---
+// 英文版已拿掉（2026-10-25：繁中為主、日文保留）。舊的英文網址一律轉到對應的繁中頁
+import { getCollection } from 'astro:content';
+import Redirect from '../../components/Redirect.astro';
+export async function getStaticPaths() {
+  const map: [string | undefined, string][] = [
+    [undefined, '/'], ['about', '/about/'], ['apply', '/apply/'], ['events', '/events/'],
+    ['stories', '/stories/'], ['support', '/about/#support'], ['companies', '/results/'],
+  ];
+  const brands = (await getCollection('companies')).map(c => [`companies/${c.id}`, '/results/'] as [string, string]);
+  return [...map, ...brands].map(([path, to]) => ({ params: { path }, props: { to } }));
+}
+const { to } = Astro.props;
+---
+<Redirect to={to} />

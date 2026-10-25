@@ -1,0 +1,29 @@
+---
+// 前輩文章頁（繁中）。版面在 components/StoryArticle.astro（zh／ja 共用）
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import StoryArticle from '../../components/StoryArticle.astro';
+import type { Lang } from '../../i18n/ui';
+import { storiesByVol, RESULTS, sameBrand } from '../../lib/site';
+export async function getStaticPaths() {
+  const all = storiesByVol(await getCollection('stories'));
+  return all.map((s, i) => {
+    // 「也看看其他前輩」：同品牌優先，再依發文日最接近
+    const related = all.filter(o => o.id !== s.id)
+      .map(o => ({ o, score: (o.data.company === s.data.company ? 0 : 1e12) + Math.abs(Date.parse(o.data.igPosted) - Date.parse(s.data.igPosted)) }))
+      .sort((a, b) => a.score - b.score).slice(0, 3).map(x => x.o);
+    return { params: { slug: s.id }, props: { story: s, prev: all[i - 1], next: all[i + 1], related } };
+  });
+}
+const { story, prev, next, related } = Astro.props;
+const inResults = RESULTS.some(r => sameBrand(story.data.company, r.brand));
+const lang = 'zh' as Lang;
+const title = (lang === 'ja' && story.data.titleJa) || story.data.title;
+---
+<Base title={`「${title}」${story.data.name}`} lang={lang}
+  altPaths={{ zh: `/stories/${story.id}/`, ja: `/ja/stories/${story.id}/` }}
+  description={lang === 'ja'
+    ? `${story.data.name}さん（${story.data.company}）の体験談。ツナグを通じて日本で働く台湾の先輩の声を、Instagram の投稿から原文のまま掲載しています。`
+    : `${story.data.name}（${story.data.company}）的經驗分享。透過 Tsunagu 在日本工作的台灣前輩，Instagram 原文刊載。`}>
+  <div class="wrap"><StoryArticle lang={lang} story={story} prev={prev} next={next} related={related} inResults={inResults} /></div>
+</Base>

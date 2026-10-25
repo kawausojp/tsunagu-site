@@ -1,0 +1,106 @@
+---
+// 前輩文章頁（2026-10-25 網誌化改版，依 2026-10-24 使用者確認的草圖）。zh／ja 共用。
+// 內文全部是 IG 原文（content.config.ts 驗證）；段內換行照 IG 原樣（white-space:pre-line）。
+// ja：IG 貼文附的「〜メッセージ日本語〜」（Tsunagu 撰寫的日文版）放 Message；Advice 沒有日文版，照繁中原文刊載並標示。
+import SenpaiAvatar from './SenpaiAvatar.astro';
+import NextEvent from './NextEvent.astro';
+import { fmtDate, fmtLocation, VISA_LABEL } from '../lib/site';
+import { href, type Lang } from '../i18n/ui';
+import '../styles/page-story.css';
+interface S { id: string; vol: number; data: any }
+interface Props { lang: Lang; story: S; prev?: S; next?: S; related: S[]; inResults: boolean; }
+const { lang, story, prev, next, related, inResults } = Astro.props;
+const d = story.data;
+const ja = lang === 'ja';
+const hasJa = ja && d.messagesJa.length > 0;
+const msgs: string[] = hasJa ? d.messagesJa : d.messages;
+const title: string = (ja && d.titleJa) || d.title;
+const titleLang = ja && !d.titleJa ? 'zh-Hant' : undefined;
+const visa = (ja ? VISA_LABEL.ja[d.visa] : undefined) ?? d.visa;
+const [y, m] = d.started.split('.').map(Number);
+const started = ja ? `${y}年${m}月` : `${y} 年 ${m} 月`;
+const ig = `https://www.instagram.com/p/${d.igCode}/`;
+const sHref = (s: S) => href(lang, `/stories/${s.id}/`);
+const sTitle = (s: S) => (ja && s.data.titleJa) || s.data.title;
+const sLang = (s: S) => (ja && !s.data.titleJa ? 'zh-Hant' : undefined);
+// 大字引言：放在含有那句話的段落之後（只有 zh 頁；ja 的 Message 是日文版，引言是繁中原句）
+const pull: string | undefined = ja ? undefined : d.pull;
+const pullAfterMsg = pull ? d.messages.findIndex((p: string) => p.includes(pull)) : -1;
+const pullAfterAdv = pull && pullAfterMsg < 0 ? d.advice.findIndex((p: string) => p.includes(pull)) : -1;
+const L = ja ? {
+  crumbs: '先輩の声', profile: 'プロフィール', visa: 'ビザ', start: '開始', place: '勤務先',
+  msg: 'メッセージ', adv: '後輩へのアドバイス', excerpt: '（抜粋）',
+  advNote: 'アドバイスは原文（繁体字中国語）のまま掲載しています。',
+  zhNote: '本文は原文（繁体字中国語）のまま掲載しています。',
+  src: `Tsunagu 公式 Instagram（${fmtDate(d.igPosted)}）の投稿を原文のまま掲載しています。`,
+  igLink: 'Instagram で元の投稿を見る', prev: '前の記事', next: '次の記事', more: 'ほかの先輩の声', results: '実績一覧で見る',
+} : {
+  crumbs: '前輩分享', profile: '前輩資料', visa: '簽證', start: '開始', place: '工作地點',
+  msg: '心得', adv: '給後輩的建議', excerpt: '',
+  advNote: '', zhNote: '',
+  src: `本文為 Tsunagu Instagram ${fmtDate(d.igPosted)} 貼文原文，未經改寫。`,
+  igLink: '在 Instagram 看原文', prev: '上一篇', next: '下一篇', more: '也看看其他前輩', results: '在實績總表看這個品牌',
+};
+---
+<article class="art">
+  <nav class="art-crumb small" aria-label={ja ? 'パンくずリスト' : '麵包屑'}><a href={href(lang, '/stories/')}>{L.crumbs}</a><span aria-hidden="true">›</span><span>Vol.{story.vol}</span></nav>
+  <p class="art-series"><span class="cat c-story">{L.crumbs}</span><span class="vol">Vol.{story.vol}</span><time datetime={d.igPosted}>{fmtDate(d.igPosted)}</time></p>
+  <h1 class="art-title" lang={titleLang} data-vt style={`view-transition-name:tt-${story.id}`}><span class="q">「</span>{title}<span class="q">」</span></h1>
+
+  <section class="art-profile" aria-label={L.profile}>
+    <div class="av" data-vt style={`view-transition-name:av-${story.id}`}><SenpaiAvatar name={d.name} size={88} /></div>
+    <div>
+      <p class="art-name" lang="ja">{d.name}</p>
+      <dl>
+        <dt>{L.visa}</dt><dd>{visa}</dd>
+        <dt>{L.start}</dt><dd>{started}・{fmtLocation(d.location, lang)}</dd>
+        <dt>{L.place}</dt><dd>{d.company}{d.companyNote && <span class="note-in" lang="zh-Hant">（{d.companyNote}）</span>}</dd>
+      </dl>
+    </div>
+  </section>
+
+  <div class="art-body">
+    <h2><span class="en">Message</span><span>{L.msg}{hasJa && d.jaExcerpt && L.excerpt}</span></h2>
+    {ja && !hasJa && <p class="art-langnote small">{L.zhNote}</p>}
+    {msgs.map((p, i) => <>
+      <p lang={ja && !hasJa ? 'zh-Hant' : undefined}>{p}</p>
+      {i === pullAfterMsg && <blockquote class="art-pull"><p><span class="q">「</span>{pull}<span class="q">」</span></p></blockquote>}
+    </>)}
+    {d.advice.length > 0 && <>
+      <h2><span class="en">Advice</span><span>{L.adv}</span></h2>
+      {ja && <p class="art-langnote small">{L.advNote}</p>}
+      {d.advice.map((p: string, i: number) => <>
+        <p lang={ja ? 'zh-Hant' : undefined}>{p}</p>
+        {i === pullAfterAdv && <blockquote class="art-pull"><p><span class="q">「</span>{pull}<span class="q">」</span></p></blockquote>}
+      </>)}
+    </>}
+  </div>
+
+  <div class="art-source">
+    <span>{L.src}</span>
+    <a class="action-link ext" href={ig} target="_blank" rel="noopener">{L.igLink} <span aria-hidden="true">↗</span><span class="sr-only">{ja ? '（新しいウィンドウで開きます）' : '（另開新視窗）'}</span></a>
+  </div>
+  {inResults && <p class="art-results small"><a href={href(lang, '/results/')}>{L.results}</a></p>}
+
+  <nav class="art-pn" aria-label={ja ? '前後の記事' : '上一篇與下一篇'}>
+    {prev ? <a href={sHref(prev)} rel="prev"><small>← {L.prev}</small><span lang={sLang(prev)}>「{sTitle(prev)}」</span></a> : <span></span>}
+    {next ? <a href={sHref(next)} rel="next" class="nx"><small>{L.next} →</small><span lang={sLang(next)}>「{sTitle(next)}」</span></a> : <span></span>}
+  </nav>
+
+  {related.length > 0 && (
+    <section class="art-more" aria-labelledby="art-more-h">
+      <h2 id="art-more-h">{L.more}</h2>
+      <ul>
+        {related.map(s => (
+          <li data-story={s.id}>
+            <a class="av" href={sHref(s)} tabindex="-1" aria-hidden="true"><SenpaiAvatar name={s.data.name} size={44} /></a>
+            <div><a class="ttl" href={sHref(s)} lang={sLang(s)}>「{sTitle(s)}」</a>
+              <small><span lang="ja">{s.data.name}</span>・{(ja ? VISA_LABEL.ja[s.data.visa] : undefined) ?? s.data.visa}・{fmtLocation(s.data.location, lang)}・{s.data.company}</small></div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <NextEvent lang={lang} variant="mini" />
+</article>

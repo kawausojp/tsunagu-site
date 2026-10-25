@@ -1,0 +1,77 @@
+---
+// 實績總表（2026-10-25 網誌化改版）。主辦方：品牌專區先不要做（很多品牌沒有公開招募）→ 只列「實際有人工作過」的實績，
+// 不寫任何招募資訊（地區、日語、面試、募集中）。資料在 src/data/results.json（2026.10.18 簡報，附頁碼）。zh／ja 共用。
+import { getCollection } from 'astro:content';
+import feedJs from '../scripts/feed.js?raw';
+import '../styles/feed.css';
+import '../styles/page-results.css';
+import { RESULTS, HOME_STATS, CAT_LABEL, sameBrand, fmtSourceDeck, storiesByVol } from '../lib/site';
+import { href, type Lang } from '../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const ja = lang === 'ja';
+const stories = storiesByVol(await getCollection('stories'));
+const storyOf = (brand: string) => stories.filter(s => sameBrand(s.data.company, brand));
+const total = RESULTS.reduce((s, r) => s + r.people, 0);
+const catsOrder = [...new Set(RESULTS.map(r => r.cat))]
+  .map(c => ({ c, n: RESULTS.filter(r => r.cat === c).reduce((s, r) => s + r.people, 0) }))
+  .sort((a, b) => b.n - a.n).map(x => x.c);
+const nums = ja ? [
+  { n: HOME_STATS.active, u: '名', t: '日本で活躍中' },
+  { n: HOME_STATS.fulltime, u: '名', t: '正社員として勤務' },
+  { n: HOME_STATS.toFulltime, u: '名', t: 'うちアルバイトから正社員へ' },
+  { n: HOME_STATS.attendees, u: '名', t: '交流会の参加者' },
+] : [
+  { n: HOME_STATS.active, u: '位', t: '在日本活躍中' },
+  { n: HOME_STATS.fulltime, u: '位', t: '以正職身分工作' },
+  { n: HOME_STATS.toFulltime, u: '位', t: '其中從打工轉為正職' },
+  { n: HOME_STATS.attendees, u: '位', t: '參加過交流會' },
+];
+const L = ja ? {
+  h2: 'ブランド別の実績', all: 'すべて', brand: 'ブランド', cat: 'カテゴリー', people: '累計人数', ft: 'うち正社員',
+  unit: '名', story: '先輩の声', tabs: 'カテゴリーで絞り込む',
+  note1: `この表は、交流会スライドに人数の記載があるブランドのみを掲載しています（合計 ${total} 名）。ほかの仲間の勤務先は公開していません。`,
+  note2: '＊スライドには「アルバイトから正社員への実績あり」とのみ記載され、人数は書かれていません。',
+} : {
+  h2: '各品牌的實績', all: '全部', brand: '品牌', cat: '品類', people: '累計人數', ft: '其中轉正職',
+  unit: '位', story: '前輩分享', tabs: '依品類篩選',
+  note1: `表上只列交流會簡報載明人數的品牌，合計 ${total} 位；其他夥伴的工作地點沒有公開。`,
+  note2: '＊簡報只寫「有從打工轉正職的實績」，沒有寫人數。',
+};
+---
+<section class="page-head"><div class="wrap wrap--page">
+  <h1 class="d1">{ja ? '実績' : '實績'}</h1>
+  {ja
+    ? <p class="lead"><span class="sent">2023 年から、ツナグを通じて日本で働いてきた台湾の仲間たちの実績です。</span><span class="sent">数字は主催者の交流会スライドに基づいています。</span></p>
+    : <p class="lead"><span class="sent">自 2023 年起，透過 Tsunagu 在日本工作的台灣夥伴們留下的實績。</span><span class="sent">數字都出自主辦方的交流會簡報。</span></p>}
+  <ul class="res-nums">
+    {nums.map(x => <li><b>{x.n}<small>{x.u}</small></b><span>{x.t}</span></li>)}
+  </ul>
+  <p class="note"><span class="sent">{ja ? '出典：' : '資料來源：'}{fmtSourceDeck(lang, 185)}</span></p>
+</div></section>
+
+<section class="wrap wrap--page page-section" aria-labelledby="res-h">
+  <h2 class="d2" id="res-h">{L.h2}</h2>
+  <div class="feed res" data-feed>
+    <div class="ftabs" role="group" aria-label={L.tabs} data-tabs hidden>
+      <button type="button" data-cat="all" aria-pressed="true" data-label={L.all}>{L.all}</button>
+      {catsOrder.map(c => <button type="button" data-cat={c} aria-pressed="false" data-label={CAT_LABEL[lang][c]}>{CAT_LABEL[lang][c]}</button>)}
+    </div>
+    <table class="res-table">
+      <thead><tr><th scope="col">{L.brand}</th><th scope="col">{L.cat}</th><th scope="col" class="num">{L.people}</th><th scope="col" class="num">{L.ft}</th></tr></thead>
+      <tbody>
+        {RESULTS.map(r => { const st = storyOf(r.brand); return (
+          <tr data-entry data-cat={r.cat}>
+            <th scope="row"><span class="b" lang={/[぀-ヿ]/.test(r.brand) ? 'ja' : undefined}>{r.brand}</span>
+              {st.length > 0 && <span class="st">{st.map((s, i) => <a href={href(lang, `/stories/${s.id}/`)}>{L.story}{st.length > 1 ? ` ${i + 1}` : ''}<span class="sr-only">：{s.data.name}</span></a>)}</span>}</th>
+            <td class="c">{CAT_LABEL[lang][r.cat] ?? r.cat}</td>
+            <td class="num" data-h={L.people}><b>{r.people}</b><small>{L.unit}</small></td>
+            <td class="num" data-h={L.ft}>{r.fulltime === null ? <span title={L.note2}>＊</span> : r.fulltime > 0 ? <>{r.fulltime}<small>{L.unit}</small></> : <span class="z">—</span>}</td>
+          </tr>
+        ); })}
+      </tbody>
+    </table>
+    <script is:inline set:html={feedJs}></script>
+  </div>
+  <p class="note"><span class="sent">{L.note1}</span><span class="sent">{L.note2}</span><span class="sent">{ja ? '出典：' : '資料來源：'}{fmtSourceDeck(lang)}</span></p>
+</section>

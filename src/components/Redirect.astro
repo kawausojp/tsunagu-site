@@ -1,0 +1,25 @@
+---
+// 舊網址的轉址頁（2026-10-25 網誌化改版拿掉品牌頁、英文版、「我們怎麼幫你」）。
+// GitHub Pages 沒有伺服器端轉址，用 meta refresh＋canonical；已分享出去的連結不會壞。
+import { BASE } from '../i18n/ui';
+interface Props { to: string; lang?: 'zh' | 'ja'; }
+const { to, lang = 'zh' } = Astro.props;
+const dest = `${BASE}${to}`;
+const abs = new URL(dest, Astro.site).toString();
+const msg = lang === 'ja' ? 'このページは移動しました。' : '這個頁面已經搬家了。';
+const go = lang === 'ja' ? '移動先を開く' : '前往新頁面';
+---
+<!DOCTYPE html>
+<html lang={lang === 'ja' ? 'ja' : 'zh-Hant'}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,follow" />
+  <link rel="canonical" href={abs} />
+  <meta http-equiv="refresh" content={`0;url=${dest}`} />
+  <title>{msg}｜ツナグ Tsunagu</title>
+</head>
+<body style="font-family:system-ui,sans-serif;color:#444;padding:40px 24px">
+  <p>{msg}<a href={dest} style="color:#444">{go}</a></p>
+</body>
+</html>

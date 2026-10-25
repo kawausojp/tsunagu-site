@@ -15,7 +15,7 @@ const norm = (u: string) => (u.length > 1 ? u.replace(/\/$/, '') : u);
 const isCurrent = (h: string) => norm(path) === norm(h) || path.startsWith(`${h}/`);
 // 在區段內但不是該頁本身時用 'true'（'page' 只給真正的當前頁）
 const currentVal = (h: string) => (norm(path) === norm(h) ? 'page' : 'true');
-const langs = (['zh', 'ja', 'en'] as Lang[]).map(l => ({
+const langs = (['zh', 'ja'] as Lang[]).map(l => ({
   code: l, label: LANG_META[l].label, current: l === lang,
   // 頁面有給 altPaths（如 404 導回各語首頁）就用它，否則從 pathname 換前綴
   href: altPaths?.[l] ? `${BASE}${altPaths[l]}` : switchHref(l, path),

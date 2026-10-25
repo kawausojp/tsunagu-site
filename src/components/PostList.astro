@@ -1,0 +1,91 @@
+---
+// 文章列表（2026-10-25 網誌化改版）：首頁「最新文章」與 /stories/ 共用。
+// 第一篇前輩分享放大（greenz／灯台もと暮らし的主打），其餘一列一篇的分隔線清單（北歐、暮らしの道具店；
+// 也符合「一行一筆的清單不做逐筆卡片」）。分類切換＝分頁標籤＋粉藍底線（使用者 2026-10-24 選 C）。
+// 引言一律 IG 原文（content.config.ts 驗證過），這裡不截字、不改寫；摘錄只用 CSS 收成三行。
+import SenpaiAvatar from './SenpaiAvatar.astro';
+import feedJs from '../scripts/feed.js?raw';
+import '../styles/feed.css';
+import { fmtDate, fmtEventNo, fmtLocation, VISA_LABEL, type FeedItem } from '../lib/site';
+import { href, ui, type Lang } from '../i18n/ui';
+interface Props { items: FeedItem[]; lang: Lang; feature?: boolean; tabs?: boolean; initial?: number; defaultCat?: string; }
+// defaultCat：首頁預設只看前輩分享（最近的貼文多是交流會開催報告，依日期排會把前輩擠到後面；網站主角是前輩分享）
+const { items, lang, feature = true, tabs = true, initial, defaultCat = 'all' } = Astro.props;
+const t = ui[lang].feed;
+const nw = ui[lang].newWindow;
+const ja = lang === 'ja';
+const featured = feature ? items.find(i => i.kind === 'story') : undefined;
+const rest = items.filter(i => i !== featured);
+const count = (k: string) => items.filter(i => i.kind === k).length;
+const cats = [
+  { k: 'story', label: t.story, n: count('story') },
+  { k: 'event', label: t.event, n: count('event') },
+  { k: 'media', label: t.media, n: count('media') },
+  { k: 'all', label: t.all, n: items.length },
+].filter(c => c.k === 'all' || c.n > 0);
+const visa = (v: string) => (ja ? VISA_LABEL.ja[v] : undefined) ?? v;
+const title = (d: any) => (ja && d.titleJa) || d.title;
+const titleLang = (d: any) => (ja && !d.titleJa ? 'zh-Hant' : undefined);
+// 摘錄：取不含標題句的第一段（標題就是第一段的句子時，避免同一句出現兩次）
+const excerpt = (d: any) => {
+  const ps: string[] = ja && d.messagesJa?.length ? d.messagesJa : d.messages;
+  const tt: string = (ja && d.titleJa) || d.title;
+  return ps.find(p => !p.includes(tt)) ?? ps[0];
+};
+const excerptLang = (d: any) => (ja && !d.messagesJa?.length ? 'zh-Hant' : undefined);
+const storyHref = (id: string) => href(lang, `/stories/${id}/`);
+const ig = (code: string) => `https://www.instagram.com/p/${code}/`;
+---
+<div class="feed" data-feed data-initial={initial} data-default={defaultCat}>
+  {tabs && cats.length > 2 && (
+    <div class="ftabs" role="group" aria-label={t.tabsLabel} data-tabs hidden>
+      {cats.map(c => <button type="button" data-cat={c.k} aria-pressed={c.k === defaultCat ? 'true' : 'false'} data-label={c.label}>{c.label}<small>{c.n}</small></button>)}
+    </div>
+  )}
+
+  {featured && featured.kind === 'story' && (
+    <article class="fpost" data-cat="story" data-story={featured.id}>
+      <a class="av" href={storyHref(featured.id)} tabindex="-1" aria-hidden="true"><SenpaiAvatar name={featured.data.name} size={140} /></a>
+      <div class="fbody">
+        <p class="fmeta"><span class="cat c-story">{t.story}</span><span class="vol">Vol.{featured.vol}</span><time datetime={featured.date}>{fmtDate(featured.date)}</time></p>
+        <h3 class="ttl"><a href={storyHref(featured.id)} lang={titleLang(featured.data)}><span class="q">「</span>{title(featured.data)}<span class="q">」</span></a></h3>
+        <p class="fex" lang={excerptLang(featured.data)}>{excerpt(featured.data)}</p>
+        <p class="who"><b lang="ja">{featured.data.name}</b>{visa(featured.data.visa)}・{fmtLocation(featured.data.location, lang)}・{featured.data.company}</p>
+        <a class="action-link" href={storyHref(featured.id)}>{t.read}</a>
+      </div>
+    </article>
+  )}
+
+  <ol class="frows">
+    {rest.map(it => (
+      <li class="frow" data-cat={it.kind} data-story={it.kind === 'story' ? it.id : undefined}>
+        {it.kind === 'story' ? <>
+          <a class="av" href={storyHref(it.id)} tabindex="-1" aria-hidden="true"><SenpaiAvatar name={it.data.name} size={56} /></a>
+          <div class="fbody">
+            <p class="fmeta"><span class="cat c-story">{t.story}</span><span class="vol">Vol.{it.vol}</span><time datetime={it.date}>{fmtDate(it.date)}</time></p>
+            <h3 class="ttl"><a href={storyHref(it.id)} lang={titleLang(it.data)}><span class="q">「</span>{title(it.data)}<span class="q">」</span></a></h3>
+            <p class="who"><b lang="ja">{it.data.name}</b>{visa(it.data.visa)}・{fmtLocation(it.data.location, lang)}・{it.data.company}</p>
+          </div>
+        </> : it.kind === 'event' ? <>
+          <span class="ico c-event" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="21" height="18" rx="2.5"/><path d="M3.5 11h21M9 3.5v4M19 3.5v4M9 16h3M16 16h3M9 20h3"/></svg></span>
+          <div class="fbody">
+            <p class="fmeta"><span class="cat c-event">{t.event}</span><time datetime={it.date}>{fmtDate(it.date)}</time></p>
+            <h3 class="ttl lite"><a href={ig(it.ig)} target="_blank" rel="noopener">{t.eventTitle(fmtEventNo(it.no, lang), it.city)}<span class="out"> <span aria-hidden="true">↗</span><span class="sr-only">{nw}</span></span></a></h3>
+            <p class="who">{t.igRecap}</p>
+          </div>
+        </> : <>
+          <span class="ico c-media" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="17" height="19" rx="2"/><path d="M21 9h3v12.5a2.5 2.5 0 0 1-5 0M8 10h9M8 14h9M8 18h6"/></svg></span>
+          <div class="fbody">
+            <p class="fmeta"><span class="cat c-media">{t.media}</span><time datetime={it.date}>{fmtDate(it.date)}</time></p>
+            <h3 class="ttl lite">{it.url
+              ? <a href={it.url} target="_blank" rel="noopener" lang="ja">{it.title ?? it.name}<span class="out"> <span aria-hidden="true">↗</span><span class="sr-only">{nw}</span></span></a>
+              : <span lang="ja">{it.title ?? it.name}</span>}</h3>
+            <p class="who">{it.title && <span lang="ja">{it.name}</span>}{it.note && <span>{it.note}</span>}{it.print && <span>{t.print}</span>}</p>
+          </div>
+        </>}
+      </li>
+    ))}
+  </ol>
+  {initial && <div class="fmore" data-more-wrap hidden><button type="button" class="btn btn-secondary" data-more>{t.more}</button></div>}
+</div>
+<script is:inline set:html={feedJs}></script>

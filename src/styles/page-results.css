@@ -1,0 +1,30 @@
+/* 實績總表（2026-10-25）。分類分頁沿用 feed.css 的 .ftabs */
+.res-nums{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.res-nums li{display:flex;flex-direction:column;gap:2px;padding:16px 18px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper)}
+.res-nums b{font-family:var(--f-latin);font-weight:600;font-size:var(--fs-stat);line-height:1.1;color:var(--pink-300);letter-spacing:.01em}
+.res-nums small{font-family:var(--f-body);font-size:var(--fs-sm);color:var(--ink-600);margin-left:4px;font-weight:400}
+.res-nums span{font-size:var(--fs-sm);color:var(--ink-900)}
+.res .ftabs{margin-top:18px}
+.res-table{width:100%;border-collapse:collapse;font-size:var(--fs-md)}
+.res-table thead th{font-size:var(--fs-xs);font-weight:700;color:var(--ink-600);text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}
+.res-table tbody th,.res-table td{padding:14px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle;font-weight:400}
+.res-table tbody th .b{font-weight:700;color:var(--ink-900);margin-right:10px}
+.res-table .st{display:inline-flex;flex-wrap:wrap;gap:4px 10px;font-size:var(--fs-xs)}
+.res-table .c{color:var(--ink-600);font-size:var(--fs-sm);white-space:nowrap}
+.res-table .num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.res-table td.num{font-family:var(--f-latin);font-size:var(--fs-lg)}
+.res-table td.num b{font-weight:600}
+.res-table td.num small{font-family:var(--f-body);font-size:var(--fs-xs);color:var(--ink-600);margin-left:3px}
+.res-table .z{color:var(--ink-400)}
+@media (max-width:720px){
+  .res-nums{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:20px}
+  .res-nums li{padding:12px 14px}
+  .res-nums b{font-size:28px}
+  .res-table thead{display:none}
+  .res-table tr{display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:14px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
+  .res-table tbody th,.res-table td{padding:0;border:0}
+  .res-table tbody th{grid-column:1 / -1;margin-bottom:2px}
+  .res-table td.c{grid-column:1}
+  .res-table td.num{font-size:var(--fs-md)}
+  .res-table td.num::before{content:attr(data-h);font-family:var(--f-body);font-size:var(--fs-3xs);color:var(--ink-600);margin-right:5px}
+}

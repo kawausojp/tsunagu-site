@@ -1,37 +1,31 @@
 ---
-// 日本語版トップ。構造・スタイルは繁中版（/src/pages/index.astro）と共通（home.css）。
-// 三言語のページ構造を変更する際は zh/ja/en を同時に更新すること（CLAUDE.md 参照）。
+// 日本語版トップ。構成・スタイルは繁中版（/src/pages/index.astro）と共通（home.css）。
+// 2026-10-25 網誌化改版：hero → 統計 → 交流会のご案内 → 記事一覧 → ニュース映像。提携企業セクションは削除（主催者の意向）。
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import '../../styles/home.css';
-import CompanyCard from '../../components/CompanyCard.astro';
-import SenpaiAvatar from '../../components/SenpaiAvatar.astro';
 import StatIcon from '../../components/StatIcon.astro';
 import Heart from '../../components/Heart.astro';
+import NextEvent from '../../components/NextEvent.astro';
+import PostList from '../../components/PostList.astro';
 import { Image } from 'astro:assets';
 import characters from '../../assets/tsunagu-characters.png';
 import { href } from '../../i18n/ui';
-import { VIDEO_ID, VIDEO_START, nextEvent, totalHeld, VISA_LABEL, signupCta, fmtLocation, HOME_STATS, byPlacements, sentences } from '../../lib/site';
+import { VIDEO_ID, VIDEO_START, signupCta, HOME_STATS, CONTRACTED_COMPANIES, buildFeed } from '../../lib/site';
 
 const l = (p: string) => href('ja', p);
-const companies = (await getCollection('companies'))
-  .sort(byPlacements);
-const featured = companies.slice(0, 6);
-const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order);
-const firstStory = stories[0];
-
-const nextEv = nextEvent();
+const feed = buildFeed(await getCollection('stories'), 'ja');
 const heroCta = signupCta('ja');
 const stats = [
+  { icon: 'job', n: HOME_STATS.active, u: '名', t: '日本で活躍中' },
+  { icon: 'rise', n: HOME_STATS.fulltime, u: '名', t: '正社員に' },
   { icon: 'people', n: HOME_STATS.attendees, u: '名', t: '交流会参加者' },
-  { icon: 'job', n: HOME_STATS.placed, u: '名', t: '日本での就業を実現' },
-  { icon: 'event', n: String(totalHeld), u: '回', t: '交流会開催実績' },
-  { icon: 'brand', n: String(companies.length), u: '', t: '提携ブランド' },
+  { icon: 'brand', n: String(CONTRACTED_COMPANIES), u: '社', t: '契約企業' },
 ];
 ---
 <Base title="台湾の優秀な人材を、日本へ" lang="ja"
   description="日本で働きたい台湾人と日本企業をつなぐマッチング交流会。履歴書・面接サポートから来日後のフォローまで、台湾の皆さまは、すべて無料でご利用いただけます。"
-  altPaths={{ zh: '/', ja: '/ja/', en: '/en/' }}>
+  altPaths={{ zh: '/', ja: '/ja/' }}>
 
   <!-- HERO -->
   <section class="hero">
@@ -52,20 +46,10 @@ const stats = [
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href={l('/events')}>{heroCta}</a>
-        <a class="action-link" href={l('/companies')}>提携企業を見る</a>
+        <a class="action-link" href={l('/stories')}>先輩の声を読む</a>
       </div>
     </div>
   </section>
-
-  <!-- NEWS：次回があるときは hero CTA が日時を明記済み（重複のため未定時のみ表示） -->
-  {!nextEv && (
-    <div class="wrap">
-      <a class="news" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">
-        <span class="news-tag" lang="ja">お知らせ</span>
-        <span class="news-txt">次回日程は未定です。Instagram のフォローでお知らせを受け取れます <span aria-hidden="true">↗</span></span>
-      </a>
-    </div>
-  )}
 
   <!-- STATS -->
   <!-- 統計：四個泡泡（使用者 2026-09-13 定案） -->
@@ -77,35 +61,14 @@ const stats = [
   </div>
 
 
-  <!-- COMPANIES -->
-  <section class="section alt">
-    <div class="wrap co-split">
-      <div class="co-side">
-        <h2 class="d2">提携している日本企業</h2>
-        <p class="lead"><span class="sent">中国語の求人サイトには出てこない店舗と皆さまを、私たちが直接おつなぎします。</span><span class="sent">以下は勤務実績の多い 6&nbsp;ブランドです。</span></p>
-        <a class="action-link" href={l('/companies')}>{companies.length} ブランドをすべて見る</a>
-      </div>
-      <div class="grid3 grid-co">
-        {featured.map(c => <CompanyCard c={c} href={l(`/companies/${c.id}`)} lang="ja" />)}
-      </div>
-    </div>
-  </section>
+  <!-- 交流会のご案内（次回の日程・会場。未定のときは Instagram へ） -->
+  <section class="section nx-sec"><div class="wrap wrap--page"><NextEvent lang="ja" /></div></section>
 
-  <!-- STORIES -->
-  <section class="section voice-sec t-center">
-    <div class="wrap">
-      <h2 class="d2">先輩の声</h2>
-      <div class="voice">
-        <div class="v-avatar"><SenpaiAvatar name={firstStory.data.name} size={96} /></div>
-        <div>
-          <blockquote class="v-quote quote" lang="zh-Hant">{sentences(firstStory.data.lead).map((t, i) => <>{i > 0 && <br />}{t}</>)}</blockquote>
-          <p class="small v-meta">
-            <span lang="ja">{firstStory.data.name}</span>　{VISA_LABEL.ja[firstStory.data.visa] ?? firstStory.data.visa}・{firstStory.data.company}（{fmtLocation(firstStory.data.location, 'ja')}）
-            <br/>※ 体験談は原文（中国語）のまま掲載しています。
-          </p>
-        </div>
-      </div>
-      <div class="more"><a class="action-link" href={l('/stories')}>{stories.length} 名の先輩の体験談を見る</a></div>
+  <!-- 記事一覧：先輩の声＋交流会レポート＋メディア掲載（新しい順） -->
+  <section class="section feed-sec" aria-labelledby="feed-h">
+    <div class="wrap wrap--page">
+      <h2 class="d2" id="feed-h">新着記事</h2>
+      <PostList items={feed} lang="ja" initial={12} defaultCat="story" />
     </div>
   </section>
 
@@ -123,21 +86,6 @@ const stats = [
       </div>
       <p class="small vid-more"><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noopener">YouTube で見る <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a></p>
       <a class="action-link" href={l('/about') + '#media'}>そのほかのメディア掲載</a>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="section final t-center">
-    <div class="wrap final-split">
-      <div>
-        <h2 class="d2">まずは交流会へ</h2>
-        <p class="lead"><span class="sent">何かを決めてから来る必要はありません。</span><span class="sent">準備も不要です。</span><span class="sent">日本企業がどんな人材を求めているか、まず聞きに来てください。</span></p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href={l('/events')}>次回の交流会を見る</a>
-          <a class="action-link" href={l('/apply')}>日本行きを決めた方はこちら</a>
-        </div>
-      </div>
-      <div class="final-chars-wrap"><Image src={characters} alt="" aria-hidden="true" widths={[200, 400]} sizes="200px" loading="lazy" class="final-chars" /></div>
     </div>
   </section>
 

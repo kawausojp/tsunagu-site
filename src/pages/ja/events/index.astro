@@ -1,11 +1,9 @@
 ---
 // 日本語版：交流会日程。構造は zh 版と共通（page-events.css）。三言語同時更新のこと。
-import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-events.css';
-import savedBoxJs from '../../../scripts/saved-box.js?raw';
 import { href } from '../../../i18n/ui';
-import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta, JOIN_STEPS, gcalUrl, companyName } from '../../../lib/site';
+import { todayTaipei, fmtEventDateFull, fmtEventNo, fmtSince, CITY, eventLd, totalHeld, eventsMeta, JOIN_STEPS, gcalUrl } from '../../../lib/site';
 
 const l = (p: string) => href('ja', p);
 const today = todayTaipei();
@@ -18,13 +16,11 @@ const city = (c: string) => CITY.ja[c] ?? c;
 // Event 結構化資料：site.ts eventLd()（三語共用）
 const eventsLd = upcoming.filter(e => e.venue && e.address).map(eventLd);
 
-const flow = JOIN_STEPS.ja;   // 三語共用，文字在 site.ts（品牌頁的「想在這裡工作？」也用同一份）
-// 「你收藏的品牌」提示框要的品牌名與網址（收藏本身在訪客瀏覽器，save.js 依這份清單畫出來）
-const savedNames = Object.fromEntries((await getCollection('companies')).map(c => [c.id, { name: companyName(c.data, 'ja'), href: l(`/companies/${c.id}`) }]));
+const flow = JOIN_STEPS.ja;   // 雙語共用，文字在 site.ts
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 <Base title="交流会に申し込む" lang="ja"
-  altPaths={{ zh: '/events/', ja: '/ja/events/', en: '/en/events/' }}
+  altPaths={{ zh: '/events/', ja: '/ja/events/' }}
   description="台北・台中・高雄・東京・大阪で開催する台湾人と日本企業のマッチング交流会。参加無料。">
   {eventsLd.map(ld => <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   <section class="page-head"><div class="wrap wrap--page">
@@ -70,13 +66,6 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
           <p class="small">開催の 2〜4 週間前に Instagram でお知らせします。直近の開催は第 {fmtEventNo(past[0]?.no ?? '', 'ja')} 回（{fmt(past[0]?.date)}・{city(past[0]?.city)}）でした。</p>
           <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram をフォロー <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
         </div>}
-    <!-- 收藏的品牌（2026-10-11）：逛企業時按的愛心，在這裡提醒「交流會現場可以直接問」。沒有收藏就不出現 -->
-    <div class="saved-box" data-saved-box data-saved-names={JSON.stringify(savedNames)} hidden>
-      <p class="saved-ttl"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/></svg>お気に入りのブランド——交流会で直接聞いてみましょう</p>
-      <ul class="saved-list" data-saved-list></ul>
-      <a class="action-link" href={l('/companies') + '?saved=1'}>お気に入りを見る</a>
-    </div>
-    <script is:inline set:html={savedBoxJs}></script>
   </section>
 
   <section class="wrap wrap--page page-section">
@@ -86,7 +75,7 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
         <li class="card step"><div class="no-badge" aria-hidden="true">{i + 1}</div><div><h3 class="d3">{f.t}</h3><p class="small">{f.d}</p></div></li>
       ))}
     </ol>
-    <p class="small flow-more"><a href={l('/companies')}>提携企業を見る</a>・<a href={l('/apply#photo')}>履歴書写真の撮り方</a>・<a href={l('/support')}>サポート内容の詳細</a></p>
+    <p class="small flow-more"><a href={l('/stories')}>先輩の声を読む</a>・<a href={l('/apply#photo')}>履歴書写真の撮り方</a>・<a href={l('/about#support')}>サポート内容の詳細</a></p>
     <div class="note"><span class="sent"><strong>すべて無料。</strong>参加費・紹介料は、台湾の皆さまからは一切いただきません。詳しくは「サポート内容」をご覧ください。</span></div>
   </section>
 

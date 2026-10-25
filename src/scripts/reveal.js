@@ -13,14 +13,14 @@
     ['.hero-inner > :not(.chars)', 'rise'],          // 角色走自己的 meet（動畫掛在兩半上，不跟點擊晃動搶 animation）
     ['.page-head .d1, .section .d2, .page-section > .d2, .page-section > h2', 'title'],
     ['.band .stat', 'pop'],
-    ['.grid3 > *, #company-grid > *, .upcoming-list > *, .reasons > *, .numbers > *, .grid-2 > *, ' +
-     '.contact-panel > *, .list > .item, .flow > *, .voice-cards > *, .join-steps > li, .more-grid > *', 'card'],
-    ['.rows > *', 'slide'],
+    ['.grid3 > *, .upcoming-list > *, .reasons > *, .numbers > *, .grid-2 > *, ' +
+     '.contact-panel > *, .flow > *, .res-nums > *', 'card'],
+    ['.rows > *, .frows > *, .res-table tbody > tr', 'slide'],
     ['.video', 'zoom'],
     ['.final-chars', 'bounce'],
     ['.hero .chars', 'meet'],                       // 招牌時刻：兩半從兩側靠近碰拳（動畫在 home.css，掛在子元素上）
-    ['.page-head .lead, .page-head .small, .section .lead, .co-side > .action-link, .voice, .more, ' +
-     '.final .cta-row, .cta-box, .hl, .prose, .notice, .tools', 'rise'],
+    ['.page-head .lead, .page-head .small, .section .lead, .fpost, .nx, .nx-mini, .art-profile, .art-source, ' +
+     '.cta-box, .prose, .notice', 'rise'],
   ];
 
   const els = [];
