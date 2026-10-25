@@ -1,19 +1,18 @@
-// 三語 UI 字典：只放「元件層」共用字串（導覽、footer、卡片標籤）。
-// 頁面內容不走字典——ja/en 頁是獨立檔案，文案直接寫在該頁（維護見 CLAUDE.md）。
-export type Lang = 'zh' | 'ja' | 'en';
+// 雙語 UI 字典（繁中母版＋日文；英文版 2026-10-25 網誌化改版時拿掉）：只放「元件層」共用字串（導覽、footer、文章列表）。
+// 頁面內容不走字典——ja 頁是獨立檔案，文案直接寫在該頁（維護見 CLAUDE.md）。
+export type Lang = 'zh' | 'ja';
 
 export const LANG_META: Record<Lang, { label: string; short: string; htmlLang: string; prefix: string }> = {
   zh: { label: '繁體中文', short: '繁中', htmlLang: 'zh-Hant', prefix: '' },
   ja: { label: '日本語', short: '日本語', htmlLang: 'ja', prefix: '/ja' },
-  en: { label: 'English', short: 'EN', htmlLang: 'en', prefix: '/en' },
 };
 
 export const ui = {
   zh: {
+    // 2026-10-25：主辦方「品牌專區先不要做」→ 合作企業拿掉；「我們怎麼幫你」併入關於
     nav: [
-      { path: '/companies', label: '合作企業' },
-      { path: '/stories', label: '學長姐經驗' },
-      { path: '/support', label: '我們怎麼幫你' },
+      { path: '/stories', label: '前輩分享' },
+      { path: '/results', label: '實績' },
       { path: '/apply', label: '準備出發' },
       { path: '/about', label: '關於 Tsunagu' },
     ],
@@ -27,30 +26,26 @@ export const ui = {
     newWindow: '（另開新視窗）',
     footerLinks: [
       { path: '/events', label: '報名交流會' },
-      { path: '/companies', label: '合作企業' },
-      { path: '/stories', label: '學長姐經驗' },
-      { path: '/support', label: '我們怎麼幫你' },
+      { path: '/stories', label: '前輩分享' },
+      { path: '/results', label: '實績' },
       { path: '/apply', label: '準備出發' },
       { path: '/about', label: '關於 Tsunagu' },
     ],
     footerTagline: '把台灣的好人才，牽到日本。',
     footerFree: '參加交流會與工作媒合，對台灣的各位全程免費。',
     organizer: '活動主辦：智囊和夥伴有限公司（Brain & Partner Taiwan Inc.）',
-    card: {
-      placements: (n: number) => `累計 ${n} 人任職`,
-      fullTime: (n: number) => `${n} 人轉正職`,
-      online: '可線上面試',
-      jlpt: (lv: string) => `${lv} 以上`,
+    feed: {
+      all: '全部', story: '前輩分享', event: '交流會紀錄', media: '媒體報導',
+      tabsLabel: '文章分類', more: '看更多文章', read: '閱讀全文',
+      igRecap: '在 Instagram 看紀錄', original: '看原文', print: '紙本刊載',
+      eventTitle: (no: string, city: string) => `第 ${no} 回 ${city}交流會`,
+      sessions: (n: number) => `${n} 場`,
     },
-    // 收藏與分享（2026-10-11）：收藏只存在訪客自己的瀏覽器（localStorage），不上傳
-    save: { save: (n: string) => `收藏 ${n}`, label: '收藏', saved: '已收藏', share: '分享', copied: '已複製連結', only: '只看收藏', count: (n: number) => `（${n}）`, empty: '還沒有收藏的品牌。在品牌卡右上角按愛心，就會出現在這裡。' },
-    area: { tokyo: '東京', osaka: '大阪', kyoto: '京都', fukuoka: '福岡', kobe: '神戶', hokkaido: '北海道' } as Record<string, string>,
   },
   ja: {
     nav: [
-      { path: '/companies', label: '提携企業' },
       { path: '/stories', label: '先輩の声' },
-      { path: '/support', label: 'サポート内容' },
+      { path: '/results', label: '実績' },
       { path: '/apply', label: '出発準備' },
       { path: '/about', label: 'ツナグについて' },
     ],
@@ -64,59 +59,21 @@ export const ui = {
     newWindow: '（新しいウィンドウで開きます）',
     footerLinks: [
       { path: '/events', label: '交流会に申し込む' },
-      { path: '/companies', label: '提携企業' },
       { path: '/stories', label: '先輩の声' },
-      { path: '/support', label: 'サポート内容' },
+      { path: '/results', label: '実績' },
       { path: '/apply', label: '出発準備' },
       { path: '/about', label: 'ツナグについて' },
     ],
     footerTagline: '台湾の優秀な人材を、日本へ。',
     footerFree: '交流会への参加も就職マッチングも、台湾の皆さまはすべて無料でご利用いただけます。',
     organizer: '主催：Brain & Partner Taiwan Inc.（智囊和夥伴有限公司）',
-    card: {
-      placements: (n: number) => `累計 ${n} 名が就業`,
-      fullTime: (n: number) => `正社員登用 ${n} 名`,
-      online: 'オンライン面接可',
-      jlpt: (lv: string) => `${lv} 以上`,
+    feed: {
+      all: 'すべて', story: '先輩の声', event: '交流会レポート', media: 'メディア掲載',
+      tabsLabel: '記事のカテゴリー', more: 'もっと見る', read: '続きを読む',
+      igRecap: 'Instagram でレポートを見る', original: '記事を読む', print: '紙面掲載',
+      eventTitle: (no: string, city: string) => `第 ${no} 回 ${city}交流会`,
+      sessions: (n: number) => `${n} 回`,
     },
-    save: { save: (n: string) => `${n} をお気に入りに追加`, label: 'お気に入り', saved: 'お気に入り済み', share: 'シェア', copied: 'リンクをコピーしました', only: 'お気に入りのみ', count: (n: number) => `（${n}）`, empty: 'お気に入りのブランドはまだありません。ブランドカード右上のハートを押すと、ここに表示されます。' },
-    area: { tokyo: '東京', osaka: '大阪', kyoto: '京都', fukuoka: '福岡', kobe: '神戸', hokkaido: '北海道' } as Record<string, string>,
-  },
-  en: {
-    nav: [
-      { path: '/companies', label: 'Partner Brands' },
-      { path: '/stories', label: 'Alumni Stories' },
-      { path: '/support', label: 'How We Help' },
-      { path: '/apply', label: 'Getting Ready' },
-      { path: '/about', label: 'About Tsunagu' },
-    ],
-    signup: 'Join a meetup',
-    home: 'Tsunagu home',
-    mainMenu: 'Main menu',
-    langMenu: 'Switch language',
-    skip: 'Skip to main content',
-    footerSite: 'Site',
-    footerContact: 'Contact',
-    newWindow: ' (opens in a new window)',
-    footerLinks: [
-      { path: '/events', label: 'Join a meetup' },
-      { path: '/companies', label: 'Partner Brands' },
-      { path: '/stories', label: 'Alumni Stories' },
-      { path: '/support', label: 'How We Help' },
-      { path: '/apply', label: 'Getting Ready' },
-      { path: '/about', label: 'About Tsunagu' },
-    ],
-    footerTagline: 'Bringing Taiwan’s talent to Japan.',
-    footerFree: 'Meetups and job matching are completely free for participants from Taiwan.',
-    organizer: 'Organizer: Brain & Partner Taiwan Inc.',
-    card: {
-      placements: (n: number) => `${n}\u00A0placed to date`,
-      fullTime: (n: number) => `${n}\u00A0became full-time`,
-      online: 'Online interview OK',
-      jlpt: (lv: string) => `${lv}+`,
-    },
-    save: { save: (n: string) => `Save ${n}`, label: 'Save', saved: 'Saved', share: 'Share', copied: 'Link copied', only: 'Saved only', count: (n: number) => ` (${n})`, empty: 'No saved brands yet. Tap the heart on a brand card to save it here.' },
-    area: { tokyo: 'Tokyo', osaka: 'Osaka', kyoto: 'Kyoto', fukuoka: 'Fukuoka', kobe: 'Kobe', hokkaido: 'Hokkaido' } as Record<string, string>,
   },
 } as const;
 
@@ -130,12 +87,11 @@ export const href = (lang: Lang, path: string) =>
 export function langFromPath(pathname: string): Lang {
   const p = pathname.slice(BASE.length);
   if (p === '/ja' || p.startsWith('/ja/')) return 'ja';
-  if (p === '/en' || p.startsWith('/en/')) return 'en';
   return 'zh';
 }
 
 /** 目前頁面在另一語言的對應網址（頁面不存在時退回該語言首頁由呼叫端保證） */
 export function switchHref(target: Lang, pathname: string) {
-  const p = pathname.slice(BASE.length).replace(/^\/(ja|en)(?=\/|$)/, '') || '/';
+  const p = pathname.slice(BASE.length).replace(/^\/ja(?=\/|$)/, '') || '/';
   return `${BASE}${LANG_META[target].prefix}${p}`;
 }

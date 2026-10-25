@@ -11,6 +11,18 @@
   "since": "2023-06",
   "events": [
     {
+      "no": "92,93",
+      "date": "2026-11-14",
+      "city": "高雄",
+      "sessions": [
+        "14:00–16:00",
+        "16:30–18:30"
+      ],
+      "signupUrl": "https://forms.gle/wJZ32V9gUYgoYUdU7",
+      "venue": "Galaxy 教室 B",
+      "address": "高雄市三民區九如二路255號12樓"
+    },
+    {
       "no": "90,91",
       "date": "2026-10-18",
       "city": "台北",
@@ -32,7 +44,8 @@
       ],
       "signupUrl": "https://docs.google.com/forms/d/e/1FAIpQLScJdauwzGLiF5gMvZHM-9CfTsKQVsS1chZIQdSf_IF4EoA-xg/viewform",
       "venue": "小樹屋 藍桉 301室",
-      "address": "台北市大安區大安路一段84巷2號3樓"
+      "address": "台北市大安區大安路一段84巷2號3樓",
+      "ig": "DeYMmMQSIYN"
     },
     {
       "no": "86,87",
