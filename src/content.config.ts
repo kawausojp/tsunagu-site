@@ -26,21 +26,37 @@ const companies = defineCollection({
   }).strict().refine(d => d.fullTimeConverted <= d.placements, { message: 'fullTimeConverted 不能大於 placements' }),
 });
 
+// 前輩分享（2026-10-25 網誌化改版）：內文一律是 IG 貼文原文，一字不改（紅線 #1）。
+// 段落＝IG 原文以空行分段，段內的手動換行保留（\n）。title／pull 是文章頁的標題與大字引言，
+// 必須是原文的子字串——build 時在這裡驗證，改寫過的句子進不來。
+const para = z.array(z.string().min(1)).default([]);
 const stories = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/stories' }),
   schema: z.object({
     name: z.string(),
-    visa: z.enum(['打工度假', '留學', '留學生', '交換留學', '打工度假 → 工作簽證']),   // 新值要同步 site.ts VISA_LABEL，否則 ja/en 會露繁中
+    visa: z.enum(['打工度假', '留學', '留學生', '交換留學', '打工度假 → 工作簽證']),   // 新值要同步 site.ts VISA_LABEL，否則 ja 會露繁中
     started: z.string().regex(/^\d{4}\.\d{2}$/),       // 2025.06
-    company: z.string(),
+    company: z.string(),          // 品牌名（實績總表與「同品牌前輩」用）
+    companyNote: z.string().optional(),   // IG 原文工作地點後的括號說明，例：誕生於日本的流行珠寶品牌
     location: z.string(),
-    lead: z.string(),          // 開場那句
-    messages: z.array(z.string()).default([]),
-    advice: z.array(z.string()).default([]),
-    igCode: z.string().regex(/^[A-Za-z0-9_-]{10,12}$/),   // IG 貼文 shortcode，用來回連原文
-    igPosted: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),   // ISO 日期
-    order: z.number().int().default(99),
-  }).strict(),
+    title: z.string(),            // messages 的子字串
+    pull: z.string().optional(),  // messages／advice 的子字串
+    messages: para,
+    advice: para,
+    titleJa: z.string().optional(),
+    messagesJa: para,             // IG「〜メッセージ日本語〜」原文（Tsunagu 撰寫的日文版）
+    jaExcerpt: z.boolean().default(true),   // 日文段標了「抜粋」
+    igCode: z.string().regex(/^[A-Za-z0-9_-]{10,12}$/),
+    igPosted: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  }).strict().superRefine((d, ctx) => {
+    const need = (s: string | undefined, hay: string[], path: string) => {
+      if (s && !hay.some(p => p.includes(s))) ctx.addIssue({ code: 'custom', path: [path], message: `${path} 必須是 IG 原文同一段裡的子字串（紅線 #1）` });
+    };
+    need(d.title, d.messages, 'title');
+    need(d.pull, [...d.messages, ...d.advice], 'pull');
+    need(d.titleJa, d.messagesJa, 'titleJa');
+    if (d.titleJa && !d.messagesJa.length) ctx.addIssue({ code: 'custom', path: ['titleJa'], message: '有日文標題就要有日文原文' });
+  }),
 });
 
 export const collections = { companies, stories };

@@ -17,6 +17,31 @@ Tsunagu 媒合想去日本留學／打工度假的台灣人，與想聘台灣人
 
 ---
 
+## ⚠️ 2026-10-25 網誌化改版（最新；與下方舊規則衝突時以這段為準）
+
+主辦方：「ブランド名ごとのコーナーはまだ無しの方が良い」——很多委託 Tsunagu 的品牌**沒有公開招募**（但 Tsunagu 介紹的台灣人他們會想錄用）。
+使用者據此把網站改成**網誌**：以**前輩分享**與**品牌實績**為主，**不提及招募中的企業**。規格：`docs/superpowers/specs/2026-10-25-blog-redesign-design.md`。
+
+- **拿掉**：合作企業列表與 35 個品牌頁、收藏品牌（save.js）、篩選、**英文版整個**、「我們怎麼幫你」獨立頁（併入關於 `#support`）。
+  舊網址全部留**轉址頁**（`components/Redirect.astro`，meta refresh＋canonical＋noindex）：`/companies/**`→`/results/`、`/support/`→`/about/#support`、`/en/**`→對應繁中頁。
+  `src/content/companies/*.md` **保留不渲染**（主辦方日後同意開放品牌頁時可復用）。下方規則 9、17 與規則 11 裡關於 /companies 篩選、收藏、品牌頁的段落**都已失效**。
+- **語言**：繁中母版＋日文（`Lang = 'zh' | 'ja'`）。
+- **首頁**（使用者指定維持線上版的角色 hero）：hero → 統計泡泡（177 活躍中／39 轉正職／3,329 參加／43 簽約企業）→ 報名資訊（`NextEvent`）→ 文章列表（`PostList`，預設「前輩分享」分頁）→ 新聞影片。
+  使用者否決過網誌刊頭＋側欄版首頁（2026-10-24 草圖 v2），不要再提。
+- **前輩分享＝一人一篇文章頁** `/stories/<slug>/`（`components/StoryArticle.astro`，zh／ja 共用）。**內文是 IG 原文全文，一字不改**：
+  `content.config.ts` 的 stories schema 以 superRefine 驗證 `title`／`pull`／`titleJa` 必須是原文同一段的子字串，改寫過的句子 build 會失敗。
+  原文用 `scripts/ig/fetch.mjs`（Playwright 讀 IG 未登入頁面）取得；段內換行照 IG 原樣（`white-space:pre-line`），U+2061 間隔字元去掉，
+  照片說明（✴︎／※）、交流會宣傳段、hashtag 不收。**改版前網站上的導言與摘錄有多處被改寫過語序或用字**（例：アン、かおる），已全部換回原文。
+  ja 頁 Message 用 IG 貼文附的「〜メッセージ日本語〜」（Tsunagu 撰寫；多標「抜粋」），Advice 照繁中原文並加註。`Vol.N`＝依 IG 發文日由舊到新編號。
+- **實績總表** `/results/`（`components/ResultsPage.astro`、`src/data/results.json`）：**只列簡報明載人數（○名勤務／採用／活躍）的品牌**，
+  欄位只有品牌／品類／人數／轉正職；**不寫任何招募資訊**（地區、日語、面試、募集）。只寫「募集」沒人數的品牌一律不列。
+  前輩品牌的對應用 `sameBrand()`（品牌名比前輩寫法多一段就不算，避免 Manhattan Portage 配到 BLACK LABEL）。
+- **全站不用實心粉藍（`--sky-300`）底**（使用者 2026-10-24：「只要粉色跟粉藍」——實心粉藍底在畫面上太深）。選中狀態一律「粉藍底線＋粗字」（分類分頁 `.ftabs`）。
+- 「學長姐」在介面文字統一改為「前輩」。
+
+
+---
+
 ## 使用者已拍板的決策
 
 | 項目 | 決定 |
@@ -200,14 +225,18 @@ header 與 footer 共用。~~duo 深色版~~ 已刪（使用者認可主色版�
 
 | 內容 | 檔案 | 筆數 |
 |---|---|---|
-| 合作企業／品牌 | `src/content/companies/*.md` | 35 |
-| 學長姐分享 | `src/content/stories/*.md` | 14 |
+| ~~合作企業／品牌~~（2026-10-25 起不渲染） | `src/content/companies/*.md` | 35 |
+| 前輩分享（IG 原文全文） | `src/content/stories/*.md` | 15 |
+| 實績總表 | `src/data/results.json` | 30 品牌 |
 | 交流會場次 | `src/data/events.json` | 最近 12 場 |
 | 角色圖 | `src/assets/tsunagu-*.png` | 3 |
 
 企業與 stories 的 frontmatter schema 在 `src/content.config.ts`（Zod，寫錯 build 會擋下來）。
 
-**數字口徑（2026-09-24 更新）**：對外統一用「自 2023 起累計協助 **168** 位
+**數字口徑（2026-10-25 更新，2026.10.18 簡報 p185／p175）**：「**177** 位在日本活躍中」（使用者：寫活躍中、不寫累計）、「**39** 位轉為正職（其中 **33** 位從打工轉正職）」、「**3,329** 位參加交流會」、「**43** 家簽約企業」。數字在 `site.ts` 的 `HOME_STATS`／`CONTRACTED_COMPANIES`。
+下一場以官方 Linktree（linktr.ee/tw.tsunagu.jp）上的 Google 表單為準（10/20 的 IG 貼文把 11/14 誤寫成台北，表單與簡報 p226 都是高雄）。
+
+~~舊口徑（2026-09-24）~~：對外統一用「自 2023 起累計協助 **168** 位
 找到日本工作」、「累計 **3,253** 位參加交流會」、「**41** 家簽約企業」
 （來源：第 88,89 回**交流會當天簡報**（2026.9.20 正式稿，非報名表單文案）第 188、173 頁）。
 `/companies` 的人次加總只代表已揭露的 35 品牌，永遠加註「本頁品牌合計」。
