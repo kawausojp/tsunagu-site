@@ -9,7 +9,9 @@
 .res-table thead th{font-size:var(--fs-xs);font-weight:700;color:var(--ink-600);text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}
 .res-table tbody th,.res-table td{padding:14px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle;font-weight:400}
 .res-table tbody th .b{font-weight:700;color:var(--ink-900);margin-right:10px}
-.res-table .st{display:inline-flex;flex-wrap:wrap;gap:4px 10px;font-size:var(--fs-xs)}
+.res-table .st{display:inline-flex;flex-wrap:wrap;gap:0 12px;font-size:var(--fs-xs)}
+/* 觸控高度 40px（手機稽核：原本 23px）；負邊距抵銷，列高不變 */
+.res-table .st a{display:inline-flex;align-items:center;min-height:40px;margin:-9px 0}
 .res-table .c{color:var(--ink-600);font-size:var(--fs-sm);white-space:nowrap}
 .res-table .num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .res-table td.num{font-family:var(--f-latin);font-size:var(--fs-lg)}

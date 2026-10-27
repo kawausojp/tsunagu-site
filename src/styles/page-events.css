@@ -49,3 +49,5 @@
   /* 加入 Google 行事曆（2026-10-11）：一個場次一條連結，接在報名提示下面 */
   .cal{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin:8px 0 0}
   .cal span:first-child{color:var(--ink-600)}
+  /* 觸控高度 44px（2026-10-27 手機稽核：原本 21px）；負邊距抵銷，列高不變 */
+  .cal a{display:inline-flex;align-items:center;min-height:var(--control-min);margin:-11px 0}

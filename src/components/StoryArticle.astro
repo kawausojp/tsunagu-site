@@ -3,6 +3,7 @@
 // 內文全部是 IG 原文（content.config.ts 驗證）；段內換行照 IG 原樣（white-space:pre-line）。
 // ja：IG 貼文附的「〜メッセージ日本語〜」（Tsunagu 撰寫的日文版）放 Message；Advice 沒有日文版，照繁中原文刊載並標示。
 import SenpaiAvatar from './SenpaiAvatar.astro';
+import Words from './Words.astro';
 import NextEvent from './NextEvent.astro';
 import { fmtDate, fmtLocation, VISA_LABEL } from '../lib/site';
 import { href, type Lang } from '../i18n/ui';
@@ -45,7 +46,7 @@ const L = ja ? {
 <article class="art">
   <nav class="art-crumb small" aria-label={ja ? 'パンくずリスト' : '麵包屑'}><a href={href(lang, '/stories/')}>{L.crumbs}</a><span aria-hidden="true">›</span><span>Vol.{story.vol}</span></nav>
   <p class="art-series"><span class="cat c-story">{L.crumbs}</span><span class="vol">Vol.{story.vol}</span><time datetime={d.igPosted}>{fmtDate(d.igPosted)}</time></p>
-  <h1 class="art-title" lang={titleLang} data-vt style={`view-transition-name:tt-${story.id}`}><span class="q">「</span>{title}<span class="q">」</span></h1>
+  <h1 class="art-title" lang={titleLang} data-vt style={`view-transition-name:tt-${story.id}`}><span class="q">「</span><Words text={title} lang={titleLang ?? lang} /><span class="q">」</span></h1>
 
   <section class="art-profile" aria-label={L.profile}>
     <div class="av" data-vt style={`view-transition-name:av-${story.id}`}><SenpaiAvatar name={d.name} size={88} /></div>
@@ -64,14 +65,14 @@ const L = ja ? {
     {ja && !hasJa && <p class="art-langnote small">{L.zhNote}</p>}
     {msgs.map((p, i) => <>
       <p lang={ja && !hasJa ? 'zh-Hant' : undefined}>{p}</p>
-      {i === pullAfterMsg && <blockquote class="art-pull"><p><span class="q">「</span>{pull}<span class="q">」</span></p></blockquote>}
+      {i === pullAfterMsg && <blockquote class="art-pull"><p><span class="q">「</span><Words text={pull!} /><span class="q">」</span></p></blockquote>}
     </>)}
     {d.advice.length > 0 && <>
       <h2><span class="en">Advice</span><span>{L.adv}</span></h2>
       {ja && <p class="art-langnote small">{L.advNote}</p>}
       {d.advice.map((p: string, i: number) => <>
         <p lang={ja ? 'zh-Hant' : undefined}>{p}</p>
-        {i === pullAfterAdv && <blockquote class="art-pull"><p><span class="q">「</span>{pull}<span class="q">」</span></p></blockquote>}
+        {i === pullAfterAdv && <blockquote class="art-pull"><p><span class="q">「</span><Words text={pull!} /><span class="q">」</span></p></blockquote>}
       </>)}
     </>}
   </div>
@@ -83,8 +84,8 @@ const L = ja ? {
   {inResults && <p class="art-results small"><a href={href(lang, '/results/')}>{L.results}</a></p>}
 
   <nav class="art-pn" aria-label={ja ? '前後の記事' : '上一篇與下一篇'}>
-    {prev ? <a href={sHref(prev)} rel="prev"><small>← {L.prev}</small><span lang={sLang(prev)}>「{sTitle(prev)}」</span></a> : <span></span>}
-    {next ? <a href={sHref(next)} rel="next" class="nx"><small>{L.next} →</small><span lang={sLang(next)}>「{sTitle(next)}」</span></a> : <span></span>}
+    {prev ? <a href={sHref(prev)} rel="prev"><small>← {L.prev}</small><span lang={sLang(prev)}>「<Words text={sTitle(prev)} lang={sLang(prev) ?? lang} />」</span></a> : <span></span>}
+    {next ? <a href={sHref(next)} rel="next" class="nx"><small>{L.next} →</small><span lang={sLang(next)}>「<Words text={sTitle(next)} lang={sLang(next) ?? lang} />」</span></a> : <span></span>}
   </nav>
 
   {related.length > 0 && (
@@ -94,7 +95,7 @@ const L = ja ? {
         {related.map(s => (
           <li data-story={s.id}>
             <a class="av" href={sHref(s)} tabindex="-1" aria-hidden="true"><SenpaiAvatar name={s.data.name} size={44} /></a>
-            <div><a class="ttl" href={sHref(s)} lang={sLang(s)}>「{sTitle(s)}」</a>
+            <div><a class="ttl" href={sHref(s)} lang={sLang(s)}>「<Words text={sTitle(s)} lang={sLang(s) ?? lang} />」</a>
               <small><span lang="ja">{s.data.name}</span>・{(ja ? VISA_LABEL.ja[s.data.visa] : undefined) ?? s.data.visa}・{fmtLocation(s.data.location, lang)}・{s.data.company}</small></div>
           </li>
         ))}

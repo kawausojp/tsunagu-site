@@ -50,8 +50,9 @@
 @media (hover:hover) and (pointer:fine){
   .fpost .ttl a:hover,.frow .ttl a:hover{text-decoration:underline;text-decoration-color:var(--pink-300);text-decoration-thickness:2px;text-underline-offset:5px}
 }
-/* 繁中標題只在標點處換行（規則：≥721px 才套 keep-all；手機子句常比欄寬長，硬套會撐破版面） */
-@media (min-width:721px){.ttl a:lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}}
+/* 繁中標題優先在標點處換行（keep-all）；子句比欄寬長時 overflow-wrap:anywhere 才在行尾斷，不會撐破版面。
+   手機也套（2026-10-27 手機稽核：原本手機會從「打工」「嘗試」中間斷開） */
+.ttl a:lang(zh-Hant),.ttl:lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
 .fmore{display:flex;justify-content:center;margin-top:30px}
 
 @media (max-width:720px){

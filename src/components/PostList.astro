@@ -4,6 +4,7 @@
 // 也符合「一行一筆的清單不做逐筆卡片」）。分類切換＝分頁標籤＋粉藍底線（使用者 2026-10-24 選 C）。
 // 引言一律 IG 原文（content.config.ts 驗證過），這裡不截字、不改寫；摘錄只用 CSS 收成三行。
 import SenpaiAvatar from './SenpaiAvatar.astro';
+import Words from './Words.astro';
 import feedJs from '../scripts/feed.js?raw';
 import '../styles/feed.css';
 import { fmtDate, fmtEventNo, fmtLocation, VISA_LABEL, type FeedItem } from '../lib/site';
@@ -48,7 +49,7 @@ const ig = (code: string) => `https://www.instagram.com/p/${code}/`;
       <a class="av" href={storyHref(featured.id)} tabindex="-1" aria-hidden="true"><SenpaiAvatar name={featured.data.name} size={140} /></a>
       <div class="fbody">
         <p class="fmeta"><span class="cat c-story">{t.story}</span><span class="vol">Vol.{featured.vol}</span><time datetime={featured.date}>{fmtDate(featured.date)}</time></p>
-        <h3 class="ttl"><a href={storyHref(featured.id)} lang={titleLang(featured.data)}><span class="q">「</span>{title(featured.data)}<span class="q">」</span></a></h3>
+        <h3 class="ttl"><a href={storyHref(featured.id)} lang={titleLang(featured.data)}><span class="q">「</span><Words text={title(featured.data)} lang={titleLang(featured.data) ?? lang} /><span class="q">」</span></a></h3>
         <p class="fex" lang={excerptLang(featured.data)}>{excerpt(featured.data)}</p>
         <p class="who"><b lang="ja">{featured.data.name}</b>{visa(featured.data.visa)}・{fmtLocation(featured.data.location, lang)}・{featured.data.company}</p>
         <a class="action-link" href={storyHref(featured.id)}>{t.read}</a>
@@ -63,7 +64,7 @@ const ig = (code: string) => `https://www.instagram.com/p/${code}/`;
           <a class="av" href={storyHref(it.id)} tabindex="-1" aria-hidden="true"><SenpaiAvatar name={it.data.name} size={56} /></a>
           <div class="fbody">
             <p class="fmeta"><span class="cat c-story">{t.story}</span><span class="vol">Vol.{it.vol}</span><time datetime={it.date}>{fmtDate(it.date)}</time></p>
-            <h3 class="ttl"><a href={storyHref(it.id)} lang={titleLang(it.data)}><span class="q">「</span>{title(it.data)}<span class="q">」</span></a></h3>
+            <h3 class="ttl"><a href={storyHref(it.id)} lang={titleLang(it.data)}><span class="q">「</span><Words text={title(it.data)} lang={titleLang(it.data) ?? lang} /><span class="q">」</span></a></h3>
             <p class="who"><b lang="ja">{it.data.name}</b>{visa(it.data.visa)}・{fmtLocation(it.data.location, lang)}・{it.data.company}</p>
           </div>
         </> : it.kind === 'event' ? <>

@@ -22,9 +22,8 @@ const IG = 'https://www.instagram.com/tw.tsunagu.jp/';
         <h2 class="nx-t" id="nx-title">{ja ? `第 ${fmtEventNo(e.no, lang)} 回 交流会・${city}` : `第 ${fmtEventNo(e.no, lang)} 回 交流會・${city}`}</h2>
         <p class="nx-s">
           <span class="nowrap">{fmtEventDateFull(e.date, lang)}</span>
-          {e.sessions?.map((s, i) => <span class="nowrap">{['①', '②', '③'][i]} {s}</span>)}
-          {e.venue && <span>{e.venue}</span>}
-          <span class="nowrap">{ja ? '参加無料' : '免費參加'}</span>
+          {e.sessions && <span class="nx-ss">{e.sessions.map((s, i) => <span class="nowrap">{['①', '②', '③'][i]} {s}</span>)}</span>}
+          <span>{e.venue && <>{e.venue}・</>}<span class="nowrap">{ja ? '参加無料' : '免費參加'}</span></span>
         </p>
       </div>
       <div class="nx-act">
@@ -47,9 +46,11 @@ const IG = 'https://www.instagram.com/tw.tsunagu.jp/';
     <Image src={characters} alt="" aria-hidden="true" widths={[120, 240]} sizes="120px" loading="lazy" class="nx-chars" />
     <div>
       <p class="nx-mt">{ja ? '日本で働いてみたいと思ったら' : '也想在日本工作？'}</p>
+      <!-- 一句一行（.sent）：原本兩句連成一段，手機會從「參加」中間斷開 -->
       <p class="nx-ms">{e
-        ? (ja ? `次回の交流会：${fmtEventDateFull(e.date, lang)}・${city}。参加無料で、先輩も登壇します。` : `下一場交流會：${fmtEventDateFull(e.date, lang)}・${city}。免費參加，前輩也會到場分享。`)
-        : (ja ? '次回の日程は Instagram でお知らせします。' : '下一場的日期會在 Instagram 公布。')}</p>
+        ? (ja ? <><span class="sent">次回の交流会：{fmtEventDateFull(e.date, lang)}・{city}。</span><span class="sent">参加無料で、先輩も登壇します。</span></>
+              : <><span class="sent">下一場交流會：{fmtEventDateFull(e.date, lang)}・{city}。</span><span class="sent">免費參加，前輩也會到場分享。</span></>)
+        : <span class="sent">{ja ? '次回の日程は Instagram でお知らせします。' : '下一場的日期會在 Instagram 公布。'}</span>}</p>
       <a class="btn btn-primary" href={href(lang, '/events')}>{t.signup}</a>
     </div>
   </aside>
@@ -65,12 +66,14 @@ const IG = 'https://www.instagram.com/tw.tsunagu.jp/';
   .nx-t{font-family:var(--f-display);font-size:var(--fs-3xl);font-weight:700;letter-spacing:.05em;line-height:1.5;margin:0}
   .nx-s{margin:4px 0 0;font-size:var(--fs-sm);color:var(--ink-600);display:flex;flex-wrap:wrap;gap:2px 14px}
   .nx-act{grid-row:1 / 3;grid-column:3;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-  .nx-cal{color:var(--ink-900)}
+  .nx-ss{display:inline-flex;flex-wrap:wrap;gap:0 12px}
+  .nx-cal{color:var(--ink-900);display:inline-flex;align-items:center;min-height:var(--control-min);margin:-10px 0}   /* 觸控高度 44px，負邊距讓版面不變 */
   @media (max-width:720px){
     .nx{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:16px}
     .nx-k{flex-direction:row;align-items:baseline;gap:10px}
     .nx-d{font-size:28px;margin:0}   /* 手機標題階（規則：clamp 與手機標題階不入字級階梯） */
     .nx-t{font-size:var(--fs-xl)}
+    .nx-s{flex-direction:column;gap:0}   /* 手機固定三行：日期／場次／地點與免費（原本擠成一團） */
     .nx-act{order:9;align-items:stretch;margin-top:10px}
     .nx-act .btn{width:100%}
     .nx-cal{align-self:flex-start}

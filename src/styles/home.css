@@ -187,4 +187,6 @@
 .nx-sec{padding-bottom:0}
 .feed-sec{padding-top:56px}
 .feed-sec .d2{margin-bottom:6px}
+/* 影片是首頁最後一塊：下方不留白，頁尾自己有上距（2026-10-27 手機稽核：原本疊成 100／168px） */
+html .vid-sec{padding-bottom:0}
 @media (max-width:720px){ .nx-sec{padding-top:28px} .feed-sec{padding-top:40px} }

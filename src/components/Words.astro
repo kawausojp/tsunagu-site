@@ -1,0 +1,15 @@
+---
+// 中文斷詞換行點（2026-10-27 手機稽核）：瀏覽器不替中文斷詞，keep-all 遇到比欄寬長的子句只能在行尾硬切
+// （「最幸運的｜事」「找｜到打工」）。build 時用 Intl.Segmenter 找詞界，詞與詞之間放 <wbr>——
+// 只加換行機會、不加任何字元，原文一字不改（紅線 #1）。搭配 CSS 的 word-break:keep-all＋text-wrap:balance。
+interface Props { text: string; lang?: string; }
+const { text, lang = 'zh-Hant' } = Astro.props;
+const seg = new Intl.Segmenter(lang, { granularity: 'word' });
+// 標點（，、。！？」）等）黏在前一個詞後面，不在它前面放換行點——行首不能是標點（中文排版禁則）
+const parts: string[] = [];
+for (const s of seg.segment(text)) {
+  if (parts.length && !s.isWordLike && /^[\p{P}\p{S}]+$/u.test(s.segment.trim() || 'x') && !/^[「『（(]/.test(s.segment)) parts[parts.length - 1] += s.segment;
+  else parts.push(s.segment);
+}
+---
+{parts.map((p, i) => <>{i > 0 && <wbr />}{p}</>)}

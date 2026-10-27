@@ -1,13 +1,15 @@
 /* 前輩文章頁（2026-10-25 網誌化改版；依 2026-10-24 確認的草圖）。zh／ja 共用 */
-.art{max-width:680px;margin:0 auto;padding:44px 0 72px}
+.art{max-width:680px;margin:0 auto;padding:44px 0 0}   /* 下方不留白：頁尾自己有上距（留白不可疊加） */
 .art .q{color:var(--pink-300)}
-.art-crumb{display:flex;gap:10px;align-items:center;color:var(--ink-600);margin:0 0 28px}
+.art-crumb{display:flex;gap:10px;align-items:center;color:var(--ink-600);margin:-12px 0 16px}
+/* 觸控高度 44px（文字本身只有 21px）；上下用負邊距抵銷，版面位置不變 */
+.art-crumb a{display:inline-flex;align-items:center;min-height:var(--control-min)}
 .art-series{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 10px;font-size:var(--fs-2xs);color:var(--ink-600)}
 .art-series .vol,.art-series time{font-family:var(--f-latin);letter-spacing:.05em;font-size:var(--fs-xs)}
 .art .cat{font-size:var(--fs-2xs);padding:0 8px;border-radius:var(--r-xs);border:1px solid var(--pink-300);color:var(--ink-900);line-height:1.8}
 .art-title{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3vw,30px);line-height:1.6;letter-spacing:.05em;
   margin:0 0 28px;text-wrap:balance}
-@media (min-width:721px){.art-title:lang(zh-Hant),:lang(zh-Hant) > .art-title{word-break:keep-all;overflow-wrap:anywhere}}
+.art-title:lang(zh-Hant),:lang(zh-Hant) > .art-title,.art-more .ttl:lang(zh-Hant),.art-pn span:lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
 /* 前輩資料卡：上下細線，不做框（Wantedly／社員インタビュー的プロフィール） */
 .art-profile{display:grid;grid-template-columns:88px minmax(0,1fr);gap:20px;align-items:center;
   padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:36px}
@@ -25,7 +27,7 @@
 .art-langnote{color:var(--ink-600);margin:-4px 0 14px}
 .art-pull{margin:36px 0;padding:0;text-align:center}
 .art-pull p{margin:0;font-family:var(--f-display);font-weight:700;font-size:clamp(20px,2.4vw,24px);line-height:1.7;letter-spacing:.06em;text-wrap:balance}
-@media (min-width:721px){.art-pull p:lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}}
+.art-pull p:lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
 .art-source{margin:44px 0 0;border:1px solid var(--line);border-radius:var(--r-md);padding:16px 20px;font-size:var(--fs-sm);color:var(--ink-600);
   display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 16px}
 .art-source .action-link{white-space:nowrap}
@@ -45,8 +47,8 @@
 .art-more .ttl:hover{text-decoration:underline;text-decoration-color:var(--pink-300);text-decoration-thickness:2px;text-underline-offset:4px}
 .art-more small{display:block;color:var(--ink-600);font-size:var(--fs-xs)}
 @media (max-width:720px){
-  .art{padding:20px 0 48px}
-  .art-crumb{margin-bottom:18px}
+  .art{padding:20px 0 0}
+  .art-crumb{margin:-12px 0 6px}
   .art-title{font-size:22px;margin-bottom:20px}   /* 手機標題階 */
   .art-profile{grid-template-columns:64px minmax(0,1fr);gap:14px;padding:16px 0;margin-bottom:28px}
   .art-profile .av{width:64px}
