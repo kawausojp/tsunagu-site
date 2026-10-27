@@ -41,6 +41,7 @@ Tsunagu 媒合想去日本留學／打工度假的台灣人，與想聘台灣人
 - **前輩標題的斷行**（2026-10-27 手機稽核）：標題、大字引言、上一篇／下一篇、其他前輩一律用 `components/Words.astro`——
   build 時以 `Intl.Segmenter` 找中文詞界，詞與詞之間放 `<wbr>`（只加換行點、不加字，原文不變），標點黏在前一個詞後面（行首不放標點）；
   CSS 為 `word-break:keep-all`＋`overflow-wrap:anywhere`，**手機也套**。原本手機不套 keep-all，標題會從「打工」「嘗試」中間斷開。
+  日文標題（ja 頁的 titleJa、上一篇／下一篇）用 `word-break:auto-phrase`（瀏覽器內建文節斷行），不從「ござい｜ます」中間拆開；上一篇／下一篇卡片的標題加 `text-wrap:balance`。
 - 手機觸控目標 ≥40px：小連結用 `display:inline-flex;min-height:44px`＋上下負邊距（版面位置不變），例：文章頁麵包屑、`.nx-cal`、`.cal a`、實績表的前輩連結。
 - 頁面最後一塊內容（首頁影片、文章頁）下方不留白，頁尾自己有上距；量測基準：最後內容到頁尾內容手機 64px／桌機 96px。
 

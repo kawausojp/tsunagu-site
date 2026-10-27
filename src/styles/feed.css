@@ -35,6 +35,7 @@
 .fpost .fex{margin:0 0 12px;font-size:var(--fs-md);color:var(--ink-600);line-height:1.9;white-space:pre-line;
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
 .fpost .who{margin-bottom:10px}
+.fpost .fex:lang(ja){word-break:auto-phrase;text-wrap:pretty}   /* 日文摘錄：文節斷行、避免最後一行只剩「ます！」 */
 
 /* 一列一篇（北歐、暮らしの道具店） */
 .frows{list-style:none;margin:0;padding:0}
@@ -53,6 +54,7 @@
 /* 繁中標題優先在標點處換行（keep-all）；子句比欄寬長時 overflow-wrap:anywhere 才在行尾斷，不會撐破版面。
    手機也套（2026-10-27 手機稽核：原本手機會從「打工」「嘗試」中間斷開） */
 .ttl a:lang(zh-Hant),.ttl:lang(zh-Hant){word-break:keep-all;overflow-wrap:anywhere}
+.ttl a:lang(ja),.ttl:lang(ja){word-break:auto-phrase}
 .fmore{display:flex;justify-content:center;margin-top:30px}
 
 @media (max-width:720px){

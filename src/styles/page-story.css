@@ -38,6 +38,10 @@
 .art-pn a:hover{border-color:var(--pink-300)}
 .art-pn small{display:block;color:var(--ink-600);font-size:var(--fs-2xs);margin-bottom:2px}
 .art-pn .nx{text-align:right}
+/* 上一篇／下一篇的標題：各行平均（原本最後一行常只剩「的」「打工」兩字） */
+.art-pn a > span{display:block;text-wrap:balance}
+/* 日文標題用文節斷行（瀏覽器內建 BudouX），不從「ござい｜ます」中間拆開 */
+.art-title:lang(ja),.art-pn span:lang(ja),.art-more .ttl:lang(ja),.art-pull p:lang(ja){word-break:auto-phrase}
 .art-more{margin:52px 0 44px}
 .art-more h2{font-family:var(--f-display);font-size:var(--fs-2xl);letter-spacing:.06em;margin:0 0 4px}
 .art-more ul{list-style:none;margin:0;padding:0}

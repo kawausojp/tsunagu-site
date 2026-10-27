@@ -14,6 +14,9 @@
   .box .ng,.box .ok{font-weight:700;margin-right:2px}
   .box .ng{color:var(--pink-300)}
   .box .ok{color:var(--sky-300)}
+  /* ○／✕ 本身就是項目符號，清單不再加圓點（2026-10-27 使用者：多餘的黑點拿掉） */
+  .box ul:has(.ok,.ng){list-style:none;padding-left:0}
+  .box ul:has(.ok,.ng) .ok,.box ul:has(.ok,.ng) .ng{display:inline-block;width:1.5em;margin-right:0}   /* ○ 比 ✕ 寬，固定寬度讓後面的文字對齊 */
   @media (max-width:720px){
     .contact-panel{grid-template-columns:1fr}
     .contact-option{padding:18px 16px}

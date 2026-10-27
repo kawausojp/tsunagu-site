@@ -4,11 +4,14 @@
   .b p{margin:8px 0 0}
   .m{align-items:baseline}
   .m .n{font-weight:700;font-size:var(--fs-md)}
+  /* 長標題在日期右側那欄裡換行，不整塊掉到下一行（2026-10-27 桌機稽核：2023.09.27 那則） */
+  .m .m-link{flex:1 1 18em;min-width:0;display:block;padding:10px 0;min-height:0}   /* block：↗ 跟著文字換行，不被擠到欄位右端；上下 10px 維持觸控高度 */
   .note-t{color:var(--ink-600)}
   .page-head .who{margin:6px 0 0;color:var(--ink-600)}
   @media (max-width:720px){
     .prose{font-size:var(--fs-lg);line-height:1.85}
     .grid{margin-bottom:14px}
+    .m .m-link{flex-basis:100%;padding:2px 0}   /* 手機：長標題整行，媒體名放下一行 */
   }
   /* 報導連結走全站 a 樣式（灰字＋藍底線），只補觸控高度 */
   .m-link{display:inline-flex;align-items:center;min-height:var(--control-min)}
