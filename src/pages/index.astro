@@ -15,7 +15,7 @@ import { VIDEO_ID, VIDEO_START, signupCta, HOME_STATS, CONTRACTED_COMPANIES, bui
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const feed = buildFeed(await getCollection('stories'), 'zh');
 const heroCta = signupCta('zh');
-// 統計泡泡（2026.10.18 簡報 p185／p175）。177 寫「活躍中」不寫累計（使用者 2026-10-24）
+// 統計泡泡（2026.11.14 簡報 p191／p175）。182 寫「活躍中」不寫累計（使用者 2026-10-24）
 const stats = [
   { icon: 'job', n: HOME_STATS.active, u: '人', t: '在日本活躍中' },
   { icon: 'rise', n: HOME_STATS.fulltime, u: '人', t: '轉為正職' },

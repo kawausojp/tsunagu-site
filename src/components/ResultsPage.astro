@@ -1,6 +1,6 @@
 ---
 // 實績總表（2026-10-25 網誌化改版）。主辦方：品牌專區先不要做（很多品牌沒有公開招募）→ 只列「實際有人工作過」的實績，
-// 不寫任何招募資訊（地區、日語、面試、募集中）。資料在 src/data/results.json（2026.10.18 簡報，附頁碼）。zh／ja 共用。
+// 不寫任何招募資訊（地區、日語、面試、募集中）。資料在 src/data/results.json（2026.11.14 簡報，附頁碼）。zh／ja 共用。
 import { getCollection } from 'astro:content';
 import feedJs from '../scripts/feed.js?raw';
 import '../styles/feed.css';
@@ -47,7 +47,7 @@ const L = ja ? {
   <ul class="res-nums">
     {nums.map(x => <li><b>{x.n}<small>{x.u}</small></b><span>{x.t}</span></li>)}
   </ul>
-  <p class="note"><span class="sent">{ja ? '出典：' : '資料來源：'}{fmtSourceDeck(lang, 185)}</span></p>
+  <p class="note"><span class="sent">{ja ? '出典：' : '資料來源：'}{fmtSourceDeck(lang, 191)}</span></p>
 </div></section>
 
 <section class="wrap wrap--page page-section" aria-labelledby="res-h">

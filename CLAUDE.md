@@ -11,7 +11,7 @@ Tsunagu 媒合想去日本留學／打工度假的台灣人，與想聘台灣人
 對台灣的參加者**全程免費**。主辦是智囊和夥伴有限公司（Brain & Partner Taiwan Inc.）。
 
 - Instagram：[@tw.tsunagu.jp](https://www.instagram.com/tw.tsunagu.jp/)（主要觸及管道，6,800+ 追蹤）
-- 自 2023-06 起累計舉辦 87 場交流會，地點涵蓋台北、台中、高雄、東京、大阪
+- 自 2023-06 起累計舉辦 93 場交流會，地點涵蓋台北、台中、高雄、東京、大阪
 
 技術：**Astro 7（純靜態，無框架）+ GitHub Pages**。
 
@@ -26,7 +26,7 @@ Tsunagu 媒合想去日本留學／打工度假的台灣人，與想聘台灣人
   舊網址全部留**轉址頁**（`components/Redirect.astro`，meta refresh＋canonical＋noindex）：`/companies/**`→`/results/`、`/support/`→`/about/#support`、`/en/**`→對應繁中頁。
   `src/content/companies/*.md` **保留不渲染**（主辦方日後同意開放品牌頁時可復用）。下方規則 9、17 與規則 11 裡關於 /companies 篩選、收藏、品牌頁的段落**都已失效**。
 - **語言**：繁中母版＋日文（`Lang = 'zh' | 'ja'`）。
-- **首頁**（使用者指定維持線上版的角色 hero）：hero → 統計泡泡（177 活躍中／39 轉正職／3,329 參加／43 簽約企業）→ 報名資訊（`NextEvent`）→ 文章列表（`PostList`，預設「前輩分享」分頁）→ 新聞影片。
+- **首頁**（使用者指定維持線上版的角色 hero）：hero → 統計泡泡（182 活躍中／39 轉正職／3,370 參加／43 簽約企業）→ 報名資訊（`NextEvent`）→ 文章列表（`PostList`，預設「前輩分享」分頁）→ 新聞影片。
   使用者否決過網誌刊頭＋側欄版首頁（2026-10-24 草圖 v2），不要再提。
 - **前輩分享＝一人一篇文章頁** `/stories/<slug>/`（`components/StoryArticle.astro`，zh／ja 共用）。**內文是 IG 原文全文，一字不改**：
   `content.config.ts` 的 stories schema 以 superRefine 驗證 `title`／`pull`／`titleJa` 必須是原文同一段的子字串，改寫過的句子 build 會失敗。
@@ -239,7 +239,7 @@ header 與 footer 共用。~~duo 深色版~~ 已刪（使用者認可主色版�
 
 企業與 stories 的 frontmatter schema 在 `src/content.config.ts`（Zod，寫錯 build 會擋下來）。
 
-**數字口徑（2026-10-25 更新，2026.10.18 簡報 p185／p175）**：「**177** 位在日本活躍中」（使用者：寫活躍中、不寫累計）、「**39** 位轉為正職（其中 **33** 位從打工轉正職）」、「**3,329** 位參加交流會」、「**43** 家簽約企業」。數字在 `site.ts` 的 `HOME_STATS`／`CONTRACTED_COMPANIES`。
+**數字口徑（2026-11-14 更新，《第92,93回 高雄交流会スライド2026.11.14》232 頁 p191／p175）**：「**182** 位在日本活躍中」（使用者：寫活躍中、不寫累計）、「**39** 位轉為正職（其中 **33** 位從打工轉正職）」、「**3,370** 位參加交流會」（39／33／43 與 10/18 版相同；實績表 BEAMS 9→10、AOKI/ORIHICA 6→7、WEGO 3→4，其餘品牌人數與頁碼逐一核對後不變）、「**43** 家簽約企業」。數字在 `site.ts` 的 `HOME_STATS`／`CONTRACTED_COMPANIES`。
 下一場以官方 Linktree（linktr.ee/tw.tsunagu.jp）上的 Google 表單為準（10/20 的 IG 貼文把 11/14 誤寫成台北，表單與簡報 p226 都是高雄）。
 
 ~~舊口徑（2026-09-24）~~：對外統一用「自 2023 起累計協助 **168** 位
