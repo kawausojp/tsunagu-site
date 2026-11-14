@@ -81,7 +81,7 @@ export function signupCta(lang: Lang) {
  * 繊研 2025 兩篇與日經 2024.10.07 經查無線上版（senken.co.jp 404 實測），標紙面刊載。
  * 口徑依簡報 p22–p28：媒體名單含 Yahoo!ニュース；Haru／きものやまと 一則繫於 2024.08.07（p24），非日經（p25）。 */
 export const MEDIA: { name: Record<Lang, string>; date: string; url?: string; title?: string; print?: boolean; note?: Record<Lang, string> }[] = [
-  { name: { zh: '繊研新聞', ja: '繊研新聞' }, date: '2026.07.21', print: true },   // 2026.10.18 簡報 p31（線上版待查）
+  { name: { zh: '繊研新聞', ja: '繊研新聞' }, date: '2026.07.21', print: true },   // 2026.11.14 簡報 p31（線上版待查）
   { name: { zh: '繊研新聞', ja: '繊研新聞' }, date: '2026.01.28', url: 'https://senken.co.jp/posts/bp-260128',
     title: 'ブレーンアンドパートナーの台湾人材仲介事業　インバウンド対応ニーズで拡大' },
   { name: { zh: '繊研新聞', ja: '繊研新聞' }, date: '2025.07.17', print: true },
@@ -89,7 +89,7 @@ export const MEDIA: { name: Record<Lang, string>; date: string; url?: string; ti
   { name: { zh: '日本經濟新聞 朝刊', ja: '日本経済新聞 朝刊' }, date: '2024.10.07', print: true },
   { name: { zh: 'Yahoo! ニュース', ja: 'Yahoo! ニュース' }, date: '2024.08.07',
     note: { zh: '報導きものやまと的 Haru', ja: 'きものやまと勤務の Haru さんを紹介' } },
-  { name: { zh: '繊研新聞', ja: '繊研新聞' }, date: '2024.02.26', print: true },   // 2026.10.18 簡報 p25
+  { name: { zh: '繊研新聞', ja: '繊研新聞' }, date: '2024.02.26', print: true },   // 2026.11.14 簡報 p25
   { name: { zh: '繊研新聞', ja: '繊研新聞' }, date: '2023.09.27', url: 'https://senken.co.jp/posts/bp-230926',   // 簡報 p25；線上版 9/26 刊出
     title: '商業施設コンサルのブレーンアンドパートナー 台湾人スタッフと日本の店舗の仲介、ファッション企業を中心に広がる' },
   { name: { zh: '台北經濟新聞', ja: '台北経済新聞' }, date: '2023.06.06', url: 'https://taipei.keizai.biz/headline/418/',
@@ -163,12 +163,13 @@ export function fmtEventNo(no: string, lang: Lang) {
   return no.replace(/,/g, sep);
 }
 
-/** 簽約企業數（2026.10.18 簡報 p175「現在43社ご契約企業様」） */
+/** 簽約企業數（2026.11.14 簡報 p175「現在43社ご契約企業様」） */
 export const CONTRACTED_COMPANIES = 43;
 
-/** 首頁泡泡與實績頁的數字（2026.10.18 簡報 p185）。
- *  177＝「現在 177 名の仲間達が…活躍しています」，對外寫「在日本活躍中」（使用者 2026-10-24：不寫累計）。 */
-export const HOME_STATS = { active: '177', fulltime: '39', toFulltime: '33', fulltimeRate: '22%', attendees: '3,329' };
+/** 首頁泡泡與實績頁的數字（2026.11.14 簡報 p191）。
+ *  182＝「現在 182 名の仲間達が…活躍しています」，對外寫「在日本活躍中」（使用者 2026-10-24：不寫累計）。
+ *  3,370＝「2023年から、3,370名の台湾の方々がツナグに参加」。 */
+export const HOME_STATS = { active: '182', fulltime: '39', toFulltime: '33', fulltimeRate: '22%', attendees: '3,370' };
 
 /** 累計舉辦場數：JSON 的 totalHeld 只是下限。場次過期後每日排程重建會自動移到「舉辦紀錄」，
  * 這裡同步以「已過期場次的最大回數」推算，不必每場手動改數字。 */
@@ -208,14 +209,14 @@ export function fmtSince(since: string, _lang: Lang) {
   return `${y} 年 ${m} 月`;
 }
 
-/** 數字與實績的出處：主辦方簡報《第90,91回 台北交流会スライド2026.10.18》（226 頁）。
- *  src/data/results.json 的 sourceSlide 是這一版的頁碼。換新簡報時頁碼要整批重核。 */
-export const SOURCE_DECK = { no: '90,91', date: '2026.10.18' };
+/** 數字與實績的出處：主辦方簡報《第92,93回 高雄交流会スライド2026.11.14》（232 頁）。
+ *  src/data/results.json 的 sourceSlide 是這一版的頁碼（2026-11-14 已逐品牌核對）。換新簡報時頁碼要整批重核。 */
+export const SOURCE_DECK = { no: '92,93', date: '2026.11.14', city: '高雄' };
 export function fmtSourceDeck(lang: Lang, page?: number) {
   const no = fmtEventNo(SOURCE_DECK.no, lang);
   const p = page ? (lang === 'zh' ? `第 ${page} 頁` : `p.${page}`) : '';
-  if (lang === 'ja') return `『第 ${no} 回 台北交流会スライド ${SOURCE_DECK.date}』${p}`;
-  return `《第 ${no} 回 台北交流会スライド ${SOURCE_DECK.date}》${p}`;
+  if (lang === 'ja') return `『第 ${no} 回 ${SOURCE_DECK.city}交流会スライド ${SOURCE_DECK.date}』${p}`;
+  return `《第 ${no} 回 ${SOURCE_DECK.city}交流會スライド ${SOURCE_DECK.date}》${p}`;
 }
 
 /** 首頁影片的起始秒數（2026-08-28 使用者指定：直接嵌入、從特定段落開始）。
@@ -274,7 +275,7 @@ export function storiesByVol<T extends { id: string; data: { igPosted: string } 
     .map((s, i) => ({ ...s, vol: i + 1 }));
 }
 
-/** 實績總表（2026.10.18 簡報）。只收簡報明載人數的品牌；fulltime=null 表示簡報只寫「有實績」未寫人數 */
+/** 實績總表（2026.11.14 簡報）。只收簡報明載人數的品牌；fulltime=null 表示簡報只寫「有實績」未寫人數 */
 const ResultSchema = z.object({
   brand: z.string(), cat: z.string(), people: z.number().int().positive(),
   fulltime: z.number().int().nonnegative().nullable(), sourceSlide: z.number().int().positive(),
