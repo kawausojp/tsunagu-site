@@ -126,8 +126,9 @@ export function fmtLocation(loc: string, lang: Lang) {
 export const FORM_URL = '';
 
 /** 「【ツナグ】日商職缺應徵申請表」（官方 Linktree 上的 Google 表單，2026-11-14 取得）。
- *  apply 頁以外連方式提供（另開視窗），不內嵌；官網本身不蒐集個資（紅線 #4）。
- *  標題與說明不列任何品牌、不寫募集中（網誌化方針：不提及招募中的企業）。 */
+ *  ⚠️ 內容是「單一職缺」：日商居家住宅翻修公司・室內工程管理人員，工作地點新北市新莊（台灣）。
+ *  職缺額滿或下架時，要把 apply 頁第 3 個選項整塊拿掉（紅線 #2：不放即時職缺狀態）。
+ *  apply 頁以外連方式提供（另開視窗），不內嵌；官網本身不蒐集個資（紅線 #4）。 */
 export const APPLY_FORM_URL = 'https://forms.gle/AbUD9rXuxQmcP1uh7';
 
 type EventRow = (typeof eventsData.events)[number];
