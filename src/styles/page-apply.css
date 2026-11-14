@@ -1,6 +1,6 @@
 /* apply 頁樣式（三語共用） */
   .contact-stack{--stack-gap:16px}
-  .contact-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .contact-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
   .contact-option{padding:var(--card-pad)}
   .contact-option+.contact-option{border-left:1px solid var(--line)}
   .contact-option p{margin:8px 0 12px}

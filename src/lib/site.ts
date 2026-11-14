@@ -125,6 +125,11 @@ export function fmtLocation(loc: string, lang: Lang) {
  * 日後建立 Google 表單填入這裡，三語 apply 頁即自動切換為內嵌表單。 */
 export const FORM_URL = '';
 
+/** 「【ツナグ】日商職缺應徵申請表」（官方 Linktree 上的 Google 表單，2026-11-14 取得）。
+ *  apply 頁以外連方式提供（另開視窗），不內嵌；官網本身不蒐集個資（紅線 #4）。
+ *  標題與說明不列任何品牌、不寫募集中（網誌化方針：不提及招募中的企業）。 */
+export const APPLY_FORM_URL = 'https://forms.gle/AbUD9rXuxQmcP1uh7';
+
 type EventRow = (typeof eventsData.events)[number];
 const JP_CITIES = new Set(['東京', '大阪']);
 /** Event 結構化資料（三語 events 頁共用；原本三份）。僅給未來場次且場地齊備者（Google Event 標記要求結構化地址）。

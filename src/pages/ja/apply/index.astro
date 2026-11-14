@@ -1,5 +1,5 @@
 ---
-import { signupCta, FORM_URL } from '../../../lib/site';
+import { signupCta, FORM_URL, APPLY_FORM_URL } from '../../../lib/site';
 import Base from '../../../layouts/Base.astro';
 import '../../../styles/page-apply.css';
 import { href } from '../../../i18n/ui';
@@ -34,8 +34,14 @@ const l = (p: string) => href('ja', p);
               <p class="small">日程が合わない場合は Instagram からご連絡ください。必要な準備をご案内します。</p>
               <a class="action-link ext" href="https://www.instagram.com/tw.tsunagu.jp/" target="_blank" rel="noopener">Instagram @tw.tsunagu.jp <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
             </article>
+            <article class="contact-option">
+              <span class="no-badge" aria-hidden="true">3</span>
+              <h3 class="d3">応募申請を直接送る</h3>
+              <p class="small">ツナグを通じて日系企業への応募を決めている方は、申請フォームをご利用ください。</p>
+              <a class="action-link ext" href={APPLY_FORM_URL} target="_blank" rel="noopener">応募申請フォームへ <span aria-hidden="true">↗</span><span class="sr-only">（新しいウィンドウで開きます）</span></a>
+            </article>
           </div>
-          <p class="small privacy">受付は交流会ページまたは Instagram で行います。本サイト自体は個人情報を受け取ることも保存することもありません。</p>
+          <p class="small privacy">受付は交流会ページ・Instagram・Google フォームで行います。本サイト自体は個人情報を受け取ることも保存することもありません。</p>
         </>}
   </section>
 
